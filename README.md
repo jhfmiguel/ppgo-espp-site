@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ESPP — Site institucional
 
-## Getting Started
+Landing page institucional da **Escola Superior de Polícia Penal (ESPP)** da Polícia Penal de Goiás,
+com seção dedicada ao **FORTIS**, a plataforma de ensino e gestão escolar em desenvolvimento.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 (App Router) + React 19 + TypeScript
+- Tailwind CSS v4
+- lucide-react (ícones)
+- Google Maps em modo embed público (não exige chave de API)
+
+## Rodar localmente
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # build de produção
+npm start       # servir o build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Onde editar o conteúdo
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Todo o texto, números, contatos e links da página ficam em **`content/site.ts`**.
+Editar esse arquivo é suficiente para atualizar o site — os componentes só consomem esses dados.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Marcações no arquivo:
 
-## Learn More
+- `// VALIDAR` — conteúdo redigido como rascunho, pendente de aprovação da Escola
+  (missão, visão, valores, horário de atendimento e o domínio em `site.url`).
+- `// FONTE` — dado extraído de fonte pública oficial.
 
-To learn more about Next.js, take a look at the following resources:
+## Estrutura
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+app/
+  layout.tsx      metadata, fontes, JSON-LD (EducationalOrganization + geo)
+  page.tsx        composição das seções
+  globals.css     tokens do tema institucional (grafite / amarelo / verde)
+  sitemap.ts, robots.ts, icon.png
+components/       uma seção por arquivo
+content/site.ts   fonte única de conteúdo
+public/images/    brasão e fotos institucionais
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploy na Vercel
 
-## Deploy on Vercel
+O projeto é estático (SSG) e **não exige variáveis de ambiente**.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. `git init && git add . && git commit -m "site institucional ESPP"` e publicar o repositório.
+2. Na Vercel: *Add New → Project* → importar o repositório. O framework é detectado
+   automaticamente (Next.js); build `next build`, sem configuração extra.
+3. Após o primeiro deploy, ajustar `site.url` em `content/site.ts` para o domínio definitivo
+   (usado em metadata, Open Graph, `sitemap.xml` e `robots.txt`).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Pendências conhecidas
+
+- **Formulários sem backend**: tanto o "avise-me" do FORTIS quanto o formulário de contato
+  apenas confirmam visualmente e orientam o envio por e-mail. Para ativar, plugar uma Server
+  Action (ex.: Resend para e-mail, ou gravação em banco).
+- **Notícias** não foram incluídas: o portal do Governo de Goiás está com a divulgação de
+  notícias suspensa por período eleitoral, sem fonte estável para popular a seção.
+- **Conteúdo institucional** marcado com `// VALIDAR` precisa de aprovação antes da publicação.

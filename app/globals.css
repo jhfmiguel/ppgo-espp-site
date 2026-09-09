@@ -1,26 +1,127 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---------------------------------------------------------------------------
+   Tema institucional ESPP
+   Paleta extraída do brasão da Escola: grafite/preto como base, amarelo
+   institucional como cor de ação e verde como acento secundário.
+   --------------------------------------------------------------------------- */
+@theme {
+  --color-ink-950: #07090c;
+  --color-ink-900: #0b0f14;
+  --color-ink-850: #10151c;
+  --color-ink-800: #161c25;
+  --color-ink-700: #1f2733;
+  --color-ink-600: #2c3542;
+  --color-ink-400: #7c8797;
+  --color-ink-200: #c9d0da;
+  --color-ink-100: #e7eaef;
+
+  --color-gold-500: #f5c400;
+  --color-gold-400: #ffd426;
+  --color-gold-600: #d3a800;
+  --color-gold-050: #fff8dd;
+
+  --color-forest-500: #149b4a;
+  --color-forest-600: #0f7a3a;
+
+  --font-display: var(--font-display), "Arial Narrow", system-ui, sans-serif;
+  --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* compensa o header fixo ao navegar por âncoras */
+    scroll-padding-top: 5.5rem;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-ink-900);
+    color: var(--color-ink-100);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-gold-500);
+    color: var(--color-ink-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility container-espp {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Título de seção em caixa alta condensada, marca visual do site */
+@utility title-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+/* Textura sutil de faixas diagonais usada em faixas institucionais */
+@utility hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--color-gold-500) 12%, transparent) 0 1px,
+    transparent 1px 9px
+  );
+}
+
+@keyframes espp-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility fade-up {
+  animation: espp-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes espp-pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+}
+
+@utility pulse-dot {
+  animation: espp-pulse-dot 2s ease-in-out infinite;
 }

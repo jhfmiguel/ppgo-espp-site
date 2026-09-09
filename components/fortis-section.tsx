@@ -1,0 +1,105 @@
+import { ExternalLink } from "lucide-react";
+import { fortis } from "@/content/site";
+import { Icon } from "@/components/ui/icon";
+import { FortisMockup } from "@/components/fortis-mockup";
+import { NotifyForm } from "@/components/notify-form";
+
+export function FortisSection() {
+  return (
+    <section
+      id="fortis"
+      aria-labelledby="fortis-titulo"
+      className="relative scroll-mt-24 overflow-hidden bg-ink-950 py-24 lg:py-32"
+    >
+      {/* brilho de fundo */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[70rem] -translate-x-1/2 rounded-full bg-gold-500/8 blur-3xl"
+      />
+
+      <div className="container-espp relative">
+        <div className="max-w-3xl">
+          <p className="inline-flex items-center gap-2.5 rounded-full border border-gold-500/40 bg-gold-500/10 px-4 py-1.5 text-[0.7rem] font-bold tracking-[0.18em] text-gold-400 uppercase">
+            <span
+              aria-hidden="true"
+              className="pulse-dot size-1.5 rounded-full bg-gold-400"
+            />
+            {fortis.eyebrow}
+          </p>
+
+          <h2 id="fortis-titulo" className="title-display mt-6 text-5xl text-white sm:text-6xl">
+            {fortis.nome}
+          </h2>
+          <p className="title-display mt-3 text-2xl text-gold-500 sm:text-3xl">
+            {fortis.titulo}
+          </p>
+
+          <p className="mt-7 text-base leading-relaxed text-ink-200 sm:text-lg">
+            {fortis.texto}
+          </p>
+          <p className="mt-4 text-base leading-relaxed text-ink-200">
+            {fortis.texto2}
+          </p>
+
+          <p className="mt-7 inline-flex items-center gap-2 rounded-md border border-ink-700 bg-ink-900 px-4 py-2 text-xs font-medium text-ink-200">
+            <span
+              aria-hidden="true"
+              className="size-1.5 rounded-full bg-forest-500"
+            />
+            {fortis.status}
+          </p>
+        </div>
+
+        <div className="mt-16">
+          <FortisMockup />
+        </div>
+
+        <h3 className="title-display mt-20 text-2xl text-white">
+          O que o FORTIS vai entregar
+        </h3>
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {fortis.modulos.map((mod) => (
+            <li
+              key={mod.titulo}
+              className="rounded-lg border border-ink-700 bg-ink-900/80 p-6 transition-colors hover:border-gold-500/60"
+            >
+              <span className="flex size-11 items-center justify-center rounded-md bg-gold-500/12 text-gold-500">
+                <Icon name={mod.icone} className="size-5" />
+              </span>
+              <h4 className="title-display mt-5 text-lg text-white">
+                {mod.titulo}
+              </h4>
+              <p className="mt-2 text-sm leading-relaxed text-ink-200">
+                {mod.texto}
+              </p>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-14 grid gap-6 lg:grid-cols-5">
+          <div className="lg:col-span-3">
+            <NotifyForm />
+          </div>
+          <div className="flex flex-col justify-center rounded-lg border border-ink-700 bg-ink-900 p-7 lg:col-span-2">
+            <h3 className="title-display text-lg text-white">
+              Enquanto o FORTIS não chega
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-ink-200">
+              O acesso do servidor ao portal do aluno da Escola continua
+              disponível no ambiente atual.
+            </p>
+            <a
+              href={fortis.portalAtual.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 self-start rounded-md border border-gold-500 px-5 py-2.5 text-xs font-bold tracking-wider text-gold-500 uppercase transition-colors hover:bg-gold-500 hover:text-ink-950"
+            >
+              {fortis.portalAtual.label}
+              <ExternalLink className="size-3.5" aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
