@@ -36,19 +36,39 @@ export const goias = {
 };
 
 export const nav = [
-  { label: "Institucional", href: "/institucional" },
-  { label: "Formação", href: "/formacao" },
+  { label: "Início", href: "/" },
   {
-    label: "Cursos",
-    href: "/cursos",
+    label: "A ESPP",
     submenu: [
+      { label: "Institucional", href: "/institucional" },
+      { label: "Localização", href: "/localizacao" },
+      { label: "Estrutura", href: "/estrutura" },
+    ],
+  },
+  {
+    label: "Ensino",
+    submenu: [
+      { label: "Formação", href: "/formacao" },
+      { label: "Cursos", href: "/cursos" },
       { label: "Matrizes Curriculares", href: "/matrizes-curriculares" },
     ],
   },
-  { label: "Notícias", href: "/noticias" },
-  { label: "Estrutura", href: "/estrutura" },
-  { label: "Localização", href: "/localizacao" },
-  { label: "Contato", href: "/contato" },
+  {
+    label: "Mídias",
+    submenu: [{ label: "Notícias", href: "/noticias" }],
+  },
+  {
+    label: "Normas e Regulamentos",
+    // VALIDAR: primeiro item da lista; demais atos normativos entram aqui conforme publicados
+    submenu: [
+      { label: "Atos Normativos", href: "https://www.policiapenal.go.gov.br/", external: true },
+    ],
+  },
+  {
+    label: "Serviços",
+    // VALIDAR: primeiro item da lista; demais serviços entram aqui conforme definidos
+    submenu: [{ label: "Contatos", href: "/contato" }],
+  },
 ] as const;
 
 export const hero = {
@@ -510,6 +530,51 @@ export const localizacao = {
     endereco: "Rua 201, nº 430 — Setor Leste Vila Nova, Goiânia/GO — CEP 74643-050",
     telefone: "(62) 3270-8711",
     email: "protocolo-setorial.dgpp@goias.gov.br",
+  },
+} as const;
+
+/**
+ * Página de Acessibilidade. VALIDAR: nível de conformidade declarado deve
+ * ser confirmado pela ESPP após auditoria (hoje reflete o que foi
+ * efetivamente implementado no site, não uma certificação formal).
+ */
+export const acessibilidade = {
+  eyebrow: "Acessibilidade",
+  titulo: "Compromisso com a acessibilidade digital",
+  texto:
+    "Este site segue o Modelo de Acessibilidade em Governo Eletrônico (eMAG 3.1) e busca atender às Diretrizes de Acessibilidade para Conteúdo Web (WCAG) 2.1, nível AA, para garantir o acesso à informação a todas as pessoas, incluindo aquelas com deficiências visuais, auditivas, motoras, cognitivas e de aprendizagem.",
+  recursos: [
+    {
+      titulo: "Aumento e redução de fonte",
+      texto: "Os botões A-, A e A+ na barra superior alteram o tamanho do texto em todo o site, sem quebrar o layout.",
+    },
+    {
+      titulo: "Alto contraste",
+      texto: "O botão \"Alto contraste\" na barra superior alterna para uma paleta preto, branco e amarelo, com maior contraste entre texto e fundo.",
+    },
+    {
+      titulo: "Navegação por teclado",
+      texto: "Todo o site pode ser percorrido com o teclado (Tab/Shift+Tab), com indicação visual clara do elemento em foco.",
+    },
+    {
+      titulo: "Atalho para o conteúdo",
+      texto: "Um link \"Ir para o conteúdo principal\", visível ao navegar por teclado, permite pular o cabeçalho e o menu.",
+    },
+    {
+      titulo: "Estrutura semântica",
+      texto: "Cabeçalho, menu, conteúdo principal e rodapé são marcados com landmarks HTML5 (header, nav, main, footer), facilitando a navegação por leitores de tela.",
+    },
+    {
+      titulo: "Texto alternativo em imagens",
+      texto: "Fotos e ilustrações informativas têm descrição textual (alt); imagens puramente decorativas são ocultadas de leitores de tela.",
+    },
+  ],
+  limitacoes:
+    "Este site está em desenvolvimento contínuo e pode conter trechos que ainda não atendem plenamente às diretrizes do eMAG e da WCAG 2.1. Encontrou uma barreira de acesso? Avise a Escola pelos canais abaixo.", // VALIDAR
+  contato: {
+    label: "E-mail do Ensino",
+    valor: "ensino.dgpp@goias.gov.br",
+    href: "mailto:ensino.dgpp@goias.gov.br",
   },
 } as const;
 

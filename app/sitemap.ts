@@ -12,6 +12,7 @@ const paginas: { path: string; priority: number }[] = [
   { path: "/estrutura", priority: 0.6 },
   { path: "/localizacao", priority: 0.6 },
   { path: "/contato", priority: 0.6 },
+  { path: "/acessibilidade", priority: 0.5 },
   { path: "/mapa-do-site", priority: 0.5 },
 ];
 

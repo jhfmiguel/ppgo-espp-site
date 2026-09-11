@@ -11,13 +11,15 @@ export const metadata: Metadata = {
 type PaginaLink = { label: string; href: string };
 
 const paginas: PaginaLink[] = [
-  { label: "Início", href: "/" },
   ...nav.flatMap((item): PaginaLink[] =>
     "submenu" in item
-      ? [{ label: item.label, href: item.href }, ...item.submenu]
+      ? item.submenu
+          .filter((sub) => !("external" in sub && sub.external))
+          .map((sub) => ({ label: sub.label, href: sub.href }))
       : [{ label: item.label, href: item.href }],
   ),
   { label: "FORTIS", href: "/fortis" },
+  { label: "Acessibilidade", href: "/acessibilidade" },
   { label: "Mapa do site", href: "/mapa-do-site" },
 ];
 

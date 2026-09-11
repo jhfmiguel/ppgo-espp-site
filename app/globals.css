@@ -41,6 +41,7 @@
     scroll-behavior: smooth;
     /* compensa o header fixo ao navegar por âncoras */
     scroll-padding-top: 5.5rem;
+    transition: font-size 0.15s ease;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -73,6 +74,56 @@
     outline-offset: 3px;
     border-radius: 2px;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Alto contraste (eMAG 3.1 / WCAG 2.1) — sobrepõe as cores do tema por uma
+   paleta preto/branco/amarelo de alto contraste, preservando a estrutura.
+   Ativado via atributo `data-contrast="alto"` no <html>, alternado pelo
+   botão "Alto contraste" na barra utilitária.
+   --------------------------------------------------------------------------- */
+html[data-contrast="alto"] {
+  color-scheme: dark;
+}
+
+html[data-contrast="alto"] body {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+html[data-contrast="alto"] * {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+html[data-contrast="alto"] a,
+html[data-contrast="alto"] button,
+html[data-contrast="alto"] [role="button"] {
+  color: #ffe600 !important;
+}
+
+html[data-contrast="alto"] a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+html[data-contrast="alto"] :is(button, a, input, select, textarea):hover,
+html[data-contrast="alto"] :is(button, a):focus-visible {
+  color: #000000 !important;
+  background-color: #ffe600 !important;
+}
+
+html[data-contrast="alto"] :focus-visible {
+  outline: 3px solid #ffe600 !important;
+  outline-offset: 2px;
+}
+
+html[data-contrast="alto"] img:not([data-contrast-ignore]) {
+  filter: grayscale(1) contrast(1.15);
+  opacity: 0.9;
 }
 
 @utility container-espp {

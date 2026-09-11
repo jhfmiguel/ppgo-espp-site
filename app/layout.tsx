@@ -1,9 +1,28 @@
 import type { Metadata, Viewport } from "next";
 import { Barlow_Condensed, Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { localizacao, site } from "@/content/site";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+
+/**
+ * Aplica preferências salvas de acessibilidade (tamanho da fonte e alto
+ * contraste) antes da hidratação, para não haver "flash" do estado padrão.
+ * Mantido em sincronia com as chaves usadas em components/site-header.tsx.
+ */
+const scriptAcessibilidade = `
+(function () {
+  try {
+    var escalas = { sm: "93.75%", md: "100%", lg: "112.5%" };
+    var fonte = localStorage.getItem("espp-font-size");
+    if (fonte && escalas[fonte]) document.documentElement.style.fontSize = escalas[fonte];
+    if (localStorage.getItem("espp-contraste") === "alto") {
+      document.documentElement.setAttribute("data-contrast", "alto");
+    }
+  } catch (e) {}
+})();
+`;
 
 const display = Barlow_Condensed({
   variable: "--font-display",
@@ -108,8 +127,15 @@ export default function RootLayout({
     <html
       lang="pt-BR"
       className={`${display.variable} ${sans.variable} h-full`}
+      suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col bg-white">
+        <Script
+          id="acessibilidade-inicial"
+          strategy="beforeInteractive"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: scriptAcessibilidade }}
+        />
         <a
           href="#conteudo"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-100 focus:rounded-md focus:bg-gold-500 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-ink-950"
@@ -117,7 +143,7 @@ export default function RootLayout({
           Ir para o conteúdo principal
         </a>
         <SiteHeader />
-        <main id="conteudo" className="flex-1 pt-24 sm:pt-[132px] xl:pt-[180px]">
+        <main id="conteudo" className="flex-1 pt-[132px] xl:pt-[180px]">
           {children}
         </main>
         <SiteFooter />
