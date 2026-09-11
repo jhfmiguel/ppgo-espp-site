@@ -19,7 +19,7 @@ const variants: Record<Variant, string> = {
   solid: "bg-gold-500 text-ink-950 hover:bg-gold-400",
   outline:
     "border border-ink-600 text-white hover:border-gold-500 hover:text-gold-500",
-  ghost: "text-gold-500 hover:text-gold-400 px-0 py-1",
+  ghost: "text-gold-600 hover:text-gold-500 px-0 py-1",
 };
 
 export function ActionLink({

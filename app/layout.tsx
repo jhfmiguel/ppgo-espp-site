@@ -61,7 +61,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0f14",
+  themeColor: "#ffffff",
 };
 
 /** Dados estruturados para busca e mapas */
@@ -109,7 +109,7 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${display.variable} ${sans.variable} h-full`}
     >
-      <body className="flex min-h-full flex-col bg-ink-900">
+      <body className="flex min-h-full flex-col bg-white">
         <a
           href="#conteudo"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-100 focus:rounded-md focus:bg-gold-500 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-ink-950"
@@ -117,7 +117,7 @@ export default function RootLayout({
           Ir para o conteúdo principal
         </a>
         <SiteHeader />
-        <main id="conteudo" className="flex-1">
+        <main id="conteudo" className="flex-1 pt-24 sm:pt-[132px] xl:pt-[180px]">
           {children}
         </main>
         <SiteFooter />

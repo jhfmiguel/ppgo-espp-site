@@ -20,6 +20,21 @@ export const site = {
     "Formação, aperfeiçoamento e qualificação dos servidores da Polícia Penal de Goiás. Primeira escola de serviços penais do Brasil credenciada como Escola de Governo.",
 } as const;
 
+/** Barra utilitária e identidade do Governo de Goiás no topo do header. */
+export const topbar = {
+  href: "https://goias.gov.br",
+  label: "GOIAS.GOV.BR",
+};
+
+export const goias = {
+  nome: "Estado de",
+  sigla: "GOIÁS",
+  brasao: {
+    src: "/images/Brasão_de_Goiás.svg",
+    alt: "Brasão do Estado de Goiás",
+  },
+};
+
 export const nav = [
   { label: "Institucional", href: "/institucional" },
   { label: "Formação", href: "/formacao" },

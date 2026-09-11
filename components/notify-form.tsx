@@ -16,16 +16,16 @@ export function NotifyForm() {
   const [enviado, setEnviado] = useState(false);
 
   return (
-    <div className="rounded-lg border border-ink-700 bg-ink-900 p-7">
-      <h3 className="title-display text-xl text-white">{fortis.cta.titulo}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-ink-200">
+    <div className="rounded-lg border border-ink-200 bg-ink-050 p-7">
+      <h3 className="title-display text-xl text-ink-900">{fortis.cta.titulo}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-ink-700">
         {fortis.cta.texto}
       </p>
 
       {enviado ? (
         <p
           role="status"
-          className="mt-6 flex items-start gap-2.5 rounded-md border border-forest-500/40 bg-forest-500/10 p-4 text-sm text-ink-100"
+          className="mt-6 flex items-start gap-2.5 rounded-md border border-forest-500/40 bg-forest-500/10 p-4 text-sm text-ink-800"
         >
           <CheckCircle2
             className="mt-0.5 size-4 shrink-0 text-forest-500"
@@ -63,7 +63,7 @@ export function NotifyForm() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="nome@goias.gov.br"
               autoComplete="email"
-              className="w-full rounded-md border border-ink-600 bg-ink-850 px-4 py-3 text-sm text-white placeholder:text-ink-400 focus:border-gold-500 focus:outline-none"
+              className="w-full rounded-md border border-ink-300 bg-white px-4 py-3 text-sm text-ink-900 placeholder:text-ink-400 focus:border-gold-500 focus:outline-none"
             />
           </div>
           <button

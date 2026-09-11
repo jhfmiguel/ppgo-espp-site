@@ -39,7 +39,7 @@ export function MatrizesCurriculares() {
     <section
       id="matrizes-curriculares"
       aria-labelledby="matrizes-titulo"
-      className="scroll-mt-24 bg-ink-900 py-24 lg:py-32"
+      className="scroll-mt-24 bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
         <SectionHeading
@@ -47,15 +47,16 @@ export function MatrizesCurriculares() {
           eyebrow={matrizes.eyebrow}
           titulo={matrizes.titulo}
           texto={matrizes.texto}
+          tone="light"
         />
 
         <div className="mt-10 flex flex-wrap gap-3">
-          <label className="flex items-center gap-2 text-xs font-semibold tracking-wider text-ink-200 uppercase">
+          <label className="flex items-center gap-2 text-xs font-semibold tracking-wider text-ink-700 uppercase">
             Ano
             <select
               value={ano}
               onChange={(e) => setAno(e.target.value === TODOS ? TODOS : Number(e.target.value))}
-              className="rounded-md border border-ink-600 bg-ink-850 px-3 py-2 text-sm font-normal tracking-normal text-white normal-case"
+              className="rounded-md border border-ink-300 bg-white px-3 py-2 text-sm font-normal tracking-normal text-ink-900 normal-case"
             >
               <option value={TODOS}>Todos</option>
               {anos.map((a) => (
@@ -66,12 +67,12 @@ export function MatrizesCurriculares() {
             </select>
           </label>
 
-          <label className="flex items-center gap-2 text-xs font-semibold tracking-wider text-ink-200 uppercase">
+          <label className="flex items-center gap-2 text-xs font-semibold tracking-wider text-ink-700 uppercase">
             Modalidade
             <select
               value={modalidade}
               onChange={(e) => setModalidade(e.target.value)}
-              className="rounded-md border border-ink-600 bg-ink-850 px-3 py-2 text-sm font-normal tracking-normal text-white normal-case"
+              className="rounded-md border border-ink-300 bg-white px-3 py-2 text-sm font-normal tracking-normal text-ink-900 normal-case"
             >
               <option value={TODOS}>Todas</option>
               {modalidades.map((m) => (
@@ -86,16 +87,16 @@ export function MatrizesCurriculares() {
         <div className="mt-10 space-y-12">
           {porAno.map(([anoGrupo, cursosDoAno]) => (
             <div key={anoGrupo}>
-              <h3 className="title-display text-2xl text-gold-500">{anoGrupo}</h3>
-              <ul className="mt-5 divide-y divide-ink-700 border-y border-ink-700">
+              <h3 className="title-display text-2xl text-gold-600">{anoGrupo}</h3>
+              <ul className="mt-5 divide-y divide-ink-200 border-y border-ink-200">
                 {cursosDoAno.map((curso) => (
                   <li
                     key={curso.nome + curso.portariaHref}
                     className="flex flex-col gap-2 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
                   >
                     <div>
-                      <p className="text-sm font-semibold text-white">{curso.nome}</p>
-                      <p className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink-400">
+                      <p className="text-sm font-semibold text-ink-900">{curso.nome}</p>
+                      <p className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink-500">
                         <span>{curso.modalidade}</span>
                         <span className="inline-flex items-center gap-1">
                           <Users className="size-3.5" aria-hidden="true" />
@@ -119,12 +120,12 @@ export function MatrizesCurriculares() {
           ))}
 
           {porAno.length === 0 ? (
-            <p className="text-sm text-ink-400">Nenhum curso encontrado para os filtros selecionados.</p>
+            <p className="text-sm text-ink-500">Nenhum curso encontrado para os filtros selecionados.</p>
           ) : null}
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 rounded-lg border border-ink-700 bg-ink-850 p-7 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-ink-200">
+        <div className="mt-12 flex flex-col gap-4 rounded-lg border border-ink-200 bg-ink-050 p-7 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-ink-700">
             Esta lista é compilada a partir do portal oficial. Consulte a fonte para a versão mais atualizada e para os detalhes de cada matriz curricular.
           </p>
           <ActionLink href={matrizes.fonteHref} variant="ghost" external className="text-xs">

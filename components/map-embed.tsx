@@ -39,7 +39,7 @@ export function MapEmbed({ query, title }: { query: string; title: string }) {
   return (
     <div
       ref={ref}
-      className="relative aspect-4/3 overflow-hidden rounded-lg border border-ink-700 bg-ink-850 lg:aspect-16/10"
+      className="relative aspect-4/3 overflow-hidden rounded-lg border border-ink-200 bg-ink-050 lg:aspect-16/10"
     >
       {visivel ? (
         <iframe

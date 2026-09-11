@@ -10,7 +10,7 @@ export function NoticiasTeaser() {
   return (
     <section
       aria-labelledby="noticias-teaser-titulo"
-      className="bg-ink-900 pt-28 pb-14 lg:pt-32 lg:pb-16"
+      className="bg-white pt-10 pb-14 lg:pt-14 lg:pb-16"
     >
       <div className="container-espp">
         <div className="flex flex-wrap items-end justify-between gap-4">
@@ -18,6 +18,7 @@ export function NoticiasTeaser() {
             id="noticias-teaser-titulo"
             eyebrow={noticias.eyebrow}
             titulo={noticias.titulo}
+            tone="light"
           />
           <ActionLink href="/noticias" variant="ghost" className="text-xs">
             Ver todas as notícias
@@ -32,7 +33,7 @@ export function NoticiasTeaser() {
           ) : null}
 
           {proximas.length > 0 ? (
-            <ul className="divide-y divide-ink-800 rounded-xl border border-ink-700 bg-ink-850 px-5">
+            <ul className="divide-y divide-ink-100 rounded-xl border border-ink-200 bg-white px-5 shadow-sm">
               {proximas.map((item) => (
                 <NoticiaLinha key={item.titulo} item={item} />
               ))}

@@ -2,7 +2,7 @@ type Props = {
   eyebrow: string;
   titulo: string;
   texto?: string;
-  /** claro = seção com fundo claro */
+  /** dark = seção com fundo escuro (exceção; o tema do site é claro) */
   tone?: "dark" | "light";
   align?: "left" | "center";
   id?: string;
@@ -12,7 +12,7 @@ export function SectionHeading({
   eyebrow,
   titulo,
   texto,
-  tone = "dark",
+  tone = "light",
   align = "left",
   id,
 }: Props) {

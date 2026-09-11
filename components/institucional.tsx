@@ -7,20 +7,21 @@ export function Institucional() {
     <section
       id="institucional"
       aria-labelledby="institucional-titulo"
-      className="scroll-mt-24 bg-ink-900 py-24 lg:py-32"
+      className="scroll-mt-24 bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
         <SectionHeading
           id="institucional-titulo"
           eyebrow={institucional.eyebrow}
           titulo={institucional.titulo}
+          tone="light"
         />
 
         <div className="mt-14 grid gap-14 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7">
             <div className="space-y-6 border-l-2 border-gold-500/70 pl-6">
               {institucional.paragrafos.map((p) => (
-                <p key={p.slice(0, 24)} className="text-base leading-relaxed text-ink-200">
+                <p key={p.slice(0, 24)} className="text-base leading-relaxed text-ink-700">
                   {p}
                 </p>
               ))}
@@ -30,12 +31,12 @@ export function Institucional() {
               {institucional.pilares.map((pilar) => (
                 <div
                   key={pilar.titulo}
-                  className="rounded-lg border border-ink-700 bg-ink-850 p-6"
+                  className="rounded-lg border border-ink-200 bg-ink-050 p-6"
                 >
-                  <dt className="title-display text-lg text-gold-500">
+                  <dt className="title-display text-lg text-gold-600">
                     {pilar.titulo}
                   </dt>
-                  <dd className="mt-2 text-sm leading-relaxed text-ink-200">
+                  <dd className="mt-2 text-sm leading-relaxed text-ink-700">
                     {pilar.texto}
                   </dd>
                 </div>
@@ -44,7 +45,7 @@ export function Institucional() {
           </div>
 
           <div className="lg:col-span-5">
-            <div className="relative aspect-4/3 overflow-hidden rounded-lg border border-ink-700">
+            <div className="relative aspect-4/3 overflow-hidden rounded-lg border border-ink-200">
               <Image
                 src={institucional.imagem.src}
                 alt={institucional.imagem.alt}
@@ -54,7 +55,7 @@ export function Institucional() {
               />
             </div>
 
-            <h3 className="title-display mt-10 text-xl text-white">
+            <h3 className="title-display mt-10 text-xl text-ink-900">
               Linha do tempo
             </h3>
             <ol className="mt-5 space-y-5">
@@ -62,11 +63,11 @@ export function Institucional() {
                 <li key={`${marco.ano}-${i}`} className="flex gap-4">
                   <span
                     aria-hidden="true"
-                    className="mt-1 flex size-14 shrink-0 items-center justify-center rounded-md bg-gold-500/12 text-sm font-bold text-gold-500"
+                    className="mt-1 flex size-14 shrink-0 items-center justify-center rounded-md bg-gold-050 text-sm font-bold text-gold-600"
                   >
                     {marco.ano}
                   </span>
-                  <p className="text-sm leading-relaxed text-ink-200">
+                  <p className="text-sm leading-relaxed text-ink-700">
                     <span className="sr-only">{marco.ano}: </span>
                     {marco.texto}
                   </p>

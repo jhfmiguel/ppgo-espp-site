@@ -9,7 +9,7 @@ export function Noticias() {
     <section
       id="noticias"
       aria-labelledby="noticias-titulo"
-      className="scroll-mt-24 bg-ink-900 py-24 lg:py-32"
+      className="scroll-mt-24 bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
         <SectionHeading
@@ -17,6 +17,7 @@ export function Noticias() {
           eyebrow={noticias.eyebrow}
           titulo={noticias.titulo}
           texto={noticias.texto}
+          tone="light"
         />
 
         {destaque ? (

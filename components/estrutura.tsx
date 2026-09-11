@@ -8,7 +8,7 @@ export function Estrutura() {
     <section
       id="estrutura"
       aria-labelledby="estrutura-titulo"
-      className="scroll-mt-24 bg-ink-100 py-24 lg:py-32"
+      className="scroll-mt-24 bg-ink-100 pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
         <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-16">

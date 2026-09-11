@@ -9,7 +9,7 @@ export function EixosFormacao() {
     <section
       id="formacao"
       aria-labelledby="formacao-titulo"
-      className="scroll-mt-24 bg-ink-100 py-24 lg:py-32"
+      className="scroll-mt-24 bg-ink-100 pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
         <SectionHeading

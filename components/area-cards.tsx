@@ -8,7 +8,7 @@ export function AreaCards() {
   return (
     <section
       aria-labelledby="areas-titulo"
-      className="bg-ink-100 py-24 lg:py-32"
+      className="bg-ink-100 pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
         <SectionHeading

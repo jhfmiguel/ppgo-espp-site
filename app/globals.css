@@ -12,9 +12,12 @@
   --color-ink-800: #161c25;
   --color-ink-700: #1f2733;
   --color-ink-600: #2c3542;
+  --color-ink-500: #55606d;
   --color-ink-400: #7c8797;
+  --color-ink-300: #b7c0cc;
   --color-ink-200: #c9d0da;
   --color-ink-100: #e7eaef;
+  --color-ink-050: #f6f7f9;
 
   --color-gold-500: #f5c400;
   --color-gold-400: #ffd426;
@@ -23,6 +26,11 @@
 
   --color-forest-500: #149b4a;
   --color-forest-600: #0f7a3a;
+
+  /* Paleta institucional do Governo de Goiás — barra utilitária, menu e rodapé */
+  --color-gov-blue: #0064b6;
+  --color-gov-teal: #037770;
+  --color-gov-teal-dark: #00534b;
 
   --font-display: var(--font-display), "Arial Narrow", system-ui, sans-serif;
   --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
@@ -49,8 +57,8 @@
   }
 
   body {
-    background-color: var(--color-ink-900);
-    color: var(--color-ink-100);
+    background-color: #ffffff;
+    color: var(--color-ink-800);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
