@@ -8,9 +8,16 @@ export const metadata: Metadata = {
   description: `Todas as páginas do site institucional da ${site.sigla}.`,
 };
 
-const paginas = [
+type PaginaLink = { label: string; href: string };
+
+const paginas: PaginaLink[] = [
   { label: "Início", href: "/" },
-  ...nav,
+  ...nav.flatMap((item): PaginaLink[] =>
+    "submenu" in item
+      ? [{ label: item.label, href: item.href }, ...item.submenu]
+      : [{ label: item.label, href: item.href }],
+  ),
+  { label: "FORTIS", href: "/fortis" },
   { label: "Mapa do site", href: "/mapa-do-site" },
 ];
 

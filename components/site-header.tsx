@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { fortis, nav, site } from "@/content/site";
 
 export function SiteHeader() {
@@ -66,19 +66,46 @@ export function SiteHeader() {
 
         <nav aria-label="Navegação principal" className="hidden min-w-0 xl:block">
           <ul className="flex items-center gap-4">
-            {nav.map((item) => (
-              <li key={item.href} className="shrink-0">
-                <Link
-                  href={item.href}
-                  className={[
-                    "text-[0.7rem] font-semibold tracking-wider whitespace-nowrap uppercase transition-colors hover:text-gold-500",
-                    pathname === item.href ? "text-gold-500" : "text-ink-200",
-                  ].join(" ")}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {nav.map((item) => {
+              const temSubmenu = "submenu" in item && item.submenu.length > 0;
+              const ativo =
+                pathname === item.href ||
+                (temSubmenu && item.submenu.some((sub) => pathname === sub.href));
+
+              return (
+                <li key={item.href} className="group relative shrink-0">
+                  <Link
+                    href={item.href}
+                    className={[
+                      "flex items-center gap-1 py-2 text-[0.7rem] font-semibold tracking-wider whitespace-nowrap uppercase transition-colors hover:text-gold-500",
+                      ativo ? "text-gold-500" : "text-ink-200",
+                    ].join(" ")}
+                  >
+                    {item.label}
+                    {temSubmenu ? (
+                      <ChevronDown className="size-3.5 transition-transform group-hover:rotate-180" aria-hidden="true" />
+                    ) : null}
+                  </Link>
+
+                  {temSubmenu ? (
+                    <div className="invisible absolute top-full left-0 z-10 min-w-48 -translate-y-1 rounded-md border border-ink-700 bg-ink-950 py-2 opacity-0 shadow-lg transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                      {item.submenu.map((sub) => (
+                        <Link
+                          key={sub.href}
+                          href={sub.href}
+                          className={[
+                            "block px-4 py-2.5 text-xs font-semibold tracking-wider whitespace-nowrap uppercase transition-colors hover:bg-ink-850 hover:text-gold-500",
+                            pathname === sub.href ? "text-gold-500" : "text-ink-200",
+                          ].join(" ")}
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null}
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -118,20 +145,42 @@ export function SiteHeader() {
       >
         <nav aria-label="Navegação principal (mobile)" className="container-espp py-6">
           <ul className="flex flex-col divide-y divide-ink-800">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={() => setAberto(false)}
-                  className={[
-                    "block py-4 text-sm font-semibold tracking-wider uppercase",
-                    pathname === item.href ? "text-gold-500" : "text-ink-100",
-                  ].join(" ")}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {nav.map((item) => {
+              const temSubmenu = "submenu" in item && item.submenu.length > 0;
+
+              return (
+                <li key={item.href} className="py-1">
+                  <Link
+                    href={item.href}
+                    onClick={() => setAberto(false)}
+                    className={[
+                      "block py-3 text-sm font-semibold tracking-wider uppercase",
+                      pathname === item.href ? "text-gold-500" : "text-ink-100",
+                    ].join(" ")}
+                  >
+                    {item.label}
+                  </Link>
+                  {temSubmenu ? (
+                    <ul className="mb-2 flex flex-col gap-1 border-l border-ink-700 pl-4">
+                      {item.submenu.map((sub) => (
+                        <li key={sub.href}>
+                          <Link
+                            href={sub.href}
+                            onClick={() => setAberto(false)}
+                            className={[
+                              "block py-2 text-xs font-semibold tracking-wider uppercase",
+                              pathname === sub.href ? "text-gold-500" : "text-ink-300",
+                            ].join(" ")}
+                          >
+                            {sub.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </li>
+              );
+            })}
           </ul>
           <a
             href={fortis.portalAtual.href}

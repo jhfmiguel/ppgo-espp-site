@@ -23,10 +23,14 @@ export const site = {
 export const nav = [
   { label: "Institucional", href: "/institucional" },
   { label: "Formação", href: "/formacao" },
-  { label: "Cursos", href: "/cursos" },
-  { label: "Matrizes", href: "/matrizes-curriculares" },
+  {
+    label: "Cursos",
+    href: "/cursos",
+    submenu: [
+      { label: "Matrizes Curriculares", href: "/matrizes-curriculares" },
+    ],
+  },
   { label: "Notícias", href: "/noticias" },
-  { label: "FORTIS", href: "/fortis" },
   { label: "Estrutura", href: "/estrutura" },
   { label: "Localização", href: "/localizacao" },
   { label: "Contato", href: "/contato" },
