@@ -446,7 +446,7 @@ export const fortis = {
   },
   portalAtual: {
     label: "Portal do Aluno",
-    href: "https://fortis.ssp.go.gov.br", // VALIDAR: confirmar domínio definitivo do portal antes de publicar
+    href: "https://ead.policiapenal.go.gov.br/login/index.php",
   },
 } as const;
 
