@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Barlow_Condensed, Inter } from "next/font/google";
 import "./globals.css";
 import { localizacao, site } from "@/content/site";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 
 const display = Barlow_Condensed({
   variable: "--font-display",
@@ -114,7 +116,11 @@ export default function RootLayout({
         >
           Ir para o conteúdo principal
         </a>
-        {children}
+        <SiteHeader />
+        <main id="conteudo" className="flex-1">
+          {children}
+        </main>
+        <SiteFooter />
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger

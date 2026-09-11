@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { contato, localizacao, rodape, site } from "@/content/site";
 
 export function SiteFooter() {
@@ -47,18 +48,29 @@ export function SiteFooter() {
               Links oficiais
             </h2>
             <ul className="mt-5 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-1">
-              {rodape.links.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-ink-400 transition-colors hover:text-gold-500"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {rodape.links.map((link) =>
+                "interno" in link && link.interno ? (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-ink-400 transition-colors hover:text-gold-500"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ) : (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-ink-400 transition-colors hover:text-gold-500"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ),
+              )}
             </ul>
           </div>
 

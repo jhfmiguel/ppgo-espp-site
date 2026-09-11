@@ -60,7 +60,7 @@ export function CursosDestaque() {
                 key={link.label}
                 href={link.href}
                 variant="ghost"
-                external
+                external={link.external}
                 className="text-xs"
               >
                 {link.label}

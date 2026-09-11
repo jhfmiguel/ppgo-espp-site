@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { BadgeCheck, ChevronDown } from "lucide-react";
 import { hero } from "@/content/site";
 import { ActionLink } from "@/components/ui/action-link";
@@ -24,7 +25,7 @@ export function Hero() {
         className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink-900 to-transparent"
       />
 
-      <div className="container-espp relative flex min-h-[100svh] flex-col justify-center pt-28 pb-24">
+      <div className="container-espp relative flex min-h-[90svh] flex-col justify-center py-24">
         <div className="fade-up max-w-3xl">
           <p className="inline-flex items-start gap-2.5 rounded-full border border-gold-500/40 bg-gold-500/10 px-4 py-2 text-xs font-semibold tracking-wide text-gold-400 sm:items-center">
             <BadgeCheck className="mt-0.5 size-4 shrink-0 sm:mt-0" aria-hidden="true" />
@@ -55,14 +56,14 @@ export function Hero() {
           </div>
         </div>
 
-        <a
-          href="#institucional"
+        <Link
+          href="/institucional"
           aria-hidden="true"
           tabIndex={-1}
           className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 text-ink-400 transition-colors hover:text-gold-500 lg:block"
         >
           <ChevronDown className="size-7" />
-        </a>
+        </Link>
       </div>
     </section>
   );

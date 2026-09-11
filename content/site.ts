@@ -21,13 +21,15 @@ export const site = {
 } as const;
 
 export const nav = [
-  { label: "Institucional", href: "#institucional" },
-  { label: "Formação", href: "#formacao" },
-  { label: "Cursos", href: "#cursos" },
-  { label: "FORTIS", href: "#fortis" },
-  { label: "Estrutura", href: "#estrutura" },
-  { label: "Localização", href: "#localizacao" },
-  { label: "Contato", href: "#contato" },
+  { label: "Institucional", href: "/institucional" },
+  { label: "Formação", href: "/formacao" },
+  { label: "Cursos", href: "/cursos" },
+  { label: "Matrizes", href: "/matrizes-curriculares" },
+  { label: "Notícias", href: "/noticias" },
+  { label: "FORTIS", href: "/fortis" },
+  { label: "Estrutura", href: "/estrutura" },
+  { label: "Localização", href: "/localizacao" },
+  { label: "Contato", href: "/contato" },
 ] as const;
 
 export const hero = {
@@ -36,8 +38,8 @@ export const hero = {
   subtitulo: "Goiás",
   texto:
     "A primeira escola de serviços penais do Brasil credenciada como Escola de Governo. Formamos, aperfeiçoamos e qualificamos os servidores da Polícia Penal de Goiás com ensino, pesquisa e prática operacional.",
-  ctaPrimario: { label: "Conheça a Escola", href: "#institucional" },
-  ctaSecundario: { label: "Cursos e programas", href: "#formacao" },
+  ctaPrimario: { label: "Conheça a Escola", href: "/institucional" },
+  ctaSecundario: { label: "Cursos e programas", href: "/formacao" },
   imagem: {
     src: "/images/formacao-policial-01.jpg",
     alt: "Turma de policiais penais de Goiás em formatura, uniformizados e em formação",
@@ -174,6 +176,7 @@ export const formacao = {
       texto:
         "Todos os cursos são autorizados por portaria da DGPP e têm matrizes curriculares públicas, disponíveis no portal oficial da Polícia Penal.",
       tag: "Transparência",
+      href: "/matrizes-curriculares",
     },
   ],
 } as const;
@@ -230,16 +233,161 @@ export const cursos = {
   links: [
     {
       label: "Matrizes curriculares dos cursos",
-      href: "https://www.policiapenal.go.gov.br/matrizes-curriculares-de-cursos-da-espp",
+      href: "/matrizes-curriculares",
+      external: false,
     },
     {
       label: "Editais de cursos",
       href: "https://www.policiapenal.go.gov.br/",
+      external: true,
     },
     {
       label: "Processos seletivos PPGO",
       href: "https://www.policiapenal.go.gov.br/",
+      external: true,
     },
+  ],
+} as const;
+
+/**
+ * Cursos autorizados por portaria da DGPP, com link direto à portaria.
+ * FONTE: policiapenal.go.gov.br/matrizes-curriculares-de-cursos-da-espp, capturado em 11/09/2026.
+ * VALIDAR periodicamente contra o portal oficial, que é a fonte viva e mais atualizada
+ * (disciplinas e carga horária por curso não são publicadas nessa listagem, só nas portarias).
+ */
+export const matrizes = {
+  eyebrow: "Matrizes curriculares",
+  titulo: "Cursos autorizados e matrizes curriculares",
+  texto:
+    "Todo curso ofertado pela ESPP é autorizado por portaria da Diretoria-Geral de Polícia Penal, que traz a matriz curricular, a carga horária e os requisitos de participação. Esta lista reúne os cursos autorizados entre 2022 e 2026, com link direto para a portaria de cada um.",
+  fonteHref: "https://www.policiapenal.go.gov.br/matrizes-curriculares-de-cursos-da-espp",
+  cursos: [
+    { nome: "Curso Capacitação para Servidores da DGPP no Enfrentamento à Violência Contra a Mulher", ano: 2026, modalidade: "Presencial ou Online – Síncrono", vagas: 16, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-dgpp-no-239-de-18-de-julho-de-2026.html" },
+    { nome: "Curso de Formação de Policiais Penais do Estado de Goiás – CFPPGO", ano: 2026, modalidade: "Presencial", vagas: 1058, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-dgpp-no-202-de-16-de-junho-de-2026.html" },
+    { nome: "Curso Inteligência Artificial na Prática: Ferramentas, Agentes e Prompt Engineering para Otimização de Processos", ano: 2026, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-096-de-03-de-marco-de-2026.html" },
+    { nome: "Curso Treinamento Aplicativo SAC24 Monitorado", ano: 2026, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-98-2026-de-04-de-marco-de-2026.html" },
+    { nome: "Ação Formativa Institucional – Prova Oral no Processo Seletivo do Mestrado em Engenharia de Produção (UFG)", ano: 2026, modalidade: "A Distância – Síncrono", vagas: 3, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-31-de-28-de-janeiro-de-2026.html" },
+    { nome: "Oficina de Capacitação no Armamento Carabina IMBEL IA2, Calibre 5,56 x 45 mm", ano: 2026, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-178-de-12-de-maio-de-2026.html" },
+    { nome: "Curso Humanização do Atendimento ao Custodiado, Familiares dos Apenados e ao Público em Geral", ano: 2026, modalidade: "A Distância – Síncrono", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-dgpp-no-185-de-20-de-maio-de-2026.html" },
+    { nome: "Curso Inteligência Emocional Aplicada ao Sistema Prisional", ano: 2026, modalidade: "Presencial", vagas: 20, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-dgpp-no-182-de-16-de-maio-de-2026.html" },
+    { nome: "Curso de Noções Básicas de Corregedoria", ano: 2026, modalidade: "Presencial ou A Distância – Síncrono", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-14-de-14-de-janeiro-de-2026.html" },
+    { nome: "Curso de Procedimentos Operacionais no Manejo e Custódia de Pessoas Privadas de Liberdade em Unidade Policial", ano: 2026, modalidade: "Presencial", vagas: 8, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-169-de-05-de-maio-de-2026.html" },
+    { nome: "Curso de Retenção e Contrarretenção de Arma de Fogo", ano: 2026, modalidade: "Presencial", vagas: 8, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-dgpp-no-183-de-19-de-maio-de-2026.html" },
+
+    { nome: "Curso Ética e Direitos Humanos", ano: 2025, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-144-de-19-de-marco-de-2025-2.html" },
+    { nome: "Curso Avançado de Rotinas Administrativas", ano: 2025, modalidade: "Presencial", vagas: 15, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-424-de-06-de-outubro-de-2025.html" },
+    { nome: "Curso Básico de Diretor de Unidade Prisional", ano: 2025, modalidade: "Presencial", vagas: 102, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-74-de-07-de-fevereiro-de-2025-2.html" },
+    { nome: "Curso de Análise Avançada do Sistema de Monitoração Eletrônica", ano: 2025, modalidade: "Presencial", vagas: 50, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-145-de-19-de-marco-de-2025-2.html" },
+    { nome: "Curso de Cumprimento de Alvará de Soltura", ano: 2025, modalidade: "Presencial ou A Distância – Síncrono", vagas: 5, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-406-de-01-de-outubro-de-2025.html" },
+    { nome: "Curso de Educação Financeira", ano: 2025, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/sem-categoria/portaria-no-146-de-20-de-marco-de-2025-2.html" },
+    { nome: "Curso de Execução do Plano de Ação – OCISPE/2025 e Plano nº 2/2025 DGPP/GEIO", ano: 2025, modalidade: "Presencial", vagas: 6, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-511-2025-de-19-de-dezembro-de-2025.html" },
+    { nome: "Curso de Rotinas Administrativas II", ano: 2025, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/sem-categoria/portaria-no-149-de-20-de-marco-de-2025.html" },
+    { nome: "Curso Educação Financeira e Investimentos para Aposentadoria", ano: 2025, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/atos-internos/portaria-no-300-de-15-de-julho-de-2025-2.html" },
+    { nome: "Curso Procedimento Administrativo Disciplinar de Custodiado", ano: 2025, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/sem-categoria/portaria-no-148-de-20-de-marco-de-2025-2.html" },
+    { nome: "Curso Procedimento Operacional Padrão – POPPEN – Nível Operacional", ano: 2025, modalidade: "A Distância – Assíncrono", vagas: 80, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-438-de-15-de-outubro-de-2025.html" },
+    { nome: "Curso Técnicas Operacionais de Algemamento e Condução de Pessoas Privadas de Liberdade", ano: 2025, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/atos-internos/portaria-no-355-de-15-de-agosto-de-2025-2.html" },
+    { nome: "Curso Procedimentos Operacionais em Guaritas e Muralhas", ano: 2025, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-494-2025-de-03-de-dezembro-de-2025.html" },
+    { nome: "Curso de Habilitação no Armamento Pistola Taurus PT 100, Calibre .40 S&W", ano: 2025, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-140-de-18-de-marco-de-2025-2.html" },
+    { nome: "Curso de Habilitação no Armamento Carabina IWI Arad, Calibre 5,56 x 45 mm", ano: 2025, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/atos-internos/portaria-no-220-de-12-de-maio-de-2025.html" },
+    { nome: "Curso de Habilitação no Armamento Espingarda CBC Modelo 586.2, Gauge 12", ano: 2025, modalidade: "Presencial", vagas: 20, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-365-de-25-de-agosto-de-2025-2.html" },
+    { nome: "Curso de Instrutor de Atendimento Pré-Hospitalar Tático – Protocolo MARCH", ano: 2025, modalidade: "Híbrido: Presencial e A Distância – Assíncrono", vagas: 60, portariaHref: "https://www.policiapenal.go.gov.br/sem-categoria/portaria-no-373-de-01-de-setembro-de-2025.html" },
+    { nome: "Curso de Nível Básico do Sistema de Gestão e Governança da Polícia Penal de Goiás – SIGGO/PPGO", ano: 2025, modalidade: "Presencial", vagas: 5, portariaHref: "https://www.policiapenal.go.gov.br/sem-categoria/portaria-no-153-de-24-de-marco-de-2025-4.html" },
+    { nome: "Curso de Nível Operador do Sistema de Gestão e Governança da Polícia Penal de Goiás – SIGGO/PPGO", ano: 2025, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-78-de-11-de-fevereiro-de-2025-2.html" },
+    { nome: "Curso de Noções de Balística: Desmistificando Mitos da Realidade Operacional", ano: 2025, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-469-de-14-de-novembro-de-2025.html" },
+
+    { nome: "Curso de Formação de Agentes de Segurança Prisional (2014)", ano: 2024, modalidade: "Presencial", vagas: 80, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-153-de-30-de-abril-de-2024-dispoe-sobre-o-curso-de-formacao-de-agente-de-seguranca-prisional-edital-001-2014-de-28-de-novembro-de-2014.html" },
+    { nome: "Curso Registro de Atendimento Integrado para Servidores da Polícia Penal", ano: 2024, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-88-de-15-de-marco-de-2024-dispoe-sobre-a-convocacao-de-servidores-para-o-curso-registro-de-atendimento-integrado-para-servidores-da-policia-penal.html" },
+    { nome: "Curso de Direção Defensiva – CDD", ano: 2024, modalidade: "Híbrido: Presencial e EAD", vagas: 90, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/atos-internos/portaria-no-397-de-08-de-outubro-de-2024.html" },
+    { nome: "Curso Ética e Responsabilidade Profissional no Serviço Público", ano: 2024, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-301-de-07-de-agosto-de-2024-dispoe-sobre-convocacao-de-servidores-para-o-curso-etica-e-responsabilidade-profissional-no-servico-publico.html" },
+    { nome: "Curso Básico de Capacitação para Gestão de Alternativas Penais no Contexto da Monitoração Eletrônica", ano: 2024, modalidade: "Presencial", vagas: 5, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-454-de-03-de-dezembro-de-2024-2.html" },
+    { nome: "Curso Básico de Capacitação para Gestão de Alternativas Penais", ano: 2024, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/atos-internos/portaria-no-408-de-14-de-outubro-de-2024.html" },
+    { nome: "Curso de Excel Básico – 1ª Edição", ano: 2024, modalidade: "Presencial", vagas: 20, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-64-de-27-de-fevereiro-de-2024-dispoe-sobre-o-curso-excel-basico-1a-edicao-para-servidores-da-policia-penal-da-1a-regional.html" },
+    { nome: "Curso Manual de Redação Oficial do Estado de Goiás – 1ª Edição/2024", ano: 2024, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-69-de-04-de-marco-de-2024-autoriza-e-homologa-o-curso-manual-de-redacao-oficial-do-estado-de-goias-1a-edicao-2024-para-a-7a-e-6a-coordenacao-regional-prisional.html" },
+    { nome: "Curso de Armamento e Tiro para Magistrados da 3ª Coordenação Regional Prisional", ano: 2024, modalidade: "Presencial", vagas: 6, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-325-de-23-de-agosto-de-2024-autoriza-e-homologa-o-i-curso-de-armamento-e-tiro-para-magistrados-da-3a-coordenacao-regional-prisional.html" },
+    { nome: "Curso de Defesa Pessoal Feminina", ano: 2024, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-139-de-18-de-abril-de-2024-dispoe-sobre-autorizacao-do-curso-de-defesa-pessoal-feminina-as-servidoras-da-controladoria-geral-do-estado-de-goias.html" },
+    { nome: "Curso de Instrumento de Menor Potencial Ofensivo – IMPO", ano: 2024, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-151-de-29-de-abril-de-2024-dispoe-sobre-a-criacao-do-curso-de-instrumento-de-menor-potencial-ofensivo-impo.html" },
+    { nome: "Curso de Inteligência Prisional – CIP", ano: 2024, modalidade: "Presencial", vagas: 220, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-348-de-09-de-setembro-de-2024-2.html" },
+    { nome: "Curso de Intervenção Básica – CIB", ano: 2024, modalidade: "Presencial", vagas: 100, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/atos-internos/portaria-no-345-de-06-de-setembro-de-2024.html" },
+    { nome: "Curso de Operador de Rádio Comunicador (HT) Hytera P580H", ano: 2024, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-199-de-06-de-junho-de-2024-dispoe-sobre-autorizacao-do-curso-de-operador-de-radio-comunicador-ht-hytera-modelo-p580h-aos-servidores-da-policia-tecnico-cientifica-do-estado-de-goias-pt.html" },
+    { nome: "Curso de Políticas Penais e Direitos Humanos", ano: 2024, modalidade: "Presencial", vagas: 10, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-409-de-15-de-outubro-de-2024-dispoe-sobre-a-homologacao-do-curso-de-politicas-penais-e-direitos-humanos.html" },
+    { nome: "Curso para a Formação de Instrutor de Direção Policial", ano: 2024, modalidade: "Presencial", vagas: 260, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/atos-internos/portaria-no-431-2024-de-07-de-novembro-de-2024-2.html" },
+
+    { nome: "Curso Procedimento Administrativo Disciplinar de Custodiado", ano: 2023, modalidade: "Presencial", vagas: 20, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-300-de-29-de-setembro-de-2023-dispoe-sobre-a-convocacao-de-servidores-para-o-curso-procedimento-administrativo-disciplinar-de-custodiado.html" },
+    { nome: "Oficina de Defesa Pessoal, Uso do Bastão PR24 e Manuseio da Espingarda Gauge 12 CBC Military 3.0", ano: 2023, modalidade: "Presencial", vagas: 14, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-197-de-20-de-junho-de-2023-cria-e-homologa-a-oficina-de-defesa-pessoal-uso-do-bastao-pr24-e-manuseio-da-espingarda-gauge-12-cbc-military-3-0.html" },
+    { nome: "Curso Formação de Agentes Socioeducativos (Acordo de Cooperação)", ano: 2023, modalidade: "Presencial", vagas: 50, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-250-de-15-de-agosto-de-2023-dispoe-sobre-curso-formacao-de-agentes-socioeducativos-para-os-servidores-do-centro-de-atendimento-socioeducativo-case-do-municipio-de-ita.html" },
+    { nome: "Curso de Habilitação no Armamento IMBEL MD6TC", ano: 2023, modalidade: "Presencial", vagas: 8, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-49-de-13-de-fevereiro-de-2023-dispoe-sobre-curso-de-habilitacao-no-armamento-imbel-md6tc.html" },
+
+    { nome: "Curso Manual de Redação Oficial do Estado de Goiás", ano: 2022, modalidade: "Presencial", vagas: 8, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-70-de-24-de-fevereiro-de-2022-dispoe-sobre-o-curso-manual-de-redacao-oficial-do-estado-de-goias-para-os-servidores-da-policia-penal.html" },
+    { nome: "Curso Procedimento Operacional Padrão Penitenciário – POPPEN – Nível Operacional", ano: 2022, modalidade: "A Distância – Síncrono", vagas: 80, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-451-de-07-de-outubro-de-2022-dispoe-sobre-o-curso-procedimento-operacional-padrao-poppen-nivel-operacional-para-os-servidores-da-policia-penal.html" },
+    { nome: "Curso de Intervenção e Controle de Crises em Ambiente Socioeducativo", ano: 2022, modalidade: "Presencial", vagas: 40, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-451-de-07-de-outubro-de-2022-dispoe-sobre-curso-de-intervencao-e-controle-de-crises-em-ambiente-socioeducativo-para-os-servidores-da-secretaria-de-estado-de-desenvolvimento-social.html" },
+    { nome: "Curso de Pistola Beretta APX Calibre 9 mm", ano: 2022, modalidade: "Presencial", vagas: 8, portariaHref: "https://www.policiapenal.go.gov.br/atos-normativos/portaria-no-451-de-07-de-outubro-de-2022-dispoe-sobre-o-curso-procedimento-operacional-padrao-poppen-nivel-operacional-para-os-servidores-da-policia-penal.html" },
+  ],
+} as const;
+
+/** Notícias de exemplo — conteúdo de rascunho a ser substituído pela ESPP. VALIDAR. */
+export const noticias = {
+  eyebrow: "Notícias",
+  titulo: "O que está acontecendo na Escola",
+  texto:
+    "Últimas novidades sobre cursos, turmas e parcerias da ESPP. Conteúdo de exemplo — substituir pelas notícias reais da Escola.",
+  itens: [
+    {
+      titulo: "ESPP abre inscrições para nova turma do CFPPGO",
+      data: "2026-08-20",
+      categoria: "Formação",
+      resumo:
+        "Curso de Formação de Policiais Penais do Estado de Goiás oferece 1.058 vagas para a turma de 2026, com início previsto para o segundo semestre.",
+      imagem: {
+        src: "/images/formacao-policial-01.jpg",
+        alt: "Turma de policiais penais de Goiás em formatura, uniformizados e em formação",
+      },
+    }, // VALIDAR
+    {
+      titulo: "Cooperação com a UFG leva mais servidores ao mestrado profissional",
+      data: "2026-07-05",
+      categoria: "Pós-graduação",
+      resumo:
+        "Nova etapa da parceria com o PPGEP/UFG seleciona policiais penais para o Mestrado Profissional em Engenharia de Produção.",
+      imagem: {
+        src: "/images/formacao-policial-02.jpg",
+        alt: "Policiais penais reunidos em atividade de formação da Escola Superior de Polícia Penal",
+      },
+    }, // VALIDAR
+    {
+      titulo: "Curso de Inteligência Artificial na Prática forma primeira turma",
+      data: "2026-03-10",
+      categoria: "Tecnologia",
+      resumo:
+        "Servidores da DGPP concluem capacitação em ferramentas de IA aplicadas à otimização de processos administrativos.",
+    }, // VALIDAR
+    {
+      titulo: "ESPP registra recorde de cursos programados para o ano",
+      data: "2025-12-15",
+      categoria: "Institucional",
+      resumo:
+        "Mais de 66 cursos programados no ano, crescimento de 46,6% em relação ao período anterior.",
+      imagem: {
+        src: "/images/espp-viaturas.jpg",
+        alt: "Viaturas da Polícia Penal do Estado de Goiás estacionadas em frente à fachada com o brasão da instituição",
+      },
+    }, // VALIDAR
+  ],
+} as const;
+
+/** Cards de navegação da home para as demais áreas do site. */
+export const areas = {
+  eyebrow: "Explore o site",
+  titulo: "Conheça cada área da Escola",
+  texto: "Navegue pelas páginas do site para saber mais sobre a ESPP, seus cursos e seus canais de atendimento.",
+  itens: [
+    { icone: "info", titulo: "Institucional", texto: "Missão, história e marcos da Escola.", href: "/institucional" },
+    { icone: "graduation", titulo: "Formação", texto: "Eixos de formação, do ingresso à pós-graduação.", href: "/formacao" },
+    { icone: "book", titulo: "Cursos", texto: "Oferta em destaque de cursos e programas.", href: "/cursos" },
+    { icone: "library", titulo: "Matrizes Curriculares", texto: "Cursos autorizados por portaria, com matriz curricular.", href: "/matrizes-curriculares" },
+    { icone: "megaphone", titulo: "Notícias", texto: "Últimas novidades da Escola.", href: "/noticias" },
+    { icone: "monitor", titulo: "FORTIS", texto: "A futura plataforma única de ensino e gestão escolar.", href: "/fortis" },
+    { icone: "school", titulo: "Estrutura", texto: "Conheça a sede da ESPP em Goiânia.", href: "/estrutura" },
+    { icone: "mail", titulo: "Contato", texto: "Fale com a Escola pelos canais oficiais.", href: "/contato" },
   ],
 } as const;
 
@@ -293,8 +441,8 @@ export const fortis = {
     botao: "Avise-me",
   },
   portalAtual: {
-    label: "Portal do Aluno (versão atual)",
-    href: "https://esppgo.com.br/",
+    label: "Portal do Aluno",
+    href: "https://fortis.ssp.go.gov.br", // VALIDAR: confirmar domínio definitivo do portal antes de publicar
   },
 } as const;
 
@@ -392,6 +540,7 @@ export const rodape = {
   texto:
     "Site institucional da Escola Superior de Polícia Penal, unidade de ensino da Diretoria-Geral de Polícia Penal do Estado de Goiás.",
   links: [
+    { label: "Mapa do site", href: "/mapa-do-site", interno: true },
     { label: "Portal da Polícia Penal", href: "https://www.policiapenal.go.gov.br/" },
     { label: "Acesso à Informação", href: "https://www.policiapenal.go.gov.br/acesso-a-informacao" },
     { label: "Atos Normativos", href: "https://www.policiapenal.go.gov.br/" },
