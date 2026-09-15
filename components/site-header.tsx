@@ -23,6 +23,8 @@ export function SiteHeader() {
   const [rolou, setRolou] = useState(false);
   const [fonte, setFonte] = useState<TamanhoFonte>("md");
   const [contraste, setContraste] = useState(false);
+  /** Rótulo do submenu aberto no menu de desktop, ou null. */
+  const [submenu, setSubmenu] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -39,6 +41,31 @@ export function SiteHeader() {
       document.body.style.overflow = "";
     };
   }, [aberto]);
+
+  // fecha o submenu ao trocar de página
+  useEffect(() => {
+    setSubmenu(null);
+  }, [pathname]);
+
+  // fecha o submenu com Esc ou ao clicar fora dele
+  useEffect(() => {
+    if (!submenu) return;
+
+    function aoTeclar(e: KeyboardEvent) {
+      if (e.key === "Escape") setSubmenu(null);
+    }
+    function aoClicarFora(e: MouseEvent) {
+      const alvo = e.target as Element | null;
+      if (!alvo?.closest("[data-submenu]")) setSubmenu(null);
+    }
+
+    document.addEventListener("keydown", aoTeclar);
+    document.addEventListener("mousedown", aoClicarFora);
+    return () => {
+      document.removeEventListener("keydown", aoTeclar);
+      document.removeEventListener("mousedown", aoClicarFora);
+    };
+  }, [submenu]);
 
   // restaura preferências de acessibilidade salvas (a aplicação inicial,
   // sem flash, é feita pelo script bloqueante em app/layout.tsx)
@@ -207,9 +234,11 @@ export function SiteHeader() {
       {/* menu principal */}
       <nav aria-label="Navegação principal" className="hidden bg-gov-teal xl:block">
         <ul className="container-espp flex h-12 items-center gap-6">
-          {nav.map((item) => {
+          {nav.map((item, indice) => {
             const temSubmenu = "submenu" in item;
             const externo = "external" in item && item.external;
+            const expandido = temSubmenu && submenu === item.label;
+            const idSubmenu = `submenu-${indice}`;
             const ativo = temSubmenu
               ? item.submenu.some((sub) => "href" in sub && pathname === sub.href)
               : pathname === item.href;
@@ -219,11 +248,42 @@ export function SiteHeader() {
             ].join(" ");
 
             return (
-              <li key={item.label} className="group relative shrink-0">
+              <li
+                key={item.label}
+                data-submenu={temSubmenu ? "" : undefined}
+                className="relative shrink-0"
+                onMouseEnter={temSubmenu ? () => setSubmenu(item.label) : undefined}
+                onMouseLeave={temSubmenu ? () => setSubmenu(null) : undefined}
+                // fecha quando o foco sai do item inteiro (navegação por Tab)
+                onBlur={
+                  temSubmenu
+                    ? (e) => {
+                        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                          setSubmenu(null);
+                        }
+                      }
+                    : undefined
+                }
+              >
                 {temSubmenu ? (
-                  <button type="button" className={classeItem}>
+                  <button
+                    type="button"
+                    aria-expanded={expandido}
+                    aria-controls={idSubmenu}
+                    // e.detail === 0 indica ativação por teclado (Enter/Espaço),
+                    // que alterna. Com mouse ou toque o hover já abriu o
+                    // submenu, então o clique apenas o mantém aberto — alternar
+                    // aqui faria o menu fechar no instante em que é clicado.
+                    onClick={(e) =>
+                      setSubmenu(e.detail === 0 && expandido ? null : item.label)
+                    }
+                    className={classeItem}
+                  >
                     {item.label}
-                    <ChevronDown className="size-3.5 transition-transform group-hover:rotate-180" aria-hidden="true" />
+                    <ChevronDown
+                      className={`size-3.5 transition-transform ${expandido ? "rotate-180" : ""}`}
+                      aria-hidden="true"
+                    />
                   </button>
                 ) : externo ? (
                   <a href={item.href} target="_blank" rel="noopener noreferrer" className={classeItem}>
@@ -236,7 +296,15 @@ export function SiteHeader() {
                 )}
 
                 {temSubmenu ? (
-                  <div className="invisible absolute top-full left-0 z-10 min-w-52 -translate-y-1 rounded-md border border-ink-200 bg-white py-2 opacity-0 shadow-lg transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                  <div
+                    id={idSubmenu}
+                    className={[
+                      "absolute top-full left-0 z-10 min-w-52 rounded-md border border-ink-200 bg-white py-2 shadow-lg transition-all duration-150",
+                      expandido
+                        ? "visible translate-y-0 opacity-100"
+                        : "invisible -translate-y-1 opacity-0",
+                    ].join(" ")}
+                  >
                     {item.submenu.map((sub, i) =>
                       "group" in sub ? (
                         <p
@@ -251,6 +319,7 @@ export function SiteHeader() {
                           href={sub.href}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => setSubmenu(null)}
                           className="block px-4 py-2.5 text-xs font-semibold tracking-wider whitespace-nowrap uppercase text-ink-700 transition-colors hover:bg-ink-100 hover:text-gold-600"
                         >
                           {sub.label}
@@ -259,6 +328,7 @@ export function SiteHeader() {
                         <Link
                           key={sub.href}
                           href={sub.href}
+                          onClick={() => setSubmenu(null)}
                           className={[
                             "block px-4 py-2.5 text-xs font-semibold tracking-wider whitespace-nowrap uppercase transition-colors hover:bg-ink-100 hover:text-gold-600",
                             pathname === sub.href ? "text-gold-600" : "text-ink-700",
