@@ -19,7 +19,7 @@ export function AreaCards() {
           tone="light"
         />
 
-        <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {areas.itens.map((area) => (
             <li key={area.href}>
               <Link

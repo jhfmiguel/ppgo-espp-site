@@ -280,7 +280,7 @@ export function SiteHeader() {
       <div
         id="menu-mobile"
         hidden={!aberto}
-        className="max-h-[calc(100svh-8.25rem)] overflow-y-auto border-t border-ink-200 bg-white xl:hidden"
+        className="max-h-[calc(100svh-var(--spacing-header))] overflow-y-auto border-t border-ink-200 bg-white xl:hidden"
       >
         <nav aria-label="Navegação principal (mobile)" className="container-espp py-6">
           <ul className="flex flex-col divide-y divide-ink-100">

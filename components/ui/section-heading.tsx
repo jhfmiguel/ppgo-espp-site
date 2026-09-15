@@ -6,6 +6,8 @@ type Props = {
   tone?: "dark" | "light";
   align?: "left" | "center";
   id?: string;
+  /** h1 quando o título encabeça a página; h2 (padrão) para seções internas */
+  as?: "h1" | "h2";
 };
 
 export function SectionHeading({
@@ -15,6 +17,7 @@ export function SectionHeading({
   tone = "light",
   align = "left",
   id,
+  as: Titulo = "h2",
 }: Props) {
   const isDark = tone === "dark";
   return (
@@ -37,7 +40,7 @@ export function SectionHeading({
         />
         {eyebrow}
       </p>
-      <h2
+      <Titulo
         id={id}
         className={[
           "title-display mt-4 text-4xl sm:text-5xl",
@@ -45,7 +48,7 @@ export function SectionHeading({
         ].join(" ")}
       >
         {titulo}
-      </h2>
+      </Titulo>
       {texto ? (
         <p
           className={[

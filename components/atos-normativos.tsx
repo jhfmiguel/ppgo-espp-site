@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { FileText, Search } from "lucide-react";
 import { atosNormativos } from "@/content/site";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { PageHeader } from "@/components/ui/page-header";
 import { ActionLink } from "@/components/ui/action-link";
 import { ESTILO_SITUACAO_ATO, ICONE_TIPO_ATO } from "@/components/atos-normativos-styles";
 
@@ -57,15 +57,15 @@ export function AtosNormativos() {
     <section
       id="atos-normativos"
       aria-labelledby="atos-normativos-titulo"
-      className="scroll-mt-24 bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
-        <SectionHeading
+        <PageHeader
+          href="/atos-normativos"
           id="atos-normativos-titulo"
           eyebrow={atosNormativos.eyebrow}
           titulo={atosNormativos.titulo}
           texto={atosNormativos.texto}
-          tone="light"
         />
 
         <div className="mt-10 flex flex-wrap items-end gap-4">

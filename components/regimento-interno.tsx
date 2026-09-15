@@ -1,6 +1,6 @@
 import { FileText } from "lucide-react";
 import { regimentoInterno } from "@/content/site";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { PageHeader } from "@/components/ui/page-header";
 import { ActionLink } from "@/components/ui/action-link";
 
 export function RegimentoInterno() {
@@ -8,15 +8,15 @@ export function RegimentoInterno() {
     <section
       id="regimento-interno"
       aria-labelledby="regimento-interno-titulo"
-      className="scroll-mt-24 bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
-        <SectionHeading
+        <PageHeader
+          href="/regimento-interno"
           id="regimento-interno-titulo"
           eyebrow={regimentoInterno.eyebrow}
           titulo={regimentoInterno.titulo}
           texto={regimentoInterno.texto}
-          tone="light"
         />
 
         <div className="mt-12 max-w-3xl space-y-5">

@@ -1,21 +1,22 @@
 import { CheckCircle2 } from "lucide-react";
 import { acessibilidade } from "@/content/site";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { PageHeader } from "@/components/ui/page-header";
 
 export function Acessibilidade() {
   return (
     <section
       id="acessibilidade"
       aria-labelledby="acessibilidade-titulo"
-      className="scroll-mt-24 bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
-        <SectionHeading
+        <PageHeader
+          href="/acessibilidade"
+          trilha={[{ label: "Acessibilidade" }]}
           id="acessibilidade-titulo"
           eyebrow={acessibilidade.eyebrow}
           titulo={acessibilidade.titulo}
           texto={acessibilidade.texto}
-          tone="light"
         />
 
         <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

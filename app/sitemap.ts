@@ -1,5 +1,12 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/content/site";
+import { documentos, site } from "@/content/site";
+
+const rotasDocumentos: { path: string; priority: number }[] = [];
+for (const categoria of documentos.categorias) {
+  for (const doc of categoria.itens) {
+    rotasDocumentos.push({ path: `/documentos/${doc.slug}`, priority: 0.5 });
+  }
+}
 
 const paginas: { path: string; priority: number }[] = [
   { path: "", priority: 1 },
@@ -9,6 +16,7 @@ const paginas: { path: string; priority: number }[] = [
   { path: "/matrizes-curriculares", priority: 0.8 },
   { path: "/regimento-interno", priority: 0.6 },
   { path: "/atos-normativos", priority: 0.6 },
+  { path: "/documentos", priority: 0.7 },
   { path: "/noticias", priority: 0.7 },
   { path: "/fortis", priority: 0.7 },
   { path: "/estrutura", priority: 0.6 },
@@ -20,7 +28,7 @@ const paginas: { path: string; priority: number }[] = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
-  return paginas.map(({ path, priority }) => ({
+  return [...paginas, ...rotasDocumentos].map(({ path, priority }) => ({
     url: `${site.url}${path}`,
     lastModified,
     changeFrequency: "monthly",

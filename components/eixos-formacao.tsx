@@ -2,22 +2,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { formacao } from "@/content/site";
 import { Icon } from "@/components/ui/icon";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { PageHeader } from "@/components/ui/page-header";
 
 export function EixosFormacao() {
   return (
     <section
       id="formacao"
       aria-labelledby="formacao-titulo"
-      className="scroll-mt-24 bg-ink-100 pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-ink-100 pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
-        <SectionHeading
+        <PageHeader
+          href="/formacao"
           id="formacao-titulo"
           eyebrow={formacao.eyebrow}
           titulo={formacao.titulo}
           texto={formacao.texto}
-          tone="light"
         />
 
         <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

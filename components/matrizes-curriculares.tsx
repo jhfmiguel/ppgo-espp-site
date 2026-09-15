@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { Users } from "lucide-react";
 import { matrizes } from "@/content/site";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { PageHeader } from "@/components/ui/page-header";
 import { ActionLink } from "@/components/ui/action-link";
 
 const TODOS = "Todos";
@@ -39,15 +39,15 @@ export function MatrizesCurriculares() {
     <section
       id="matrizes-curriculares"
       aria-labelledby="matrizes-titulo"
-      className="scroll-mt-24 bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
-        <SectionHeading
+        <PageHeader
+          href="/matrizes-curriculares"
           id="matrizes-titulo"
           eyebrow={matrizes.eyebrow}
           titulo={matrizes.titulo}
           texto={matrizes.texto}
-          tone="light"
         />
 
         <div className="mt-10 flex flex-wrap gap-3">

@@ -1,5 +1,5 @@
 import { noticias } from "@/content/site";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { PageHeader } from "@/components/ui/page-header";
 import { NoticiaCard, NoticiaDestaque } from "@/components/noticia-card";
 
 export function Noticias() {
@@ -9,15 +9,15 @@ export function Noticias() {
     <section
       id="noticias"
       aria-labelledby="noticias-titulo"
-      className="scroll-mt-24 bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
-        <SectionHeading
+        <PageHeader
+          href="/noticias"
           id="noticias-titulo"
           eyebrow={noticias.eyebrow}
           titulo={noticias.titulo}
           texto={noticias.texto}
-          tone="light"
         />
 
         {destaque ? (

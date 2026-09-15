@@ -62,6 +62,7 @@ export const nav = [
     submenu: [
       { label: "Regimento Interno", href: "/regimento-interno" },
       { label: "Atos Normativos", href: "/atos-normativos" },
+      { label: "Documentos Institucionais", href: "/documentos" },
     ],
   },
   {
@@ -232,10 +233,11 @@ export const cursos = {
   itens: [
     {
       nome: "Pós-graduação em Execução de Polícia Penal",
-      cargaHoraria: "500 horas",
-      modalidade: "Presencial",
+      cargaHoraria: "500 horas-aula",
+      modalidade: "Presencial, com atividades assíncronas",
       nivel: "Lato sensu",
-      texto: "Primeira especialização do país na área de execução penal, certificada pela ESPP.",
+      texto:
+        "Primeira especialização do país na área de execução penal, certificada pela ESPP. São 500 horas-aula, sendo 424 presenciais e 76 assíncronas mediadas por tecnologia.", // FONTE: PPC da Pós-Graduação lato sensu (ESPP, 2026)
     },
     {
       nome: "Curso de Formação da Polícia Penal",
@@ -434,6 +436,7 @@ export const areas = {
     { icone: "graduation", titulo: "Formação", texto: "Eixos de formação, do ingresso à pós-graduação.", href: "/formacao" },
     { icone: "book", titulo: "Cursos", texto: "Oferta em destaque de cursos e programas.", href: "/cursos" },
     { icone: "library", titulo: "Matrizes Curriculares", texto: "Cursos autorizados por portaria, com matriz curricular.", href: "/matrizes-curriculares" },
+    { icone: "file", titulo: "Documentos", texto: "PDI, PED, projetos pedagógicos e regulamentos em PDF.", href: "/documentos" },
     { icone: "megaphone", titulo: "Notícias", texto: "Últimas novidades da Escola.", href: "/noticias" },
     { icone: "monitor", titulo: "FORTIS", texto: "A futura plataforma única de ensino e gestão escolar.", href: "/fortis" },
     { icone: "school", titulo: "Estrutura", texto: "Conheça a sede da ESPP em Goiânia.", href: "/estrutura" },
@@ -519,12 +522,12 @@ export const localizacao = {
   texto:
     "A Escola Superior de Polícia Penal funciona no Setor Central de Goiânia. A Diretoria-Geral de Polícia Penal tem sede em endereço próprio, no Setor Leste Vila Nova.",
   endereco: {
-    logradouro: "Av. Goiás, 1500",
+    logradouro: "Av. Goiás, nº 1500, Quadra 124, Lote 156E",
     bairro: "Setor Central",
     cidade: "Goiânia",
     uf: "GO",
-    completo: "Av. Goiás, 1500 — Setor Central, Goiânia/GO",
-  }, // FONTE: policiapenal.go.gov.br/acesso-a-informacao/cargos-e-seus-ocupantes
+    completo: "Av. Goiás, nº 1500, Quadra 124, Lote 156E — Setor Central, Goiânia/GO",
+  }, // FONTE: endereço oficial no quadro "Dados institucionais" do PDI ESPP 2026–2030
   /** Consulta usada no embed e nos links do Google Maps (não exige chave de API) */
   mapaQuery: "Av. Goiás, 1500 - Setor Central, Goiânia - GO",
   geo: { lat: -16.6723, lng: -49.2588 }, // aproximado, para JSON-LD
@@ -733,6 +736,218 @@ export const atosNormativos = {
   ],
 } as const;
 
+/**
+ * Biblioteca de documentos institucionais publicados em PDF.
+ *
+ * Os arquivos vivem em `public/docs/` e o `slug` de cada item é, ao mesmo
+ * tempo, o nome do arquivo e a rota do leitor interno (`/documentos/<slug>`),
+ * de modo que o PDF é aberto dentro do próprio site.
+ *
+ * FONTE: peças do Processo SEI nº 202616448087829 (recredenciamento da ESPP)
+ * e instrumentos institucionais da Escola, capturados em 15/09/2026.
+ */
+export const documentos = {
+  eyebrow: "Normas e Regulamentos",
+  titulo: "Documentos Institucionais",
+  texto:
+    "Instrumentos de planejamento, projetos pedagógicos, regulamentos e peças do processo de recredenciamento da Escola Superior de Polícia Penal. Todos os documentos podem ser lidos aqui mesmo, no site, ou baixados em PDF.",
+  aviso:
+    "Os documentos reproduzidos nesta página são as versões apresentadas ao Conselho Estadual de Educação de Goiás no processo de recredenciamento da Escola. Em caso de divergência, prevalece a versão oficial constante do Processo SEI nº 202616448087829.",
+  categorias: [
+    {
+      id: "planejamento",
+      icone: "clipboard",
+      titulo: "Planejamento institucional",
+      texto:
+        "Instrumentos que definem a identidade, as metas e a trajetória da Escola no ciclo 2026–2030.",
+      itens: [
+        {
+          slug: "pdi-espp-2026-2030",
+          titulo: "Plano de Desenvolvimento Institucional — PDI 2026–2030",
+          tituloCurto: "PDI 2026–2030",
+          tipo: "Plano institucional",
+          ano: 2026,
+          paginas: 24,
+          resumo:
+            "Documento central do planejamento da ESPP. Reúne perfil e histórico institucional, identidade e inserção regional, síntese do Projeto Pedagógico Institucional (PPI), Plano Estratégico de Gestão 2026–2030, organização acadêmico-administrativa, corpo docente, políticas de atendimento aos discentes, avaliação institucional, infraestrutura física, bibliográfica e tecnológica, sustentabilidade financeira e a matriz de conformidade normativa do próprio PDI.",
+          referencia: "Elaborado para o ciclo 2026–2030 e para instrução do recredenciamento da ESPP como Escola de Governo perante o CEE/GO.",
+        },
+        {
+          slug: "ped-espp-2026-2030",
+          titulo: "Plano Estratégico de Desenvolvimento — PED 2026–2030",
+          tituloCurto: "PED 2026–2030",
+          tipo: "Plano estratégico",
+          ano: 2026,
+          paginas: 15,
+          resumo:
+            "Instrumento de execução e acompanhamento das diretrizes do PDI. Estabelece o direcionamento estratégico da Escola, seus eixos estratégicos para 2026–2030 e a articulação com o Planejamento Estratégico da Polícia Penal de Goiás 2024–2027, da Diretoria-Geral de Polícia Penal, mantenedora da ESPP.",
+          referencia: "Articulado ao PDI 2026–2030 e ao Planejamento Estratégico da DGPP 2024–2027.",
+        },
+      ],
+    },
+    {
+      id: "pos-graduacao",
+      icone: "graduation",
+      titulo: "Pós-graduação lato sensu",
+      texto:
+        "Projeto pedagógico, operacionalização da matriz curricular e regulamento do trabalho de conclusão do curso de especialização da Escola.",
+      itens: [
+        {
+          slug: "ppc-pos-graduacao-espp",
+          titulo: "Projeto Pedagógico do Curso — PPC da Pós-Graduação lato sensu",
+          tituloCurto: "PPC da Pós-Graduação",
+          tipo: "Projeto pedagógico",
+          ano: 2026,
+          paginas: 29,
+          resumo:
+            "Versão revisada do Projeto Pedagógico do Curso de Pós-Graduação lato sensu em Execução de Atividade de Polícia Penal: objetivos, perfil do egresso e competências, público-alvo e ingresso, concepção pedagógica, organização curricular, avaliação da aprendizagem, pesquisa e metodologia científica, TCC, estágio supervisionado, corpo docente, infraestrutura e mecanismos de gestão acadêmica.",
+          referencia:
+            "Curso de 500 horas-aula (424 presenciais e 76 assíncronas). A denominação “Execução de Atividade de Polícia Penal” é proposta de atualização do nome autorizado pela Resolução CEE/CES nº 19/2024 e depende de manifestação do CEE/GO.",
+        },
+        {
+          slug: "plano-matriz-pos-graduacao-espp",
+          titulo:
+            "Plano de Desenvolvimento e Operacionalização Didático-Pedagógica da Matriz Curricular",
+          tituloCurto: "Operacionalização da Matriz Curricular",
+          tipo: "Plano didático-pedagógico",
+          ano: 2026,
+          paginas: 102,
+          resumo:
+            "Detalhamento disciplina por disciplina da matriz curricular da pós-graduação, organizado em eixos e módulos temáticos — de Administração Penitenciária a Relações Humanas e Reinserção Social e Servidor Penitenciário —, com planos sintéticos, conteúdos, bibliografias e diretrizes de atuação docente.",
+          referencia: "Correspondente ao PPC da Pós-Graduação lato sensu em Execução de Atividade de Polícia Penal.",
+        },
+        {
+          slug: "regulamento-tcc-pos-graduacao-espp",
+          titulo: "Regulamento do Trabalho de Conclusão de Curso — TCC",
+          tituloCurto: "Regulamento do TCC",
+          tipo: "Regulamento",
+          ano: 2026,
+          paginas: 14,
+          resumo:
+            "Disciplina a elaboração, a orientação, o depósito e a avaliação do TCC da pós-graduação: finalidades e princípios acadêmicos, requisitos do trabalho, ética, proteção de dados e integridade acadêmica, modalidades de avaliação com e sem apresentação oral, critérios de nota, versão final, gestão documental e direitos autorais. Inclui as fichas de avaliação em anexo.",
+        },
+      ],
+    },
+    {
+      id: "biblioteca",
+      icone: "library",
+      titulo: "Biblioteca",
+      texto: "Norma que organiza o acervo, o atendimento e o uso dos espaços da biblioteca da Escola.",
+      itens: [
+        {
+          slug: "regulamento-biblioteca-espp",
+          titulo: "Regulamento da Biblioteca da ESPP",
+          tituloCurto: "Regulamento da Biblioteca",
+          tipo: "Regulamento",
+          ano: 2026,
+          paginas: 11,
+          resumo:
+            "Estabelece a organização, a gestão e o funcionamento da biblioteca: acervo e sistema informatizado, cadastro de usuários, consulta, empréstimo, renovação, reserva e devolução, tratamento de perdas e danos, conservação e inventário, desenvolvimento e atualização do acervo, acervo digital e produção acadêmica, uso dos espaços e recursos de informática, acessibilidade, direitos e deveres dos usuários e competências da administração.",
+        },
+      ],
+    },
+    {
+      id: "recredenciamento",
+      icone: "award",
+      titulo: "Dossiê de recredenciamento",
+      texto:
+        "Peças técnicas que instruem o pedido de recredenciamento da ESPP como Escola de Governo perante o Conselho Estadual de Educação de Goiás.",
+      itens: [
+        {
+          slug: "nota-tecnica-complementacao-documental",
+          titulo: "Complementação e Consolidação Documental do Recredenciamento",
+          tituloCurto: "Nota Técnica nº 1/2026",
+          tipo: "Nota Técnica",
+          ano: 2026,
+          paginas: 7,
+          resumo:
+            "Peça que inaugura o bloco de complementação documental do pedido de recredenciamento. Formaliza a lógica jurídica, documental e probatória da instrução, explicita a correlação entre as exigências normativas e os documentos que as demonstram e orienta a juntada das versões atualizadas dos instrumentos institucionais.",
+          referencia: "Nota Técnica nº 1/2026/DGPP/GAB-DGPP-16450 — SEI nº 95095763.",
+        },
+        {
+          slug: "indice-geral-matriz-conformidade",
+          titulo: "Índice Geral e Matriz de Conformidade do Recredenciamento",
+          tituloCurto: "Índice Geral e Matriz de Conformidade",
+          tipo: "Índice",
+          ano: 2026,
+          paginas: 4,
+          resumo:
+            "Instrumento de rastreabilidade regulatória do dossiê. Organiza os documentos por eixos substanciais — PDI, PPI, Regimento, PPC, biblioteca, corpo docente, avaliação institucional, infraestrutura e regularidade cadastral —, identificando, para cada eixo, o documento principal, sua função regulatória e as evidências vinculadas.",
+          referencia: "SEI nº 95126355. Fundamentado na Resolução CEE/CP nº 04/2023, na Resolução CEE/Pleno nº 06/2015 e na Portaria DGPP nº 248/2026.",
+        },
+        {
+          slug: "relatorio-atendimento-determinacoes",
+          titulo: "Atendimento às Determinações e à Recomendação do Ato de Credenciamento",
+          tituloCurto: "Relatório nº 5/2026",
+          tipo: "Relatório",
+          ano: 2026,
+          paginas: 6,
+          resumo:
+            "Demonstra o cumprimento das três providências fixadas nos arts. 3º, 4º e 5º da Resolução CEE/CES nº 19/2024: a apresentação do Regimento Interno da unidade acadêmica, a ampliação do acervo bibliográfico e das obras correlatas aos cursos e a recomendação de adequação cadastral. Para cada dispositivo, apresenta o objeto, a cadeia documental, a evidência disponível e a conclusão probatória.",
+          referencia: "Relatório nº 5/2026 DGPP/GAB-DGPP-16450 — SEI nº 95128508.",
+        },
+        {
+          slug: "relatorio-analitico-institucional",
+          titulo: "Relatório Analítico Institucional — Ciclo 2024–2026",
+          tituloCurto: "Relatório Analítico Institucional",
+          tipo: "Relatório",
+          ano: 2026,
+          paginas: 8,
+          resumo:
+            "Análise das condições acadêmicas, pedagógicas, docentes, administrativas, estruturais e tecnológicas da Escola no ciclo de credenciamento 2024–2026. Cobre as atividades de ensino, as avaliações interna e externa e a autoavaliação institucional, a composição do corpo docente por titulação, as instalações, os acervos físico e virtual, as tecnologias de informação e comunicação e a experiência acumulada em pós-graduação e educação continuada.",
+          referencia:
+            "Relatório nº 6/2026 DGPP/GAB-DGPP-16450 — SEI nº 95145727. Período de análise: 15 de março de 2024 a 31 de agosto de 2026. Atende ao art. 39, § 1º, III, da Resolução CEE/CP nº 04/2023.",
+        },
+      ],
+    },
+  ],
+} as const;
+
+/** Seção de recredenciamento exibida na página Institucional. */
+export const recredenciamento = {
+  eyebrow: "Recredenciamento",
+  titulo: "Um novo ciclo como Escola de Governo",
+  paragrafos: [
+    "A ESPP foi credenciada como Escola de Governo pela Resolução CEE/CES nº 19, de 15 de março de 2024, que também autorizou o curso de Pós-Graduação lato sensu em Execução da Polícia Penal, com 500 horas. O credenciamento vigora até 31 de dezembro de 2026.",
+    "Para o novo ciclo institucional, a Diretoria-Geral de Polícia Penal protocolou o pedido de recredenciamento da Escola perante o Conselho Estadual de Educação de Goiás. A instrução do processo é conduzida pela Comissão Interna instituída pela Portaria DGPP nº 248, de 15 de julho de 2026, encarregada de revisar e consolidar os instrumentos institucionais da Escola — PDI, PED, Projeto Pedagógico do Curso, regulamentos da biblioteca e do TCC — e de comprovar a evolução do corpo docente, da infraestrutura e do acervo bibliográfico.",
+    "Todo o conjunto documental que instrui o pedido está publicado neste site e pode ser lido integralmente, sem download.",
+  ],
+  ficha: [
+    { label: "Mantenedora", valor: "Diretoria-Geral de Polícia Penal — DGPP" },
+    {
+      label: "Natureza",
+      valor: "Escola de Governo integrante do Sistema Estadual de Educação Superior de Goiás",
+    },
+    { label: "Ato de instituição", valor: "Portaria DGPP nº 363, de 14 de novembro de 2023" },
+    { label: "Credenciamento vigente", valor: "Resolução CEE/CES nº 19, de 15 de março de 2024 — até 31/12/2026" },
+    { label: "Processo de recredenciamento", valor: "Processo SEI nº 202616448087829" },
+    { label: "Curso autorizado", valor: "Pós-Graduação lato sensu em Execução da Polícia Penal — 500 horas" },
+    { label: "Ciclo de planejamento", valor: "2026–2030 (PDI e PED)" },
+    { label: "Vinculação administrativa", valor: "Diretoria-Geral Adjunta da DGPP — Decreto nº 10.785/2025" },
+    { label: "CNPJ (estabelecimento filial)", valor: "29.394.729/0002-52" },
+  ], // FONTE: PDI_ESPP 2026–2030 e PED_ESPP 2026–2030, quadro "Dados institucionais"
+  cta: { label: "Ver todos os documentos", href: "/documentos" },
+  /** Faixa de destaque exibida na home, logo após o hero. */
+  destaque: {
+    selo: "Processo em andamento",
+    titulo: "Recredenciamento como Escola de Governo",
+    texto:
+      "A ESPP está em processo de recredenciamento perante o Conselho Estadual de Educação de Goiás para o ciclo 2026–2030. O Plano de Desenvolvimento Institucional e todas as peças que instruem o pedido estão abertos à consulta pública, aqui no site.",
+    ctaPdi: {
+      label: "Ler o PDI 2026–2030",
+      href: "/documentos/pdi-espp-2026-2030",
+      detalhe: "PDF · 24 páginas · leitura no site",
+    },
+    ctaDossie: { label: "Ver o dossiê completo", href: "/documentos" },
+    ctaProcesso: { label: "Entenda o processo", href: "/institucional#recredenciamento" },
+    fatos: [
+      { label: "Credenciamento vigente", valor: "até 31/12/2026" },
+      { label: "Ciclo de planejamento", valor: "2026–2030" },
+      { label: "Processo SEI", valor: "202616448087829" },
+    ],
+  },
+} as const;
+
 export const contato = {
   eyebrow: "Contato",
   titulo: "Fale com a Escola",
@@ -783,6 +998,7 @@ export const rodape = {
     { label: "Portal da Polícia Penal", href: "https://www.policiapenal.go.gov.br/" },
     { label: "Acesso à Informação", href: "https://www.policiapenal.go.gov.br/acesso-a-informacao" },
     { label: "Atos Normativos", href: "/atos-normativos", interno: true },
+    { label: "Documentos Institucionais", href: "/documentos", interno: true },
     { label: "LGPD", href: "https://goias.gov.br/casacivil/lei-geral-de-protecao-de-dados/" },
     { label: "Ouvidoria", href: "https://www.policiapenal.go.gov.br/" },
     { label: "Secretaria de Segurança Pública", href: "https://goias.gov.br/seguranca/" },

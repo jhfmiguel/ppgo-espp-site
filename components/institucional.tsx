@@ -1,20 +1,20 @@
 import Image from "next/image";
 import { institucional } from "@/content/site";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { PageHeader } from "@/components/ui/page-header";
 
 export function Institucional() {
   return (
     <section
       id="institucional"
       aria-labelledby="institucional-titulo"
-      className="scroll-mt-24 bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-white pt-10 pb-16 lg:pt-14 lg:pb-20"
     >
       <div className="container-espp">
-        <SectionHeading
+        <PageHeader
+          href="/institucional"
           id="institucional-titulo"
           eyebrow={institucional.eyebrow}
           titulo={institucional.titulo}
-          tone="light"
         />
 
         <div className="mt-14 grid gap-14 lg:grid-cols-12 lg:gap-16">
