@@ -55,7 +55,10 @@ export const nav = [
   },
   {
     label: "Mídias",
-    submenu: [{ label: "Notícias", href: "/noticias" }],
+    submenu: [
+      { label: "Notícias", href: "/noticias" },
+      { label: "Eventos", href: "/eventos" },
+    ],
   },
   {
     label: "Normas e Regulamentos",
@@ -424,6 +427,116 @@ export const noticias = {
         "Nova instrução normativa estabelece critérios únicos para emissão, registro e validação de certificados de todos os cursos ofertados pela Escola.",
     }, // VALIDAR
   ],
+} as const;
+
+export type Evento = {
+  titulo: string;
+  /** Data de início no formato ISO (AAAA-MM-DD). */
+  data: string;
+  /** Preenchido apenas em eventos de mais de um dia. */
+  dataFim?: string;
+  horario: string;
+  local: string;
+  modalidade: "Presencial" | "Online" | "Híbrido";
+  categoria: string;
+  resumo: string;
+  vagas?: number;
+  inscricao?: { label: string; href: string; external?: boolean };
+};
+
+/**
+ * Agenda de eventos da Escola. Conteúdo de EXEMPLO, a ser substituído pela
+ * agenda oficial da ESPP. VALIDAR.
+ *
+ * A separação entre "próximos" e "realizados" é calculada durante o build.
+ * Como a agenda vive neste arquivo, qualquer alteração já exige um novo build,
+ * e a lista se reorganiza junto — mas um site publicado há muito tempo sem
+ * rebuild continuará exibindo como "próximo" um evento cuja data já passou.
+ */
+export const eventos = {
+  eyebrow: "Mídias",
+  titulo: "Agenda de eventos",
+  texto:
+    "Aulas inaugurais, formaturas, seminários, oficinas e demais atividades promovidas pela Escola Superior de Polícia Penal. Conteúdo de exemplo — substituir pela agenda oficial da Escola.",
+  avisoVazio: "Não há eventos agendados no momento. Novas datas serão publicadas nesta página.",
+  itens: [
+    {
+      titulo: "Aula Inaugural da Pós-Graduação em Execução de Polícia Penal",
+      data: "2026-10-05",
+      horario: "19h às 21h",
+      local: "Auditório da ESPP — Av. Goiás, nº 1500, Setor Central",
+      modalidade: "Presencial",
+      categoria: "Pós-graduação",
+      resumo:
+        "Abertura oficial da nova turma da especialização lato sensu, com apresentação da matriz curricular, do corpo docente e da sistemática de TCC.",
+      vagas: 100,
+    },
+    {
+      titulo: "Seminário de Direitos Humanos e Execução Penal",
+      data: "2026-10-22",
+      dataFim: "2026-10-23",
+      horario: "8h às 17h",
+      local: "Auditório da ESPP",
+      modalidade: "Presencial",
+      categoria: "Seminário",
+      resumo:
+        "Dois dias de painéis sobre estatuto jurídico da pessoa presa, assistências da LEP, política de saúde prisional e programas de reinserção social.",
+      vagas: 100,
+      inscricao: { label: "Inscrições pelo portal da Polícia Penal", href: "https://www.policiapenal.go.gov.br/", external: true },
+    },
+    {
+      titulo: "Formatura do Curso de Formação de Policiais Penais — CFPPGO 2026",
+      data: "2026-11-14",
+      horario: "9h",
+      local: "A definir",
+      modalidade: "Presencial",
+      categoria: "Formatura",
+      resumo:
+        "Solenidade de conclusão da turma de 2026 do Curso de Formação de Policiais Penais do Estado de Goiás.",
+    },
+    {
+      titulo: "Oficina de Capacitação no Armamento Carabina IMBEL IA2",
+      data: "2026-11-28",
+      horario: "8h às 18h",
+      local: "Centro de Treinamento vinculado à ESPP",
+      modalidade: "Presencial",
+      categoria: "Curso operacional",
+      resumo:
+        "Instrução teórica e prática de manuseio, segurança e tiro com a carabina IMBEL IA2, calibre 5,56 x 45 mm.",
+      vagas: 10,
+    },
+    {
+      titulo: "Webinário: Inteligência Artificial aplicada à gestão prisional",
+      data: "2026-12-03",
+      horario: "14h às 16h",
+      local: "Transmissão online",
+      modalidade: "Online",
+      categoria: "Webinário",
+      resumo:
+        "Ferramentas de IA, agentes e prompt engineering aplicados à otimização de processos administrativos e de análise da Polícia Penal.",
+    },
+    {
+      titulo: "Encontro de Diretores de Unidades Prisionais",
+      data: "2026-08-20",
+      horario: "8h às 17h",
+      local: "Auditório da ESPP",
+      modalidade: "Presencial",
+      categoria: "Gestão",
+      resumo:
+        "Alinhamento de diretrizes de gestão, segurança e rotinas administrativas com os diretores das unidades prisionais do Estado.",
+    },
+    {
+      titulo: "Semana de Valorização do Servidor da Polícia Penal",
+      data: "2026-07-14",
+      dataFim: "2026-07-18",
+      horario: "Programação integral",
+      local: "Sede da ESPP e unidades regionais",
+      modalidade: "Híbrido",
+      categoria: "Institucional",
+      resumo:
+        "Programação de palestras, oficinas de saúde mental, educação financeira e atividades de integração para os servidores da DGPP.",
+    },
+  ] as Evento[],
 } as const;
 
 /** Cards de navegação da home para as demais áreas do site. */

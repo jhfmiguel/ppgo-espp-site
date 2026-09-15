@@ -18,6 +18,7 @@ const paginas: { path: string; priority: number }[] = [
   { path: "/atos-normativos", priority: 0.6 },
   { path: "/documentos", priority: 0.7 },
   { path: "/noticias", priority: 0.7 },
+  { path: "/eventos", priority: 0.7 },
   { path: "/fortis", priority: 0.7 },
   { path: "/estrutura", priority: 0.6 },
   { path: "/localizacao", priority: 0.6 },
