@@ -209,8 +209,9 @@ export function SiteHeader() {
         <ul className="container-espp flex h-12 items-center gap-6">
           {nav.map((item) => {
             const temSubmenu = "submenu" in item;
+            const externo = "external" in item && item.external;
             const ativo = temSubmenu
-              ? item.submenu.some((sub) => pathname === sub.href)
+              ? item.submenu.some((sub) => "href" in sub && pathname === sub.href)
               : pathname === item.href;
             const classeItem = [
               "flex items-center gap-1 py-2 text-[0.72rem] font-semibold tracking-wider whitespace-nowrap uppercase transition-colors hover:text-gold-500",
@@ -224,6 +225,10 @@ export function SiteHeader() {
                     {item.label}
                     <ChevronDown className="size-3.5 transition-transform group-hover:rotate-180" aria-hidden="true" />
                   </button>
+                ) : externo ? (
+                  <a href={item.href} target="_blank" rel="noopener noreferrer" className={classeItem}>
+                    {item.label}
+                  </a>
                 ) : (
                   <Link href={item.href} className={classeItem}>
                     {item.label}
@@ -232,8 +237,15 @@ export function SiteHeader() {
 
                 {temSubmenu ? (
                   <div className="invisible absolute top-full left-0 z-10 min-w-52 -translate-y-1 rounded-md border border-ink-200 bg-white py-2 opacity-0 shadow-lg transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                    {item.submenu.map((sub) =>
-                      "external" in sub && sub.external ? (
+                    {item.submenu.map((sub, i) =>
+                      "group" in sub ? (
+                        <p
+                          key={`grupo-${sub.group}-${i}`}
+                          className="px-4 pt-2.5 pb-1 text-[0.65rem] font-bold tracking-[0.16em] text-ink-400 uppercase first:pt-1"
+                        >
+                          {sub.group}
+                        </p>
+                      ) : "external" in sub && sub.external ? (
                         <a
                           key={sub.href}
                           href={sub.href}
@@ -274,6 +286,7 @@ export function SiteHeader() {
           <ul className="flex flex-col divide-y divide-ink-100">
             {nav.map((item) => {
               const temSubmenu = "submenu" in item;
+              const externo = "external" in item && item.external;
 
               return (
                 <li key={item.label} className="py-1">
@@ -281,6 +294,16 @@ export function SiteHeader() {
                     <p className="pt-3 text-sm font-semibold tracking-wider text-ink-900 uppercase">
                       {item.label}
                     </p>
+                  ) : externo ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setAberto(false)}
+                      className="block py-3 text-sm font-semibold tracking-wider text-ink-900 uppercase"
+                    >
+                      {item.label}
+                    </a>
                   ) : (
                     <Link
                       href={item.href}
@@ -295,8 +318,15 @@ export function SiteHeader() {
                   )}
                   {temSubmenu ? (
                     <ul className="mb-2 flex flex-col gap-1 border-l border-ink-200 pl-4">
-                      {item.submenu.map((sub) =>
-                        "external" in sub && sub.external ? (
+                      {item.submenu.map((sub, i) =>
+                        "group" in sub ? (
+                          <li
+                            key={`grupo-${sub.group}-${i}`}
+                            className="pt-2 text-[0.65rem] font-bold tracking-[0.16em] text-ink-400 uppercase first:pt-0"
+                          >
+                            {sub.group}
+                          </li>
+                        ) : "external" in sub && sub.external ? (
                           <li key={sub.href}>
                             <a
                               href={sub.href}

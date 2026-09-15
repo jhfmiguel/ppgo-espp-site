@@ -59,16 +59,20 @@ export const nav = [
   },
   {
     label: "Normas e Regulamentos",
-    // VALIDAR: primeiro item da lista; demais atos normativos entram aqui conforme publicados
     submenu: [
-      { label: "Atos Normativos", href: "https://www.policiapenal.go.gov.br/", external: true },
+      { label: "Regimento Interno", href: "/regimento-interno" },
+      { label: "Atos Normativos", href: "/atos-normativos" },
     ],
   },
   {
     label: "Serviços",
-    // VALIDAR: primeiro item da lista; demais serviços entram aqui conforme definidos
-    submenu: [{ label: "Contatos", href: "/contato" }],
+    submenu: [
+      { group: "Fale Conosco" },
+      { label: "Contato", href: "/contato" },
+      { label: "Ouvidoria", href: "https://www.policiapenal.go.gov.br/ouvidoria", external: true },
+    ],
   },
+  { label: "LGPD", href: "https://goias.gov.br/casacivil/lei-geral-de-protecao-de-dados/", external: true },
 ] as const;
 
 export const hero = {
@@ -410,6 +414,13 @@ export const noticias = {
         alt: "Viaturas da Polícia Penal do Estado de Goiás estacionadas em frente à fachada com o brasão da instituição",
       },
     }, // VALIDAR
+    {
+      titulo: "ESPP padroniza emissão de certificados dos cursos",
+      data: "2025-11-12",
+      categoria: "Institucional",
+      resumo:
+        "Nova instrução normativa estabelece critérios únicos para emissão, registro e validação de certificados de todos os cursos ofertados pela Escola.",
+    }, // VALIDAR
   ],
 } as const;
 
@@ -578,6 +589,150 @@ export const acessibilidade = {
   },
 } as const;
 
+/** FONTE: legisla.casacivil.go.gov.br (portal de atos normativos do Estado de Goiás) */
+export const regimentoInterno = {
+  eyebrow: "Normas e Regulamentos",
+  titulo: "Regimento Interno da ESPP",
+  texto:
+    "O Regimento Interno da Escola Superior de Polícia Penal foi aprovado pela Portaria DGPP nº 285, de 01 de setembro de 2026, que revogou a norma anterior sobre o tema.",
+  portaria: {
+    numero: "Portaria DGPP nº 285, de 01 de setembro de 2026",
+    ementa:
+      "Aprova o Regimento Interno da Escola Superior de Polícia Penal - ESPP e revoga a Portaria DGPP nº 103, de 29 de março de 2024.",
+    href: "https://legisla.casacivil.go.gov.br/pesquisa_ato_infralegal/dgpp/25823/portaria-285",
+  },
+  revogada: {
+    numero: "Portaria DGPP nº 103, de 29 de março de 2024",
+    texto: "Norma revogada pela Portaria DGPP nº 285/2026.",
+    href: "https://legisla.casacivil.go.gov.br/pesquisa_ato_infralegal/dgpp/25807/portaria-103",
+  },
+} as const;
+
+/**
+ * Linha do tempo de atos normativos da ESPP/DGPP. Conteúdo de EXEMPLO,
+ * a ser substituído pela relação oficial e completa dos atos publicados
+ * (portal da Polícia Penal e legisla.casacivil.go.gov.br). VALIDAR.
+ */
+export const atosNormativos = {
+  eyebrow: "Normas e Regulamentos",
+  titulo: "Atos Normativos",
+  texto:
+    "Linha do tempo com os principais atos normativos da Escola — portarias, editais, resoluções e instruções normativas. Conteúdo de exemplo; a relação completa e atualizada está disponível no Diário Oficial e no portal da Polícia Penal.",
+  fonteHref: "https://legisla.casacivil.go.gov.br/",
+  itens: [
+    {
+      tipo: "Portaria",
+      numero: "Portaria DGPP nº 285, de 01 de setembro de 2026",
+      titulo: "Aprova o Regimento Interno da ESPP",
+      ementa:
+        "Aprova o Regimento Interno da Escola Superior de Polícia Penal - ESPP e revoga a Portaria DGPP nº 103, de 29 de março de 2024.",
+      situacao: "Vigente",
+      ano: 2026,
+      data: "2026-09-01",
+      href: "https://legisla.casacivil.go.gov.br/pesquisa_ato_infralegal/dgpp/25823/portaria-285",
+    },
+    {
+      tipo: "Portaria",
+      numero: "Portaria DGPP nº 202, de 16 de junho de 2026",
+      titulo: "Autoriza o Curso de Formação de Policiais Penais do Estado de Goiás – CFPPGO",
+      ementa:
+        "Autoriza e homologa o Curso de Formação de Policiais Penais do Estado de Goiás, com 1.058 vagas, na modalidade presencial.",
+      situacao: "Vigente",
+      ano: 2026,
+      data: "2026-06-16",
+      href: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-dgpp-no-202-de-16-de-junho-de-2026.html",
+    },
+    {
+      tipo: "Edital",
+      numero: "Edital ESPP nº 001/2026",
+      titulo: "Processo seletivo do Curso de Formação de Policiais Penais – CFPPGO",
+      ementa:
+        "Estabelece normas, requisitos e cronograma do processo seletivo interno para matrícula na turma 2026 do Curso de Formação de Policiais Penais do Estado de Goiás.",
+      situacao: "Encerrado",
+      ano: 2026,
+      data: "2026-05-20",
+      href: "https://www.policiapenal.go.gov.br/",
+    },
+    {
+      tipo: "Instrução Normativa",
+      numero: "Instrução Normativa DGPP nº 04/2025",
+      titulo: "Procedimentos para emissão de certificados dos cursos da ESPP",
+      ementa:
+        "Dispõe sobre os critérios e procedimentos para emissão, registro e validação de certificados dos cursos ofertados pela Escola Superior de Polícia Penal.",
+      situacao: "Vigente",
+      ano: 2025,
+      data: "2025-11-10",
+      href: "https://www.policiapenal.go.gov.br/",
+    },
+    {
+      tipo: "Portaria",
+      numero: "Portaria nº 74, de 07 de fevereiro de 2025",
+      titulo: "Autoriza o Curso Básico para Diretores de Unidades Prisionais",
+      ementa:
+        "Autoriza e homologa o Curso Básico para Diretores de Unidades Prisionais, com 102 vagas na modalidade presencial.",
+      situacao: "Vigente",
+      ano: 2025,
+      data: "2025-02-07",
+      href: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-74-de-07-de-fevereiro-de-2025-2.html",
+    },
+    {
+      tipo: "Resolução",
+      numero: "Resolução CEE nº 07/2024",
+      titulo: "Credencia a ESPP como Escola de Governo",
+      ementa:
+        "Aprova, por unanimidade, o credenciamento da Escola Superior de Polícia Penal como Escola de Governo perante o Conselho Estadual de Educação de Goiás.",
+      situacao: "Vigente",
+      ano: 2024,
+      data: "2024-05-10",
+      href: "https://goias.gov.br/seguranca/",
+    },
+    {
+      tipo: "Portaria",
+      numero: "Portaria DGPP nº 348, de 09 de setembro de 2024",
+      titulo: "Homologa o Curso de Inteligência Prisional – CIP",
+      ementa:
+        "Homologa o Curso de Inteligência Prisional, destinado a servidores da Polícia Penal, com 220 vagas na modalidade presencial.",
+      situacao: "Vigente",
+      ano: 2024,
+      data: "2024-09-09",
+      href: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-348-de-09-de-setembro-de-2024-2.html",
+    },
+    {
+      tipo: "Portaria",
+      numero: "Portaria DGPP nº 103, de 29 de março de 2024",
+      titulo: "Antigo Regimento Interno da ESPP",
+      ementa:
+        "Aprovava o Regimento Interno da Escola Superior de Polícia Penal, revogado pela Portaria DGPP nº 285, de 01 de setembro de 2026.",
+      situacao: "Revogado",
+      ano: 2024,
+      data: "2024-03-29",
+      href: "https://legisla.casacivil.go.gov.br/pesquisa_ato_infralegal/dgpp/25807/portaria-103",
+    },
+    {
+      tipo: "Instrução Normativa",
+      numero: "Instrução Normativa DGPP nº 01/2023",
+      titulo: "Critérios de convocação para cursos e capacitações",
+      ementa:
+        "Dispunha sobre os critérios de convocação de servidores para cursos e capacitações promovidos pela ESPP, substituída por norma superveniente.",
+      situacao: "Revogado",
+      ano: 2023,
+      data: "2023-02-01",
+      href: "https://www.policiapenal.go.gov.br/",
+    },
+    {
+      tipo: "Ato Normativo Conjunto",
+      numero: "Ato Normativo Conjunto DGPP/ESPP nº 001/2022",
+      titulo: "Institui o calendário anual de capacitação da Polícia Penal",
+      ementa:
+        "Institui o calendário anual de capacitação da Polícia Penal de Goiás, definindo prazos de planejamento, editais e execução dos cursos.",
+      situacao: "Vigente",
+      ano: 2022,
+      data: "2022-01-20",
+      href: "https://www.policiapenal.go.gov.br/",
+    },
+  ],
+} as const;
+
 export const contato = {
   eyebrow: "Contato",
   titulo: "Fale com a Escola",
@@ -627,8 +782,8 @@ export const rodape = {
     { label: "Mapa do site", href: "/mapa-do-site", interno: true },
     { label: "Portal da Polícia Penal", href: "https://www.policiapenal.go.gov.br/" },
     { label: "Acesso à Informação", href: "https://www.policiapenal.go.gov.br/acesso-a-informacao" },
-    { label: "Atos Normativos", href: "https://www.policiapenal.go.gov.br/" },
-    { label: "LGPD", href: "https://www.policiapenal.go.gov.br/" },
+    { label: "Atos Normativos", href: "/atos-normativos", interno: true },
+    { label: "LGPD", href: "https://goias.gov.br/casacivil/lei-geral-de-protecao-de-dados/" },
     { label: "Ouvidoria", href: "https://www.policiapenal.go.gov.br/" },
     { label: "Secretaria de Segurança Pública", href: "https://goias.gov.br/seguranca/" },
   ],

@@ -18,7 +18,7 @@ const base =
 const variants: Record<Variant, string> = {
   solid: "bg-gold-500 text-ink-950 hover:bg-gold-400",
   outline:
-    "border border-ink-600 text-white hover:border-gold-500 hover:text-gold-500",
+    "border border-ink-300 text-ink-800 hover:border-gold-500 hover:text-gold-600",
   ghost: "text-gold-600 hover:text-gold-500 px-0 py-1",
 };
 

@@ -7,6 +7,8 @@ const paginas: { path: string; priority: number }[] = [
   { path: "/formacao", priority: 0.8 },
   { path: "/cursos", priority: 0.8 },
   { path: "/matrizes-curriculares", priority: 0.8 },
+  { path: "/regimento-interno", priority: 0.6 },
+  { path: "/atos-normativos", priority: 0.6 },
   { path: "/noticias", priority: 0.7 },
   { path: "/fortis", priority: 0.7 },
   { path: "/estrutura", priority: 0.6 },

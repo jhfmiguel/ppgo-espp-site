@@ -13,9 +13,9 @@ type PaginaLink = { label: string; href: string };
 const paginas: PaginaLink[] = [
   ...nav.flatMap((item): PaginaLink[] =>
     "submenu" in item
-      ? item.submenu
-          .filter((sub) => !("external" in sub && sub.external))
-          .map((sub) => ({ label: sub.label, href: sub.href }))
+      ? item.submenu.flatMap((sub): PaginaLink[] =>
+          "href" in sub && !("external" in sub && sub.external) ? [{ label: sub.label, href: sub.href }] : [],
+        )
       : [{ label: item.label, href: item.href }],
   ),
   { label: "FORTIS", href: "/fortis" },

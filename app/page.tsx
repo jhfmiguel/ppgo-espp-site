@@ -6,8 +6,8 @@ import { AreaCards } from "@/components/area-cards";
 export default function Home() {
   return (
     <>
-      <NoticiasTeaser />
       <Hero />
+      <NoticiasTeaser />
       <StatsBand />
       <AreaCards />
     </>

@@ -37,26 +37,31 @@ export function NoticiaDestaque({ item, compacto }: { item: NoticiaItem; compact
   return (
     <Link
       href="/noticias"
-      className="group grid h-full overflow-hidden rounded-xl border border-ink-200 bg-white shadow-sm lg:grid-cols-2"
+      className="group grid h-full overflow-hidden rounded-xl border border-ink-200 bg-white shadow-sm transition-all duration-300 hover:border-gold-400/70 hover:shadow-md lg:grid-cols-2"
     >
       <div className={`relative overflow-hidden ${compacto ? "aspect-video" : "aspect-video lg:aspect-auto"}`}>
         <Capa item={item} sizes="(min-width: 1024px) 50vw, 100vw" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink-950/60 via-transparent to-transparent lg:hidden" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-ink-950/0 to-transparent lg:from-ink-950/50 lg:via-transparent" />
+        <span className="absolute top-4 left-4 inline-flex items-center rounded-full bg-gold-500 px-3 py-1 text-[0.65rem] font-bold tracking-wider text-ink-950 uppercase shadow-sm">
+          Destaque
+        </span>
       </div>
       <div className={`flex flex-col justify-center ${compacto ? "p-6 lg:p-7" : "p-7 lg:p-10"}`}>
-        <p className="flex items-center gap-3 text-[0.7rem] font-bold tracking-[0.14em] text-gold-600 uppercase">
-          <span>{item.categoria}</span>
-          <span aria-hidden="true" className="h-px w-6 bg-current opacity-60" />
-          <time dateTime={item.data}>{formatarData(item.data)}</time>
+        <p className="flex flex-wrap items-center gap-3 text-[0.7rem] font-bold tracking-[0.14em] uppercase">
+          <span className="rounded-full bg-gold-050 px-3 py-1 text-gold-700">{item.categoria}</span>
+          <span className="flex items-center gap-2 text-ink-500">
+            <span aria-hidden="true">·</span>
+            <time dateTime={item.data}>{formatarData(item.data)}</time>
+          </span>
         </p>
-        <h3 className={`title-display mt-3 text-ink-900 ${compacto ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl"}`}>
+        <h3
+          className={`title-display mt-3 line-clamp-2 text-ink-900 transition-colors group-hover:text-gold-600 ${compacto ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl"}`}
+        >
           {item.titulo}
         </h3>
-        {compacto ? null : (
-          <p className="mt-4 text-sm leading-relaxed text-ink-700 sm:text-base">
-            {item.resumo}
-          </p>
-        )}
+        <p className={`mt-4 text-sm leading-relaxed text-ink-700 sm:text-base ${compacto ? "line-clamp-2" : ""}`}>
+          {item.resumo}
+        </p>
         <span className="mt-5 inline-flex w-fit items-center gap-2 rounded-md bg-gold-500 px-5 py-2.5 text-xs font-bold tracking-wide text-ink-950 uppercase transition-colors group-hover:bg-gold-400">
           Ler notícia
           <ArrowRight
@@ -66,44 +71,6 @@ export function NoticiaDestaque({ item, compacto }: { item: NoticiaItem; compact
         </span>
       </div>
     </Link>
-  );
-}
-
-/** Linha compacta (miniatura + título + data), para listas laterais enxutas. */
-export function NoticiaLinha({ item }: { item: NoticiaItem }) {
-  return (
-    <li>
-      <Link href="/noticias" className="group flex items-center gap-4 py-3">
-        <div className="relative size-16 shrink-0 overflow-hidden rounded-md">
-          <Capa item={item} sizes="64px" />
-        </div>
-        <div className="min-w-0 grow">
-          <p className="text-[0.65rem] font-bold tracking-[0.12em] text-gold-600 uppercase">
-            {item.categoria}
-          </p>
-          <h4 className="mt-0.5 line-clamp-2 text-sm leading-snug font-semibold text-ink-900 transition-colors group-hover:text-gold-600">
-            {item.titulo}
-          </h4>
-          <time dateTime={item.data} className="mt-0.5 block text-xs text-ink-500">
-            {formatarData(item.data, "curta")}
-          </time>
-        </div>
-        <span className="relative shrink-0">
-          <span
-            role="tooltip"
-            className="pointer-events-none absolute right-0 bottom-full mb-2 w-max rounded-md bg-ink-900 px-2.5 py-1.5 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100"
-          >
-            Ler notícia
-          </span>
-          <span
-            aria-hidden="true"
-            className="flex size-8 items-center justify-center rounded-full border border-ink-300 text-ink-500 transition-colors group-hover:border-gold-500 group-hover:text-gold-600"
-          >
-            <ArrowRight className="size-4" />
-          </span>
-        </span>
-      </Link>
-    </li>
   );
 }
 
