@@ -1,8 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { FileText, Search } from "lucide-react";
+import { Download, FileText, Search } from "lucide-react";
 import { atosNormativos } from "@/content/site";
+import { formatarData } from "@/lib/formato";
+import { formatarTamanho } from "@/lib/limites";
+import type { AtoNormativo } from "@/lib/data/types";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ActionLink } from "@/components/ui/action-link";
 import { ESTILO_SITUACAO_ATO, ICONE_TIPO_ATO } from "@/components/atos-normativos-styles";
@@ -16,22 +19,14 @@ function normalizar(texto: string) {
     .toLowerCase();
 }
 
-function formatarData(data: string) {
-  return new Date(`${data}T00:00:00`).toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-}
-
-export function AtosNormativos() {
+export function AtosNormativos({ atos }: { atos: AtoNormativo[] }) {
   const tipos = useMemo(
-    () => Array.from(new Set(atosNormativos.itens.map((ato) => ato.tipo))).sort(),
-    [],
+    () => Array.from(new Set(atos.map((ato) => ato.tipo))).sort(),
+    [atos],
   );
   const anos = useMemo(
-    () => Array.from(new Set(atosNormativos.itens.map((ato) => ato.ano))).sort((a, b) => b - a),
-    [],
+    () => Array.from(new Set(atos.map((ato) => ato.ano))).sort((a, b) => b - a),
+    [atos],
   );
 
   const [busca, setBusca] = useState("");
@@ -40,7 +35,7 @@ export function AtosNormativos() {
 
   const filtrados = useMemo(() => {
     const termo = normalizar(busca.trim());
-    return atosNormativos.itens
+    return atos
       .filter((ato) => tipo === TODOS || ato.tipo === tipo)
       .filter((ato) => ano === TODOS || ato.ano === ano)
       .filter(
@@ -51,7 +46,7 @@ export function AtosNormativos() {
           normalizar(ato.numero).includes(termo),
       )
       .sort((a, b) => (a.data < b.data ? 1 : -1));
-  }, [busca, tipo, ano]);
+  }, [atos, busca, tipo, ano]);
 
   return (
     <section
@@ -129,7 +124,7 @@ export function AtosNormativos() {
             {filtrados.map((ato) => {
               const IconeTipo = ICONE_TIPO_ATO[ato.tipo] ?? FileText;
               return (
-                <li key={ato.numero} className="relative pl-8">
+                <li key={ato.id} className="relative pl-8">
                   <span
                     aria-hidden="true"
                     className="absolute top-6 -left-[9px] size-4 rounded-full border-4 border-white bg-gold-500"
@@ -156,9 +151,24 @@ export function AtosNormativos() {
                     <h3 className="title-display mt-2 text-lg text-ink-900">{ato.titulo}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-ink-700">{ato.ementa}</p>
 
-                    <ActionLink href={ato.href} external variant="ghost" className="mt-4 text-xs">
-                      Ver publicação oficial
-                    </ActionLink>
+                    <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+                      {ato.anexo ? (
+                        <a
+                          href={ato.anexo.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 text-xs font-bold tracking-wider text-gold-700 uppercase underline underline-offset-4 hover:text-gold-600"
+                        >
+                          <Download className="size-3.5" aria-hidden="true" />
+                          Baixar PDF ({formatarTamanho(ato.anexo.tamanho)})
+                        </a>
+                      ) : null}
+                      {ato.href ? (
+                        <ActionLink href={ato.href} external variant="ghost" className="text-xs">
+                          Ver publicação oficial
+                        </ActionLink>
+                      ) : null}
+                    </div>
                   </div>
                 </li>
               );

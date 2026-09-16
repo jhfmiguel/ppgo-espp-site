@@ -3,23 +3,16 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { atosNormativos } from "@/content/site";
+import { formatarData } from "@/lib/formato";
+import type { AtoNormativo } from "@/lib/data/types";
 import { ESTILO_SITUACAO_ATO, ICONE_TIPO_ATO } from "@/components/atos-normativos-styles";
 
 const INTERVALO_MS = 6000;
 
-function formatarData(data: string) {
-  return new Date(`${data}T00:00:00`).toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-}
-
-export function AtosNormativosCarrossel() {
+export function AtosNormativosCarrossel({ atos }: { atos: AtoNormativo[] }) {
   const itens = useMemo(
-    () => [...atosNormativos.itens].sort((a, b) => (a.data < b.data ? 1 : -1)).slice(0, 3),
-    [],
+    () => [...atos].sort((a, b) => (a.data < b.data ? 1 : -1)).slice(0, 3),
+    [atos],
   );
   const [indice, setIndice] = useState(0);
   const [pausado, setPausado] = useState(false);
@@ -75,7 +68,7 @@ export function AtosNormativosCarrossel() {
 
         <p className="mt-4 text-xs font-semibold tracking-wider text-ink-500 uppercase">
           {item.numero} <span aria-hidden="true" className="text-ink-300">·</span>{" "}
-          <time dateTime={item.data}>{formatarData(item.data)}</time>
+          <time dateTime={item.data}>{formatarData(item.data, "curta")}</time>
         </p>
         <h3 className="title-display mt-1 line-clamp-2 text-lg text-ink-900 transition-colors group-hover:text-gold-600">
           {item.titulo}

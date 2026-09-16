@@ -4,22 +4,15 @@ import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Megaphone } from "lucide-react";
-import { noticias } from "@/content/site";
+import { formatarData } from "@/lib/formato";
+import type { Noticia } from "@/lib/data/types";
 
 const INTERVALO_MS = 6000;
 
-type NoticiaItem = (typeof noticias)["itens"][number];
-
-function formatarData(data: string) {
-  return new Date(`${data}T00:00:00`).toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-}
+type NoticiaItem = Noticia;
 
 function Capa({ item }: { item: NoticiaItem }) {
-  if ("imagem" in item && item.imagem) {
+  if (item.imagem) {
     return (
       <Image
         src={item.imagem.src}
@@ -38,10 +31,10 @@ function Capa({ item }: { item: NoticiaItem }) {
 }
 
 /** Carrossel com as notícias mais recentes — usado na home, ao lado do widget de Atos Normativos. */
-export function NoticiasCarrossel() {
+export function NoticiasCarrossel({ noticias }: { noticias: Noticia[] }) {
   const itens = useMemo(
-    () => [...noticias.itens].sort((a, b) => (a.data < b.data ? 1 : -1)),
-    [],
+    () => [...noticias].sort((a, b) => (a.data < b.data ? 1 : -1)),
+    [noticias],
   );
   const [indice, setIndice] = useState(0);
   const [pausado, setPausado] = useState(false);
@@ -77,7 +70,10 @@ export function NoticiasCarrossel() {
         </Link>
       </div>
 
-      <Link href="/noticias" className="group mt-4 grid min-h-0 grow overflow-hidden lg:grid-cols-2">
+      <Link
+        href={`/noticias/${item.slug}`}
+        className="group mt-4 grid min-h-0 grow overflow-hidden lg:grid-cols-2"
+      >
         <div className="relative aspect-video overflow-hidden lg:aspect-auto">
           <Capa item={item} />
           <div className="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-ink-950/0 to-transparent lg:from-ink-950/40 lg:via-transparent" />
@@ -104,7 +100,7 @@ export function NoticiasCarrossel() {
         <div className="flex items-center gap-1.5">
           {itens.map((it, i) => (
             <button
-              key={it.titulo}
+              key={it.id}
               type="button"
               aria-label={`Ver notícia: ${it.titulo}`}
               aria-current={i === indice}

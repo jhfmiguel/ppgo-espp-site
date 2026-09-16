@@ -55,7 +55,10 @@ export const nav = [
   },
   {
     label: "Mídias",
-    submenu: [{ label: "Notícias", href: "/noticias" }],
+    submenu: [
+      { label: "Notícias", href: "/noticias" },
+      { label: "Eventos", href: "/eventos" },
+    ],
   },
   {
     label: "Normas e Regulamentos",
@@ -368,60 +371,26 @@ export const matrizes = {
 } as const;
 
 /** Notícias de exemplo — conteúdo de rascunho a ser substituído pela ESPP. VALIDAR. */
+/**
+ * Cabeçalho da seção de notícias.
+ *
+ * As notícias em si não ficam mais aqui: são gerenciadas pelo painel
+ * administrativo (/admin) e lidas de `content/data/noticias.json` através de
+ * `lib/data/store.ts`.
+ */
 export const noticias = {
   eyebrow: "Notícias",
   titulo: "O que está acontecendo na Escola",
   texto:
-    "Últimas novidades sobre cursos, turmas e parcerias da ESPP. Conteúdo de exemplo — substituir pelas notícias reais da Escola.",
-  itens: [
-    {
-      titulo: "ESPP abre inscrições para nova turma do CFPPGO",
-      data: "2026-08-20",
-      categoria: "Formação",
-      resumo:
-        "Curso de Formação de Policiais Penais do Estado de Goiás oferece 1.058 vagas para a turma de 2026, com início previsto para o segundo semestre.",
-      imagem: {
-        src: "/images/formacao-policial-01.jpg",
-        alt: "Turma de policiais penais de Goiás em formatura, uniformizados e em formação",
-      },
-    }, // VALIDAR
-    {
-      titulo: "Cooperação com a UFG leva mais servidores ao mestrado profissional",
-      data: "2026-07-05",
-      categoria: "Pós-graduação",
-      resumo:
-        "Nova etapa da parceria com o PPGEP/UFG seleciona policiais penais para o Mestrado Profissional em Engenharia de Produção.",
-      imagem: {
-        src: "/images/formacao-policial-02.jpg",
-        alt: "Policiais penais reunidos em atividade de formação da Escola Superior de Polícia Penal",
-      },
-    }, // VALIDAR
-    {
-      titulo: "Curso de Inteligência Artificial na Prática forma primeira turma",
-      data: "2026-03-10",
-      categoria: "Tecnologia",
-      resumo:
-        "Servidores da DGPP concluem capacitação em ferramentas de IA aplicadas à otimização de processos administrativos.",
-    }, // VALIDAR
-    {
-      titulo: "ESPP registra recorde de cursos programados para o ano",
-      data: "2025-12-15",
-      categoria: "Institucional",
-      resumo:
-        "Mais de 66 cursos programados no ano, crescimento de 46,6% em relação ao período anterior.",
-      imagem: {
-        src: "/images/espp-viaturas.jpg",
-        alt: "Viaturas da Polícia Penal do Estado de Goiás estacionadas em frente à fachada com o brasão da instituição",
-      },
-    }, // VALIDAR
-    {
-      titulo: "ESPP padroniza emissão de certificados dos cursos",
-      data: "2025-11-12",
-      categoria: "Institucional",
-      resumo:
-        "Nova instrução normativa estabelece critérios únicos para emissão, registro e validação de certificados de todos os cursos ofertados pela Escola.",
-    }, // VALIDAR
-  ],
+    "Últimas novidades sobre cursos, turmas e parcerias da ESPP.",
+} as const;
+
+/** Cabeçalho da agenda de eventos — itens gerenciados pelo painel (/admin). */
+export const eventos = {
+  eyebrow: "Agenda",
+  titulo: "Eventos da Escola",
+  texto:
+    "Aulas inaugurais, seminários, capacitações e solenidades da Escola Superior de Polícia Penal.",
 } as const;
 
 /** Cards de navegação da home para as demais áreas do site. */
@@ -613,124 +582,18 @@ export const regimentoInterno = {
  * a ser substituído pela relação oficial e completa dos atos publicados
  * (portal da Polícia Penal e legisla.casacivil.go.gov.br). VALIDAR.
  */
+/**
+ * Cabeçalho da página de Atos Normativos.
+ *
+ * Os atos em si são gerenciados pelo painel administrativo (/admin) pelo perfil
+ * administrador e lidos de `content/data/atos-normativos.json`.
+ */
 export const atosNormativos = {
   eyebrow: "Normas e Regulamentos",
   titulo: "Atos Normativos",
   texto:
-    "Linha do tempo com os principais atos normativos da Escola — portarias, editais, resoluções e instruções normativas. Conteúdo de exemplo; a relação completa e atualizada está disponível no Diário Oficial e no portal da Polícia Penal.",
+    "Linha do tempo com os principais atos normativos da Escola — portarias, editais, resoluções e instruções normativas. A relação completa e atualizada está disponível no Diário Oficial e no portal da Polícia Penal.",
   fonteHref: "https://legisla.casacivil.go.gov.br/",
-  itens: [
-    {
-      tipo: "Portaria",
-      numero: "Portaria DGPP nº 285, de 01 de setembro de 2026",
-      titulo: "Aprova o Regimento Interno da ESPP",
-      ementa:
-        "Aprova o Regimento Interno da Escola Superior de Polícia Penal - ESPP e revoga a Portaria DGPP nº 103, de 29 de março de 2024.",
-      situacao: "Vigente",
-      ano: 2026,
-      data: "2026-09-01",
-      href: "https://legisla.casacivil.go.gov.br/pesquisa_ato_infralegal/dgpp/25823/portaria-285",
-    },
-    {
-      tipo: "Portaria",
-      numero: "Portaria DGPP nº 202, de 16 de junho de 2026",
-      titulo: "Autoriza o Curso de Formação de Policiais Penais do Estado de Goiás – CFPPGO",
-      ementa:
-        "Autoriza e homologa o Curso de Formação de Policiais Penais do Estado de Goiás, com 1.058 vagas, na modalidade presencial.",
-      situacao: "Vigente",
-      ano: 2026,
-      data: "2026-06-16",
-      href: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-dgpp-no-202-de-16-de-junho-de-2026.html",
-    },
-    {
-      tipo: "Edital",
-      numero: "Edital ESPP nº 001/2026",
-      titulo: "Processo seletivo do Curso de Formação de Policiais Penais – CFPPGO",
-      ementa:
-        "Estabelece normas, requisitos e cronograma do processo seletivo interno para matrícula na turma 2026 do Curso de Formação de Policiais Penais do Estado de Goiás.",
-      situacao: "Encerrado",
-      ano: 2026,
-      data: "2026-05-20",
-      href: "https://www.policiapenal.go.gov.br/",
-    },
-    {
-      tipo: "Instrução Normativa",
-      numero: "Instrução Normativa DGPP nº 04/2025",
-      titulo: "Procedimentos para emissão de certificados dos cursos da ESPP",
-      ementa:
-        "Dispõe sobre os critérios e procedimentos para emissão, registro e validação de certificados dos cursos ofertados pela Escola Superior de Polícia Penal.",
-      situacao: "Vigente",
-      ano: 2025,
-      data: "2025-11-10",
-      href: "https://www.policiapenal.go.gov.br/",
-    },
-    {
-      tipo: "Portaria",
-      numero: "Portaria nº 74, de 07 de fevereiro de 2025",
-      titulo: "Autoriza o Curso Básico para Diretores de Unidades Prisionais",
-      ementa:
-        "Autoriza e homologa o Curso Básico para Diretores de Unidades Prisionais, com 102 vagas na modalidade presencial.",
-      situacao: "Vigente",
-      ano: 2025,
-      data: "2025-02-07",
-      href: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-74-de-07-de-fevereiro-de-2025-2.html",
-    },
-    {
-      tipo: "Resolução",
-      numero: "Resolução CEE nº 07/2024",
-      titulo: "Credencia a ESPP como Escola de Governo",
-      ementa:
-        "Aprova, por unanimidade, o credenciamento da Escola Superior de Polícia Penal como Escola de Governo perante o Conselho Estadual de Educação de Goiás.",
-      situacao: "Vigente",
-      ano: 2024,
-      data: "2024-05-10",
-      href: "https://goias.gov.br/seguranca/",
-    },
-    {
-      tipo: "Portaria",
-      numero: "Portaria DGPP nº 348, de 09 de setembro de 2024",
-      titulo: "Homologa o Curso de Inteligência Prisional – CIP",
-      ementa:
-        "Homologa o Curso de Inteligência Prisional, destinado a servidores da Polícia Penal, com 220 vagas na modalidade presencial.",
-      situacao: "Vigente",
-      ano: 2024,
-      data: "2024-09-09",
-      href: "https://www.policiapenal.go.gov.br/atos-normativos/portarias/portaria-no-348-de-09-de-setembro-de-2024-2.html",
-    },
-    {
-      tipo: "Portaria",
-      numero: "Portaria DGPP nº 103, de 29 de março de 2024",
-      titulo: "Antigo Regimento Interno da ESPP",
-      ementa:
-        "Aprovava o Regimento Interno da Escola Superior de Polícia Penal, revogado pela Portaria DGPP nº 285, de 01 de setembro de 2026.",
-      situacao: "Revogado",
-      ano: 2024,
-      data: "2024-03-29",
-      href: "https://legisla.casacivil.go.gov.br/pesquisa_ato_infralegal/dgpp/25807/portaria-103",
-    },
-    {
-      tipo: "Instrução Normativa",
-      numero: "Instrução Normativa DGPP nº 01/2023",
-      titulo: "Critérios de convocação para cursos e capacitações",
-      ementa:
-        "Dispunha sobre os critérios de convocação de servidores para cursos e capacitações promovidos pela ESPP, substituída por norma superveniente.",
-      situacao: "Revogado",
-      ano: 2023,
-      data: "2023-02-01",
-      href: "https://www.policiapenal.go.gov.br/",
-    },
-    {
-      tipo: "Ato Normativo Conjunto",
-      numero: "Ato Normativo Conjunto DGPP/ESPP nº 001/2022",
-      titulo: "Institui o calendário anual de capacitação da Polícia Penal",
-      ementa:
-        "Institui o calendário anual de capacitação da Polícia Penal de Goiás, definindo prazos de planejamento, editais e execução dos cursos.",
-      situacao: "Vigente",
-      ano: 2022,
-      data: "2022-01-20",
-      href: "https://www.policiapenal.go.gov.br/",
-    },
-  ],
 } as const;
 
 export const contato = {

@@ -1,20 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Megaphone } from "lucide-react";
-import type { noticias } from "@/content/site";
 
-type NoticiaItem = (typeof noticias)["itens"][number];
+import { formatarData } from "@/lib/formato";
+import type { Noticia } from "@/lib/data/types";
 
-function formatarData(data: string, formato: "curta" | "longa" = "longa") {
-  return new Date(`${data}T00:00:00`).toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: formato === "longa" ? "long" : "short",
-    year: "numeric",
-  });
-}
-
-function Capa({ item, sizes }: { item: NoticiaItem; sizes: string }) {
-  if ("imagem" in item && item.imagem) {
+function Capa({ item, sizes }: { item: Noticia; sizes: string }) {
+  if (item.imagem) {
     return (
       <Image
         src={item.imagem.src}
@@ -33,10 +25,10 @@ function Capa({ item, sizes }: { item: NoticiaItem; sizes: string }) {
 }
 
 /** Card em destaque — usado para a notícia mais recente. */
-export function NoticiaDestaque({ item, compacto }: { item: NoticiaItem; compacto?: boolean }) {
+export function NoticiaDestaque({ item, compacto }: { item: Noticia; compacto?: boolean }) {
   return (
     <Link
-      href="/noticias"
+      href={`/noticias/${item.slug}`}
       className="group grid h-full overflow-hidden rounded-xl border border-ink-200 bg-white shadow-sm transition-all duration-300 hover:border-gold-400/70 hover:shadow-md lg:grid-cols-2"
     >
       <div className={`relative overflow-hidden ${compacto ? "aspect-video" : "aspect-video lg:aspect-auto"}`}>
@@ -75,20 +67,27 @@ export function NoticiaDestaque({ item, compacto }: { item: NoticiaItem; compact
 }
 
 /** Card padrão de listagem, com ou sem imagem de capa. */
-export function NoticiaCard({ item }: { item: NoticiaItem }) {
+export function NoticiaCard({ item }: { item: Noticia }) {
   return (
-    <li className="group flex h-full flex-col overflow-hidden rounded-lg border border-ink-200 bg-white shadow-sm transition-colors hover:border-gold-500/70">
-      <div className="relative aspect-video w-full overflow-hidden">
-        <Capa item={item} sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" />
-      </div>
-      <div className="flex grow flex-col p-6">
-        <p className="flex items-center justify-between text-[0.7rem] font-bold tracking-[0.14em] text-gold-600 uppercase">
-          <span>{item.categoria}</span>
-          <time dateTime={item.data}>{formatarData(item.data, "curta")}</time>
-        </p>
-        <h3 className="title-display mt-3 text-lg text-ink-900">{item.titulo}</h3>
-        <p className="mt-3 grow text-sm leading-relaxed text-ink-700">{item.resumo}</p>
-      </div>
+    <li className="group h-full">
+      <Link
+        href={`/noticias/${item.slug}`}
+        className="flex h-full flex-col overflow-hidden rounded-lg border border-ink-200 bg-white shadow-sm transition-colors hover:border-gold-500/70"
+      >
+        <div className="relative aspect-video w-full overflow-hidden">
+          <Capa item={item} sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" />
+        </div>
+        <div className="flex grow flex-col p-6">
+          <p className="flex items-center justify-between text-[0.7rem] font-bold tracking-[0.14em] text-gold-600 uppercase">
+            <span>{item.categoria}</span>
+            <time dateTime={item.data}>{formatarData(item.data, "curta")}</time>
+          </p>
+          <h3 className="title-display mt-3 text-lg text-ink-900 transition-colors group-hover:text-gold-600">
+            {item.titulo}
+          </h3>
+          <p className="mt-3 grow text-sm leading-relaxed text-ink-700">{item.resumo}</p>
+        </div>
+      </Link>
     </li>
   );
 }

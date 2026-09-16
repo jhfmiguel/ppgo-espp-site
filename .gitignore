@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# arquivos enviados pelo painel administrativo (/admin)
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# arquivos temporários do armazenamento mockado
+/content/data/*.tmp

@@ -1,9 +1,11 @@
 import { noticias } from "@/content/site";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { NoticiaCard, NoticiaDestaque } from "@/components/noticia-card";
+import { listarNoticiasPublicadas } from "@/lib/data/store";
 
-export function Noticias() {
-  const [destaque, ...resto] = noticias.itens;
+export async function Noticias() {
+  const itens = await listarNoticiasPublicadas();
+  const [destaque, ...resto] = itens;
 
   return (
     <section
@@ -29,9 +31,15 @@ export function Noticias() {
         {resto.length > 0 ? (
           <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {resto.map((item) => (
-              <NoticiaCard key={item.titulo} item={item} />
+              <NoticiaCard key={item.id} item={item} />
             ))}
           </ul>
+        ) : null}
+
+        {itens.length === 0 ? (
+          <p className="mt-12 rounded-xl border border-dashed border-ink-300 bg-ink-050 px-6 py-12 text-center text-sm text-ink-600">
+            Nenhuma notícia publicada no momento.
+          </p>
         ) : null}
       </div>
     </section>
