@@ -1,6 +1,14 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/content/site";
+import { documentos, site } from "@/content/site";
 import { listarEventosPublicados, listarNoticiasPublicadas } from "@/lib/data/store";
+
+/** Páginas de documentos institucionais, uma por arquivo publicado. */
+const rotasDocumentos: { path: string; priority: number }[] = [];
+for (const categoria of documentos.categorias) {
+  for (const doc of categoria.itens) {
+    rotasDocumentos.push({ path: `/documentos/${doc.slug}`, priority: 0.5 });
+  }
+}
 
 const paginas: { path: string; priority: number }[] = [
   { path: "", priority: 1 },
@@ -10,6 +18,7 @@ const paginas: { path: string; priority: number }[] = [
   { path: "/matrizes-curriculares", priority: 0.8 },
   { path: "/regimento-interno", priority: 0.6 },
   { path: "/atos-normativos", priority: 0.6 },
+  { path: "/documentos", priority: 0.7 },
   { path: "/noticias", priority: 0.7 },
   { path: "/eventos", priority: 0.7 },
   { path: "/fortis", priority: 0.7 },
@@ -23,12 +32,14 @@ const paginas: { path: string; priority: number }[] = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
 
-  const fixas: MetadataRoute.Sitemap = paginas.map(({ path, priority }) => ({
-    url: `${site.url}${path}`,
-    lastModified,
-    changeFrequency: "monthly",
-    priority,
-  }));
+  const fixas: MetadataRoute.Sitemap = [...paginas, ...rotasDocumentos].map(
+    ({ path, priority }) => ({
+      url: `${site.url}${path}`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority,
+    }),
+  );
 
   // Notícias e eventos publicados pelo painel entram no sitemap
   // individualmente, com a data da última edição.

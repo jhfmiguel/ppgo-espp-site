@@ -51,7 +51,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         Ir para o conteúdo principal
       </a>
       <SiteHeader />
-      <main id="conteudo" className="flex-1 pt-[132px] xl:pt-[180px]">
+      <main id="conteudo" className="flex-1 pt-header xl:pt-header-xl">
         {children}
       </main>
       <SiteFooter />

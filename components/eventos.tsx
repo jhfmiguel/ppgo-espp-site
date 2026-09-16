@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CalendarClock, CalendarDays, MapPin, Monitor } from "lucide-react";
 
-import { SectionHeading } from "@/components/ui/section-heading";
+import { PageHeader } from "@/components/ui/page-header";
 import { listarEventosPublicados } from "@/lib/data/store";
 import { diaEMes, formatarPeriodo } from "@/lib/formato";
 import { eventos as textos } from "@/content/site";
@@ -100,15 +100,15 @@ export async function Eventos() {
     <section
       id="eventos"
       aria-labelledby="eventos-titulo"
-      className="scroll-mt-24 bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
-        <SectionHeading
+        <PageHeader
+          href="/eventos"
           id="eventos-titulo"
           eyebrow={textos.eyebrow}
           titulo={textos.titulo}
           texto={textos.texto}
-          tone="light"
         />
 
         {itens.length === 0 ? (

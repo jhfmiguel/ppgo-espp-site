@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Institucional } from "@/components/institucional";
+import { Recredenciamento } from "@/components/recredenciamento";
 import { institucional } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -8,5 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function InstitucionalPage() {
-  return <Institucional />;
+  return (
+    <>
+      <Institucional />
+      <Recredenciamento />
+    </>
+  );
 }

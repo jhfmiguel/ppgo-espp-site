@@ -1,6 +1,6 @@
 import { Clock, MapPin } from "lucide-react";
 import { cursos } from "@/content/site";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { PageHeader } from "@/components/ui/page-header";
 import { ActionLink } from "@/components/ui/action-link";
 
 export function CursosDestaque() {
@@ -8,15 +8,15 @@ export function CursosDestaque() {
     <section
       id="cursos"
       aria-labelledby="cursos-titulo"
-      className="scroll-mt-24 bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
-        <SectionHeading
+        <PageHeader
+          href="/cursos"
           id="cursos-titulo"
           eyebrow={cursos.eyebrow}
           titulo={cursos.titulo}
           texto={cursos.texto}
-          tone="light"
         />
 
         <ul className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">

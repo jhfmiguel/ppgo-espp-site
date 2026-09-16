@@ -1,6 +1,6 @@
 import { Building2, Clock, MapPin, Navigation } from "lucide-react";
 import { localizacao } from "@/content/site";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { PageHeader } from "@/components/ui/page-header";
 import { MapEmbed } from "@/components/map-embed";
 
 const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(localizacao.mapaQuery)}`;
@@ -11,15 +11,15 @@ export function Localizacao() {
     <section
       id="localizacao"
       aria-labelledby="localizacao-titulo"
-      className="scroll-mt-24 bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
-        <SectionHeading
+        <PageHeader
+          href="/localizacao"
           id="localizacao-titulo"
           eyebrow={localizacao.eyebrow}
           titulo={localizacao.titulo}
           texto={localizacao.texto}
-          tone="light"
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-12">

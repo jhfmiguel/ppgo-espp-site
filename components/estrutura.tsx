@@ -2,18 +2,23 @@ import Image from "next/image";
 import { estrutura } from "@/content/site";
 import { Icon } from "@/components/ui/icon";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { trilhaDe } from "@/components/ui/page-header";
 
 export function Estrutura() {
   return (
     <section
       id="estrutura"
       aria-labelledby="estrutura-titulo"
-      className="scroll-mt-24 bg-ink-100 pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-ink-100 pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
-        <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
+        <Breadcrumb itens={trilhaDe("/estrutura")} />
+
+        <div className="mt-8 grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
           <div>
             <SectionHeading
+              as="h1"
               id="estrutura-titulo"
               eyebrow={estrutura.eyebrow}
               titulo={estrutura.titulo}

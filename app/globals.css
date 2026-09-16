@@ -22,6 +22,8 @@
   --color-gold-500: #f5c400;
   --color-gold-400: #ffd426;
   --color-gold-600: #d3a800;
+  /* usado em selos sobre gold-050; escurecido para atingir 5,7:1 (WCAG AA) */
+  --color-gold-700: #7a5f00;
   --color-gold-050: #fff8dd;
 
   --color-forest-500: #149b4a;
@@ -32,6 +34,12 @@
   --color-gov-teal: #037770;
   --color-gov-teal-dark: #00534b;
 
+  /* Altura do header fixo, somando as faixas de components/site-header.tsx:
+     barra utilitária (h-9) + brasões (h-24) e, a partir de xl, o menu (h-12).
+     Usada no espaçamento do <main>, no scroll de âncoras e no menu mobile. */
+  --spacing-header: 8.25rem;
+  --spacing-header-xl: 11.25rem;
+
   --font-display: var(--font-display), "Arial Narrow", system-ui, sans-serif;
   --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
 }
@@ -39,9 +47,16 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* compensa o header fixo ao navegar por âncoras */
-    scroll-padding-top: 5.5rem;
+    /* compensa o header fixo ao navegar por âncoras; é o único mecanismo de
+       offset, por isso as seções não precisam de scroll-margin-top */
+    scroll-padding-top: var(--spacing-header);
     transition: font-size 0.15s ease;
+  }
+
+  @media (min-width: 1280px) {
+    html {
+      scroll-padding-top: var(--spacing-header-xl);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -1,6 +1,7 @@
 import { ExternalLink } from "lucide-react";
 import { fortis } from "@/content/site";
 import { Icon } from "@/components/ui/icon";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { FortisMockup } from "@/components/fortis-mockup";
 import { NotifyForm } from "@/components/notify-form";
 
@@ -9,7 +10,7 @@ export function FortisSection() {
     <section
       id="fortis"
       aria-labelledby="fortis-titulo"
-      className="relative scroll-mt-24 overflow-hidden bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="relative overflow-hidden bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       {/* brilho de fundo */}
       <div
@@ -18,7 +19,9 @@ export function FortisSection() {
       />
 
       <div className="container-espp relative">
-        <div className="max-w-3xl">
+        <Breadcrumb itens={[{ label: fortis.nome }]} />
+
+        <div className="mt-8 max-w-3xl">
           <p className="inline-flex items-center gap-2.5 rounded-full border border-gold-500/40 bg-gold-050 px-4 py-1.5 text-[0.7rem] font-bold tracking-[0.18em] text-gold-600 uppercase">
             <span
               aria-hidden="true"
@@ -27,9 +30,9 @@ export function FortisSection() {
             {fortis.eyebrow}
           </p>
 
-          <h2 id="fortis-titulo" className="title-display mt-6 text-5xl text-ink-900 sm:text-6xl">
+          <h1 id="fortis-titulo" className="title-display mt-6 text-5xl text-ink-900 sm:text-6xl">
             {fortis.nome}
-          </h2>
+          </h1>
           <p className="title-display mt-3 text-2xl text-gold-600 sm:text-3xl">
             {fortis.titulo}
           </p>

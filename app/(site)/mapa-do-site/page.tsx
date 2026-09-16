@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { nav, site } from "@/content/site";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { PageHeader } from "@/components/ui/page-header";
 
 export const metadata: Metadata = {
   title: "Mapa do site",
@@ -27,12 +27,13 @@ export default function MapaDoSitePage() {
   return (
     <section aria-labelledby="mapa-titulo" className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32">
       <div className="container-espp">
-        <SectionHeading
+        <PageHeader
+          href="/mapa-do-site"
+          trilha={[{ label: "Mapa do site" }]}
           id="mapa-titulo"
           eyebrow="Mapa do site"
           titulo="Todas as páginas do site"
           texto="Navegue diretamente para qualquer área do site institucional da Escola."
-          tone="light"
         />
 
         <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
