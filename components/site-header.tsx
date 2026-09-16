@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Accessibility, ChevronDown, Contrast, Menu, X } from "lucide-react";
 import { fortis, goias, nav, site, topbar } from "@/content/site";
+import { Icon } from "@/components/ui/icon";
 
 type TamanhoFonte = "sm" | "md" | "lg";
 
@@ -334,6 +335,9 @@ export function SiteHeader() {
                             pathname === sub.href ? "text-gold-600" : "text-ink-700",
                           ].join(" ")}
                         >
+                          {"icone" in sub ? (
+                            <Icon name={sub.icone} className="mr-2 -mt-0.5 inline size-3.5" />
+                          ) : null}
                           {sub.label}
                         </Link>
                       ),
@@ -418,6 +422,9 @@ export function SiteHeader() {
                                 pathname === sub.href ? "text-gold-600" : "text-ink-600",
                               ].join(" ")}
                             >
+                              {"icone" in sub ? (
+                                <Icon name={sub.icone} className="mr-2 -mt-0.5 inline size-3.5" />
+                              ) : null}
                               {sub.label}
                             </Link>
                           </li>

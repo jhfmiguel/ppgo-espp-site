@@ -10,6 +10,13 @@ export const metadata: Metadata = {
 
 type PaginaLink = { label: string; href: string };
 
+/**
+ * O painel administrativo está no menu (A ESPP › Acesso Restrito), mas não é
+ * página pública: fica fora do mapa do site, como já está fora do sitemap.xml
+ * e bloqueado no robots.txt.
+ */
+const ehPublica = (href: string) => !href.startsWith("/admin");
+
 const paginas: PaginaLink[] = [
   ...nav.flatMap((item): PaginaLink[] =>
     "submenu" in item
@@ -21,7 +28,7 @@ const paginas: PaginaLink[] = [
   { label: "FORTIS", href: "/fortis" },
   { label: "Acessibilidade", href: "/acessibilidade" },
   { label: "Mapa do site", href: "/mapa-do-site" },
-];
+].filter((pagina) => ehPublica(pagina.href));
 
 export default function MapaDoSitePage() {
   return (

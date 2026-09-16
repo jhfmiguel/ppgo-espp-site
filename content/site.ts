@@ -43,6 +43,7 @@ export const nav = [
       { label: "Institucional", href: "/institucional" },
       { label: "Localização", href: "/localizacao" },
       { label: "Estrutura", href: "/estrutura" },
+      { label: "Acesso Restrito", href: "/admin", icone: "lock" },
     ],
   },
   {
