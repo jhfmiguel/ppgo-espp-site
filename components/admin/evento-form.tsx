@@ -27,7 +27,12 @@ const CATEGORIAS = [
   "Institucional",
 ] as const;
 
-const MODALIDADES = ["Presencial", "Online", "Híbrido"] as const;
+const MODALIDADES = [
+  "Selecione a modalidade",
+  "Presencial",
+  "Online",
+  "Híbrido",
+] as const;
 
 const hoje = () => new Date().toISOString().slice(0, 10);
 
@@ -85,8 +90,10 @@ export function EventoForm({ evento }: { evento?: Evento }) {
         <Selecao
           name="modalidade"
           rotulo="Modalidade"
+          obrigatorio
           opcoes={MODALIDADES}
-          defaultValue={evento?.modalidade ?? "Presencial"}
+          defaultValue={valor("modalidade", "Selecione a modalidade")}
+          erro={estado.campos?.modalidade}
         />
       </div>
 
