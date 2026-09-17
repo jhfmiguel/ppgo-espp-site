@@ -52,10 +52,11 @@ async function lerFormulario(
   const inscricaoHref = String(formData.get("inscricaoHref") ?? "").trim();
   const conteudo = sanitizarHtml(String(formData.get("conteudo") ?? ""));
 
-  const modalidadeBruta = String(formData.get("modalidade") ?? "");
-  const modalidade = MODALIDADES.includes(modalidadeBruta as ModalidadeEvento)
+  const modalidadeBruta = String(formData.get("modalidade") ?? "").trim();
+  const modalidadeValida = MODALIDADES.includes(modalidadeBruta as ModalidadeEvento);
+  const modalidade = modalidadeValida
     ? (modalidadeBruta as ModalidadeEvento)
-    : "Presencial";
+    : null;
   const status: Status =
     formData.get("status") === "publicado" ? "publicado" : "rascunho";
 
@@ -65,6 +66,7 @@ async function lerFormulario(
     dataFim: dataFimBruta,
     horario,
     local,
+    modalidade: modalidadeBruta,
     categoria,
     resumo: resumoBruto,
     inscricaoHref,
@@ -79,6 +81,7 @@ async function lerFormulario(
   if (dataFimBruta && DATA_VALIDA.test(dataInicio) && dataFimBruta < dataInicio) {
     campos.dataFim = "O término não pode ser anterior ao início.";
   }
+  if (!modalidade) campos.modalidade = "Selecione a modalidade do evento.";
   if (!local) campos.local = "Informe o local ou a plataforma do evento.";
   if (!categoria) campos.categoria = "Informe a categoria do evento.";
   if (inscricaoHref && !/^https?:\/\//i.test(inscricaoHref)) {
@@ -111,7 +114,7 @@ async function lerFormulario(
     campos.imagemAlt = "Descreva a imagem para leitores de tela.";
   }
 
-  if (Object.keys(campos).length > 0) {
+  if (Object.keys(campos).length > 0 || !modalidade) {
     return { estado: { campos, valores, erro: "Verifique os campos destacados." } };
   }
 
