@@ -1,9 +1,9 @@
 /**
- * Usuários de exemplo do painel administrativo.
+ * Usuários do painel administrativo.
  *
- * Fase de testes: as credenciais estão fixas no código e a senha é comparada
- * em texto puro. Ao integrar com o diretório oficial (ou com um banco), troque
- * `autenticar` por uma consulta real com senha em hash.
+ * Em produção, as credenciais são obrigatoriamente lidas de variáveis de
+ * ambiente. Os valores locais existem apenas para facilitar desenvolvimento.
+ * A integração futura com o diretório oficial deve substituir esta camada.
  */
 
 export type Perfil = "comunicacao" | "admin";
@@ -17,24 +17,43 @@ export type Usuario = {
   cargo: string;
 };
 
+const PRODUCAO = process.env.NODE_ENV === "production";
+
+function usuarioDeAmbiente(
+  perfil: Perfil,
+  padrao: { nome: string; email: string; senha: string; cargo: string },
+): Usuario | null {
+  const prefixo = perfil === "admin" ? "ESPP_ADMIN" : "ESPP_COMUNICACAO";
+  const email = process.env[`${prefixo}_EMAIL`] ?? (PRODUCAO ? "" : padrao.email);
+  const senha = process.env[`${prefixo}_PASSWORD`] ?? (PRODUCAO ? "" : padrao.senha);
+  const nome = process.env[`${prefixo}_NAME`] ?? padrao.nome;
+
+  if (!email || !senha) return null;
+
+  return {
+    id: perfil === "admin" ? "usr-admin" : "usr-comunicacao",
+    nome,
+    email,
+    senha,
+    perfil,
+    cargo: padrao.cargo,
+  };
+}
+
 export const USUARIOS: Usuario[] = [
-  {
-    id: "usr-comunicacao",
-    nome: "Ana Comunicação",
-    email: "comunicacao@espp.go.gov.br",
-    senha: "comunicacao123",
-    perfil: "comunicacao",
+  usuarioDeAmbiente("comunicacao", {
+    nome: "Comunicação ESPP",
+    email: "comunicacao@localhost",
+    senha: "comunicacao-dev",
     cargo: "Assessoria de Comunicação da ESPP",
-  },
-  {
-    id: "usr-admin",
-    nome: "Carlos Administrador",
-    email: "admin@espp.go.gov.br",
-    senha: "admin123",
-    perfil: "admin",
+  }),
+  usuarioDeAmbiente("admin", {
+    nome: "Administrador ESPP",
+    email: "admin@localhost",
+    senha: "admin-dev",
     cargo: "Administração do portal da ESPP",
-  },
-];
+  }),
+].filter((usuario): usuario is Usuario => usuario !== null);
 
 export const ROTULO_PERFIL: Record<Perfil, string> = {
   comunicacao: "Comunicação",
