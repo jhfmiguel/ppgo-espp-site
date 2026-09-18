@@ -1,0 +1,2 @@
+package br.gov.go.ppgo.espp.repository; import br.gov.go.ppgo.espp.domain.*; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*;
+public interface EventoRepository extends JpaRepository<Evento,String>{ List<Evento> findAllByOrderByDataInicioDesc(); List<Evento> findByStatusOrderByDataInicioDesc(StatusPublicacao s); Optional<Evento> findBySlug(String slug); boolean existsBySlug(String slug); }

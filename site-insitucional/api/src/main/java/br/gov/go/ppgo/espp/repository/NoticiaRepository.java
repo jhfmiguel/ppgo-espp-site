@@ -1,0 +1,2 @@
+package br.gov.go.ppgo.espp.repository; import br.gov.go.ppgo.espp.domain.*; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*;
+public interface NoticiaRepository extends JpaRepository<Noticia,String>{ List<Noticia> findAllByOrderByDataDesc(); List<Noticia> findByStatusOrderByDataDesc(StatusPublicacao s); Optional<Noticia> findBySlug(String slug); boolean existsBySlug(String slug); }

@@ -1,0 +1,2 @@
+package br.gov.go.ppgo.espp.config; import jakarta.persistence.EntityNotFoundException; import org.springframework.http.*; import org.springframework.web.bind.annotation.*;
+@RestControllerAdvice public class ApiExceptionHandler { @ExceptionHandler(EntityNotFoundException.class) ProblemDetail nf(){return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,"Registro nao encontrado.");} }
