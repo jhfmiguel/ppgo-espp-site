@@ -1,0 +1,34 @@
+﻿server:
+  port: ${ESPP_API_PORT:8081}
+
+spring:
+  application:
+    name: ppgo-espp-api
+
+  datasource:
+    url: ${ESPP_DB_URL}
+    username: ${ESPP_DB_USERNAME}
+    password: ${ESPP_DB_PASSWORD}
+    driver-class-name: oracle.jdbc.OracleDriver
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+app:
+  auth:
+    mode: ${ESPP_AUTH_MODE:local}
+  frontend-url: ${ESPP_FRONTEND_URL}
+  admin:
+    user: ${ESPP_ADMIN_USER}
+    password: ${ESPP_ADMIN_PASSWORD}

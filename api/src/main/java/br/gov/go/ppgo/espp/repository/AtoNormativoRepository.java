@@ -1,0 +1,2 @@
+package br.gov.go.ppgo.espp.repository; import br.gov.go.ppgo.espp.domain.*; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*;
+public interface AtoNormativoRepository extends JpaRepository<AtoNormativo,String>{ List<AtoNormativo> findAllByOrderByDataDesc(); List<AtoNormativo> findByStatusOrderByDataDesc(StatusPublicacao s); }
