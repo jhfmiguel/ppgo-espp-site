@@ -138,14 +138,15 @@ export function BotaoPublicar({
       <input type="hidden" name="id" value={id} />
       <button
         type="submit"
-        className="inline-flex items-center gap-1.5 rounded-md border border-ink-200 px-2.5 py-1.5 text-xs font-semibold text-ink-600 transition-colors hover:border-gold-400 hover:bg-gold-050 hover:text-ink-900"
+        className="inline-flex size-8 items-center justify-center rounded-md border border-ink-200 text-ink-600 transition-colors hover:border-gold-400 hover:bg-gold-050 hover:text-ink-900"
+        title={publicado ? "Despublicar" : "Publicar"}
+        aria-label={publicado ? "Despublicar" : "Publicar"}
       >
         {publicado ? (
           <EyeOff className="size-3.5" aria-hidden="true" />
         ) : (
           <Eye className="size-3.5" aria-hidden="true" />
         )}
-        {publicado ? "Despublicar" : "Publicar"}
       </button>
     </form>
   );

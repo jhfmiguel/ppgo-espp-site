@@ -30,3 +30,229 @@ databaseChangeLog:
                   CONSTRAINT CK_ESPP_USUARIO_AUTORIZADO_ATIVO CHECK (ATIVO IN (0,1))
               );
               CREATE INDEX IX_ESPP_USUARIO_AUTORIZADO_ATIVO ON ESPP_USUARIO_AUTORIZADO(ATIVO);
+  - changeSet:
+      id: 003-comunicacao
+      author: ppgo
+      changes:
+        - sql:
+            splitStatements: true
+            sql: |
+              CREATE TABLE ESPP_MENSAGEM_CONTATO (
+                  ID VARCHAR2(36) PRIMARY KEY,
+                  NOME VARCHAR2(200) NOT NULL,
+                  EMAIL VARCHAR2(320) NOT NULL,
+                  TELEFONE VARCHAR2(40),
+                  ASSUNTO VARCHAR2(250) NOT NULL,
+                  MENSAGEM CLOB NOT NULL,
+                  STATUS VARCHAR2(30) NOT NULL,
+                  RESPONSAVEL VARCHAR2(200),
+                  RESPOSTA CLOB,
+                  RESPONDIDO_EM TIMESTAMP WITH TIME ZONE,
+                  CRIADO_EM TIMESTAMP WITH TIME ZONE NOT NULL,
+                  ATUALIZADO_EM TIMESTAMP WITH TIME ZONE NOT NULL,
+                  CONSTRAINT CK_ESPP_MSG_STATUS CHECK (STATUS IN ('NOVA','LIDA','EM_ATENDIMENTO','RESPONDIDA','ARQUIVADA'))
+              );
+              CREATE INDEX IX_ESPP_MSG_STATUS_CRIADO ON ESPP_MENSAGEM_CONTATO(STATUS, CRIADO_EM);
+              CREATE TABLE ESPP_NEWSLETTER_ASSINANTE (
+                  ID VARCHAR2(36) PRIMARY KEY,
+                  EMAIL VARCHAR2(320) NOT NULL,
+                  NOME VARCHAR2(200),
+                  ATIVO NUMBER(1) DEFAULT 1 NOT NULL,
+                  ORIGEM VARCHAR2(100) NOT NULL,
+                  CONSENTIDO_EM TIMESTAMP WITH TIME ZONE NOT NULL,
+                  CANCELADO_EM TIMESTAMP WITH TIME ZONE,
+                  CRIADO_EM TIMESTAMP WITH TIME ZONE NOT NULL,
+                  ATUALIZADO_EM TIMESTAMP WITH TIME ZONE NOT NULL,
+                  CONSTRAINT UK_ESPP_NEWSLETTER_EMAIL UNIQUE (EMAIL),
+                  CONSTRAINT CK_ESPP_NEWSLETTER_ATIVO CHECK (ATIVO IN (0,1))
+              );
+              CREATE INDEX IX_ESPP_NEWSLETTER_ATIVO ON ESPP_NEWSLETTER_ASSINANTE(ATIVO);
+
+  - changeSet:
+      id: 004-newsletter-boolean
+      author: ppgo
+      changes:
+        - sql:
+            sql: |
+              ALTER TABLE ESPP_NEWSLETTER_ASSINANTE ADD ATIVO_BOOLEAN BOOLEAN;
+              UPDATE ESPP_NEWSLETTER_ASSINANTE
+                 SET ATIVO_BOOLEAN =
+                     CASE
+                       WHEN ATIVO = 1 THEN TRUE
+                       ELSE FALSE
+                     END;
+              ALTER TABLE ESPP_NEWSLETTER_ASSINANTE DROP COLUMN ATIVO;
+              ALTER TABLE ESPP_NEWSLETTER_ASSINANTE RENAME COLUMN ATIVO_BOOLEAN TO ATIVO;
+
+  - changeSet:
+      id: 005a-comunicacao-protocolo
+      author: ppgo
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - columnExists:
+                tableName: ESPP_MENSAGEM_CONTATO
+                columnName: PROTOCOLO
+      changes:
+        - sql:
+            splitStatements: true
+            sql: |
+              ALTER TABLE ESPP_MENSAGEM_CONTATO ADD PROTOCOLO VARCHAR2(30);
+              UPDATE ESPP_MENSAGEM_CONTATO
+                 SET PROTOCOLO = 'ESPP-LEGADO-' || SUBSTR(REPLACE(ID, '-', ''), 1, 12)
+               WHERE PROTOCOLO IS NULL;
+              ALTER TABLE ESPP_MENSAGEM_CONTATO MODIFY PROTOCOLO NOT NULL;
+              ALTER TABLE ESPP_MENSAGEM_CONTATO
+                  ADD CONSTRAINT UK_ESPP_MSG_PROTOCOLO UNIQUE (PROTOCOLO);
+
+  - changeSet:
+      id: 005b-comunicacao-historico
+      author: ppgo
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: ESPP_MENSAGEM_HISTORICO
+      changes:
+        - sql:
+            splitStatements: true
+            sql: |
+              CREATE TABLE ESPP_MENSAGEM_HISTORICO (
+                  ID VARCHAR2(36) PRIMARY KEY,
+                  MENSAGEM_ID VARCHAR2(36) NOT NULL,
+                  TIPO VARCHAR2(30) NOT NULL,
+                  DESCRICAO CLOB NOT NULL,
+                  USUARIO VARCHAR2(200),
+                  CRIADO_EM TIMESTAMP WITH TIME ZONE NOT NULL,
+                  CONSTRAINT FK_ESPP_MSG_HIST_MSG FOREIGN KEY (MENSAGEM_ID)
+                      REFERENCES ESPP_MENSAGEM_CONTATO(ID),
+                  CONSTRAINT CK_ESPP_MSG_HIST_TIPO CHECK (
+                      TIPO IN ('RECEBIMENTO','ALTERACAO_STATUS','ATRIBUICAO','NOTA_INTERNA','RESPOSTA')
+                  )
+              );
+              CREATE INDEX IX_ESPP_MSG_HIST_MSG_DATA
+                  ON ESPP_MENSAGEM_HISTORICO(MENSAGEM_ID, CRIADO_EM);
+
+  - changeSet:
+      id: 005c-newsletter-status
+      author: ppgo
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - columnExists:
+                tableName: ESPP_NEWSLETTER_ASSINANTE
+                columnName: STATUS
+      changes:
+        - sql:
+            splitStatements: true
+            sql: |
+              ALTER TABLE ESPP_NEWSLETTER_ASSINANTE ADD STATUS VARCHAR2(30);
+              UPDATE ESPP_NEWSLETTER_ASSINANTE
+                 SET STATUS = CASE WHEN ATIVO = TRUE THEN 'ATIVO' ELSE 'DESCADASTRADO' END;
+              ALTER TABLE ESPP_NEWSLETTER_ASSINANTE MODIFY STATUS NOT NULL;
+              ALTER TABLE ESPP_NEWSLETTER_ASSINANTE
+                  ADD CONSTRAINT CK_ESPP_NEWSLETTER_STATUS
+                  CHECK (STATUS IN ('ATIVO','DESCADASTRADO','BLOQUEADO'));
+              ALTER TABLE ESPP_NEWSLETTER_ASSINANTE DROP COLUMN ATIVO;
+              CREATE INDEX IX_ESPP_NEWSLETTER_STATUS
+                  ON ESPP_NEWSLETTER_ASSINANTE(STATUS);
+
+  - changeSet:
+      id: 006-comunicacao-anexos-email
+      author: ppgo
+      changes:
+        - sql:
+            splitStatements: true
+            sql: |
+              CREATE TABLE ESPP_MENSAGEM_ANEXO (
+                  ID VARCHAR2(36) PRIMARY KEY,
+                  MENSAGEM_ID VARCHAR2(36) NOT NULL,
+                  HISTORICO_ID VARCHAR2(36),
+                  NOME_ORIGINAL VARCHAR2(500) NOT NULL,
+                  NOME_ARQUIVO VARCHAR2(500) NOT NULL,
+                  CONTENT_TYPE VARCHAR2(200) NOT NULL,
+                  TAMANHO NUMBER(19) NOT NULL,
+                  DIRECAO VARCHAR2(20) NOT NULL,
+                  CRIADO_EM TIMESTAMP WITH TIME ZONE NOT NULL,
+                  CONSTRAINT FK_ESPP_MSG_ANEXO_MSG FOREIGN KEY (MENSAGEM_ID)
+                      REFERENCES ESPP_MENSAGEM_CONTATO(ID),
+                  CONSTRAINT FK_ESPP_MSG_ANEXO_HIST FOREIGN KEY (HISTORICO_ID)
+                      REFERENCES ESPP_MENSAGEM_HISTORICO(ID),
+                  CONSTRAINT CK_ESPP_MSG_ANEXO_DIR CHECK (DIRECAO IN ('RECEBIDO','ENVIADO'))
+              );
+              CREATE INDEX IX_ESPP_MSG_ANEXO_MSG ON ESPP_MENSAGEM_ANEXO(MENSAGEM_ID, CRIADO_EM);
+  - changeSet:
+      id: 007a-newsletter-token
+      author: ppgo
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - columnExists:
+                tableName: ESPP_NEWSLETTER_ASSINANTE
+                columnName: TOKEN_DESCADASTRO
+      changes:
+        - sql:
+            splitStatements: true
+            sql: |
+              ALTER TABLE ESPP_NEWSLETTER_ASSINANTE ADD TOKEN_DESCADASTRO VARCHAR2(36);
+              UPDATE ESPP_NEWSLETTER_ASSINANTE SET TOKEN_DESCADASTRO = LOWER(REGEXP_REPLACE(RAWTOHEX(SYS_GUID()), '(.{8})(.{4})(.{4})(.{4})(.{12})', '\1-\2-\3-\4-\5')) WHERE TOKEN_DESCADASTRO IS NULL;
+              ALTER TABLE ESPP_NEWSLETTER_ASSINANTE MODIFY TOKEN_DESCADASTRO NOT NULL;
+              ALTER TABLE ESPP_NEWSLETTER_ASSINANTE ADD CONSTRAINT UK_ESPP_NEWS_TOKEN UNIQUE (TOKEN_DESCADASTRO);
+
+  - changeSet:
+      id: 007b-newsletter-campanha
+      author: ppgo
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: ESPP_NEWSLETTER_CAMPANHA
+      changes:
+        - sql:
+            splitStatements: true
+            sql: |
+              CREATE TABLE ESPP_NEWSLETTER_CAMPANHA (
+                ID VARCHAR2(36) PRIMARY KEY, ASSUNTO VARCHAR2(250) NOT NULL, CONTEUDO CLOB NOT NULL,
+                STATUS VARCHAR2(30) NOT NULL, TOTAL_DESTINATARIOS NUMBER(10) DEFAULT 0 NOT NULL,
+                TOTAL_ENVIADOS NUMBER(10) DEFAULT 0 NOT NULL, TOTAL_FALHAS NUMBER(10) DEFAULT 0 NOT NULL,
+                CRIADO_POR VARCHAR2(200), CRIADO_EM TIMESTAMP WITH TIME ZONE NOT NULL, ENVIADO_EM TIMESTAMP WITH TIME ZONE,
+                CONSTRAINT CK_ESPP_NEWS_CAMP_STATUS CHECK (STATUS IN ('RASCUNHO','ENVIANDO','ENVIADA','FALHA'))
+              );
+              CREATE INDEX IX_ESPP_NEWS_CAMP_DATA ON ESPP_NEWSLETTER_CAMPANHA(CRIADO_EM);
+
+  - changeSet:
+      id: 007c-newsletter-envio
+      author: ppgo
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: ESPP_NEWSLETTER_ENVIO
+      changes:
+        - sql:
+            splitStatements: true
+            sql: |
+              CREATE TABLE ESPP_NEWSLETTER_ENVIO (
+                ID VARCHAR2(36) PRIMARY KEY, CAMPANHA_ID VARCHAR2(36) NOT NULL, ASSINANTE_ID VARCHAR2(36) NOT NULL,
+                EMAIL VARCHAR2(320) NOT NULL, STATUS VARCHAR2(20) NOT NULL, ERRO VARCHAR2(1000),
+                ENVIADO_EM TIMESTAMP WITH TIME ZONE,
+                CONSTRAINT FK_ESPP_NEWS_ENV_CAMP FOREIGN KEY (CAMPANHA_ID) REFERENCES ESPP_NEWSLETTER_CAMPANHA(ID),
+                CONSTRAINT FK_ESPP_NEWS_ENV_ASS FOREIGN KEY (ASSINANTE_ID) REFERENCES ESPP_NEWSLETTER_ASSINANTE(ID),
+                CONSTRAINT CK_ESPP_NEWS_ENV_STATUS CHECK (STATUS IN ('ENVIADO','FALHA'))
+              );
+              CREATE INDEX IX_ESPP_NEWS_ENV_CAMP ON ESPP_NEWSLETTER_ENVIO(CAMPANHA_ID);
+
+  - changeSet:
+      id: 008-newsletter-exclusao-segura
+      author: ppgo
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExists:
+            tableName: ESPP_NEWSLETTER_ENVIO
+      changes:
+        - sql:
+            splitStatements: true
+            sql: |
+              ALTER TABLE ESPP_NEWSLETTER_ENVIO DROP CONSTRAINT FK_ESPP_NEWS_ENV_ASS;
+              ALTER TABLE ESPP_NEWSLETTER_ENVIO MODIFY ASSINANTE_ID NULL;
+              ALTER TABLE ESPP_NEWSLETTER_ENVIO ADD CONSTRAINT FK_ESPP_NEWS_ENV_ASS FOREIGN KEY (ASSINANTE_ID) REFERENCES ESPP_NEWSLETTER_ASSINANTE(ID) ON DELETE SET NULL;

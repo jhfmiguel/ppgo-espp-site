@@ -1,0 +1,3 @@
+import { NextResponse } from "next/server";
+const API_URL=(process.env.ESPP_API_URL??"http://localhost:8081").replace(/\/$/,"");
+export async function POST(_r:Request,{params}:{params:Promise<{token:string}>}){try{const {token}=await params;const r=await fetch(`${API_URL}/api/v1/public/newsletter/descadastrar/${encodeURIComponent(token)}`,{method:"POST",cache:"no-store"});return new NextResponse(null,{status:r.status});}catch{return new NextResponse(null,{status:503});}}

@@ -6,23 +6,41 @@ import { COOKIE_SESSAO, decriptar } from "@/lib/auth/session";
 /**
  * Checagem otimista de sessão no /admin.
  *
- * Serve apenas para evitar renderizar o painel para quem claramente não está
- * logado. A autorização real fica em `lib/auth/dal.ts`, executada em cada
- * página e Server Action — ver a nota sobre Server Functions em
- * `node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/proxy.md`.
+ * A autorização real permanece em lib/auth/dal.ts.
  */
+function criarUrlInterna(request: NextRequest, pathname: string) {
+  const url = request.nextUrl.clone();
+
+  url.pathname = pathname;
+  url.search = "";
+  url.hash = "";
+
+  // Em desenvolvimento o Next roda em HTTP. Alguns requests de navegaÃ§Ã£o/RSC
+  // podem chegar ao proxy com o protocolo inferido como HTTPS. NÃ£o podemos
+  // devolver esse protocolo para localhost:3001.
+  if (process.env.NODE_ENV === "development") {
+    url.protocol = "http:";
+    url.hostname = "localhost";
+    url.port = "3001";
+  }
+
+  return url;
+}
+
 export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const sessao = decriptar(request.cookies.get(COOKIE_SESSAO)?.value);
 
-  // Já logado no /admin/login: manda direto para o painel.
   if (pathname === "/admin/login") {
-    if (sessao) return NextResponse.redirect(new URL("/admin", request.url));
+    if (sessao) {
+      return NextResponse.redirect(criarUrlInterna(request, "/admin"));
+    }
+
     return NextResponse.next();
   }
 
   if (!sessao) {
-    const login = new URL("/admin/login", request.url);
+    const login = criarUrlInterna(request, "/admin/login");
     login.searchParams.set("proximo", `${pathname}${search}`);
     return NextResponse.redirect(login);
   }

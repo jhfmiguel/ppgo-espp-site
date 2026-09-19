@@ -103,10 +103,11 @@ export default async function AdminEventosPage({
                 <div className="flex shrink-0 flex-wrap items-center gap-2">
                   <Link
                     href={`/admin/eventos/${evento.id}`}
-                    className="inline-flex items-center gap-1.5 rounded-md border border-ink-200 px-2.5 py-1.5 text-xs font-semibold text-ink-700 transition-colors hover:border-gold-400 hover:bg-gold-050"
+                    className="inline-flex size-8 items-center justify-center rounded-md border border-ink-200 text-ink-700 transition-colors hover:border-gold-400 hover:bg-gold-050"
+                    title="Editar"
+                    aria-label="Editar"
                   >
                     <SquarePen className="size-3.5" aria-hidden="true" />
-                    Editar
                   </Link>
                   <BotaoPublicar
                     acao={alternarStatusEvento}

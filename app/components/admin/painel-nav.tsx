@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarDays, FileText, LayoutDashboard, Megaphone } from "lucide-react";
+import { CalendarDays, FileText, LayoutDashboard, Mail, Megaphone, UsersRound } from "lucide-react";
 
 import { podeGerenciar, type Perfil, type Recurso } from "@/lib/auth/users";
 
 /**
  * Navegação lateral do painel.
  *
- * Os itens sem permissão para o perfil simplesmente não são renderizados — a
+ * Os itens sem permissão para o perfil simplesmente não são renderizados â€” a
  * restrição que vale é a do servidor (`exigirPermissao`), esta é só a interface.
  */
 
@@ -22,6 +22,8 @@ const ITENS: {
   { href: "/admin", rotulo: "Visão geral", Icone: LayoutDashboard },
   { href: "/admin/noticias", rotulo: "Notícias", Icone: Megaphone, recurso: "noticias" },
   { href: "/admin/eventos", rotulo: "Eventos", Icone: CalendarDays, recurso: "eventos" },
+  { href: "/admin/mensagens", rotulo: "Mensagens", Icone: Mail, recurso: "mensagens" },
+  { href: "/admin/newsletter", rotulo: "Newsletter", Icone: UsersRound, recurso: "newsletter" },
   {
     href: "/admin/atos-normativos",
     rotulo: "Atos normativos",

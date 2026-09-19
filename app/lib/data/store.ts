@@ -5,6 +5,14 @@ import type {
   Noticia,
   SituacaoAto,
   Status,
+  MensagemContato,
+  AssinanteNewsletter,
+  StatusMensagem,
+  MensagemDetalhe,
+  StatusNewsletter,
+  ResumoComunicacao,
+  CampanhaNewsletter,
+  CampanhaDetalhe,
 } from "@/lib/data/types";
 
 const API_URL = (process.env.ESPP_API_URL ?? "http://localhost:8081").replace(/\/$/, "");
@@ -277,7 +285,7 @@ function payloadAto(dados: NovoAto) {
 
 /**
  * Mantida por compatibilidade com o restante do frontend.
- * A geraÃƒÂ§ÃƒÂ£o definitiva do slug ÃƒÂ© responsabilidade da API Spring.
+ * A geração definitiva do slug é responsabilidade da API Spring.
  */
 export function gerarSlug(texto: string) {
   return texto
@@ -289,7 +297,7 @@ export function gerarSlug(texto: string) {
     .slice(0, 80);
 }
 
-/* ------------------------------------------------------------------ notÃƒÂ­cias */
+/* ------------------------------------------------------------------ notícias */
 
 export async function listarNoticias() {
   const itens = await api<ApiNoticia[]>("/api/v1/admin/noticias", {
@@ -552,4 +560,98 @@ export async function excluirAto(id: string) {
   );
 
   return true;
+}
+/* -------------------------------------------------------------- comunicação */
+
+export async function listarMensagensContato(): Promise<MensagemContato[]> {
+  return api<MensagemContato[]>("/api/v1/admin/mensagens", {
+    headers: { Authorization: autorizacaoAdmin() },
+  });
+}
+
+export async function buscarMensagemContato(id: string): Promise<MensagemDetalhe | null> {
+  try {
+    return await api<MensagemDetalhe>(`/api/v1/admin/mensagens/${id}`, {
+      headers: { Authorization: autorizacaoAdmin() },
+    });
+  } catch {
+    return null;
+  }
+}
+
+export async function atualizarMensagemContato(
+  id: string,
+  dados: {
+    status?: StatusMensagem;
+    responsavel?: string;
+    resposta?: string;
+    notaInterna?: string;
+  },
+): Promise<MensagemDetalhe> {
+  return api<MensagemDetalhe>(
+    `/api/v1/admin/mensagens/${id}`,
+    requisicaoAdmin("PUT", dados),
+  );
+}
+
+export async function atualizarMensagemContatoMultipart(
+  id: string,
+  formData: FormData,
+): Promise<MensagemDetalhe> {
+  return api<MensagemDetalhe>(
+    `/api/v1/admin/mensagens/${id}`,
+    {
+      method: "PUT",
+      headers: { Authorization: autorizacaoAdmin() },
+      body: formData,
+    },
+  );
+}
+
+export function urlAnexoMensagem(mensagemId: string, anexoId: string) {
+  return `/api/admin/mensagens/${encodeURIComponent(mensagemId)}/anexos/${encodeURIComponent(anexoId)}`;
+}
+export async function excluirMensagemContato(id: string) {
+  await api<void>(`/api/v1/admin/mensagens/${id}`, requisicaoAdmin("DELETE"));
+}
+
+export async function listarAssinantesNewsletter(): Promise<AssinanteNewsletter[]> {
+  return api<AssinanteNewsletter[]>("/api/v1/admin/newsletter", {
+    headers: { Authorization: autorizacaoAdmin() },
+  });
+}
+
+export async function atualizarAssinanteNewsletter(
+  id: string,
+  status: StatusNewsletter,
+): Promise<AssinanteNewsletter> {
+  return api<AssinanteNewsletter>(
+    `/api/v1/admin/newsletter/${id}`,
+    requisicaoAdmin("PUT", { status }),
+  );
+}
+
+export async function excluirAssinanteNewsletter(id: string) {
+  await api<void>(`/api/v1/admin/newsletter/${id}`, requisicaoAdmin("DELETE"));
+}
+
+export async function buscarResumoComunicacao(): Promise<ResumoComunicacao> {
+  return api<ResumoComunicacao>("/api/v1/admin/comunicacao/resumo", {
+    headers: { Authorization: autorizacaoAdmin() },
+  });
+}
+export async function listarCampanhasNewsletter(): Promise<CampanhaNewsletter[]> {
+  return api<CampanhaNewsletter[]>("/api/v1/admin/newsletter/campanhas",{headers:{Authorization:autorizacaoAdmin()}});
+}
+export async function criarCampanhaNewsletter(assunto:string,conteudo:string): Promise<CampanhaNewsletter> {
+  return api<CampanhaNewsletter>("/api/v1/admin/newsletter/campanhas",requisicaoAdmin("POST",{assunto,conteudo}));
+}
+export async function atualizarCampanhaNewsletter(id:string,assunto:string,conteudo:string): Promise<CampanhaNewsletter> {
+  return api<CampanhaNewsletter>(`/api/v1/admin/newsletter/campanhas/${id}`,requisicaoAdmin("PUT",{assunto,conteudo}));
+}
+export async function buscarCampanhaNewsletter(id:string): Promise<CampanhaDetalhe> {
+  return api<CampanhaDetalhe>(`/api/v1/admin/newsletter/campanhas/${id}`,{headers:{Authorization:autorizacaoAdmin()}});
+}
+export async function enviarCampanhaNewsletter(id:string): Promise<CampanhaDetalhe> {
+  return api<CampanhaDetalhe>(`/api/v1/admin/newsletter/campanhas/${id}/enviar`,requisicaoAdmin("POST"));
 }

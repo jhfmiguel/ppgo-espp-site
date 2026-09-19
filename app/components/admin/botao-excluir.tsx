@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
-import { Loader2, Trash2 } from "lucide-react";
+import { Check, Loader2, Trash2, X } from "lucide-react";
 
 /**
  * Exclusão em dois passos, confirmada na própria linha da listagem.
@@ -17,14 +17,15 @@ function Confirmar() {
     <button
       type="submit"
       disabled={pending}
-      className="inline-flex items-center gap-1.5 rounded-md bg-red-600 px-2.5 py-1.5 text-xs font-bold text-white uppercase transition-colors hover:bg-red-700 disabled:opacity-60"
+      className="inline-flex size-8 items-center justify-center rounded-md bg-red-600 text-white transition-colors hover:bg-red-700 disabled:opacity-60"
+      title={pending ? "Excluindo…" : "Confirmar exclusão"}
+      aria-label={pending ? "Excluindo…" : "Confirmar exclusão"}
     >
       {pending ? (
         <Loader2 className="size-3.5 animate-spin" aria-hidden="true" />
       ) : (
-        <Trash2 className="size-3.5" aria-hidden="true" />
+        <Check className="size-3.5" aria-hidden="true" />
       )}
-      {pending ? "Excluindo…" : "Confirmar"}
     </button>
   );
 }
@@ -47,10 +48,10 @@ export function BotaoExcluir({
         type="button"
         onClick={() => setConfirmando(true)}
         aria-label={`Excluir ${descricao}`}
-        className="inline-flex items-center gap-1.5 rounded-md border border-ink-200 px-2.5 py-1.5 text-xs font-semibold text-ink-600 transition-colors hover:border-red-300 hover:bg-red-50 hover:text-red-600"
+        className="inline-flex size-8 items-center justify-center rounded-md border border-ink-200 text-ink-600 transition-colors hover:border-red-300 hover:bg-red-50 hover:text-red-600"
+        title={`Excluir ${descricao}`}
       >
         <Trash2 className="size-3.5" aria-hidden="true" />
-        Excluir
       </button>
     );
   }
@@ -65,9 +66,11 @@ export function BotaoExcluir({
       <button
         type="button"
         onClick={() => setConfirmando(false)}
-        className="rounded-md px-2 py-1.5 text-xs font-semibold text-ink-500 transition-colors hover:text-ink-900"
+        className="inline-flex size-8 items-center justify-center rounded-md text-ink-500 transition-colors hover:bg-ink-100 hover:text-ink-900"
+        title="Cancelar exclusão"
+        aria-label="Cancelar exclusão"
       >
-        Não
+        <X className="size-3.5" aria-hidden="true" />
       </button>
     </form>
   );

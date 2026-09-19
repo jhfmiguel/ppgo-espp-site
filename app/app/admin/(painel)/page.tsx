@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { ArrowRight, CalendarDays, FileText, Megaphone } from "lucide-react";
+import { ArrowRight, CalendarDays, FileText, Mail, Megaphone, UsersRound } from "lucide-react";
 
 import { exigirUsuario } from "@/lib/auth/dal";
 import { podeGerenciar, ROTULO_PERFIL, type Recurso } from "@/lib/auth/users";
-import { listarAtos, listarEventos, listarNoticias, listarProximosEventos } from "@/lib/data/store";
+import { listarAssinantesNewsletter, listarAtos, listarEventos, listarMensagensContato, listarNoticias, listarProximosEventos } from "@/lib/data/store";
 import { formatarData, formatarDataHora } from "@/lib/formato";
 import { Aviso, SeloStatus } from "@/components/admin/ui";
 
@@ -16,11 +16,13 @@ export default async function PainelPage({
 }) {
   const [usuario, { ok, erro }] = await Promise.all([exigirUsuario(), searchParams]);
 
-  const [noticias, eventos, atos, proximos] = await Promise.all([
+  const [noticias, eventos, atos, proximos, mensagens, assinantes] = await Promise.all([
     listarNoticias(),
     listarEventos(),
     listarAtos(),
     listarProximosEventos(),
+    listarMensagensContato(),
+    listarAssinantesNewsletter(),
   ]);
 
   const cartoes: {
@@ -54,6 +56,22 @@ export default async function PainelPage({
       Icone: FileText,
       total: atos.length,
       publicados: atos.filter((a) => a.status === "publicado").length,
+    },
+    {
+      recurso: "mensagens",
+      href: "/admin/mensagens",
+      rotulo: "Mensagens",
+      Icone: Mail,
+      total: mensagens.length,
+      publicados: mensagens.filter((m) => m.status !== "NOVA").length,
+    },
+    {
+      recurso: "newsletter",
+      href: "/admin/newsletter",
+      rotulo: "Newsletter",
+      Icone: UsersRound,
+      total: assinantes.length,
+      publicados: assinantes.filter((a) => a.status === "ATIVO").length,
     },
   ];
 
@@ -93,7 +111,7 @@ export default async function PainelPage({
                 </span>
                 <span className="title-display mt-3 text-4xl text-ink-900">{total}</span>
                 <span className="mt-1 text-xs text-ink-500">
-                  {publicados} no ar · {total - publicados} em rascunho
+                  {rotulo === "Mensagens" ? `${total - publicados} nova(s) · ${publicados} tratada(s)` : rotulo === "Newsletter" ? `${publicados} ativo(s) · ${total - publicados} inativo(s)` : `${publicados} no ar · ${total - publicados} em rascunho`}
                 </span>
                 <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-gold-700 uppercase">
                   Gerenciar

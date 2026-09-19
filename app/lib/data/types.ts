@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Modelo de dados do conteúdo editável pelo painel administrativo.
  *
  * Os registros persistentes são fornecidos pela API Spring Boot e armazenados no Oracle.
@@ -87,3 +87,97 @@ export type AtoNormativo = {
   atualizadoEm: string;
 };
 
+
+export type StatusMensagem =
+  | "NOVA"
+  | "LIDA"
+  | "EM_ATENDIMENTO"
+  | "RESPONDIDA"
+  | "ARQUIVADA";
+
+export type TipoInteracaoMensagem =
+  | "RECEBIMENTO"
+  | "ALTERACAO_STATUS"
+  | "ATRIBUICAO"
+  | "NOTA_INTERNA"
+  | "RESPOSTA";
+
+export type HistoricoMensagem = {
+  id: string;
+  mensagemId: string;
+  tipo: TipoInteracaoMensagem;
+  descricao: string;
+  usuario: string | null;
+  criadoEm: string;
+};
+
+export type MensagemContato = {
+  id: string;
+  protocolo: string;
+  nome: string;
+  email: string;
+  telefone: string | null;
+  assunto: string;
+  mensagem: string;
+  status: StatusMensagem;
+  responsavel: string | null;
+  resposta: string | null;
+  respondidoEm: string | null;
+  criadoEm: string;
+  atualizadoEm: string;
+};
+
+export type AnexoMensagem = {
+  id: string;
+  mensagemId: string;
+  historicoId: string | null;
+  nomeOriginal: string;
+  nomeArquivo: string;
+  contentType: string;
+  tamanho: number;
+  direcao: "RECEBIDO" | "ENVIADO";
+  criadoEm: string;
+};
+
+export type MensagemDetalhe = {
+  mensagem: MensagemContato;
+  historico: HistoricoMensagem[];
+  anexos: AnexoMensagem[];
+  emailHabilitado: boolean;
+};
+
+export type StatusNewsletter = "ATIVO" | "DESCADASTRADO" | "BLOQUEADO";
+
+export type AssinanteNewsletter = {
+  id: string;
+  email: string;
+  nome: string | null;
+  status: StatusNewsletter;
+  origem: string;
+  consentidoEm: string;
+  canceladoEm: string | null;
+  criadoEm: string;
+  atualizadoEm: string;
+};
+
+export type ResumoComunicacao = {
+  mensagensTotal: number;
+  mensagensNovas: number;
+  mensagensEmAtendimento: number;
+  mensagensRespondidas: number;
+  assinantesTotal: number;
+  assinantesAtivos: number;
+  assinantesDescadastrados: number;
+  assinantesBloqueados: number;
+};
+export type StatusCampanhaNewsletter = "RASCUNHO" | "ENVIANDO" | "ENVIADA" | "FALHA";
+export type CampanhaNewsletter = {
+  id:string; assunto:string; conteudo:string; status:StatusCampanhaNewsletter;
+  totalDestinatarios:number; totalEnviados:number; totalFalhas:number;
+  criadoPor:string|null; criadoEm:string; enviadoEm:string|null;
+};
+export type EnvioNewsletter = {
+  id:string; campanhaId:string; assinanteId:string|null; email:string; status:"ENVIADO"|"FALHA";
+  erro:string|null; enviadoEm:string|null;
+};
+export type CampanhaDetalhe = { campanha:CampanhaNewsletter; envios:EnvioNewsletter[]; emailHabilitado:boolean };

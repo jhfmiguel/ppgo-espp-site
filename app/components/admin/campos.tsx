@@ -3,7 +3,7 @@
 import { useId, useState } from "react";
 import { useFormStatus } from "react-dom";
 import Image from "next/image";
-import { ImagePlus, Loader2, Trash2 } from "lucide-react";
+import { ImagePlus, Loader2, Save, Trash2 } from "lucide-react";
 
 import type { Imagem } from "@/lib/data/types";
 import { ACCEPT_IMAGEM, erroDeTamanho, formatarTamanho, TAMANHO_MAXIMO_ARQUIVO } from "@/lib/limites";
@@ -400,14 +400,21 @@ export function CampoImagem({
 export function BotaoSalvar({ children = "Salvar" }: { children?: React.ReactNode }) {
   const { pending } = useFormStatus();
   return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="inline-flex items-center gap-2 rounded-md bg-gold-500 px-6 py-2.5 text-xs font-bold tracking-wide text-ink-950 uppercase transition-colors hover:bg-gold-400 disabled:cursor-not-allowed disabled:opacity-60"
-    >
-      {pending ? <Loader2 className="size-4 animate-spin" aria-hidden="true" /> : null}
-      {pending ? "Salvando…" : children}
-    </button>
+<button
+  type="submit"
+  disabled={pending}
+  className="inline-flex items-center justify-center gap-2 rounded-md bg-gold-500 px-4 py-1.5 text-ink-950 transition-colors hover:bg-gold-400 disabled:cursor-not-allowed disabled:opacity-60"
+  title={pending ? "Salvando…" : String(children)}
+  aria-label={pending ? "Salvando…" : String(children)}
+>
+  {pending ? (
+    <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+  ) : (
+    <Save className="size-4" aria-hidden="true" />
+  )}
+
+  <span>{pending ? "Salvando…" : "Salvar"}</span>
+</button>
   );
 }
 

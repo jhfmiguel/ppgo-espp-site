@@ -36,7 +36,14 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/v1/public/**", "/actuator/health").permitAll()
+                        .requestMatchers("/api/v1/public/**", "/actuator/health", "/error").permitAll()
+                        .requestMatchers(
+                                "/api/v1/admin/mensagens/**",
+                                "/api/v1/admin/newsletter/**",
+                                "/api/v1/admin/comunicacao/**",
+                                "/api/v1/admin/noticias/**",
+                                "/api/v1/admin/eventos/**")
+                        .hasAnyRole("ADMIN", "COMUNICACAO")
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .anyRequest().denyAll())
                 .httpBasic(Customizer.withDefaults())

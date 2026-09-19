@@ -3,6 +3,8 @@
 import { useActionState } from "react";
 import Link from "next/link";
 
+import { X } from "lucide-react";
+
 import { salvarEvento } from "@/lib/actions/eventos";
 import { ESTADO_INICIAL } from "@/lib/actions/estado";
 import { EditorRico } from "@/components/admin/editor-rico";
@@ -41,7 +43,7 @@ export function EventoForm({ evento }: { evento?: Evento }) {
 
   const valor = (campo: string, padrao = "") =>
     estado.valores?.[campo] ??
-    ((evento?.[campo as keyof Evento] as string | null | undefined) ?? undefined) ??
+    ((evento?.[campo as keyof Evento] as string | null | undefined)) ??
     padrao;
 
   return (
@@ -155,12 +157,13 @@ export function EventoForm({ evento }: { evento?: Evento }) {
 
       <div className="flex flex-wrap items-center gap-3 border-t border-ink-100 pt-6">
         <BotaoSalvar>{evento ? "Salvar alterações" : "Criar evento"}</BotaoSalvar>
-        <Link
-          href="/admin/eventos"
-          className="rounded-md px-4 py-2.5 text-xs font-bold tracking-wide text-ink-600 uppercase transition-colors hover:text-ink-900"
-        >
-          Cancelar
-        </Link>
+      <Link
+        href="/admin/eventos"
+        className="inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-1.5 transition-colors text-white hover:bg-blue-700"
+      >
+        <X className="size-4" aria-hidden="true" />
+        <span>Cancelar</span>
+      </Link>
         {evento?.status === "publicado" ? (
           <Link
             href={`/eventos/${evento.slug}`}

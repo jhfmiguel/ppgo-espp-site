@@ -3,6 +3,8 @@
 import { useActionState } from "react";
 import Link from "next/link";
 
+import { X } from "lucide-react";
+
 import { salvarNoticia } from "@/lib/actions/noticias";
 import { ESTADO_INICIAL } from "@/lib/actions/estado";
 import { EditorRico } from "@/components/admin/editor-rico";
@@ -100,12 +102,13 @@ export function NoticiaForm({ noticia }: { noticia?: Noticia }) {
 
       <div className="flex flex-wrap items-center gap-3 border-t border-ink-100 pt-6">
         <BotaoSalvar>{noticia ? "Salvar alterações" : "Criar notícia"}</BotaoSalvar>
-        <Link
-          href="/admin/noticias"
-          className="rounded-md px-4 py-2.5 text-xs font-bold tracking-wide text-ink-600 uppercase transition-colors hover:text-ink-900"
-        >
-          Cancelar
-        </Link>
+      <Link
+        href="/admin/noticias"
+        className="inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-1.5 transition-colors text-white hover:bg-blue-700"
+      >
+        <X className="size-4" aria-hidden="true" />
+        <span>Cancelar</span>
+      </Link>
         {noticia?.status === "publicado" ? (
           <Link
             href={`/noticias/${noticia.slug}`}

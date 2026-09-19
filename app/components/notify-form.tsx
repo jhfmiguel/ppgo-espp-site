@@ -6,14 +6,12 @@ import { fortis } from "@/content/site";
 
 /**
  * Formulário de aviso de lançamento do FORTIS.
- *
- * Ainda não há backend: a submissão apenas confirma visualmente e orienta o
- * contato por e-mail. Para ativar o envio, plugar uma Server Action ou uma
- * rota /api que grave o e-mail (ex.: Vercel Postgres, Resend, planilha).
- */
+ * */
 export function NotifyForm() {
   const [email, setEmail] = useState("");
   const [enviado, setEnviado] = useState(false);
+  const [enviando, setEnviando] = useState(false);
+  const [erro, setErro] = useState("");
 
   return (
     <div className="rounded-lg border border-ink-200 bg-ink-050 p-7">
@@ -32,23 +30,47 @@ export function NotifyForm() {
             aria-hidden="true"
           />
           <span>
-            Interesse registrado localmente. O envio automático ainda não está
-            ativo — para garantir seu cadastro, escreva para{" "}
-            <a
-              href="mailto:ensino.dgpp@goias.gov.br"
-              className="font-semibold text-gold-500 underline underline-offset-2"
-            >
-              ensino.dgpp@goias.gov.br
-            </a>
-            .
+            E-mail cadastrado com sucesso. Você está na lista de interessados do FORTIS.
           </span>
         </p>
       ) : (
         <form
           className="mt-6 flex flex-col gap-3 sm:flex-row"
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            setEnviado(true);
+            setErro("");
+            setEnviando(true);
+            try {
+              const resposta = await fetch("/api/newsletter", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, origem: "FORTIS" }),
+              });
+              if (!resposta.ok) {
+                if (resposta.status === 409) {
+                  throw new Error(
+                    "O e-mail informado já foi cadastrado anteriormente.",
+                  );
+                }
+
+                const dados = (await resposta.json().catch(() => null)) as
+                  | { erro?: string }
+                  | null;
+                throw new Error(
+                  dados?.erro ?? "Não foi possível cadastrar o e-mail. Tente novamente.",
+                );
+              }
+
+              setEnviado(true);
+            } catch (erro) {
+              setErro(
+                erro instanceof Error
+                  ? erro.message
+                  : "Não foi possível cadastrar o e-mail. Tente novamente.",
+              );
+            } finally {
+              setEnviando(false);
+            }
           }}
         >
           <div className="flex-1">
@@ -60,18 +82,30 @@ export function NotifyForm() {
               type="email"
               required
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (erro) setErro("");
+              }}
               placeholder="nome@goias.gov.br"
               autoComplete="email"
+              aria-invalid={erro ? "true" : undefined}
+              aria-describedby={erro ? "fortis-email-erro" : undefined}
               className="w-full rounded-md border border-ink-300 bg-white px-4 py-3 text-sm text-ink-900 placeholder:text-ink-400 focus:border-gold-500 focus:outline-none"
             />
+            {erro ? (
+              <p id="fortis-email-erro" role="alert" className="mt-2 text-sm font-semibold text-red-700">
+                {erro}
+              </p>
+            ) : null}
           </div>
           <button
+            disabled={enviando}
             type="submit"
-            className="rounded-md bg-gold-500 px-6 py-3 text-sm font-bold tracking-wide text-ink-950 uppercase transition-colors hover:bg-gold-400"
+            className="h-[46px] shrink-0 rounded-md bg-gold-500 px-6 text-sm font-bold tracking-wide text-ink-950 uppercase transition-colors hover:bg-gold-400"
           >
-            {fortis.cta.botao}
+            {enviando ? "Cadastrando..." : fortis.cta.botao}
           </button>
+
         </form>
       )}
 

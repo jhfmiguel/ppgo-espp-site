@@ -102,10 +102,11 @@ export default async function AdminAtosPage({
               <div className="flex shrink-0 flex-wrap items-center gap-2">
                 <Link
                   href={`/admin/atos-normativos/${ato.id}`}
-                  className="inline-flex items-center gap-1.5 rounded-md border border-ink-200 px-2.5 py-1.5 text-xs font-semibold text-ink-700 transition-colors hover:border-gold-400 hover:bg-gold-050"
+                  className="inline-flex size-8 items-center justify-center rounded-md border border-ink-200 text-ink-700 transition-colors hover:border-gold-400 hover:bg-gold-050"
+                  title="Editar"
+                  aria-label="Editar"
                 >
                   <SquarePen className="size-3.5" aria-hidden="true" />
-                  Editar
                 </Link>
                 <BotaoPublicar acao={alternarStatusAto} id={ato.id} status={ato.status} />
                 <BotaoExcluir

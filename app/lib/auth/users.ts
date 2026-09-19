@@ -16,6 +16,8 @@ export const ROTULO_PERFIL: Record<Perfil, string> = {
 export const PERMISSOES = {
   noticias: ["comunicacao", "admin"],
   eventos: ["comunicacao", "admin"],
+  mensagens: ["comunicacao", "admin"],
+  newsletter: ["comunicacao", "admin"],
   atosNormativos: ["admin"],
 } as const satisfies Record<string, readonly Perfil[]>;
 

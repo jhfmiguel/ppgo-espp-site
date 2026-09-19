@@ -13,6 +13,9 @@ import { PageHeader } from "@/components/ui/page-header";
  */
 export function Contato() {
   const [enviado, setEnviado] = useState(false);
+  const [enviando, setEnviando] = useState(false);
+  const [erro, setErro] = useState("");
+  const [protocolo, setProtocolo] = useState("");
 
   return (
     <section
@@ -106,23 +109,30 @@ export function Contato() {
                     aria-hidden="true"
                   />
                   <span>
-                    Mensagem preenchida, mas o envio automático ainda não está
-                    ativo. Encaminhe o conteúdo para{" "}
-                    <a
-                      href="mailto:ensino.dgpp@goias.gov.br"
-                      className="font-semibold text-gold-600 underline underline-offset-2"
-                    >
-                      ensino.dgpp@goias.gov.br
-                    </a>
-                    .
+                    Mensagem recebida com sucesso. A equipe da ESPP poderá acompanhar
+                    o atendimento pelo painel administrativo.
                   </span>
                 </p>
               ) : (
                 <form
                   className="mt-6 grid gap-4 sm:grid-cols-2"
-                  onSubmit={(e) => {
+                  onSubmit={async (e) => {
                     e.preventDefault();
-                    setEnviado(true);
+                    setErro("");
+                    setEnviando(true);
+                    const form = new FormData(e.currentTarget);
+                    try {
+                      const resposta = await fetch("/api/contato", {
+                        method: "POST",
+                        body: form,
+                      });
+                      if (!resposta.ok) throw new Error();
+                      setEnviado(true);
+                    } catch {
+                      setErro("Não foi possível enviar a mensagem. Tente novamente.");
+                    } finally {
+                      setEnviando(false);
+                    }
                   }}
                 >
                   <Campo id="nome" label="Nome completo" required />
@@ -151,13 +161,33 @@ export function Contato() {
                     />
                   </div>
                   <div className="sm:col-span-2">
+                    <label
+                      htmlFor="anexos"
+                      className="block text-xs font-semibold tracking-[0.12em] text-ink-700 uppercase"
+                    >
+                      Anexos
+                    </label>
+                    <input
+                      id="anexos"
+                      name="anexos"
+                      type="file"
+                      multiple
+                      accept=".pdf,.jpg,.jpeg,.png,.webp"
+                      className="mt-2 w-full rounded-md border border-ink-200 bg-white px-4 py-3 text-sm text-ink-900"
+                    />
+                    <p className="mt-1 text-xs text-ink-500">
+                      PDF, JPG, PNG ou WEBP. Até 8 MB por arquivo.
+                    </p>
+                  </div>                  <div className="sm:col-span-2">
                     <button
+                      disabled={enviando}
                       type="submit"
                       className="rounded-md bg-ink-900 px-7 py-3 text-sm font-bold tracking-wide text-gold-500 uppercase transition-colors hover:bg-ink-800"
                     >
                       Enviar mensagem
                     </button>
-                  </div>
+                  </div>                  {erro ? <p role="alert" className="sm:col-span-2 text-sm font-semibold text-red-700">{erro}</p> : null}
+
                 </form>
               )}
             </div>

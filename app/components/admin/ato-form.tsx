@@ -2,7 +2,7 @@
 
 import { useActionState, useId, useState } from "react";
 import Link from "next/link";
-import { FileText, Trash2, Upload } from "lucide-react";
+import { FileText, Save, Trash2, Upload, X } from "lucide-react";
 
 import { salvarAto } from "@/lib/actions/atos";
 import { ESTADO_INICIAL } from "@/lib/actions/estado";
@@ -131,10 +131,10 @@ function CampoAnexo({
 export function AtoForm({ ato }: { ato?: AtoNormativo }) {
   const [estado, acao] = useActionState(salvarAto, ESTADO_INICIAL);
 
-  const valor = (campo: string, padrao = "") =>
-    estado.valores?.[campo] ??
-    ((ato?.[campo as keyof AtoNormativo] as string | undefined) ?? undefined) ??
-    padrao;
+ const valor = (campo: string, padrao = "") =>
+  estado.valores?.[campo] ??
+  (ato?.[campo as keyof AtoNormativo] as string | undefined) ??
+  padrao;
 
   return (
     <form action={acao} className="space-y-7">
@@ -216,12 +216,13 @@ export function AtoForm({ ato }: { ato?: AtoNormativo }) {
 
       <div className="flex flex-wrap items-center gap-3 border-t border-ink-100 pt-6">
         <BotaoSalvar>{ato ? "Salvar alterações" : "Cadastrar ato"}</BotaoSalvar>
-        <Link
-          href="/admin/atos-normativos"
-          className="rounded-md px-4 py-2.5 text-xs font-bold tracking-wide text-ink-600 uppercase transition-colors hover:text-ink-900"
-        >
-          Cancelar
-        </Link>
+      <Link
+        href="/admin/atos-normativos"
+        className="inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-1.5 transition-colors text-white hover:bg-blue-700"
+      >
+        <X className="size-4" aria-hidden="true" />
+        <span>Cancelar</span>
+      </Link>
       </div>
     </form>
   );
