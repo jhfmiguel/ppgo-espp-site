@@ -14,7 +14,7 @@ import {
   BotaoSalvar,
   Campo,
   CampoImagem,
-  CampoSugerido,
+  Selecao,
   EscolhaStatus,
 } from "@/components/admin/campos";
 import type { Noticia } from "@/lib/data/types";
@@ -63,14 +63,13 @@ export function NoticiaForm({ noticia }: { noticia?: Noticia }) {
           defaultValue={valor("data", hoje())}
           erro={estado.campos?.data}
         />
-        <CampoSugerido
+        <Selecao
           name="categoria"
           rotulo="Editoria"
           obrigatorio
-          sugestoes={EDITORIAS}
-          defaultValue={valor("categoria")}
+          opcoes={EDITORIAS}
+          defaultValue={valor("categoria", "Formação")}
           erro={estado.campos?.categoria}
-          placeholder="Formação"
         />
       </div>
 

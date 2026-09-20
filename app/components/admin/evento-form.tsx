@@ -14,7 +14,6 @@ import {
   BotaoSalvar,
   Campo,
   CampoImagem,
-  CampoSugerido,
   EscolhaStatus,
   Selecao,
 } from "@/components/admin/campos";
@@ -108,14 +107,13 @@ export function EventoForm({ evento }: { evento?: Evento }) {
           erro={estado.campos?.local}
           placeholder="Auditório da ESPP — Goiânia/GO"
         />
-        <CampoSugerido
+        <Selecao
           name="categoria"
           rotulo="Categoria"
           obrigatorio
-          sugestoes={CATEGORIAS}
-          defaultValue={valor("categoria")}
+          opcoes={CATEGORIAS}
+          defaultValue={valor("categoria", "Formação")}
           erro={estado.campos?.categoria}
-          placeholder="Seminário"
         />
       </div>
 

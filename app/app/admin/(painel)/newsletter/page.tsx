@@ -122,7 +122,11 @@ export default async function NewsletterPage({
                           <option value="DESCADASTRADO">Descadastrado</option>
                           <option value="BLOQUEADO">Bloqueado</option>
                         </select>
-                        <button className="inline-flex size-8 items-center justify-center rounded-md border border-ink-200" title="Salvar" aria-label="Salvar">
+                        <button
+                          className="inline-flex size-8 items-center justify-center rounded-md border border-ink-200 text-ink-600 transition-colors hover:border-green-300 hover:bg-green-50 hover:text-green-600"
+                          title="Salvar"
+                          aria-label="Salvar"
+                        >
                           <Save className="size-3.5" aria-hidden="true" />
                         </button>
                       </form>

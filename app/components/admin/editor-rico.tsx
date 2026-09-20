@@ -171,6 +171,27 @@ export function EditorRico({ name, valorInicial = "", erro, rotulo, descricao }:
     selecao.addRange(guardada);
   }, []);
 
+  /**
+   * Restaura obrigatoriamente a última seleção memorizada.
+   * Usado quando um controle externo ao contentEditable recebe foco,
+   * como o campo de URL do painel de links.
+   */
+  const restaurarSelecaoForcada = useCallback(() => {
+    const area = areaRef.current;
+    const selecao = document.getSelection();
+    const guardada = selecaoRef.current;
+
+    if (!area || !selecao || !guardada) return false;
+    if (!area.contains(guardada.startContainer)) return false;
+
+    try {
+      selecao.removeAllRanges();
+      selecao.addRange(guardada.cloneRange());
+      return true;
+    } catch {
+      return false;
+    }
+  }, []);
   /** Marca na barra os comandos ativos na posição do cursor. */
   const atualizarEstado = useCallback(() => {
     const area = areaRef.current;
@@ -223,15 +244,33 @@ export function EditorRico({ name, valorInicial = "", erro, rotulo, descricao }:
   function aplicarLink() {
     const url = urlLink.trim();
     if (!url) return;
+
     // Sem esquema, assume https — evita virar link relativo quebrado.
     const destino = /^(https?:|mailto:|tel:|\/|#)/i.test(url) ? url : `https://${url}`;
 
-    areaRef.current?.focus();
-    restaurarSelecao();
+    const area = areaRef.current;
+    if (!area) return;
+
+    // O campo de URL recebeu o foco. Primeiro devolvemos o foco ao editor
+    // e depois restauramos FORCADAMENTE a Range que existia quando o
+    // usuário clicou em "Inserir link".
+    area.focus();
+
+    if (!restaurarSelecaoForcada()) {
+      setAviso("Selecione o texto ou posicione o cursor onde deseja inserir o link.");
+      return;
+    }
+
     document.execCommand("createLink", false, destino);
+
+    // Guarda a nova posição resultante do comando.
+    guardarSelecao();
+
     setPainelLink(false);
     setUrlLink("");
+    setAviso(null);
     sincronizar();
+    atualizarEstado();
   }
 
   function removerLink() {

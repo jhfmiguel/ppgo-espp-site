@@ -11,7 +11,6 @@ import {
   AvisoErro,
   BotaoSalvar,
   Campo,
-  CampoSugerido,
   EscolhaStatus,
   Selecao,
 } from "@/components/admin/campos";
@@ -143,14 +142,11 @@ export function AtoForm({ ato }: { ato?: AtoNormativo }) {
       <AvisoErro mensagem={estado.erro} />
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <CampoSugerido
+        <Selecao
           name="tipo"
           rotulo="Tipo do ato"
-          obrigatorio
-          sugestoes={TIPOS}
-          defaultValue={valor("tipo")}
-          erro={estado.campos?.tipo}
-          placeholder="Portaria"
+          opcoes={TIPOS}
+          defaultValue={valor("tipo", "Portaria")}
         />
         <Selecao
           name="situacao"
