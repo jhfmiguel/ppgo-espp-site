@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Apple, Play } from "lucide-react";
+import { Apple } from "lucide-react";
 
 import { localizacao } from "@/content/site";
 
@@ -31,6 +31,21 @@ const transparencia = [
   ["Regulamentação da LAI", "https://transparencia.go.gov.br/"],
   ["Relatório Estatístico da Ouvidoria", "https://www.ouvidoriageral.go.gov.br/"],
 ] as const;
+
+function GooglePlayMark() {
+  return (
+    <svg
+      viewBox="0 0 32 36"
+      className="mr-[9px] h-[28px] w-[25px] shrink-0"
+      aria-hidden="true"
+    >
+      <path d="M2 2.4 19.4 18 2 33.6V2.4Z" fill="currentColor" opacity=".96" />
+      <path d="m19.4 18 5.2-4.7c1.2-1 2.5-.8 3.3-.3l2.2 1.3c1.9 1.1 1.9 3.1 0 4.2l-2.2 1.3c-.9.5-2.2.7-3.3-.3L19.4 18Z" fill="currentColor" />
+      <path d="M3.9 1.2c-.9-.5-1.9-.2-2.5.4L20.7 19l4.4-4L3.9 1.2Z" fill="currentColor" opacity=".72" />
+      <path d="M1.4 34.4c.6.6 1.6.9 2.5.4L25.1 21l-4.4-4L1.4 34.4Z" fill="currentColor" opacity=".82" />
+    </svg>
+  );
+}
 
 function ListaLinks({
   itens,
@@ -76,7 +91,7 @@ export function SiteFooter() {
                 alt="Escola Superior de Polícia Penal"
                 width={82}
                 height={96}
-                className="h-[72px] w-auto shrink-0 grayscale brightness-[1.85] contrast-[0.85]"
+                className="h-[72px] w-auto shrink-0 mix-blend-screen grayscale contrast-[1.35] brightness-[2]" style={{ opacity: 0.96 }}
                 data-contrast-ignore
               />
               <span className="hidden leading-tight sm:block">
@@ -98,9 +113,9 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Disponível no Google Play"
-                className="flex h-[44px] min-w-[149px] items-center rounded-[4px] border border-white/90 px-[10px] text-white"
+                className="flex h-[46px] min-w-[154px] items-center rounded-[5px] border border-white/90 bg-black/10 px-[10px] text-white transition-colors hover:bg-black/20"
               >
-                <Play className="mr-2 size-[27px] fill-white" strokeWidth={1.4} aria-hidden="true" />
+                <GooglePlayMark />
                 <span className="leading-none">
                   <span className="block text-[8px]">Disponível no</span>
                   <span className="mt-[2px] block text-[16px] font-semibold">Google Play</span>
@@ -114,7 +129,7 @@ export function SiteFooter() {
                 aria-label="Baixar na App Store"
                 className="flex h-[44px] min-w-[149px] items-center rounded-[4px] border border-white/90 px-[10px] text-white"
               >
-                <Apple className="mr-2 size-[27px] fill-white" strokeWidth={1.4} aria-hidden="true" />
+                <Apple className="mr-[9px] size-[28px] fill-white stroke-white" strokeWidth={0.7} aria-hidden="true" />
                 <span className="leading-none">
                   <span className="block text-[8px]">Baixar na</span>
                   <span className="mt-[2px] block text-[16px] font-semibold">App Store</span>
