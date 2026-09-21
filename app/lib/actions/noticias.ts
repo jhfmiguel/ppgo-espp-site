@@ -110,8 +110,8 @@ export async function salvarNoticia(
   if ("estado" in resultado) return resultado.estado;
 
   const salva = existente
-    ? await atualizarNoticia(existente.id, resultado.dados)
-    : await criarNoticia({ ...resultado.dados, autor: usuario.nome });
+    ? await atualizarNoticia(existente.id, resultado.dados, usuario.nome)
+    : await criarNoticia({ ...resultado.dados, autor: usuario.nome }, usuario.nome);
 
   revalidarNoticias(salva?.slug);
   if (existente && existente.slug !== salva?.slug) revalidarNoticias(existente.slug);
@@ -120,27 +120,27 @@ export async function salvarNoticia(
 }
 
 export async function removerNoticia(formData: FormData) {
-  await exigirPermissao("noticias");
+  const usuario = await exigirPermissao("noticias");
 
   const id = String(formData.get("id") ?? "");
   const noticia = await buscarNoticia(id);
   if (!noticia) redirect("/admin/noticias?erro=nao-encontrada");
 
-  await excluirNoticia(id);
+  await excluirNoticia(id, usuario.nome);
   revalidarNoticias(noticia.slug);
   redirect("/admin/noticias?ok=excluida");
 }
 
 /** Alterna entre rascunho e publicado direto na listagem. */
 export async function alternarStatusNoticia(formData: FormData) {
-  await exigirPermissao("noticias");
+  const usuario = await exigirPermissao("noticias");
 
   const id = String(formData.get("id") ?? "");
   const noticia = await buscarNoticia(id);
   if (!noticia) redirect("/admin/noticias?erro=nao-encontrada");
 
   const status: Status = noticia.status === "publicado" ? "rascunho" : "publicado";
-  await atualizarNoticia(id, { status });
+  await atualizarNoticia(id, { status }, usuario.nome);
   revalidarNoticias(noticia.slug);
   redirect(`/admin/noticias?ok=${status === "publicado" ? "publicada" : "despublicada"}`);
 }
