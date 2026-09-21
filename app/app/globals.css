@@ -37,8 +37,8 @@
   /* Altura do header fixo, somando as faixas de components/site-header.tsx:
      barra utilitária (h-9) + brasões (h-24) e, a partir de xl, o menu (h-12).
      Usada no espaçamento do <main>, no scroll de âncoras e no menu mobile. */
-  --spacing-header: 8.25rem;
-  --spacing-header-xl: 11.25rem;
+  --spacing-header: 8.8rem;
+  --spacing-header-xl: 12.35rem;
 
   --font-display: var(--font-display), "Arial Narrow", system-ui, sans-serif;
   --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
