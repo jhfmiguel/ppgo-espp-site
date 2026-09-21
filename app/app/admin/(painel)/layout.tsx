@@ -64,7 +64,7 @@ export default async function PainelLayout({ children }: { children: React.React
       </aside>
 
       <main className="min-w-0 flex-1 bg-ink-050 px-5 py-8 lg:px-10 lg:py-10">
-        <div className="mx-auto max-w-5xl">{children}</div>
+        <div className="mx-auto w-full max-w-7xl">{children}</div>
       </main>
     </div>
   );
