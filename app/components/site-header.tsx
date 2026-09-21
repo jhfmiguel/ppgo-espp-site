@@ -206,7 +206,7 @@ export function SiteHeader() {
                 <span className="title-display block text-[1.5rem] font-bold text-gov-teal">
                   ESPP
                 </span>
-                <span className="block max-w-56 text-[0.72rem] font-semibold tracking-[0.04em] text-ink-600 uppercase">
+                <span className="block whitespace-nowrap text-[0.72rem] font-semibold tracking-[0.04em] text-ink-600 uppercase">
                   Escola Superior de Polícia Penal
                 </span>
               </span>
