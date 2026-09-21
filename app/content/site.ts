@@ -78,6 +78,7 @@ export const nav = [
     ],
   },
   { label: "LGPD", href: "https://goias.gov.br/casacivil/lei-geral-de-protecao-de-dados/", external: true },
+  { label: "Portal do Aluno", href: "https://ead.policiapenal.go.gov.br/login/index.php", external: true },
 ] as const;
 
 export const hero = {
