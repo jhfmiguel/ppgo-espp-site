@@ -108,18 +108,18 @@ public class ConteudoController {
 
     @PostMapping("/api/v1/admin/noticias")
     @ResponseStatus(HttpStatus.CREATED)
-    Noticia cria(@Valid @RequestBody NoticiaReq r, Authentication a) {
+    Noticia cria(@Valid @RequestBody NoticiaReq r, Authentication a, @RequestHeader(value = "X-ESPP-Usuario", required = false) String usuario) {
         var n = new Noticia();
         noticia(n, r);
         n.setSlug(slug.unico(r.titulo(), noticias::existsBySlug));
-        n.setAutor(a.getName());
+        n.setAutor(ator(usuario, a));
         n = noticias.save(n);
-        auditoria.registrar("NOTICIAS", "CRIACAO", n.getId(), n.getTitulo(), a.getName(), null, n);
+        auditoria.registrar("NOTICIAS", "CRIACAO", n.getId(), n.getTitulo(), ator(usuario, a), null, n);
         return n;
     }
 
     @PutMapping("/api/v1/admin/noticias/{id}")
-    Noticia edita(@PathVariable String id, @Valid @RequestBody NoticiaReq r, Authentication a) {
+    Noticia edita(@PathVariable String id, @Valid @RequestBody NoticiaReq r, Authentication a, @RequestHeader(value = "X-ESPP-Usuario", required = false) String usuario) {
         var n = noticias.findById(id).orElseThrow(EntityNotFoundException::new);
         var antes = new NoticiaSnapshot(n);
         if (!n.getTitulo().equals(r.titulo())) {
@@ -127,17 +127,17 @@ public class ConteudoController {
         }
         noticia(n, r);
         n = noticias.save(n);
-        auditoria.registrar("NOTICIAS", "EDICAO", n.getId(), n.getTitulo(), a.getName(), antes, n);
+        auditoria.registrar("NOTICIAS", "EDICAO", n.getId(), n.getTitulo(), ator(usuario, a), antes, n);
         return n;
     }
 
     @DeleteMapping("/api/v1/admin/noticias/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void delN(@PathVariable String id, Authentication a) {
+    void delN(@PathVariable String id, Authentication a, @RequestHeader(value = "X-ESPP-Usuario", required = false) String usuario) {
         var n = noticias.findById(id).orElseThrow(EntityNotFoundException::new);
         var antes = new NoticiaSnapshot(n);
         noticias.delete(n);
-        auditoria.registrar("NOTICIAS", "EXCLUSAO", id, n.getTitulo(), a.getName(), antes, null);
+        auditoria.registrar("NOTICIAS", "EXCLUSAO", id, n.getTitulo(), ator(usuario, a), antes, null);
     }
 
     @GetMapping("/api/v1/admin/eventos")
@@ -147,18 +147,18 @@ public class ConteudoController {
 
     @PostMapping("/api/v1/admin/eventos")
     @ResponseStatus(HttpStatus.CREATED)
-    Evento cria(@Valid @RequestBody EventoReq r, Authentication a) {
+    Evento cria(@Valid @RequestBody EventoReq r, Authentication a, @RequestHeader(value = "X-ESPP-Usuario", required = false) String usuario) {
         var e = new Evento();
         evento(e, r);
         e.setSlug(slug.unico(r.titulo(), eventos::existsBySlug));
-        e.setAutor(a.getName());
+        e.setAutor(ator(usuario, a));
         e = eventos.save(e);
-        auditoria.registrar("EVENTOS", "CRIACAO", e.getId(), e.getTitulo(), a.getName(), null, e);
+        auditoria.registrar("EVENTOS", "CRIACAO", e.getId(), e.getTitulo(), ator(usuario, a), null, e);
         return e;
     }
 
     @PutMapping("/api/v1/admin/eventos/{id}")
-    Evento edita(@PathVariable String id, @Valid @RequestBody EventoReq r, Authentication a) {
+    Evento edita(@PathVariable String id, @Valid @RequestBody EventoReq r, Authentication a, @RequestHeader(value = "X-ESPP-Usuario", required = false) String usuario) {
         var e = eventos.findById(id).orElseThrow(EntityNotFoundException::new);
         var antes = new EventoSnapshot(e);
         if (!e.getTitulo().equals(r.titulo())) {
@@ -166,17 +166,17 @@ public class ConteudoController {
         }
         evento(e, r);
         e = eventos.save(e);
-        auditoria.registrar("EVENTOS", "EDICAO", e.getId(), e.getTitulo(), a.getName(), antes, e);
+        auditoria.registrar("EVENTOS", "EDICAO", e.getId(), e.getTitulo(), ator(usuario, a), antes, e);
         return e;
     }
 
     @DeleteMapping("/api/v1/admin/eventos/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void delE(@PathVariable String id, Authentication a) {
+    void delE(@PathVariable String id, Authentication a, @RequestHeader(value = "X-ESPP-Usuario", required = false) String usuario) {
         var e = eventos.findById(id).orElseThrow(EntityNotFoundException::new);
         var antes = new EventoSnapshot(e);
         eventos.delete(e);
-        auditoria.registrar("EVENTOS", "EXCLUSAO", id, e.getTitulo(), a.getName(), antes, null);
+        auditoria.registrar("EVENTOS", "EXCLUSAO", id, e.getTitulo(), ator(usuario, a), antes, null);
     }
 
     @GetMapping("/api/v1/admin/atos-normativos")
@@ -186,32 +186,36 @@ public class ConteudoController {
 
     @PostMapping("/api/v1/admin/atos-normativos")
     @ResponseStatus(HttpStatus.CREATED)
-    AtoNormativo cria(@Valid @RequestBody AtoReq r, Authentication a) {
+    AtoNormativo cria(@Valid @RequestBody AtoReq r, Authentication a, @RequestHeader(value = "X-ESPP-Usuario", required = false) String usuario) {
         var x = new AtoNormativo();
         ato(x, r);
-        x.setAutor(a.getName());
+        x.setAutor(ator(usuario, a));
         x = atos.save(x);
-        auditoria.registrar("ATOS_NORMATIVOS", "CRIACAO", x.getId(), x.getTitulo(), a.getName(), null, x);
+        auditoria.registrar("ATOS_NORMATIVOS", "CRIACAO", x.getId(), x.getTitulo(), ator(usuario, a), null, x);
         return x;
     }
 
     @PutMapping("/api/v1/admin/atos-normativos/{id}")
-    AtoNormativo edita(@PathVariable String id, @Valid @RequestBody AtoReq r, Authentication a) {
+    AtoNormativo edita(@PathVariable String id, @Valid @RequestBody AtoReq r, Authentication a, @RequestHeader(value = "X-ESPP-Usuario", required = false) String usuario) {
         var x = atos.findById(id).orElseThrow(EntityNotFoundException::new);
         var antes = new AtoSnapshot(x);
         ato(x, r);
         x = atos.save(x);
-        auditoria.registrar("ATOS_NORMATIVOS", "EDICAO", x.getId(), x.getTitulo(), a.getName(), antes, x);
+        auditoria.registrar("ATOS_NORMATIVOS", "EDICAO", x.getId(), x.getTitulo(), ator(usuario, a), antes, x);
         return x;
     }
 
     @DeleteMapping("/api/v1/admin/atos-normativos/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void delA(@PathVariable String id, Authentication a) {
+    void delA(@PathVariable String id, Authentication a, @RequestHeader(value = "X-ESPP-Usuario", required = false) String usuario) {
         var x = atos.findById(id).orElseThrow(EntityNotFoundException::new);
         var antes = new AtoSnapshot(x);
         atos.delete(x);
-        auditoria.registrar("ATOS_NORMATIVOS", "EXCLUSAO", id, x.getTitulo(), a.getName(), antes, null);
+        auditoria.registrar("ATOS_NORMATIVOS", "EXCLUSAO", id, x.getTitulo(), ator(usuario, a), antes, null);
+    }
+
+    private String ator(String usuario, Authentication autenticacao) {
+        return usuario != null && !usuario.isBlank() ? usuario.trim() : autenticacao.getName();
     }
 
     private void noticia(Noticia n, NoticiaReq r) {
