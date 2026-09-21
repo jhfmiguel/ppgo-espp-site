@@ -180,16 +180,16 @@ export function SiteHeader() {
 
       {/* faixa com os brasões */}
       <div className="border-b border-ink-200 bg-white">
-        <div className="container-espp flex min-h-28 items-center justify-between gap-6 py-5">
+        <div className="container-espp flex min-h-36 items-center justify-between gap-8 py-6">
           <Link href="/" className="flex min-w-0 items-center gap-4" aria-label={`${site.nome} — início`}>
             <img
               src={goias.brasao.src}
               alt={goias.brasao.alt}
-              className="h-14 w-auto shrink-0"
+              className="h-20 w-auto shrink-0"
             />
             <span className="hidden leading-tight sm:block">
               <span className="block text-xs font-semibold tracking-wide text-ink-500 uppercase">{goias.nome}</span>
-              <span className="title-display -mt-0.5 block text-2xl text-gov-teal">{goias.sigla}</span>
+              <span className="title-display -mt-0.5 block text-3xl text-gov-teal">{goias.sigla}</span>
             </span>
 
             <span aria-hidden="true" className="mx-1 hidden h-10 w-px shrink-0 bg-ink-200 sm:block" />
@@ -197,13 +197,13 @@ export function SiteHeader() {
             <Image
               src="/images/logo-espp.png"
               alt=""
-              width={44}
-              height={56}
-              className="h-14 w-auto shrink-0"
+              width={64}
+              height={82}
+              className="h-20 w-auto shrink-0"
               priority
             />
             <span className="hidden min-w-0 leading-tight md:block">
-              <span className="title-display block text-2xl text-ink-900">{site.sigla}</span>
+              <span className="title-display block text-3xl text-ink-900">{site.sigla}</span>
               <span className="block truncate text-[0.7rem] font-semibold tracking-[0.12em] text-ink-500 uppercase">
                 {site.nome}
               </span>
