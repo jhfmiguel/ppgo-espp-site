@@ -154,11 +154,13 @@ async function api<T>(
 function requisicaoAdmin(
   method: "POST" | "PUT" | "DELETE",
   body?: unknown,
+  usuario?: string,
 ): RequestInit {
   return {
     method,
     headers: {
       Authorization: autorizacaoAdmin(),
+      ...(usuario ? { "X-ESPP-Usuario": usuario } : {}),
       ...(body === undefined
         ? {}
         : { "Content-Type": "application/json; charset=utf-8" }),
@@ -328,10 +330,10 @@ export async function buscarNoticiaPorSlug(slug: string) {
   );
 }
 
-export async function criarNoticia(dados: NovaNoticia) {
+export async function criarNoticia(dados: NovaNoticia, usuario?: string) {
   const item = await api<ApiNoticia>(
     "/api/v1/admin/noticias",
-    requisicaoAdmin("POST", payloadNoticia(dados)),
+    requisicaoAdmin("POST", payloadNoticia(dados), usuario),
   );
 
   return mapearNoticia(item);
@@ -340,6 +342,7 @@ export async function criarNoticia(dados: NovaNoticia) {
 export async function atualizarNoticia(
   id: string,
   dados: Partial<NovaNoticia>,
+  usuario?: string,
 ) {
   const atual = await buscarNoticia(id);
   if (!atual) return null;
@@ -357,19 +360,19 @@ export async function atualizarNoticia(
 
   const item = await api<ApiNoticia>(
     `/api/v1/admin/noticias/${id}`,
-    requisicaoAdmin("PUT", payloadNoticia(completo)),
+    requisicaoAdmin("PUT", payloadNoticia(completo), usuario),
   );
 
   return mapearNoticia(item);
 }
 
-export async function excluirNoticia(id: string) {
+export async function excluirNoticia(id: string, usuario?: string) {
   const atual = await buscarNoticia(id);
   if (!atual) return false;
 
   await api<void>(
     `/api/v1/admin/noticias/${id}`,
-    requisicaoAdmin("DELETE"),
+    requisicaoAdmin("DELETE", undefined, usuario),
   );
 
   return true;
@@ -432,10 +435,10 @@ export async function buscarEventoPorSlug(slug: string) {
   );
 }
 
-export async function criarEvento(dados: NovoEvento) {
+export async function criarEvento(dados: NovoEvento, usuario?: string) {
   const item = await api<ApiEvento>(
     "/api/v1/admin/eventos",
-    requisicaoAdmin("POST", payloadEvento(dados)),
+    requisicaoAdmin("POST", payloadEvento(dados), usuario),
   );
 
   return mapearEvento(item);
@@ -444,6 +447,7 @@ export async function criarEvento(dados: NovoEvento) {
 export async function atualizarEvento(
   id: string,
   dados: Partial<NovoEvento>,
+  usuario?: string,
 ) {
   const atual = await buscarEvento(id);
   if (!atual) return null;
@@ -469,19 +473,19 @@ export async function atualizarEvento(
 
   const item = await api<ApiEvento>(
     `/api/v1/admin/eventos/${id}`,
-    requisicaoAdmin("PUT", payloadEvento(completo)),
+    requisicaoAdmin("PUT", payloadEvento(completo), usuario),
   );
 
   return mapearEvento(item);
 }
 
-export async function excluirEvento(id: string) {
+export async function excluirEvento(id: string, usuario?: string) {
   const atual = await buscarEvento(id);
   if (!atual) return false;
 
   await api<void>(
     `/api/v1/admin/eventos/${id}`,
-    requisicaoAdmin("DELETE"),
+    requisicaoAdmin("DELETE", undefined, usuario),
   );
 
   return true;
@@ -513,10 +517,10 @@ export async function buscarAto(id: string) {
   return (await listarAtos()).find((item) => item.id === id) ?? null;
 }
 
-export async function criarAto(dados: NovoAto) {
+export async function criarAto(dados: NovoAto, usuario?: string) {
   const item = await api<ApiAtoNormativo>(
     "/api/v1/admin/atos-normativos",
-    requisicaoAdmin("POST", payloadAto(dados)),
+    requisicaoAdmin("POST", payloadAto(dados), usuario),
   );
 
   return mapearAto(item);
@@ -525,6 +529,7 @@ export async function criarAto(dados: NovoAto) {
 export async function atualizarAto(
   id: string,
   dados: Partial<NovoAto>,
+  usuario?: string,
 ) {
   const atual = await buscarAto(id);
   if (!atual) return null;
@@ -544,19 +549,19 @@ export async function atualizarAto(
 
   const item = await api<ApiAtoNormativo>(
     `/api/v1/admin/atos-normativos/${id}`,
-    requisicaoAdmin("PUT", payloadAto(completo)),
+    requisicaoAdmin("PUT", payloadAto(completo), usuario),
   );
 
   return mapearAto(item);
 }
 
-export async function excluirAto(id: string) {
+export async function excluirAto(id: string, usuario?: string) {
   const atual = await buscarAto(id);
   if (!atual) return false;
 
   await api<void>(
     `/api/v1/admin/atos-normativos/${id}`,
-    requisicaoAdmin("DELETE"),
+    requisicaoAdmin("DELETE", undefined, usuario),
   );
 
   return true;
