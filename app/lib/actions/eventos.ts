@@ -150,8 +150,8 @@ export async function salvarEvento(
   if ("estado" in resultado) return resultado.estado;
 
   const salvo = existente
-    ? await atualizarEvento(existente.id, resultado.dados)
-    : await criarEvento({ ...resultado.dados, autor: usuario.nome });
+    ? await atualizarEvento(existente.id, resultado.dados, usuario.nome)
+    : await criarEvento({ ...resultado.dados, autor: usuario.nome }, usuario.nome);
 
   revalidarEventos(salvo?.slug);
   if (existente && existente.slug !== salvo?.slug) revalidarEventos(existente.slug);
@@ -160,26 +160,26 @@ export async function salvarEvento(
 }
 
 export async function removerEvento(formData: FormData) {
-  await exigirPermissao("eventos");
+  const usuario = await exigirPermissao("eventos");
 
   const id = String(formData.get("id") ?? "");
   const evento = await buscarEvento(id);
   if (!evento) redirect("/admin/eventos?erro=nao-encontrado");
 
-  await excluirEvento(id);
+  await excluirEvento(id, usuario.nome);
   revalidarEventos(evento.slug);
   redirect("/admin/eventos?ok=excluido");
 }
 
 export async function alternarStatusEvento(formData: FormData) {
-  await exigirPermissao("eventos");
+  const usuario = await exigirPermissao("eventos");
 
   const id = String(formData.get("id") ?? "");
   const evento = await buscarEvento(id);
   if (!evento) redirect("/admin/eventos?erro=nao-encontrado");
 
   const status: Status = evento.status === "publicado" ? "rascunho" : "publicado";
-  await atualizarEvento(id, { status });
+  await atualizarEvento(id, { status }, usuario.nome);
   revalidarEventos(evento.slug);
   redirect(`/admin/eventos?ok=${status === "publicado" ? "publicado" : "despublicado"}`);
 }
