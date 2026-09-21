@@ -108,9 +108,9 @@ export async function salvarAto(
   if ("estado" in resultado) return resultado.estado;
 
   if (existente) {
-    await atualizarAto(existente.id, resultado.dados);
+    await atualizarAto(existente.id, resultado.dados, usuario.nome);
   } else {
-    await criarAto({ ...resultado.dados, autor: usuario.nome });
+    await criarAto({ ...resultado.dados, autor: usuario.nome }, usuario.nome);
   }
 
   revalidarAtos();
@@ -118,25 +118,25 @@ export async function salvarAto(
 }
 
 export async function removerAto(formData: FormData) {
-  await exigirPermissao("atosNormativos");
+  const usuario = await exigirPermissao("atosNormativos");
 
   const id = String(formData.get("id") ?? "");
   if (!(await buscarAto(id))) redirect("/admin/atos-normativos?erro=nao-encontrado");
 
-  await excluirAto(id);
+  await excluirAto(id, usuario.nome);
   revalidarAtos();
   redirect("/admin/atos-normativos?ok=excluido");
 }
 
 export async function alternarStatusAto(formData: FormData) {
-  await exigirPermissao("atosNormativos");
+  const usuario = await exigirPermissao("atosNormativos");
 
   const id = String(formData.get("id") ?? "");
   const ato = await buscarAto(id);
   if (!ato) redirect("/admin/atos-normativos?erro=nao-encontrado");
 
   const status: Status = ato.status === "publicado" ? "rascunho" : "publicado";
-  await atualizarAto(id, { status });
+  await atualizarAto(id, { status }, usuario.nome);
   revalidarAtos();
   redirect(
     `/admin/atos-normativos?ok=${status === "publicado" ? "publicado" : "despublicado"}`,
