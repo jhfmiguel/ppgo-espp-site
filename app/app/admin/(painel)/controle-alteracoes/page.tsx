@@ -95,7 +95,7 @@ function aplicarFiltros(
   });
 }
 
-export default async function ControleAlteracoesPage({
+export default async function AuditoriaPage({
   searchParams,
 }: {
   searchParams: Promise<Filtros>;
@@ -112,7 +112,7 @@ export default async function ControleAlteracoesPage({
   return (
     <>
       <TituloPagina
-        titulo="Controle de alterações"
+        titulo="Auditoria"
         descricao="Auditoria central das alterações realizadas por usuários nos módulos administrativos do sistema."
       />
 
