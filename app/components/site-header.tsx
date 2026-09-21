@@ -202,10 +202,15 @@ export function SiteHeader() {
               className="h-14 w-auto shrink-0"
               priority
             />
-            <span className="hidden min-w-0 leading-tight md:block">
-              <span className="title-display block text-2xl text-ink-900">{site.sigla}</span>
-              <span className="block truncate text-[0.7rem] font-semibold tracking-[0.12em] text-ink-500 uppercase">
-                {site.nome}
+            <span className="hidden min-w-0 border-l border-ink-200 pl-4 md:block">
+              <span className="block text-[0.68rem] font-semibold tracking-[0.14em] text-ink-500 uppercase">
+                Polícia Penal do Estado de Goiás
+              </span>
+              <span className="title-display mt-0.5 block text-[1.65rem] leading-none text-gov-teal">
+                Escola Superior de Polícia Penal
+              </span>
+              <span className="mt-1 block text-[0.67rem] font-semibold tracking-[0.16em] text-ink-500 uppercase">
+                ESPP
               </span>
             </span>
           </Link>
