@@ -1,7 +1,16 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Apple, Play } from "lucide-react";
 
-import { goias, localizacao, rodape, site } from "@/content/site";
+import { localizacao } from "@/content/site";
+
+const servicos = [
+  ["Expresso Goiás", "https://www.go.gov.br/"],
+  ["Expresso Aplicações", "https://portal.go.gov.br/"],
+  ["Expresso Servidor", "https://www.go.gov.br/"],
+  ["SEI Governadoria", "https://sei.go.gov.br/"],
+  ["Cadastro de Autoridades", "https://goias.gov.br/cadastro-de-autoridades/"],
+  ["Escola de Governo", "https://goias.gov.br/escoladegoverno/"],
+] as const;
 
 const outrosSites = [
   ["Governo Federal", "https://www.gov.br/"],
@@ -17,121 +26,117 @@ const transparencia = [
   ["LGPD", "https://lgpd.go.gov.br/"],
   ["Goiás Transparência", "https://transparencia.go.gov.br/"],
   ["Dados Abertos Goiás", "https://dadosabertos.go.gov.br/"],
-  ["SIC – Serviço de Informação ao Cidadão", "https://www.go.gov.br/servicos-digitais/cge/nova-ouvidoria-go/sic-servico-de-informacao-ao-cidadao"],
+  ["SIC – Serviço de Informação ao Cidadão", "https://goias.gov.br/acessoainformacao/"],
   ["e-SIC – Serviço Eletrônico de Informação ao Cidadão", "https://www.go.gov.br/servicos-digitais/cge/nova-ouvidoria-go/e-sic-servico-eletronico-de-informacao-ao-cidadao"],
-  ["Ouvidoria", "https://www.go.gov.br/servicos-digitais/cge/nova-ouvidoria-go"],
+  ["Regulamentação da LAI", "https://transparencia.go.gov.br/"],
+  ["Relatório Estatístico da Ouvidoria", "https://www.ouvidoriageral.go.gov.br/"],
 ] as const;
+
+function ListaLinks({
+  itens,
+}: {
+  itens: readonly (readonly [string, string])[];
+}) {
+  return (
+    <ul className="mt-[22px] space-y-[2px] text-[16px] leading-[1.34]">
+      {itens.map(([label, href]) => (
+        <li key={label}>
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white transition-opacity hover:opacity-75 hover:underline"
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export function SiteFooter() {
   return (
-    <footer id="rodape" className="bg-gov-teal-dark text-white">
-      <div className="container-espp py-9">
-        <div className="flex flex-col gap-8 border-b border-white/10 pb-8 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="flex items-center">
-              <img
-                src="/images/goias-white.png"
-                alt="Estado de Goiás"
-                className="h-[4.1rem] w-auto shrink-0"
-              />
-            </span>
+    <footer id="rodape" className="bg-[#00564f] text-white">
+      <div className="mx-auto w-full max-w-[1248px] px-6 pt-[28px] pb-[22px] md:px-8">
+        <div className="grid min-h-[136px] items-start gap-8 border-b border-white/10 pb-[26px] lg:grid-cols-[1fr_auto]">
+          <div className="flex items-center gap-[22px]">
+            <img
+              src="/images/goias-white.png"
+              alt="Estado de Goiás"
+              className="h-[72px] w-auto shrink-0"
+              data-contrast-ignore
+            />
 
-            <span aria-hidden="true" className="mx-2 hidden h-16 w-px bg-white/20 sm:block" />
+            <span aria-hidden="true" className="hidden h-[72px] w-px bg-white/25 sm:block" />
 
-            <span className="flex items-center gap-3">
-              <Image
-                src="/images/logo-espp.png"
-                alt="Escola Superior de Polícia Penal"
-                width={64}
-                height={78}
-                className="h-[4.5rem] w-auto shrink-0"
-              />
-              <span className="hidden sm:block">
-                <span className="title-display block text-xl font-bold text-white">ESPP</span>
-                <span className="block max-w-56 text-[0.7rem] font-semibold tracking-[0.05em] text-white/75 uppercase">
-                  Escola Superior de Polícia Penal
-                </span>
-              </span>
-            </span>
+            <Image
+              src="/images/logo-espp.png"
+              alt="Escola Superior de Polícia Penal"
+              width={82}
+              height={96}
+              className="h-[72px] w-auto shrink-0 brightness-0 invert"
+              data-contrast-ignore
+            />
           </div>
 
-          <div className="lg:text-right">
-            <p className="text-xl font-bold">Governo na palma da mão</p>
-            <div className="mt-3 flex flex-wrap gap-2 lg:justify-end">
+          <div className="min-w-[330px] pt-[12px] lg:pr-[23px]">
+            <p className="text-[22px] font-bold leading-none">Governo na palma da mão</p>
+            <div className="mt-[28px] flex items-center gap-[7px]">
               <a
-                href="https://goias.gov.br/administracao/app-expresso/"
+                href="https://play.google.com/store/apps/details?id=br.gov.goias.expresso"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-md border border-white/70 px-4 py-2 text-xs font-semibold text-white hover:bg-white/10"
+                aria-label="Disponível no Google Play"
+                className="flex h-[44px] min-w-[149px] items-center rounded-[4px] border border-white/90 px-[10px] text-white"
               >
-                Google Play
+                <Play className="mr-2 size-[27px] fill-white" strokeWidth={1.4} aria-hidden="true" />
+                <span className="leading-none">
+                  <span className="block text-[8px]">Disponível no</span>
+                  <span className="mt-[2px] block text-[16px] font-semibold">Google Play</span>
+                </span>
               </a>
+
               <a
-                href="https://goias.gov.br/administracao/app-expresso/"
+                href="https://apps.apple.com/br/app/expresso-goi%C3%A1s/id1555278927"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-md border border-white/70 px-4 py-2 text-xs font-semibold text-white hover:bg-white/10"
+                aria-label="Baixar na App Store"
+                className="flex h-[44px] min-w-[149px] items-center rounded-[4px] border border-white/90 px-[10px] text-white"
               >
-                App Store
+                <Apple className="mr-2 size-[27px] fill-white" strokeWidth={1.4} aria-hidden="true" />
+                <span className="leading-none">
+                  <span className="block text-[8px]">Baixar na</span>
+                  <span className="mt-[2px] block text-[16px] font-semibold">App Store</span>
+                </span>
               </a>
             </div>
           </div>
         </div>
 
-        <div className="grid gap-10 py-7 md:grid-cols-3">
-          <div>
-            <h2 className="text-lg font-bold">Serviços</h2>
-            <ul className="mt-4 space-y-1.5 text-sm">
-              {rodape.links.map((link) =>
-                "interno" in link && link.interno ? (
-                  <li key={link.label}>
-                    <Link href={link.href} className="text-white/90 hover:underline">
-                      {link.label}
-                    </Link>
-                  </li>
-                ) : (
-                  <li key={link.label}>
-                    <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-white/90 hover:underline">
-                      {link.label}
-                    </a>
-                  </li>
-                ),
-              )}
-            </ul>
-          </div>
+        <div className="grid gap-10 pt-[15px] md:grid-cols-3 md:gap-[58px]">
+          <section>
+            <h2 className="text-[17px] font-bold leading-[1.25]">Serviços</h2>
+            <ListaLinks itens={servicos} />
+          </section>
 
-          <div>
-            <h2 className="text-lg font-bold">Outros Sites</h2>
-            <ul className="mt-4 space-y-1.5 text-sm">
-              {outrosSites.map(([label, href]) => (
-                <li key={label}>
-                  <a href={href} target="_blank" rel="noopener noreferrer" className="text-white/90 hover:underline">
-                    {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <section>
+            <h2 className="text-[17px] font-bold leading-[1.25]">Outros Sites</h2>
+            <ListaLinks itens={outrosSites} />
+          </section>
 
-          <div>
-            <h2 className="text-lg font-bold">Transparência e Ouvidoria</h2>
-            <ul className="mt-4 space-y-1.5 text-sm">
-              {transparencia.map(([label, href]) => (
-                <li key={label}>
-                  <a href={href} target="_blank" rel="noopener noreferrer" className="text-white/90 hover:underline">
-                    {label}
-                  </a>
-                </li>
-              ))}
-              <li className="text-white/90">Canal Telefônico Gratuito – 162 ou 0800 000 0333</li>
-            </ul>
-          </div>
+          <section>
+            <h2 className="text-[17px] font-bold leading-[1.25]">Transparência e Ouvidoria</h2>
+            <ListaLinks itens={transparencia} />
+            <p className="mt-[2px] text-[16px] leading-[1.34] text-white">
+              Canal Telefônico Gratuito – 162 ou 0800 000 0333
+            </p>
+          </section>
         </div>
 
-        <div className="border-t border-white/10 pt-5 text-center text-xs font-semibold text-white/90">
-          <p>{localizacao.endereco.completo}</p>
-          <p className="mt-1 text-white/60">
-            {site.nome} · {site.orgao}
+        <div className="pt-[39px] text-center">
+          <p className="text-[13px] font-bold leading-[1.25] text-white">
+            {localizacao.endereco.completo}
           </p>
         </div>
       </div>
