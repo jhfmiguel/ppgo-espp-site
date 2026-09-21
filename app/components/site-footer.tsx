@@ -139,7 +139,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="grid gap-10 pt-[15px] md:grid-cols-3 md:gap-[58px]">
+        <div className="grid gap-10 pt-[15px] md:grid-cols-[0.85fr_0.95fr_1.35fr] md:gap-[58px]">
           <section>
             <h2 className="text-[17px] font-bold leading-[1.25]">Serviços</h2>
             <ListaLinks itens={servicos} />
