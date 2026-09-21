@@ -103,15 +103,22 @@ export function SiteHeader() {
     >
       {/* barra utilitária do Governo de Goiás — recursos de acessibilidade (eMAG 3.1 / WCAG 2.1) */}
       <div className="bg-gov-blue">
-        <div className="container-espp flex h-9 items-center justify-between gap-4 overflow-x-auto text-[0.7rem]">
-          <a
+        <div className="container-espp flex min-h-10 items-center justify-between gap-4 overflow-x-auto py-1 text-[0.7rem]">
+          <div className="flex shrink-0 items-center gap-4">
+            <a
             href={topbar.href}
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 font-bold tracking-wide text-gold-500 hover:text-gold-400"
           >
             {topbar.label}
-          </a>
+            </a>
+            <div className="hidden items-center gap-3 text-white/75 lg:flex">
+              <a href="#conteudo" className="hover:text-gold-500">Ir para conteúdo 1</a>
+              <a href="#menu-principal" className="hover:text-gold-500">Ir para menu 2</a>
+              <a href="#rodape" className="hover:text-gold-500">Ir para rodapé 4</a>
+            </div>
+          </div>
 
           <div className="flex shrink-0 items-center gap-3 text-white/90">
             <div className="flex items-center gap-1" role="group" aria-label="Tamanho da fonte">
@@ -173,16 +180,16 @@ export function SiteHeader() {
 
       {/* faixa com os brasões */}
       <div className="border-b border-ink-200 bg-white">
-        <div className="container-espp flex h-24 items-center justify-between gap-4">
+        <div className="container-espp flex min-h-28 items-center justify-between gap-6 py-5">
           <Link href="/" className="flex min-w-0 items-center gap-4" aria-label={`${site.nome} — início`}>
             <img
               src={goias.brasao.src}
               alt={goias.brasao.alt}
-              className="h-11 w-auto shrink-0"
+              className="h-14 w-auto shrink-0"
             />
             <span className="hidden leading-tight sm:block">
-              <span className="block text-sm text-gov-teal">{goias.nome}</span>
-              <span className="title-display -mt-0.5 block text-lg text-gov-teal">{goias.sigla}</span>
+              <span className="block text-xs font-semibold tracking-wide text-ink-500 uppercase">{goias.nome}</span>
+              <span className="title-display -mt-0.5 block text-2xl text-gov-teal">{goias.sigla}</span>
             </span>
 
             <span aria-hidden="true" className="mx-1 hidden h-10 w-px shrink-0 bg-ink-200 sm:block" />
@@ -192,12 +199,12 @@ export function SiteHeader() {
               alt=""
               width={44}
               height={56}
-              className="h-11 w-auto shrink-0"
+              className="h-14 w-auto shrink-0"
               priority
             />
             <span className="hidden min-w-0 leading-tight md:block">
-              <span className="title-display block text-lg text-ink-900">{site.sigla}</span>
-              <span className="block truncate text-[0.65rem] font-medium tracking-[0.14em] text-ink-500 uppercase">
+              <span className="title-display block text-2xl text-ink-900">{site.sigla}</span>
+              <span className="block truncate text-[0.7rem] font-semibold tracking-[0.12em] text-ink-500 uppercase">
                 {site.nome}
               </span>
             </span>
@@ -233,8 +240,8 @@ export function SiteHeader() {
       </div>
 
       {/* menu principal */}
-      <nav aria-label="Navegação principal" className="hidden bg-gov-teal xl:block">
-        <ul className="container-espp flex h-12 items-center gap-6">
+      <nav id="menu-principal" aria-label="Navegação principal" className="hidden border-t border-white/10 bg-gov-teal xl:block">
+        <ul className="container-espp flex min-h-13 items-stretch gap-1">
           {nav.map((item, indice) => {
             const temSubmenu = "submenu" in item;
             const externo = "external" in item && item.external;
@@ -244,8 +251,8 @@ export function SiteHeader() {
               ? item.submenu.some((sub) => "href" in sub && pathname === sub.href)
               : pathname === item.href;
             const classeItem = [
-              "flex items-center gap-1 py-2 text-[0.72rem] font-semibold tracking-wider whitespace-nowrap uppercase transition-colors hover:text-gold-500",
-              ativo ? "text-gold-500" : "text-white",
+              "flex h-full items-center gap-1 border-b-3 border-transparent px-3 py-3 text-[0.72rem] font-semibold tracking-wide whitespace-nowrap uppercase transition-colors hover:border-gold-500 hover:bg-white/5 hover:text-gold-500",
+              ativo ? "border-gold-500 bg-white/5 text-gold-500" : "text-white",
             ].join(" ");
 
             return (
