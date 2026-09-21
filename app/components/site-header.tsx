@@ -104,21 +104,14 @@ export function SiteHeader() {
       {/* barra utilitária do Governo de Goiás — recursos de acessibilidade (eMAG 3.1 / WCAG 2.1) */}
       <div className="bg-gov-blue">
         <div className="container-espp flex min-h-10 items-center justify-between gap-4 overflow-x-auto py-1 text-[0.7rem]">
-          <div className="flex shrink-0 items-center gap-4">
-            <a
+          <a
             href={topbar.href}
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 font-bold tracking-wide text-gold-500 hover:text-gold-400"
           >
             {topbar.label}
-            </a>
-            <div className="hidden items-center gap-3 text-white/75 lg:flex">
-              <a href="#conteudo" className="hover:text-gold-500">Ir para conteúdo 1</a>
-              <a href="#menu-principal" className="hover:text-gold-500">Ir para menu 2</a>
-              <a href="#rodape" className="hover:text-gold-500">Ir para rodapé 4</a>
-            </div>
-          </div>
+          </a>
 
           <div className="flex shrink-0 items-center gap-3 text-white/90">
             <div className="flex items-center gap-1" role="group" aria-label="Tamanho da fonte">
@@ -202,15 +195,12 @@ export function SiteHeader() {
               className="h-14 w-auto shrink-0"
               priority
             />
-            <span className="hidden min-w-0 border-l border-ink-200 pl-4 md:block">
-              <span className="block text-[0.68rem] font-semibold tracking-[0.14em] text-ink-500 uppercase">
+            <span className="hidden min-w-0 md:block">
+              <span className="block text-sm font-semibold text-ink-500">
                 Polícia Penal do Estado de Goiás
               </span>
-              <span className="title-display mt-0.5 block text-[1.65rem] leading-none text-gov-teal">
+              <span className="title-display mt-0.5 block text-2xl leading-none text-gov-teal">
                 Escola Superior de Polícia Penal
-              </span>
-              <span className="mt-1 block text-[0.67rem] font-semibold tracking-[0.16em] text-ink-500 uppercase">
-                ESPP
               </span>
             </span>
           </Link>
