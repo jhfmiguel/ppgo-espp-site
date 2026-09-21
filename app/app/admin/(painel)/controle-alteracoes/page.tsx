@@ -22,16 +22,24 @@ function formatarData(valor: string) {
   }).format(new Date(valor));
 }
 
-function resumoJson(valor: string | null) {
-  if (!valor) return "—";
+function detalheJson(valor: string | null, rotulo: string) {
+  if (!valor) return <span className="text-ink-400">—</span>;
+  let texto = valor;
   try {
-    const objeto = JSON.parse(valor) as Record<string, unknown>;
-    const titulo = objeto.titulo ?? objeto.numero ?? objeto.slug;
-    const status = objeto.status;
-    return [titulo, status].filter(Boolean).join(" · ") || "Dados registrados";
+    texto = JSON.stringify(JSON.parse(valor), null, 2);
   } catch {
-    return "Dados registrados";
+    // Mantém o conteúdo original se não for JSON válido.
   }
+  return (
+    <details>
+      <summary className="cursor-pointer font-semibold text-ink-700 hover:text-ink-900">
+        {rotulo}
+      </summary>
+      <pre className="mt-2 max-h-72 max-w-xl overflow-auto whitespace-pre-wrap rounded-md bg-ink-950 p-3 text-[11px] leading-relaxed text-ink-100">
+        {texto}
+      </pre>
+    </details>
+  );
 }
 
 export default async function ControleAlteracoesPage() {
@@ -80,8 +88,12 @@ export default async function ControleAlteracoesPage() {
                       <p className="mt-1 font-mono text-[11px] text-ink-500">{registro.entidadeId}</p>
                     ) : null}
                   </td>
-                  <td className="min-w-52 px-4 py-3 text-ink-600">{resumoJson(registro.dadosAntes)}</td>
-                  <td className="min-w-52 px-4 py-3 text-ink-600">{resumoJson(registro.dadosDepois)}</td>
+                  <td className="min-w-52 px-4 py-3 text-ink-600">
+                    {detalheJson(registro.dadosAntes, "Ver estado anterior")}
+                  </td>
+                  <td className="min-w-52 px-4 py-3 text-ink-600">
+                    {detalheJson(registro.dadosDepois, "Ver estado posterior")}
+                  </td>
                 </tr>
               ))}
               {registros.length === 0 ? (
