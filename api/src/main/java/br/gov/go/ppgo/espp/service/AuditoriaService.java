@@ -2,18 +2,17 @@ package br.gov.go.ppgo.espp.service;
 
 import br.gov.go.ppgo.espp.domain.AuditoriaAlteracao;
 import br.gov.go.ppgo.espp.repository.AuditoriaAlteracaoRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuditoriaService {
     private final AuditoriaAlteracaoRepository repository;
-    private final ObjectMapper objectMapper;
+    private final JsonMapper jsonMapper;
 
-    public AuditoriaService(AuditoriaAlteracaoRepository repository, ObjectMapper objectMapper) {
+    public AuditoriaService(AuditoriaAlteracaoRepository repository, JsonMapper jsonMapper) {
         this.repository = repository;
-        this.objectMapper = objectMapper;
+        this.jsonMapper = jsonMapper;
     }
 
     public void registrar(
@@ -38,8 +37,8 @@ public class AuditoriaService {
     private String json(Object valor) {
         if (valor == null) return null;
         try {
-            return objectMapper.writeValueAsString(valor);
-        } catch (JsonProcessingException e) {
+            return jsonMapper.writeValueAsString(valor);
+        } catch (Exception e) {
             return "{\"erro\":\"Não foi possível serializar o estado para auditoria.\"}";
         }
     }
