@@ -50,7 +50,7 @@ export async function atualizarMensagem(formData: FormData) {
     if (arquivo instanceof File && arquivo.size > 0) payload.append("anexos", arquivo);
   }
 
-  await atualizarMensagemContatoMultipart(id, payload);
+  await atualizarMensagemContatoMultipart(id, payload, usuario.nome);
 
   revalidatePath("/admin");
   revalidatePath("/admin/mensagens");
@@ -58,60 +58,60 @@ export async function atualizarMensagem(formData: FormData) {
   redirect(`/admin/mensagens/${id}?ok=atualizado`);
 }
 export async function removerMensagem(formData: FormData) {
-  await exigirPermissao("mensagens");
+  const usuario = await exigirPermissao("mensagens");
   const id = String(formData.get("id") ?? "");
-  await excluirMensagemContato(id);
+  await excluirMensagemContato(id, usuario.nome);
   revalidatePath("/admin");
   revalidatePath("/admin/mensagens");
   redirect("/admin/mensagens?ok=excluido");
 }
 
 export async function alterarStatusAssinante(formData: FormData) {
-  await exigirPermissao("newsletter");
+  const usuario = await exigirPermissao("newsletter");
   const id = String(formData.get("id") ?? "");
   const bruto = String(formData.get("status") ?? "");
   if (!STATUS_NEWSLETTER.includes(bruto as StatusNewsletter)) {
     redirect("/admin/newsletter?erro=status-invalido");
   }
 
-  await atualizarAssinanteNewsletter(id, bruto as StatusNewsletter);
+  await atualizarAssinanteNewsletter(id, bruto as StatusNewsletter, usuario.nome);
   revalidatePath("/admin");
   revalidatePath("/admin/newsletter");
   redirect("/admin/newsletter?ok=atualizado");
 }
 
 export async function removerAssinante(formData: FormData) {
-  await exigirPermissao("newsletter");
+  const usuario = await exigirPermissao("newsletter");
   const id = String(formData.get("id") ?? "");
-  await excluirAssinanteNewsletter(id);
+  await excluirAssinanteNewsletter(id, usuario.nome);
   revalidatePath("/admin");
   revalidatePath("/admin/newsletter");
   redirect("/admin/newsletter?ok=excluido");
 }
 export async function criarCampanha(formData:FormData){
-  await exigirPermissao("newsletter");
+  const usuario = await exigirPermissao("newsletter");
   const assunto=String(formData.get("assunto")??"").trim();
   const conteudo=String(formData.get("conteudo")??"").trim();
   if(!assunto||!conteudo) redirect("/admin/newsletter/campanhas/nova?erro=campos-obrigatorios");
-  const c=await criarCampanhaNewsletter(assunto,conteudo);
+  const c=await criarCampanhaNewsletter(assunto,conteudo,usuario.nome);
   revalidatePath("/admin/newsletter/campanhas");
   redirect(`/admin/newsletter/campanhas/${c.id}?ok=criada`);
 }
 export async function atualizarCampanha(formData:FormData){
-  await exigirPermissao("newsletter");
+  const usuario = await exigirPermissao("newsletter");
   const id=String(formData.get("id")??"");
   const assunto=String(formData.get("assunto")??"").trim();
   const conteudo=String(formData.get("conteudo")??"").trim();
   if(!assunto||!conteudo) redirect(`/admin/newsletter/campanhas/${id}?erro=campos-obrigatorios`);
-  await atualizarCampanhaNewsletter(id,assunto,conteudo);
+  await atualizarCampanhaNewsletter(id,assunto,conteudo,usuario.nome);
   revalidatePath("/admin/newsletter/campanhas");
   revalidatePath(`/admin/newsletter/campanhas/${id}`);
   redirect(`/admin/newsletter/campanhas/${id}?ok=atualizada`);
 }
 export async function enviarCampanha(formData:FormData){
-  await exigirPermissao("newsletter");
+  const usuario = await exigirPermissao("newsletter");
   const id=String(formData.get("id")??"");
-  await enviarCampanhaNewsletter(id);
+  await enviarCampanhaNewsletter(id,usuario.nome);
   revalidatePath("/admin/newsletter/campanhas");
   revalidatePath(`/admin/newsletter/campanhas/${id}`);
   redirect(`/admin/newsletter/campanhas/${id}?ok=enviada`);
