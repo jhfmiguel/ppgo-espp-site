@@ -103,7 +103,7 @@ export function SiteHeader() {
     >
       {/* barra utilitária do Governo de Goiás — recursos de acessibilidade (eMAG 3.1 / WCAG 2.1) */}
       <div className="bg-gov-blue">
-        <div className="container-espp flex min-h-10 items-center justify-between gap-4 overflow-x-auto py-1 text-[0.7rem]">
+        <div className="container-espp flex h-7 items-center justify-between gap-4 overflow-x-auto text-[0.65rem]">
           <a
             href={topbar.href}
             target="_blank"
@@ -173,34 +173,42 @@ export function SiteHeader() {
 
       {/* faixa com os brasões */}
       <div className="border-b border-ink-200 bg-white">
-        <div className="container-espp flex min-h-28 items-center justify-between gap-6 py-4">
-          <Link href="/" className="flex min-w-0 items-center gap-4" aria-label={`${site.nome} — início`}>
-            <img
-              src={goias.brasao.src}
-              alt={goias.brasao.alt}
-              className="h-14 w-auto shrink-0"
-            />
-            <span className="hidden leading-tight sm:block">
-              <span className="block text-xs font-semibold tracking-wide text-ink-500 uppercase">{goias.nome}</span>
-              <span className="title-display -mt-0.5 block text-2xl text-gov-teal">{goias.sigla}</span>
+        <div className="container-espp flex h-[7.1rem] items-center justify-between gap-8">
+          <Link
+            href="/"
+            className="flex min-w-0 items-center gap-3"
+            aria-label={`${site.nome} — início`}
+          >
+            <span className="flex items-center gap-2.5">
+              <img
+                src={goias.brasao.src}
+                alt={goias.brasao.alt}
+                className="h-[4.3rem] w-auto shrink-0"
+              />
+              <span className="hidden leading-[0.95] sm:block">
+                <span className="block text-[1.15rem] font-medium text-gov-teal">Estado de</span>
+                <span className="title-display block text-[2rem] font-bold text-gov-teal">GOIÁS</span>
+              </span>
             </span>
 
-            <span aria-hidden="true" className="mx-1 hidden h-10 w-px shrink-0 bg-ink-200 sm:block" />
+            <span aria-hidden="true" className="mx-2 hidden h-16 w-px shrink-0 bg-ink-200 md:block" />
 
-            <Image
-              src="/images/logo-espp.png"
-              alt=""
-              width={48}
-              height={62}
-              className="h-14 w-auto shrink-0"
-              priority
-            />
-            <span className="hidden min-w-0 md:block">
-              <span className="block text-sm font-semibold text-ink-500">
-                Polícia Penal do Estado de Goiás
-              </span>
-              <span className="title-display mt-0.5 block text-2xl leading-none text-gov-teal">
-                Escola Superior de Polícia Penal
+            <span className="flex items-center gap-3">
+              <Image
+                src="/images/logo-espp.png"
+                alt="Escola Superior de Polícia Penal"
+                width={64}
+                height={78}
+                className="h-[4.3rem] w-auto shrink-0"
+                priority
+              />
+              <span className="hidden leading-tight lg:block">
+                <span className="title-display block text-[1.5rem] font-bold text-gov-teal">
+                  ESPP
+                </span>
+                <span className="block max-w-56 text-[0.72rem] font-semibold tracking-[0.04em] text-ink-600 uppercase">
+                  Escola Superior de Polícia Penal
+                </span>
               </span>
             </span>
           </Link>
@@ -211,7 +219,7 @@ export function SiteHeader() {
               action="/busca"
               method="get"
               role="search"
-              className="hidden w-[22rem] items-center overflow-hidden rounded-md border border-ink-300 bg-white lg:flex"
+              className="hidden w-[22.5rem] items-center lg:flex"
             >
               <label htmlFor="busca-site" className="sr-only">Buscar no site</label>
               <input
@@ -219,24 +227,17 @@ export function SiteHeader() {
                 name="q"
                 type="search"
                 placeholder="O que você procura?"
-                className="min-w-0 flex-1 bg-transparent px-4 py-2.5 text-sm text-ink-900 outline-none placeholder:text-ink-400"
+                className="min-w-0 flex-1 rounded-l-sm border border-ink-300 bg-white px-3 py-2.5 text-sm text-ink-900 outline-none placeholder:text-ink-400 focus:border-gov-blue"
               />
               <button
                 type="submit"
                 aria-label="Buscar"
-                className="flex self-stretch items-center justify-center bg-gov-teal px-4 text-white transition-colors hover:bg-gov-teal-dark"
+                className="ml-1 flex items-center justify-center rounded-sm bg-gov-blue px-5 py-2.5 text-sm font-bold text-white transition-colors hover:brightness-95"
               >
-                <Search className="size-4" aria-hidden="true" />
+                <Search className="mr-2 size-4" aria-hidden="true" />
+                Buscar
               </button>
             </form>
-            <a
-              href={fortis.portalAtual.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden rounded-md bg-gold-500 px-4 py-2.5 text-[0.75rem] font-bold tracking-wider text-ink-950 uppercase transition-colors hover:bg-gold-400 md:inline-block"
-            >
-              Portal do Aluno
-            </a>
             <button
               type="button"
               onClick={() => setAberto((v) => !v)}
@@ -258,8 +259,8 @@ export function SiteHeader() {
       </div>
 
       {/* menu principal */}
-      <nav id="menu-principal" aria-label="Navegação principal" className="hidden border-t border-white/10 bg-gov-teal xl:block">
-        <ul className="container-espp flex min-h-13 items-stretch gap-1">
+      <nav id="menu-principal" aria-label="Navegação principal" className="hidden bg-gov-teal xl:block">
+        <ul className="container-espp flex h-14 items-stretch gap-1">
           {nav.map((item, indice) => {
             const temSubmenu = "submenu" in item;
             const externo = "external" in item && item.external;
@@ -269,8 +270,8 @@ export function SiteHeader() {
               ? item.submenu.some((sub) => "href" in sub && pathname === sub.href)
               : pathname === item.href;
             const classeItem = [
-              "flex h-full items-center gap-1 border-b-3 border-transparent px-3 py-3 text-[0.72rem] font-semibold tracking-wide whitespace-nowrap uppercase transition-colors hover:border-gold-500 hover:bg-white/5 hover:text-gold-500",
-              ativo ? "border-gold-500 bg-white/5 text-gold-500" : "text-white",
+              "flex h-full items-center gap-1 px-3 py-3 text-[0.75rem] font-semibold tracking-normal whitespace-nowrap uppercase text-white transition-colors hover:bg-white/8 hover:text-gold-500",
+              ativo ? "bg-white/10 text-gold-500" : "text-white",
             ].join(" ");
 
             return (
