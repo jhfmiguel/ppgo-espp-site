@@ -256,3 +256,30 @@ databaseChangeLog:
               ALTER TABLE ESPP_NEWSLETTER_ENVIO DROP CONSTRAINT FK_ESPP_NEWS_ENV_ASS;
               ALTER TABLE ESPP_NEWSLETTER_ENVIO MODIFY ASSINANTE_ID NULL;
               ALTER TABLE ESPP_NEWSLETTER_ENVIO ADD CONSTRAINT FK_ESPP_NEWS_ENV_ASS FOREIGN KEY (ASSINANTE_ID) REFERENCES ESPP_NEWSLETTER_ASSINANTE(ID) ON DELETE SET NULL;
+
+  - changeSet:
+      id: 009-auditoria-alteracoes
+      author: ppgo
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: ESPP_AUDITORIA_ALTERACAO
+      changes:
+        - sql:
+            splitStatements: true
+            sql: |
+              CREATE TABLE ESPP_AUDITORIA_ALTERACAO (
+                  ID VARCHAR2(36) PRIMARY KEY,
+                  MODULO VARCHAR2(50) NOT NULL,
+                  ACAO VARCHAR2(30) NOT NULL,
+                  ENTIDADE_ID VARCHAR2(36),
+                  TITULO VARCHAR2(300),
+                  USUARIO VARCHAR2(200) NOT NULL,
+                  DADOS_ANTES CLOB,
+                  DADOS_DEPOIS CLOB,
+                  CRIADO_EM TIMESTAMP WITH TIME ZONE NOT NULL,
+                  CONSTRAINT CK_ESPP_AUDIT_ACAO CHECK (ACAO IN ('CRIACAO','EDICAO','EXCLUSAO'))
+              );
+              CREATE INDEX IX_ESPP_AUDIT_DATA ON ESPP_AUDITORIA_ALTERACAO(CRIADO_EM);
+              CREATE INDEX IX_ESPP_AUDIT_MODULO ON ESPP_AUDITORIA_ALTERACAO(MODULO, CRIADO_EM);
