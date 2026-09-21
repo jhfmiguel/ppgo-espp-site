@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Accessibility, ChevronDown, Contrast, Menu, X } from "lucide-react";
+import { Accessibility, ChevronDown, Contrast, Menu, Search, X } from "lucide-react";
 import { fortis, goias, nav, site, topbar } from "@/content/site";
 import { Icon } from "@/components/ui/icon";
 
@@ -180,16 +180,16 @@ export function SiteHeader() {
 
       {/* faixa com os brasões */}
       <div className="border-b border-ink-200 bg-white">
-        <div className="container-espp flex min-h-36 items-center justify-between gap-8 py-6">
+        <div className="container-espp flex min-h-28 items-center justify-between gap-6 py-4">
           <Link href="/" className="flex min-w-0 items-center gap-4" aria-label={`${site.nome} — início`}>
             <img
               src={goias.brasao.src}
               alt={goias.brasao.alt}
-              className="h-20 w-auto shrink-0"
+              className="h-14 w-auto shrink-0"
             />
             <span className="hidden leading-tight sm:block">
               <span className="block text-xs font-semibold tracking-wide text-ink-500 uppercase">{goias.nome}</span>
-              <span className="title-display -mt-0.5 block text-3xl text-gov-teal">{goias.sigla}</span>
+              <span className="title-display -mt-0.5 block text-2xl text-gov-teal">{goias.sigla}</span>
             </span>
 
             <span aria-hidden="true" className="mx-1 hidden h-10 w-px shrink-0 bg-ink-200 sm:block" />
@@ -197,20 +197,43 @@ export function SiteHeader() {
             <Image
               src="/images/logo-espp.png"
               alt=""
-              width={64}
-              height={82}
-              className="h-20 w-auto shrink-0"
+              width={48}
+              height={62}
+              className="h-14 w-auto shrink-0"
               priority
             />
             <span className="hidden min-w-0 leading-tight md:block">
-              <span className="title-display block text-3xl text-ink-900">{site.sigla}</span>
+              <span className="title-display block text-2xl text-ink-900">{site.sigla}</span>
               <span className="block truncate text-[0.7rem] font-semibold tracking-[0.12em] text-ink-500 uppercase">
                 {site.nome}
               </span>
             </span>
           </Link>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
+            <form
+              id="busca"
+              action="/busca"
+              method="get"
+              role="search"
+              className="hidden w-[22rem] items-center overflow-hidden rounded-md border border-ink-300 bg-white lg:flex"
+            >
+              <label htmlFor="busca-site" className="sr-only">Buscar no site</label>
+              <input
+                id="busca-site"
+                name="q"
+                type="search"
+                placeholder="O que você procura?"
+                className="min-w-0 flex-1 bg-transparent px-4 py-2.5 text-sm text-ink-900 outline-none placeholder:text-ink-400"
+              />
+              <button
+                type="submit"
+                aria-label="Buscar"
+                className="flex self-stretch items-center justify-center bg-gov-teal px-4 text-white transition-colors hover:bg-gov-teal-dark"
+              >
+                <Search className="size-4" aria-hidden="true" />
+              </button>
+            </form>
             <a
               href={fortis.portalAtual.href}
               target="_blank"
