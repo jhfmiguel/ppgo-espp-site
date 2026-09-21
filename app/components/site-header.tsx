@@ -108,7 +108,7 @@ export function SiteHeader() {
             href={topbar.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 font-bold tracking-wide text-gold-500 hover:text-gold-400"
+            className="shrink-0 font-bold tracking-wide text-gold-500 transition-opacity hover:opacity-80 hover:underline hover:underline-offset-2"
           >
             {topbar.label}
           </a>
@@ -120,7 +120,7 @@ export function SiteHeader() {
                 onClick={() => aplicarFonte("sm")}
                 aria-pressed={fonte === "sm"}
                 aria-label="Diminuir tamanho da fonte"
-                className={`px-1 text-[0.65rem] font-bold hover:text-gold-500 ${fonte === "sm" ? "text-gold-500 underline" : ""}`}
+                className={`rounded-sm px-1 py-0.5 text-[0.65rem] font-bold transition-colors hover:bg-white/10 hover:text-gold-500 ${fonte === "sm" ? "text-gold-500 underline" : ""}`}
               >
                 A-
               </button>
@@ -129,7 +129,7 @@ export function SiteHeader() {
                 onClick={() => aplicarFonte("md")}
                 aria-pressed={fonte === "md"}
                 aria-label="Tamanho de fonte padrão"
-                className={`px-1 text-[0.75rem] font-bold hover:text-gold-500 ${fonte === "md" ? "text-gold-500 underline" : ""}`}
+                className={`rounded-sm px-1 py-0.5 text-[0.75rem] font-bold transition-colors hover:bg-white/10 hover:text-gold-500 ${fonte === "md" ? "text-gold-500 underline" : ""}`}
               >
                 A
               </button>
@@ -138,7 +138,7 @@ export function SiteHeader() {
                 onClick={() => aplicarFonte("lg")}
                 aria-pressed={fonte === "lg"}
                 aria-label="Aumentar tamanho da fonte"
-                className={`px-1 text-[0.85rem] font-bold hover:text-gold-500 ${fonte === "lg" ? "text-gold-500 underline" : ""}`}
+                className={`rounded-sm px-1 py-0.5 text-[0.85rem] font-bold transition-colors hover:bg-white/10 hover:text-gold-500 ${fonte === "lg" ? "text-gold-500 underline" : ""}`}
               >
                 A+
               </button>
@@ -149,7 +149,7 @@ export function SiteHeader() {
               onClick={alternarContraste}
               aria-pressed={contraste}
               aria-label="Alternar alto contraste"
-              className={`flex items-center gap-1.5 font-medium hover:text-gold-500 ${contraste ? "text-gold-500" : ""}`}
+              className={`flex items-center gap-1.5 rounded-sm px-1.5 py-0.5 font-medium transition-colors hover:bg-white/10 hover:text-gold-500 ${contraste ? "text-gold-500" : ""}`}
             >
               <Contrast className="size-3.5" aria-hidden="true" />
               <span className="hidden sm:inline" aria-hidden="true">Alto contraste</span>
@@ -158,13 +158,13 @@ export function SiteHeader() {
             <Link
               href="/acessibilidade"
               aria-label="Acessibilidade"
-              className="flex items-center gap-1.5 font-medium hover:text-gold-500"
+              className="flex items-center gap-1.5 rounded-sm px-1.5 py-0.5 font-medium transition-colors hover:bg-white/10 hover:text-gold-500"
             >
               <Accessibility className="size-3.5" aria-hidden="true" />
               <span className="hidden sm:inline" aria-hidden="true">Acessibilidade</span>
             </Link>
 
-            <Link href="/mapa-do-site" className="hidden font-medium sm:inline hover:text-gold-500">
+            <Link href="/mapa-do-site" className="hidden rounded-sm px-1.5 py-0.5 font-medium transition-colors hover:bg-white/10 hover:text-gold-500 sm:inline">
               Mapa do site
             </Link>
           </div>
