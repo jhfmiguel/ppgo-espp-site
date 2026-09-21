@@ -1,72 +1,101 @@
 import Image from "next/image";
 import Link from "next/link";
-import { contato, goias, localizacao, rodape, site } from "@/content/site";
+
+import { goias, localizacao, rodape, site } from "@/content/site";
+
+const outrosSites = [
+  ["Governo Federal", "https://www.gov.br/"],
+  ["Assembleia Legislativa do Estado de Goiás", "https://portal.al.go.leg.br/"],
+  ["Tribunal de Justiça do Estado de Goiás", "https://www.tjgo.jus.br/"],
+  ["Ministério Público do Estado de Goiás", "https://www.mpgo.mp.br/"],
+  ["Procuradoria-Geral do Estado de Goiás", "https://goias.gov.br/procuradoria/"],
+  ["Controladoria-Geral do Estado de Goiás", "https://goias.gov.br/controladoria/"],
+  ["Diário Oficial", "https://diariooficial.abc.go.gov.br/"],
+] as const;
+
+const transparencia = [
+  ["LGPD", "https://lgpd.go.gov.br/"],
+  ["Goiás Transparência", "https://transparencia.go.gov.br/"],
+  ["Dados Abertos Goiás", "https://dadosabertos.go.gov.br/"],
+  ["SIC – Serviço de Informação ao Cidadão", "https://www.go.gov.br/servicos-digitais/cge/nova-ouvidoria-go/sic-servico-de-informacao-ao-cidadao"],
+  ["e-SIC – Serviço Eletrônico de Informação ao Cidadão", "https://www.go.gov.br/servicos-digitais/cge/nova-ouvidoria-go/e-sic-servico-eletronico-de-informacao-ao-cidadao"],
+  ["Ouvidoria", "https://www.go.gov.br/servicos-digitais/cge/nova-ouvidoria-go"],
+] as const;
 
 export function SiteFooter() {
-  const ano = new Date().getFullYear();
-
   return (
-    <footer id="rodape" className="border-t-4 border-gold-500 bg-gov-teal-dark">
-      <div className="container-espp py-14">
-        <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-12">
-          <div className="xl:col-span-4">
-            <div className="flex items-center gap-4">
-              <img src={goias.brasao.src} alt={goias.brasao.alt} className="h-14 w-auto shrink-0" />
+    <footer id="rodape" className="bg-gov-teal-dark text-white">
+      <div className="container-espp py-9">
+        <div className="flex flex-col gap-8 border-b border-white/10 pb-8 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="flex items-center gap-2.5">
+              <img
+                src={goias.brasao.src}
+                alt={goias.brasao.alt}
+                className="h-[4.5rem] w-auto shrink-0 brightness-0 invert"
+              />
+              <span className="leading-[0.95]">
+                <span className="block text-[1.15rem] font-medium text-white">Estado de</span>
+                <span className="title-display block text-[2rem] font-bold text-white">GOIÁS</span>
+              </span>
+            </span>
+
+            <span aria-hidden="true" className="mx-2 hidden h-16 w-px bg-white/20 sm:block" />
+
+            <span className="flex items-center gap-3">
               <Image
                 src="/images/logo-espp.png"
-                alt=""
-                width={56}
-                height={72}
-                className="h-14 w-auto shrink-0"
+                alt="Escola Superior de Polícia Penal"
+                width={64}
+                height={78}
+                className="h-[4.5rem] w-auto shrink-0"
               />
-              <div>
-                <p className="title-display text-lg text-white">{site.nome}</p>
-                <p className="text-xs font-medium tracking-[0.16em] text-gold-500 uppercase">
-                  {site.siglaOrgao} · Goiás
-                </p>
-              </div>
-            </div>
-            <p className="mt-6 max-w-md text-sm leading-relaxed text-white/75">
-              {rodape.texto}
-            </p>
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
-              {contato.redes.map((rede) => (
-                <a
-                  key={rede.label}
-                  href={rede.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-white/85 transition-colors hover:text-gold-500"
-                >
-                  {rede.label}
-                </a>
-              ))}
-            </div>
+              <span className="hidden sm:block">
+                <span className="title-display block text-xl font-bold text-white">ESPP</span>
+                <span className="block max-w-56 text-[0.7rem] font-semibold tracking-[0.05em] text-white/75 uppercase">
+                  Escola Superior de Polícia Penal
+                </span>
+              </span>
+            </span>
           </div>
 
-          <div className="xl:col-span-3">
-            <h2 className="text-xs font-bold tracking-[0.18em] text-white uppercase">
-              Serviços e links oficiais
-            </h2>
-            <ul className="mt-5 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-1">
+          <div className="lg:text-right">
+            <p className="text-xl font-bold">Governo na palma da mão</p>
+            <div className="mt-3 flex flex-wrap gap-2 lg:justify-end">
+              <a
+                href="https://goias.gov.br/administracao/app-expresso/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-md border border-white/70 px-4 py-2 text-xs font-semibold text-white hover:bg-white/10"
+              >
+                Google Play
+              </a>
+              <a
+                href="https://goias.gov.br/administracao/app-expresso/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-md border border-white/70 px-4 py-2 text-xs font-semibold text-white hover:bg-white/10"
+              >
+                App Store
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid gap-10 py-7 md:grid-cols-3">
+          <div>
+            <h2 className="text-lg font-bold">Serviços</h2>
+            <ul className="mt-4 space-y-1.5 text-sm">
               {rodape.links.map((link) =>
                 "interno" in link && link.interno ? (
                   <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-white/85 transition-colors hover:text-gold-500"
-                    >
+                    <Link href={link.href} className="text-white/90 hover:underline">
                       {link.label}
                     </Link>
                   </li>
                 ) : (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-white/85 transition-colors hover:text-gold-500"
-                    >
+                    <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-white/90 hover:underline">
                       {link.label}
                     </a>
                   </li>
@@ -75,37 +104,39 @@ export function SiteFooter() {
             </ul>
           </div>
 
-          <div className="xl:col-span-3">
-            <h2 className="text-xs font-bold tracking-[0.18em] text-white uppercase">
-              Contato
-            </h2>
-            <address className="mt-5 text-sm leading-relaxed text-white/75 not-italic">
-              {localizacao.endereco.completo}
-            </address>
-            <p className="mt-3 text-sm text-white/75">
-              <a
-                href="tel:+556232708791"
-                className="transition-colors hover:text-gold-500"
-              >
-                (62) 3270-8791
-              </a>
-            </p>
-            <p className="mt-1 text-sm text-white/75">
-              <a
-                href="mailto:ensino.dgpp@goias.gov.br"
-                className="break-all transition-colors hover:text-gold-500"
-              >
-                ensino.dgpp@goias.gov.br
-              </a>
-            </p>
+          <div>
+            <h2 className="text-lg font-bold">Outros Sites</h2>
+            <ul className="mt-4 space-y-1.5 text-sm">
+              {outrosSites.map(([label, href]) => (
+                <li key={label}>
+                  <a href={href} target="_blank" rel="noopener noreferrer" className="text-white/90 hover:underline">
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="text-lg font-bold">Transparência e Ouvidoria</h2>
+            <ul className="mt-4 space-y-1.5 text-sm">
+              {transparencia.map(([label, href]) => (
+                <li key={label}>
+                  <a href={href} target="_blank" rel="noopener noreferrer" className="text-white/90 hover:underline">
+                    {label}
+                  </a>
+                </li>
+              ))}
+              <li className="text-white/90">Canal Telefônico Gratuito – 162 ou 0800 000 0333</li>
+            </ul>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-white/15 pt-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {ano} {site.nome} — {site.orgao} · {site.secretaria}
+        <div className="border-t border-white/10 pt-5 text-center text-xs font-semibold text-white/90">
+          <p>{localizacao.endereco.completo}</p>
+          <p className="mt-1 text-white/60">
+            {site.nome} · {site.orgao}
           </p>
-          <p>Governo do Estado de Goiás</p>
         </div>
       </div>
     </footer>
