@@ -1,6 +1,4 @@
 import Image from "next/image";
-import { Apple } from "lucide-react";
-
 import { localizacao } from "@/content/site";
 
 const servicos = [
@@ -35,14 +33,33 @@ const transparencia = [
 function GooglePlayMark() {
   return (
     <svg
-      viewBox="0 0 32 36"
-      className="mr-[9px] h-[28px] w-[25px] shrink-0"
+      viewBox="0 0 30 34"
+      className="mr-[7px] h-[28px] w-[25px] shrink-0"
       aria-hidden="true"
     >
-      <path d="M2 2.4 19.4 18 2 33.6V2.4Z" fill="currentColor" opacity=".96" />
-      <path d="m19.4 18 5.2-4.7c1.2-1 2.5-.8 3.3-.3l2.2 1.3c1.9 1.1 1.9 3.1 0 4.2l-2.2 1.3c-.9.5-2.2.7-3.3-.3L19.4 18Z" fill="currentColor" />
-      <path d="M3.9 1.2c-.9-.5-1.9-.2-2.5.4L20.7 19l4.4-4L3.9 1.2Z" fill="currentColor" opacity=".72" />
-      <path d="M1.4 34.4c.6.6 1.6.9 2.5.4L25.1 21l-4.4-4L1.4 34.4Z" fill="currentColor" opacity=".82" />
+      <path d="M2.4 2.1 17.8 17 2.4 31.9c-.5-.5-.8-1.3-.8-2.2V4.3c0-.9.3-1.7.8-2.2Z" fill="#fff" />
+      <path d="m17.8 17 4.7-4.5L5.9 2.9c-1.4-.8-2.6-.9-3.5-.8L17.8 17Z" fill="#dbe9e7" />
+      <path d="m17.8 17 4.7 4.5L5.9 31.1c-1.4.8-2.6.9-3.5.8L17.8 17Z" fill="#fff" opacity=".92" />
+      <path d="m22.5 12.5 4.8 2.8c1.5.9 1.5 2.5 0 3.4l-4.8 2.8-4.7-4.5 4.7-4.5Z" fill="#fff" />
+    </svg>
+  );
+}
+
+function AppleStoreMark() {
+  return (
+    <svg
+      viewBox="0 0 28 34"
+      className="mr-[8px] h-[28px] w-[24px] shrink-0"
+      aria-hidden="true"
+    >
+      <path
+        d="M18.1 5.4c1.2-1.4 2-3.3 1.8-5.1-1.7.1-3.7 1.2-4.9 2.6-1.1 1.2-2 3.1-1.8 4.9 1.9.1 3.7-.9 4.9-2.4Z"
+        fill="#fff"
+      />
+      <path
+        d="M23.2 18.1c0-4.3 3.5-6.4 3.7-6.5-2-2.9-5.1-3.3-6.2-3.4-2.6-.3-5.1 1.5-6.4 1.5-1.4 0-3.5-1.5-5.7-1.5-2.9 0-5.6 1.7-7.1 4.3-3.1 5.3-.8 13.2 2.2 17.5 1.5 2.1 3.2 4.5 5.4 4.4 2.1-.1 3-1.4 5.6-1.4 2.5 0 3.4 1.4 5.7 1.3 2.4 0 3.9-2.1 5.3-4.2 1.7-2.4 2.4-4.8 2.4-4.9-.1 0-4.9-1.9-4.9-7.1Z"
+        fill="#fff"
+      />
     </svg>
   );
 }
@@ -72,7 +89,7 @@ function ListaLinks({
 
 export function SiteFooter() {
   return (
-    <footer id="rodape" className="bg-[#00564f] text-white">
+    <footer id="rodape" className="bg-[#00534b] text-white">
       <div className="mx-auto w-full max-w-[1248px] px-6 pt-[28px] pb-[22px] md:px-8">
         <div className="grid min-h-[136px] items-start gap-8 border-b border-white/10 pb-[26px] lg:grid-cols-[1fr_auto]">
           <div className="flex items-center gap-[22px]">
@@ -113,12 +130,12 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Disponível no Google Play"
-                className="flex h-[46px] min-w-[154px] items-center rounded-[5px] border border-white/90 bg-black/10 px-[10px] text-white transition-colors hover:bg-black/20"
+                className="flex h-[45px] w-[149px] items-center rounded-[5px] border border-white bg-transparent px-[7px] text-white transition-opacity hover:opacity-85"
               >
                 <GooglePlayMark />
                 <span className="leading-none">
-                  <span className="block text-[8px]">Disponível no</span>
-                  <span className="mt-[2px] block text-[16px] font-semibold">Google Play</span>
+                  <span className="block text-[8px] font-medium leading-[1]">Disponível no</span>
+                  <span className="mt-[2px] block whitespace-nowrap text-[17px] font-semibold leading-[1] tracking-[-0.03em]">Google Play</span>
                 </span>
               </a>
 
@@ -127,12 +144,12 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Baixar na App Store"
-                className="flex h-[44px] min-w-[149px] items-center rounded-[4px] border border-white/90 px-[10px] text-white"
+                className="flex h-[45px] w-[150px] items-center rounded-[5px] border border-white bg-transparent px-[9px] text-white transition-opacity hover:opacity-85"
               >
-                <Apple className="mr-[9px] size-[28px] fill-white stroke-white" strokeWidth={0.7} aria-hidden="true" />
+                <AppleStoreMark />
                 <span className="leading-none">
-                  <span className="block text-[8px]">Baixar na</span>
-                  <span className="mt-[2px] block text-[16px] font-semibold">App Store</span>
+                  <span className="block text-[8px] font-medium leading-[1]">Baixar na</span>
+                  <span className="mt-[2px] block whitespace-nowrap text-[17px] font-semibold leading-[1] tracking-[-0.03em]">App Store</span>
                 </span>
               </a>
             </div>
