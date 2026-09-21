@@ -577,7 +577,7 @@ export async function listarMensagensContato(): Promise<MensagemContato[]> {
 export async function buscarMensagemContato(id: string): Promise<MensagemDetalhe | null> {
   try {
     return await api<MensagemDetalhe>(`/api/v1/admin/mensagens/${id}`, {
-      headers: { Authorization: autorizacaoAdmin() },
+      headers: { Authorization: autorizacaoAdmin(), ...(usuario ? { "X-ESPP-Usuario": usuario } : {}) },
     });
   } catch {
     return null;
@@ -592,16 +592,18 @@ export async function atualizarMensagemContato(
     resposta?: string;
     notaInterna?: string;
   },
+  usuario?: string,
 ): Promise<MensagemDetalhe> {
   return api<MensagemDetalhe>(
     `/api/v1/admin/mensagens/${id}`,
-    requisicaoAdmin("PUT", dados),
+    requisicaoAdmin("PUT", dados, usuario),
   );
 }
 
 export async function atualizarMensagemContatoMultipart(
   id: string,
   formData: FormData,
+  usuario?: string,
 ): Promise<MensagemDetalhe> {
   return api<MensagemDetalhe>(
     `/api/v1/admin/mensagens/${id}`,
@@ -616,8 +618,8 @@ export async function atualizarMensagemContatoMultipart(
 export function urlAnexoMensagem(mensagemId: string, anexoId: string) {
   return `/api/admin/mensagens/${encodeURIComponent(mensagemId)}/anexos/${encodeURIComponent(anexoId)}`;
 }
-export async function excluirMensagemContato(id: string) {
-  await api<void>(`/api/v1/admin/mensagens/${id}`, requisicaoAdmin("DELETE"));
+export async function excluirMensagemContato(id: string, usuario?: string) {
+  await api<void>(`/api/v1/admin/mensagens/${id}`, requisicaoAdmin("DELETE", undefined, usuario));
 }
 
 export async function listarAssinantesNewsletter(): Promise<AssinanteNewsletter[]> {
@@ -629,15 +631,16 @@ export async function listarAssinantesNewsletter(): Promise<AssinanteNewsletter[
 export async function atualizarAssinanteNewsletter(
   id: string,
   status: StatusNewsletter,
+  usuario?: string,
 ): Promise<AssinanteNewsletter> {
   return api<AssinanteNewsletter>(
     `/api/v1/admin/newsletter/${id}`,
-    requisicaoAdmin("PUT", { status }),
+    requisicaoAdmin("PUT", { status }, usuario),
   );
 }
 
-export async function excluirAssinanteNewsletter(id: string) {
-  await api<void>(`/api/v1/admin/newsletter/${id}`, requisicaoAdmin("DELETE"));
+export async function excluirAssinanteNewsletter(id: string, usuario?: string) {
+  await api<void>(`/api/v1/admin/newsletter/${id}`, requisicaoAdmin("DELETE", undefined, usuario));
 }
 
 export async function buscarResumoComunicacao(): Promise<ResumoComunicacao> {
@@ -648,15 +651,15 @@ export async function buscarResumoComunicacao(): Promise<ResumoComunicacao> {
 export async function listarCampanhasNewsletter(): Promise<CampanhaNewsletter[]> {
   return api<CampanhaNewsletter[]>("/api/v1/admin/newsletter/campanhas",{headers:{Authorization:autorizacaoAdmin()}});
 }
-export async function criarCampanhaNewsletter(assunto:string,conteudo:string): Promise<CampanhaNewsletter> {
-  return api<CampanhaNewsletter>("/api/v1/admin/newsletter/campanhas",requisicaoAdmin("POST",{assunto,conteudo}));
+export async function criarCampanhaNewsletter(assunto:string,conteudo:string,usuario?:string): Promise<CampanhaNewsletter> {
+  return api<CampanhaNewsletter>("/api/v1/admin/newsletter/campanhas",requisicaoAdmin("POST",{assunto,conteudo},usuario));
 }
-export async function atualizarCampanhaNewsletter(id:string,assunto:string,conteudo:string): Promise<CampanhaNewsletter> {
-  return api<CampanhaNewsletter>(`/api/v1/admin/newsletter/campanhas/${id}`,requisicaoAdmin("PUT",{assunto,conteudo}));
+export async function atualizarCampanhaNewsletter(id:string,assunto:string,conteudo:string,usuario?:string): Promise<CampanhaNewsletter> {
+  return api<CampanhaNewsletter>(`/api/v1/admin/newsletter/campanhas/${id}`,requisicaoAdmin("PUT",{assunto,conteudo},usuario));
 }
 export async function buscarCampanhaNewsletter(id:string): Promise<CampanhaDetalhe> {
   return api<CampanhaDetalhe>(`/api/v1/admin/newsletter/campanhas/${id}`,{headers:{Authorization:autorizacaoAdmin()}});
 }
-export async function enviarCampanhaNewsletter(id:string): Promise<CampanhaDetalhe> {
-  return api<CampanhaDetalhe>(`/api/v1/admin/newsletter/campanhas/${id}/enviar`,requisicaoAdmin("POST"));
+export async function enviarCampanhaNewsletter(id:string,usuario?:string): Promise<CampanhaDetalhe> {
+  return api<CampanhaDetalhe>(`/api/v1/admin/newsletter/campanhas/${id}/enviar`,requisicaoAdmin("POST",undefined,usuario));
 }
