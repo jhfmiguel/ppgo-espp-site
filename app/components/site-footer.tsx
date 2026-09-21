@@ -6,10 +6,10 @@ export function SiteFooter() {
   const ano = new Date().getFullYear();
 
   return (
-    <footer className="bg-gov-teal-dark">
-      <div className="container-espp py-16">
-        <div className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
+    <footer id="rodape" className="border-t-4 border-gold-500 bg-gov-teal-dark">
+      <div className="container-espp py-14">
+        <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-12">
+          <div className="xl:col-span-4">
             <div className="flex items-center gap-4">
               <img src={goias.brasao.src} alt={goias.brasao.alt} className="h-14 w-auto shrink-0" />
               <Image
@@ -44,9 +44,9 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="lg:col-span-4">
+          <div className="xl:col-span-3">
             <h2 className="text-xs font-bold tracking-[0.18em] text-white uppercase">
-              Links oficiais
+              Serviços e links oficiais
             </h2>
             <ul className="mt-5 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-1">
               {rodape.links.map((link) =>
@@ -75,7 +75,7 @@ export function SiteFooter() {
             </ul>
           </div>
 
-          <div className="lg:col-span-3">
+          <div className="xl:col-span-3">
             <h2 className="text-xs font-bold tracking-[0.18em] text-white uppercase">
               Contato
             </h2>
@@ -101,7 +101,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-white/15 pt-7 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-white/15 pt-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {ano} {site.nome} — {site.orgao} · {site.secretaria}
           </p>
