@@ -39,7 +39,7 @@ const ITENS: {
   },
   {
     href: "/admin/controle-alteracoes",
-    rotulo: "Controle de alterações",
+    rotulo: "Auditoria",
     Icone: FileClock,
     recurso: "auditoria",
   },
