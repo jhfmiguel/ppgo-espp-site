@@ -93,15 +93,15 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col bg-white">
+      <head>
         <Script
           id="acessibilidade-inicial"
           strategy="beforeInteractive"
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: scriptAcessibilidade }}
         />
-        {children}
-      </body>
+      </head>
+      <body className="flex min-h-full flex-col bg-white">{children}</body>
     </html>
   );
 }
