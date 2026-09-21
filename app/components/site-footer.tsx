@@ -28,16 +28,12 @@ export function SiteFooter() {
       <div className="container-espp py-9">
         <div className="flex flex-col gap-8 border-b border-white/10 pb-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="flex items-center gap-2.5">
+            <span className="flex items-center">
               <img
-                src={goias.brasao.src}
-                alt={goias.brasao.alt}
-                className="h-[4.5rem] w-auto shrink-0 brightness-0 invert"
+                src="/images/goias-white.png"
+                alt="Estado de Goiás"
+                className="h-[4.1rem] w-auto shrink-0"
               />
-              <span className="leading-[0.95]">
-                <span className="block text-[1.15rem] font-medium text-white">Estado de</span>
-                <span className="title-display block text-[2rem] font-bold text-white">GOIÁS</span>
-              </span>
             </span>
 
             <span aria-hidden="true" className="mx-2 hidden h-16 w-px bg-white/20 sm:block" />
