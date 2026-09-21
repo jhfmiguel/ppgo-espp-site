@@ -2,17 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarDays, FileText, LayoutDashboard, Mail, Megaphone, UsersRound } from "lucide-react";
+import {
+  CalendarDays,
+  FileClock,
+  FileText,
+  LayoutDashboard,
+  Mail,
+  Megaphone,
+  UsersRound,
+} from "lucide-react";
 
 import { podeGerenciar, type Perfil, type Recurso } from "@/lib/auth/users";
 
 /**
  * Navegação lateral do painel.
  *
- * Os itens sem permissão para o perfil simplesmente não são renderizados â€” a
+ * Os itens sem permissão para o perfil simplesmente não são renderizados — a
  * restrição que vale é a do servidor (`exigirPermissao`), esta é só a interface.
  */
-
 const ITENS: {
   href: string;
   rotulo: string;
@@ -30,11 +37,16 @@ const ITENS: {
     Icone: FileText,
     recurso: "atosNormativos",
   },
+  {
+    href: "/admin/controle-alteracoes",
+    rotulo: "Controle de alterações",
+    Icone: FileClock,
+    recurso: "auditoria",
+  },
 ];
 
 export function PainelNav({ perfil }: { perfil: Perfil }) {
   const caminho = usePathname();
-
   const visiveis = ITENS.filter((item) => !item.recurso || podeGerenciar(perfil, item.recurso));
 
   return (
