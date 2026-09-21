@@ -70,14 +70,24 @@ export function SiteFooter() {
 
             <span aria-hidden="true" className="hidden h-[72px] w-px bg-white/25 sm:block" />
 
-            <Image
-              src="/images/logo-espp.png"
-              alt="Escola Superior de Polícia Penal"
-              width={82}
-              height={96}
-              className="h-[72px] w-auto shrink-0 brightness-0 invert"
-              data-contrast-ignore
-            />
+            <span className="flex items-center gap-[14px]">
+              <Image
+                src="/images/logo-espp.png"
+                alt="Escola Superior de Polícia Penal"
+                width={82}
+                height={96}
+                className="h-[72px] w-auto shrink-0 grayscale brightness-[1.85] contrast-[0.85]"
+                data-contrast-ignore
+              />
+              <span className="hidden leading-tight sm:block">
+                <span className="block text-[18px] font-bold tracking-[0.04em] text-white">
+                  ESPP
+                </span>
+                <span className="mt-[2px] block max-w-[205px] text-[12px] font-semibold leading-[1.2] tracking-[0.04em] text-white/90 uppercase">
+                  Escola Superior de Polícia Penal
+                </span>
+              </span>
+            </span>
           </div>
 
           <div className="min-w-[330px] pt-[12px] lg:pr-[23px]">
