@@ -577,7 +577,7 @@ export async function listarMensagensContato(): Promise<MensagemContato[]> {
 export async function buscarMensagemContato(id: string): Promise<MensagemDetalhe | null> {
   try {
     return await api<MensagemDetalhe>(`/api/v1/admin/mensagens/${id}`, {
-      headers: { Authorization: autorizacaoAdmin(), ...(usuario ? { "X-ESPP-Usuario": usuario } : {}) },
+      headers: { Authorization: autorizacaoAdmin() },
     });
   } catch {
     return null;
@@ -609,7 +609,10 @@ export async function atualizarMensagemContatoMultipart(
     `/api/v1/admin/mensagens/${id}`,
     {
       method: "PUT",
-      headers: { Authorization: autorizacaoAdmin() },
+      headers: {
+        Authorization: autorizacaoAdmin(),
+        ...(usuario ? { "X-ESPP-Usuario": usuario } : {}),
+      },
       body: formData,
     },
   );
