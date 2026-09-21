@@ -3,6 +3,7 @@ package br.gov.go.ppgo.espp.controller;
 import br.gov.go.ppgo.espp.domain.*;
 import br.gov.go.ppgo.espp.repository.*;
 import br.gov.go.ppgo.espp.service.AnexoMensagemService;
+import br.gov.go.ppgo.espp.service.AuditoriaService;
 import br.gov.go.ppgo.espp.service.OutlookMailService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
@@ -33,6 +34,7 @@ public class ComunicacaoController {
     private final Validator validator;
     private final CampanhaNewsletterRepository campanhas;
     private final EnvioNewsletterRepository envios;
+    private final AuditoriaService auditoria;
     @org.springframework.beans.factory.annotation.Value("${app.frontend-url}") private String frontendUrl;
 
     public ComunicacaoController(
@@ -44,7 +46,8 @@ public class ComunicacaoController {
             OutlookMailService mail,
             Validator validator,
             CampanhaNewsletterRepository campanhas,
-            EnvioNewsletterRepository envios) {
+            EnvioNewsletterRepository envios,
+            AuditoriaService auditoria) {
         this.mensagens = mensagens;
         this.historicos = historicos;
         this.assinantes = assinantes;
@@ -54,6 +57,7 @@ public class ComunicacaoController {
         this.validator = validator;
         this.campanhas = campanhas;
         this.envios = envios;
+        this.auditoria = auditoria;
     }
 
     public record ContatoReq(
@@ -169,21 +173,36 @@ public class ComunicacaoController {
 
     @PostMapping("/api/v1/admin/newsletter/campanhas")
     @ResponseStatus(HttpStatus.CREATED) @Transactional
-    CampanhaNewsletter criarCampanha(@Valid @RequestBody CampanhaReq r, Authentication auth){
-        var c=new CampanhaNewsletter(); c.setAssunto(r.assunto().trim()); c.setConteudo(r.conteudo().trim());
-        c.setCriadoPor(auth==null?"sistema":auth.getName()); return campanhas.save(c);
+    CampanhaNewsletter criarCampanha(
+            @Valid @RequestBody CampanhaReq r,
+            Authentication auth,
+            @RequestHeader(value="X-ESPP-Usuario", required=false) String usuario){
+        var c=new CampanhaNewsletter();
+        c.setAssunto(r.assunto().trim());
+        c.setConteudo(r.conteudo().trim());
+        c.setCriadoPor(ator(usuario, auth));
+        c = campanhas.save(c);
+        auditoria.registrar("NEWSLETTER_CAMPANHAS", "CRIACAO", c.getId(), c.getAssunto(), ator(usuario, auth), null, c);
+        return c;
     }
 
     @PutMapping("/api/v1/admin/newsletter/campanhas/{id}")
     @Transactional
-    CampanhaNewsletter atualizarCampanha(@PathVariable String id, @Valid @RequestBody CampanhaReq r) {
+    CampanhaNewsletter atualizarCampanha(
+            @PathVariable String id,
+            @Valid @RequestBody CampanhaReq r,
+            Authentication auth,
+            @RequestHeader(value="X-ESPP-Usuario", required=false) String usuario) {
         var c = campanhas.findById(id).orElseThrow(EntityNotFoundException::new);
+        var antes = Map.of("assunto", c.getAssunto(), "conteudo", c.getConteudo(), "status", c.getStatus());
         if (c.getStatus() != StatusCampanhaNewsletter.RASCUNHO) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Somente campanhas em rascunho podem ser alteradas.");
         }
         c.setAssunto(r.assunto().trim());
         c.setConteudo(r.conteudo().trim());
-        return campanhas.save(c);
+        c = campanhas.save(c);
+        auditoria.registrar("NEWSLETTER_CAMPANHAS", "EDICAO", c.getId(), c.getAssunto(), ator(usuario, auth), antes, c);
+        return c;
     }
     @GetMapping("/api/v1/admin/newsletter/campanhas/{id}")
     CampanhaDetalhe buscarCampanha(@PathVariable String id){
@@ -193,8 +212,12 @@ public class ComunicacaoController {
 
     @PostMapping("/api/v1/admin/newsletter/campanhas/{id}/enviar")
     @Transactional
-    CampanhaDetalhe enviarCampanha(@PathVariable String id){
+    CampanhaDetalhe enviarCampanha(
+            @PathVariable String id,
+            Authentication auth,
+            @RequestHeader(value="X-ESPP-Usuario", required=false) String usuario){
         var c=campanhas.findById(id).orElseThrow(EntityNotFoundException::new);
+        var antes = Map.of("status", c.getStatus(), "totalDestinatarios", c.getTotalDestinatarios(), "totalEnviados", c.getTotalEnviados(), "totalFalhas", c.getTotalFalhas());
         if(c.getStatus()!=StatusCampanhaNewsletter.RASCUNHO) throw new ResponseStatusException(HttpStatus.CONFLICT,"A campanha jÃ¡ foi processada.");
         if(!mail.isEnabled()) throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE,"Microsoft Graph ainda nÃ£o estÃ¡ configurado.");
         var ativos=assinantes.findByStatusOrderByCriadoEmAsc(StatusNewsletter.ATIVO);
@@ -210,7 +233,9 @@ public class ComunicacaoController {
             envios.save(e);
         }
         c.setTotalEnviados(ok);c.setTotalFalhas(falhas);c.setEnviadoEm(OffsetDateTime.now());
-        c.setStatus(falhas==0?StatusCampanhaNewsletter.ENVIADA:StatusCampanhaNewsletter.FALHA);campanhas.save(c);
+        c.setStatus(falhas==0?StatusCampanhaNewsletter.ENVIADA:StatusCampanhaNewsletter.FALHA);
+        c = campanhas.save(c);
+        auditoria.registrar("NEWSLETTER_CAMPANHAS", "EDICAO", c.getId(), c.getAssunto(), ator(usuario, auth), antes, c);
         return new CampanhaDetalhe(c,envios.findByCampanhaIdOrderByEmailAsc(id),mail.isEnabled());
     }
     @GetMapping("/api/v1/admin/mensagens")
@@ -226,8 +251,9 @@ public class ComunicacaoController {
     @Transactional
     MensagemDetalhe atualizarMensagemJson(
             @PathVariable String id, @Valid @RequestBody MensagemAdminReq r,
-            Authentication authentication) {
-        return atualizar(id, r, List.of(), authentication);
+            Authentication authentication,
+            @RequestHeader(value="X-ESPP-Usuario", required=false) String usuario) {
+        return atualizar(id, r, List.of(), authentication, usuario);
     }
 
     @PutMapping(value="/api/v1/admin/mensagens/{id}", consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -240,17 +266,22 @@ public class ComunicacaoController {
             @RequestParam(required=false) String notaInterna,
             @RequestParam(defaultValue="false") boolean enviarEmail,
             @RequestPart(required=false) List<MultipartFile> anexos,
-            Authentication authentication) {
+            Authentication authentication,
+            @RequestHeader(value="X-ESPP-Usuario", required=false) String usuario) {
         var r = new MensagemAdminReq(status, responsavel, resposta, notaInterna, enviarEmail);
         validar(r);
-        return atualizar(id, r, anexos == null ? List.of() : anexos, authentication);
+        return atualizar(id, r, anexos == null ? List.of() : anexos, authentication, usuario);
     }
 
     private MensagemDetalhe atualizar(
             String id, MensagemAdminReq r, List<MultipartFile> arquivos,
-            Authentication authentication) {
+            Authentication authentication, String usuarioCabecalho) {
         var m = mensagens.findById(id).orElseThrow(EntityNotFoundException::new);
-        String usuario = authentication == null ? "sistema" : authentication.getName();
+        var antes = Map.of(
+                "status", m.getStatus(),
+                "responsavel", String.valueOf(m.getResponsavel()),
+                "resposta", String.valueOf(m.getResposta()));
+        String usuario = ator(usuarioCabecalho, authentication);
 
         if (r.status() != null && r.status() != m.getStatus()) {
             registrar(id, TipoInteracaoMensagem.ALTERACAO_STATUS,
@@ -303,6 +334,7 @@ public class ComunicacaoController {
             if (m.getResponsavel() == null) m.setResponsavel(usuario);
         }
         m = mensagens.save(m);
+        auditoria.registrar("MENSAGENS", "EDICAO", m.getId(), m.getAssunto(), usuario, antes, m);
         return detalhe(m);
     }
 
@@ -323,11 +355,22 @@ public class ComunicacaoController {
     @DeleteMapping("/api/v1/admin/mensagens/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    void excluirMensagem(@PathVariable String id) {
+    void excluirMensagem(
+            @PathVariable String id,
+            Authentication auth,
+            @RequestHeader(value="X-ESPP-Usuario", required=false) String usuario) {
+        var mensagem = mensagens.findById(id).orElseThrow(EntityNotFoundException::new);
+        var antes = Map.of(
+                "protocolo", mensagem.getProtocolo(),
+                "nome", mensagem.getNome(),
+                "email", mensagem.getEmail(),
+                "assunto", mensagem.getAssunto(),
+                "status", mensagem.getStatus());
         anexoRepository.deleteByMensagemId(id);
         historicos.deleteAll(historicos.findByMensagemIdOrderByCriadoEmAsc(id));
         mensagens.deleteById(id);
         anexoService.excluirArquivos(id);
+        auditoria.registrar("MENSAGENS", "EXCLUSAO", id, mensagem.getAssunto(), ator(usuario, auth), antes, null);
     }
 
     @GetMapping("/api/v1/admin/newsletter")
@@ -335,27 +378,39 @@ public class ComunicacaoController {
 
     @PutMapping("/api/v1/admin/newsletter/{id}")
     @Transactional
-    AssinanteNewsletter atualizarAssinante(@PathVariable String id, @RequestBody NewsletterAdminReq r) {
+    AssinanteNewsletter atualizarAssinante(
+            @PathVariable String id,
+            @RequestBody NewsletterAdminReq r,
+            Authentication auth,
+            @RequestHeader(value="X-ESPP-Usuario", required=false) String usuario) {
         var a = assinantes.findById(id).orElseThrow(EntityNotFoundException::new);
+        var antes = Map.of("email", a.getEmail(), "status", a.getStatus());
         if (r.status() != null) {
             a.setStatus(r.status());
             a.setCanceladoEm(r.status() == StatusNewsletter.ATIVO ? null : OffsetDateTime.now());
             if (r.status() == StatusNewsletter.ATIVO) a.setConsentidoEm(OffsetDateTime.now());
         }
-        return assinantes.save(a);
+        a = assinantes.save(a);
+        auditoria.registrar("NEWSLETTER_ASSINANTES", "EDICAO", a.getId(), a.getEmail(), ator(usuario, auth), antes, a);
+        return a;
     }
 
     @DeleteMapping("/api/v1/admin/newsletter/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    void excluirAssinante(@PathVariable String id) {
-        if (!assinantes.existsById(id)) throw new EntityNotFoundException();
+    void excluirAssinante(
+            @PathVariable String id,
+            Authentication auth,
+            @RequestHeader(value="X-ESPP-Usuario", required=false) String usuario) {
+        var assinante = assinantes.findById(id).orElseThrow(EntityNotFoundException::new);
+        var antes = Map.of("email", assinante.getEmail(), "nome", String.valueOf(assinante.getNome()), "status", assinante.getStatus());
         for (var envio : envios.findByAssinanteId(id)) {
             envio.setAssinanteId(null);
             envio.setEmail("[removido]");
             envios.save(envio);
         }
         assinantes.deleteById(id);
+        auditoria.registrar("NEWSLETTER_ASSINANTES", "EXCLUSAO", id, assinante.getEmail(), ator(usuario, auth), antes, null);
     }
 
     @GetMapping("/api/v1/admin/comunicacao/resumo")
@@ -396,6 +451,11 @@ public class ComunicacaoController {
         return "ESPP-" + data + "-" + System.currentTimeMillis();
     }
 
+
+    private String ator(String usuario, Authentication autenticacao) {
+        if (usuario != null && !usuario.isBlank()) return usuario.trim();
+        return autenticacao == null ? "sistema" : autenticacao.getName();
+    }
 
     private <T> void validar(T valor) {
         var violacoes = validator.validate(valor);
