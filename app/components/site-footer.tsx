@@ -115,7 +115,7 @@ export function SiteFooter() {
                 <span className="block text-[18px] font-bold tracking-[0.04em] text-white">
                   ESPP
                 </span>
-                <span className="mt-[2px] block max-w-[205px] text-[12px] font-semibold leading-[1.2] tracking-[0.04em] text-white/90 uppercase">
+                <span className="mt-[2px] block whitespace-nowrap text-[12px] font-semibold leading-[1.2] tracking-[0.04em] text-white/90 uppercase">
                   Escola Superior de Polícia Penal
                 </span>
               </span>
