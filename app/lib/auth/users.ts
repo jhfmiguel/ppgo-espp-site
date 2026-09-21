@@ -19,6 +19,7 @@ export const PERMISSOES = {
   mensagens: ["comunicacao", "admin"],
   newsletter: ["comunicacao", "admin"],
   atosNormativos: ["admin"],
+  auditoria: ["admin"],
 } as const satisfies Record<string, readonly Perfil[]>;
 
 export type Recurso = keyof typeof PERMISSOES;
