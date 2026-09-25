@@ -34,7 +34,7 @@ export function CursosDestaque() {
               <p className="mt-3 grow text-sm leading-7 text-[#334155]">
                 {curso.texto}
               </p>
-              <dl className="mt-6 flex flex-wrap gap-x-6 gap-y-2 pt-2 text-sm text-[#334155]">
+              <dl className="mt-6 grid gap-2 pt-2 text-sm text-[#334155]">
                 <div className="flex items-center gap-2">
                   <Clock className="size-4 text-gold-600" aria-hidden="true" />
                   <dt className="sr-only">Carga horária</dt>
