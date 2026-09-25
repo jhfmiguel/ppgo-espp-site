@@ -11,7 +11,7 @@ export function Localizacao() {
     <section
       id="localizacao"
       aria-labelledby="localizacao-titulo"
-      className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-white pt-10 lg:pt-14"
     >
       <div className="container-espp">
         <PageHeader
@@ -47,15 +47,6 @@ export function Localizacao() {
                 <Navigation className="size-4" aria-hidden="true" />
                 Traçar rota
               </a>
-            </div>
-            <div className="localizacao-faixa-degrade mt-8 rounded-lg border border-white/15 bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] px-6 py-7 text-white shadow-sm">
-              <h3 className="title-display flex items-center gap-2.5 text-lg text-white">
-                <MapPin className="size-5 text-[#f5c400]" aria-hidden="true" />
-                Localização e acesso
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-white/80">
-                Consulte o mapa acima ou utilize os atalhos para abrir a localização e traçar sua rota até a Escola Superior de Polícia Penal.
-              </p>
             </div>
           </div>
 
@@ -121,6 +112,31 @@ export function Localizacao() {
                 >
                   {localizacao.sedeDgpp.email}
                 </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="localizacao-faixa-degrade mt-10 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-16 text-white lg:mt-12 lg:py-20">
+        <div className="container-espp">
+          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+            <div>
+              <h2 className="title-display flex items-center gap-3 text-2xl text-white">
+                <MapPin className="size-6 text-[#f5c400]" aria-hidden="true" />
+                Localização e acesso
+              </h2>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/80">
+                Consulte o mapa acima ou utilize os atalhos para abrir a localização e traçar sua rota até a Escola Superior de Polícia Penal.
+              </p>
+            </div>
+            <div>
+              <h3 className="title-display flex items-center gap-3 text-lg text-white">
+                <Building2 className="size-5 text-[#f5c400]" aria-hidden="true" />
+                Atendimento
+              </h3>
+              <p className="mt-4 text-sm leading-relaxed text-white/80">
+                {localizacao.horario}
               </p>
             </div>
           </div>
