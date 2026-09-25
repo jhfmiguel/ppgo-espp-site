@@ -32,7 +32,6 @@ const ITENS: {
   { href: "/admin/eventos", rotulo: "Eventos", Icone: CalendarDays, recurso: "eventos" },
   { href: "/admin/mensagens", rotulo: "Mensagens", Icone: Mail, recurso: "mensagens" },
   { href: "/admin/newsletter", rotulo: "Newsletter", Icone: UsersRound, recurso: "newsletter" },
-  { href: "/admin/configuracoes", rotulo: "Configurações", Icone: Settings, recurso: "configuracoes" },
   {
     href: "/admin/atos-normativos",
     rotulo: "Atos normativos",
@@ -45,6 +44,7 @@ const ITENS: {
     Icone: FileClock,
     recurso: "auditoria",
   },
+  { href: "/admin/configuracoes", rotulo: "Configurações", Icone: Settings, recurso: "configuracoes" },
 ];
 
 export function PainelNav({ perfil }: { perfil: Perfil }) {
