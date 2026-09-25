@@ -51,7 +51,6 @@ export function SiteMain({ children }: { children: ReactNode }) {
     if (!root) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const registered = new WeakSet<HTMLElement>();
-    const played = new WeakSet<HTMLElement>();
     const animations = new Set<Animation>();
     const sequences = new WeakMap<HTMLElement, number>();
 
@@ -62,8 +61,6 @@ export function SiteMain({ children }: { children: ReactNode }) {
     }
 
     function play(element: HTMLElement, sequence: number, visibleAtLoad: boolean) {
-      if (played.has(element)) return;
-      played.add(element);
       if (reduced) return;
       const explicit = declaredEffect(element);
       const isSectionBackground = element.tagName === "SECTION" || element.classList.contains("espp-hero-stage-bg");
@@ -81,10 +78,15 @@ export function SiteMain({ children }: { children: ReactNode }) {
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
         const element = entry.target as HTMLElement;
-        observer.unobserve(element);
-        play(element, sequences.get(element) ?? 0, false);
+        if (entry.isIntersecting) {
+          play(element, sequences.get(element) ?? 0, false);
+        } else {
+          element.getAnimations().forEach((animation) => animation.cancel());
+          element.style.removeProperty("opacity");
+          element.style.removeProperty("transform");
+          element.style.removeProperty("filter");
+        }
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
 
@@ -95,9 +97,9 @@ export function SiteMain({ children }: { children: ReactNode }) {
       const rect = element.getBoundingClientRect();
       const visible = rect.bottom > 0 && rect.top < window.innerHeight;
       const scrollOnly = element.hasAttribute("data-animate-scroll-only") || Boolean(element.closest("[data-animate-scroll-only]"));
-      if (visible && scrollOnly) { played.add(element); return; }
-      if (visible) { play(element, sequence, true); return; }
+      if (visible && scrollOnly) { observer.observe(element); return; }
       observer.observe(element);
+      if (visible) play(element, sequence, true);
     }
 
     function scan() {
