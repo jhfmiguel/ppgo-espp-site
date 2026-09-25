@@ -13,7 +13,7 @@ export default async function NovaNoticiaPage() {
         titulo="Nova notícia"
         descricao="Publique para que a notícia apareça no site, ou salve como rascunho para continuar depois."
       />
-      <div className="rounded-xl border border-ink-200 bg-white p-6 lg:p-8">
+      <div className="admin-form-surface rounded-xl border border-ink-200 bg-white p-6 lg:p-8">
         <NoticiaForm />
       </div>
     </>
