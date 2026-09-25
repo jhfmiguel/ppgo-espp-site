@@ -49,10 +49,9 @@ export function SiteMain({ children }: { children: ReactNode }) {
     const registered = new WeakSet<HTMLElement>();
     const played = new WeakSet<HTMLElement>();
     const animations = new Set<Animation>();
-    const sequences = new WeakMap<HTMLElement, number>();
 
     function eligible(element: HTMLElement) {
-      if (element === root || element.closest("header, footer, .admin-panel, [role='dialog'], [aria-modal='true'], [data-no-scroll-animation]")) return false;
+      if (element === root || element.closest("header, footer, .admin-panel, .espp-hero, [role='dialog'], [aria-modal='true'], [data-no-scroll-animation]")) return false;
       if (element.classList.contains("fixed") || element.offsetParent === null) return false;
       return !["SCRIPT","STYLE","NOSCRIPT","TEMPLATE","BR","HR"].includes(element.tagName);
     }
@@ -62,7 +61,7 @@ export function SiteMain({ children }: { children: ReactNode }) {
       played.add(element);
       if (reduced) return;
       const explicit = declaredEffect(element);
-      const effects: ScrollEffect[] = ["fade-up", "fade-left", "zoom-up", "fade-right"];
+      const effects: ScrollEffect[] = ["fade-up", "fade-left", "fade-right"];
       const effect = explicit ?? (visibleAtLoad ? "fade-in" : effects[sequence % effects.length]);
       const animation = element.animate(framesFor(effect), {
         duration: effect === "fade-in" ? 700 : 580,
@@ -79,14 +78,13 @@ export function SiteMain({ children }: { children: ReactNode }) {
         if (!entry.isIntersecting) return;
         const element = entry.target as HTMLElement;
         observer.unobserve(element);
-        play(element, sequences.get(element) ?? 0, false);
+        play(element, 0, false);
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
 
     function register(element: HTMLElement, sequence: number) {
       if (!eligible(element) || registered.has(element)) return;
       registered.add(element);
-      sequences.set(element, sequence);
       const rect = element.getBoundingClientRect();
       const visible = rect.bottom > 0 && rect.top < window.innerHeight;
       const scrollOnly = element.hasAttribute("data-animate-scroll-only") || Boolean(element.closest("[data-animate-scroll-only]"));
