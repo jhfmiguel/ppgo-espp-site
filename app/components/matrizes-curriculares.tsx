@@ -39,7 +39,7 @@ export function MatrizesCurriculares() {
     <section
       id="matrizes-curriculares"
       aria-labelledby="matrizes-titulo"
-      className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-white pt-10 lg:pt-14"
     >
       <div className="container-espp">
         <PageHeader
@@ -84,7 +84,7 @@ export function MatrizesCurriculares() {
           </label>
         </div>
 
-        <div className="mt-10 space-y-12">
+        <div className="mt-10 max-h-[30rem] space-y-12 overflow-y-auto overscroll-contain pr-3 [scrollbar-gutter:stable]">
           {porAno.map(([anoGrupo, cursosDoAno]) => (
             <div key={anoGrupo}>
               <h3 className="title-display text-2xl text-gold-600">{anoGrupo}</h3>
@@ -124,13 +124,23 @@ export function MatrizesCurriculares() {
           ) : null}
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 rounded-lg border border-ink-200 bg-ink-050 p-7 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-ink-700">
+      </div>
+
+      <div className="matrizes-faixa-degrade mt-14 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-16 text-white lg:mt-16 lg:py-20">
+        <div className="container-espp">
+          <p className="mx-auto max-w-4xl text-center text-xl leading-8 font-medium !text-white lg:text-2xl lg:leading-9">
             Esta lista é compilada a partir do portal oficial. Consulte a fonte para a versão mais atualizada e para os detalhes de cada matriz curricular.
           </p>
-          <ActionLink href={matrizes.fonteHref} variant="ghost" external className="text-xs">
-            Portal oficial de matrizes curriculares
-          </ActionLink>
+          <div className="mx-auto mt-8 max-w-2xl">
+            <ActionLink
+              href={matrizes.fonteHref}
+              variant="ghost"
+              external
+              className="flex min-h-20 w-full items-center justify-center rounded-lg border border-white/15 px-5 py-4 text-center text-sm font-bold tracking-wide !text-white uppercase transition-colors hover:border-[#f5c400]/70 hover:!text-[#f5c400]"
+            >
+              Portal oficial de matrizes curriculares
+            </ActionLink>
+          </div>
         </div>
       </div>
     </section>
