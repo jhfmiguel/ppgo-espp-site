@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, CheckCircle2, Info } from "lucide-react";
+import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { contato } from "@/content/site";
 import { Icon } from "@/components/ui/icon";
 import { PageHeader } from "@/components/ui/page-header";
@@ -90,14 +90,6 @@ export function Contato() {
               <h3 className="title-display text-xl text-ink-900">
                 {contato.formulario.titulo}
               </h3>
-
-              <p className="mt-4 flex items-start gap-2.5 rounded-md border border-gold-500/50 bg-gold-050 p-4 text-sm leading-relaxed text-ink-800">
-                <Info
-                  className="mt-0.5 size-4 shrink-0 text-gold-600"
-                  aria-hidden="true"
-                />
-                {contato.formulario.aviso}
-              </p>
 
               {enviado ? (
                 <p
