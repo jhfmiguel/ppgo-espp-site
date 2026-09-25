@@ -666,3 +666,14 @@ export async function buscarCampanhaNewsletter(id:string): Promise<CampanhaDetal
 export async function enviarCampanhaNewsletter(id:string,usuario?:string): Promise<CampanhaDetalhe> {
   return api<CampanhaDetalhe>(`/api/v1/admin/newsletter/campanhas/${id}/enviar`,requisicaoAdmin("POST",undefined,usuario));
 }
+
+export type ConfiguracaoEmailAdmin = { host:string; porta:number; remetente:string; destinatario:string; autenticacao:boolean; starttls:boolean; senhaConfigurada:boolean };
+export async function buscarConfiguracaoEmail(): Promise<ConfiguracaoEmailAdmin> {
+  return api<ConfiguracaoEmailAdmin>("/api/v1/admin/configuracoes/email",{headers:{Authorization:autorizacaoAdmin()}});
+}
+export async function salvarConfiguracaoEmail(dados: Omit<ConfiguracaoEmailAdmin,"senhaConfigurada"> & {senha:string}, usuario?:string): Promise<ConfiguracaoEmailAdmin> {
+  return api<ConfiguracaoEmailAdmin>("/api/v1/admin/configuracoes/email",requisicaoAdmin("PUT",dados,usuario));
+}
+export async function testarConfiguracaoEmail(): Promise<{sucesso:boolean;mensagem:string}> {
+  return api<{sucesso:boolean;mensagem:string}>("/api/v1/admin/configuracoes/email/testar",requisicaoAdmin("POST"));
+}
