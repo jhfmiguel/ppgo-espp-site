@@ -4,20 +4,22 @@ server:
 spring:
   application:
     name: ppgo-espp-api
-
   datasource:
     url: ${ESPP_DB_URL:jdbc:oracle:thin:@//localhost:1521/FREEPDB1}
     username: ${ESPP_DB_USERNAME:ESPP}
     password: ${ESPP_DB_PASSWORD}
     driver-class-name: oracle.jdbc.OracleDriver
-
   jpa:
     open-in-view: false
     hibernate:
       ddl-auto: validate
-
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
+  mail:
+    host: ${ESPP_MAIL_HOST:smtp.gmail.com}
+    port: ${ESPP_MAIL_PORT:587}
+    username: ${ESPP_MAIL_USERNAME:}
+    password: ${ESPP_MAIL_PASSWORD:}
 
 management:
   endpoints:
@@ -25,22 +27,18 @@ management:
       exposure:
         include: health
 
+espp:
+  config:
+    encryption-key: ${ESPP_CONFIG_ENCRYPTION_KEY:}
+  contato:
+    destinatario: ${ESPP_MAIL_TO:}
+
 app:
   auth:
     mode: ${ESPP_AUTH_MODE:local}
-
   frontend-url: ${ESPP_FRONTEND_URL:http://localhost:3001}
-
   admin:
     user: ${ESPP_ADMIN_USER:admin}
     password: ${ESPP_ADMIN_PASSWORD}
-
-  mail:
-    enabled: ${ESPP_MAIL_ENABLED:false}
-    tenant-id: ${ESPP_MAIL_TENANT_ID:}
-    client-id: ${ESPP_MAIL_CLIENT_ID:}
-    client-secret: ${ESPP_MAIL_CLIENT_SECRET:}
-    from: ${ESPP_MAIL_FROM:}
-
   storage:
-    attachments-dir: ${ESPP_ATTACHMENTS_DIR:C:/workspace/ppgo/espp/site-insitucional/storage/mensagens}
+    attachments-dir: ${ESPP_ATTACHMENTS_DIR:C:/workspace/ppgo/espp/site-institucional/storage/mensagens}
