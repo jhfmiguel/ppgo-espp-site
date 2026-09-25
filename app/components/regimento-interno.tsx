@@ -8,7 +8,7 @@ export function RegimentoInterno() {
     <section
       id="regimento-interno"
       aria-labelledby="regimento-interno-titulo"
-      className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-white pt-10 lg:pt-14"
     >
       <div className="container-espp">
         <PageHeader
@@ -19,10 +19,10 @@ export function RegimentoInterno() {
           texto={regimentoInterno.texto}
         />
 
-        <div className="mt-12 max-w-3xl space-y-5">
-          <div className="flex items-start gap-4 rounded-lg border border-ink-200 bg-ink-050 p-6">
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-md bg-ink-900 text-gold-500">
-              <FileText className="size-5" aria-hidden="true" />
+        <div className="mt-12 grid max-w-4xl gap-x-10 gap-y-10 md:grid-cols-2">
+          <div className="group flex items-start gap-4 py-2 transition-transform duration-300 hover:-translate-y-1">
+            <span className="flex size-11 shrink-0 items-center justify-center text-[#f5c400]">
+              <FileText className="size-7 fill-none stroke-current" aria-hidden="true" />
             </span>
             <div>
               <p className="text-sm font-semibold text-ink-900">{regimentoInterno.portaria.numero}</p>
@@ -38,9 +38,9 @@ export function RegimentoInterno() {
             </div>
           </div>
 
-          <div className="flex items-start gap-4 rounded-lg border border-ink-200 bg-white p-6">
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-md bg-ink-100 text-ink-500">
-              <FileText className="size-5" aria-hidden="true" />
+          <div className="group flex items-start gap-4 py-2 transition-transform duration-300 hover:-translate-y-1">
+            <span className="flex size-11 shrink-0 items-center justify-center text-[#f5c400]">
+              <FileText className="size-7 fill-none stroke-current" aria-hidden="true" />
             </span>
             <div>
               <p className="text-sm font-semibold text-ink-500 line-through decoration-ink-400">
@@ -59,6 +59,8 @@ export function RegimentoInterno() {
           </div>
         </div>
       </div>
+
+      <div className="regimento-faixa-degrade mt-14 min-h-40 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] lg:mt-16 lg:min-h-52" data-no-scroll-animation />
     </section>
   );
 }
