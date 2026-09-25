@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Barlow_Condensed, Inter } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import { site } from "@/content/site";
 
@@ -94,9 +93,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <Script
+        <script
           id="acessibilidade-inicial"
-          strategy="beforeInteractive"
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: scriptAcessibilidade }}
         />
