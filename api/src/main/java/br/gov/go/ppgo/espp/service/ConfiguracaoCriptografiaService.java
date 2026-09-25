@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value; import org.springfram
 @Service
 public class ConfiguracaoCriptografiaService {
  private static final int NONCE=12,TAG=128;
- private static final String LOCAL="RVNQUC1MT0NBTC1ERVYtRU5DUllQVElPTi1LRVktMjAyNg==";
+ private static final String LOCAL="RVNQUC1MT0NBTC1ERVYtS0VZLTIwMjYtMTIzNDU2Nzg=";
  private final String chave; private final SecureRandom random=new SecureRandom();
  public ConfiguracaoCriptografiaService(@Value("${espp.config.encryption-key:}") String c,@Value("${app.auth.mode:local}") String modo){
    String v=c==null?"":c.trim(); this.chave=v.isBlank()&&"local".equalsIgnoreCase(modo)?LOCAL:v;
