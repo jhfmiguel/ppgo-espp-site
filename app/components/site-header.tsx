@@ -179,37 +179,15 @@ export function SiteHeader() {
             className="flex min-w-0 items-center gap-3"
             aria-label={`${site.nome} — início`}
           >
-            <span className="flex items-center gap-2.5">
-              <img
-                src={goias.brasao.src}
-                alt={goias.brasao.alt}
-                className="h-[4.3rem] w-auto shrink-0"
-              />
-              <span className="hidden leading-[0.95] sm:block">
-                <span className="block text-[1.15rem] font-medium text-gov-teal">Estado de</span>
-                <span className="title-display block text-[2rem] font-bold text-gov-teal">GOIÁS</span>
-              </span>
-            </span>
-
-            <span aria-hidden="true" className="mx-2 hidden h-16 w-px shrink-0 bg-ink-200 md:block" />
-
-            <span className="flex items-center gap-3">
+            <span className="flex min-w-0 items-center">
               <Image
-                src="/images/logo-espp.png"
-                alt="Escola Superior de Polícia Penal"
-                width={64}
-                height={78}
-                className="h-[4.3rem] w-auto shrink-0"
+                src="/images/logo-go-espp.png"
+                alt="Estado de Goiás e Escola Superior de Polícia Penal"
+                width={2000}
+                height={688}
+                className="h-[5.35rem] w-auto max-w-[min(58vw,47rem)] object-contain object-left"
                 priority
               />
-              <span className="hidden leading-tight lg:block">
-                <span className="title-display block text-[1.5rem] font-bold text-gov-teal">
-                  ESPP
-                </span>
-                <span className="block whitespace-nowrap text-[0.72rem] font-semibold tracking-[0.04em] text-ink-600 uppercase">
-                  Escola Superior de Polícia Penal
-                </span>
-              </span>
             </span>
           </Link>
 
