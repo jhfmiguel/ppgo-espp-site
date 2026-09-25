@@ -77,6 +77,13 @@ export default async function PainelPage({
 
   const visiveis = cartoes.filter((c) => podeGerenciar(usuario.perfil, c.recurso));
   const recentes = noticias.slice(0, 5);
+  const graficos = visiveis.map(({ rotulo, total, publicados }) => ({
+    rotulo,
+    total,
+    principal: publicados,
+    secundario: Math.max(total - publicados, 0),
+  }));
+  const maiorTotal = Math.max(1, ...graficos.map((item) => item.total));
 
   const fluxos = [
     {
@@ -191,6 +198,65 @@ export default async function PainelPage({
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="mb-10" aria-labelledby="graficos-dashboard">
+        <div className="mb-5">
+          <p className="text-[0.7rem] font-bold tracking-[0.14em] text-gold-600 uppercase">Indicadores visuais</p>
+          <h2 id="graficos-dashboard" className="title-display mt-1 text-2xl text-ink-900">Gráficos do painel</h2>
+          <p className="mt-2 max-w-3xl text-sm text-ink-600">
+            Distribuição dos registros e situação atual dos conteúdos e comunicações da ESPP.
+          </p>
+        </div>
+        <div className="grid gap-5 xl:grid-cols-2">
+          <article className="admin-form-surface rounded-xl border border-ink-200 bg-white p-5">
+            <div className="mb-6">
+              <h3 className="title-display text-lg text-ink-900">Volume por módulo</h3>
+              <p className="mt-1 text-xs text-ink-500">Quantidade total de registros disponíveis no painel.</p>
+            </div>
+            <div className="space-y-4">
+              {graficos.map((item) => (
+                <div key={item.rotulo}>
+                  <div className="mb-1.5 flex items-center justify-between gap-3 text-xs">
+                    <span className="font-semibold text-ink-700">{item.rotulo}</span>
+                    <span className="font-bold text-ink-900">{item.total}</span>
+                  </div>
+                  <div className="h-3 overflow-hidden rounded-full bg-ink-100" role="img" aria-label={`${item.rotulo}: ${item.total} registros`}>
+                    <div className="h-full rounded-full bg-gold-500 transition-[width]" style={{ width: `${Math.max(item.total > 0 ? 4 : 0, (item.total / maiorTotal) * 100)}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="admin-form-surface rounded-xl border border-ink-200 bg-white p-5">
+            <div className="mb-6">
+              <h3 className="title-display text-lg text-ink-900">Situação por módulo</h3>
+              <p className="mt-1 text-xs text-ink-500">Comparativo entre registros ativos/publicados/tratados e os demais.</p>
+            </div>
+            <div className="space-y-5">
+              {graficos.map((item) => {
+                const percentual = item.total ? (item.principal / item.total) * 100 : 0;
+                return (
+                  <div key={item.rotulo}>
+                    <div className="mb-2 flex items-center justify-between gap-3">
+                      <span className="text-xs font-semibold text-ink-700">{item.rotulo}</span>
+                      <span className="text-xs text-ink-500">{item.principal} / {item.total}</span>
+                    </div>
+                    <div className="flex h-4 overflow-hidden rounded-full bg-ink-100" role="img" aria-label={`${item.rotulo}: ${item.principal} de ${item.total} no estado principal`}>
+                      <div className="h-full bg-forest-500 transition-[width]" style={{ width: `${percentual}%` }} />
+                      <div className="h-full bg-gold-500 transition-[width]" style={{ width: `${100 - percentual}%` }} />
+                    </div>
+                  </div>
+                );
+              })}
+              <div className="flex flex-wrap gap-x-5 gap-y-2 border-t border-ink-100 pt-4 text-[11px] font-semibold text-ink-500">
+                <span className="inline-flex items-center gap-2"><i className="size-2.5 rounded-full bg-forest-500" /> Publicado, ativo ou tratado</span>
+                <span className="inline-flex items-center gap-2"><i className="size-2.5 rounded-full bg-gold-500" /> Rascunho, inativo ou pendente</span>
+              </div>
+            </div>
+          </article>
+        </div>
       </section>
 
       <section className="mb-10">
