@@ -8,7 +8,7 @@ export function AreaCards() {
   return (
     <section
       aria-labelledby="areas-titulo"
-      className="areas-escola relative overflow-hidden bg-[#071522] pt-10 pb-24 text-white lg:pt-14 lg:pb-32"
+      className="areas-escola relative overflow-hidden border-b-[32px] border-b-white bg-[#071522] pt-10 pb-24 text-white lg:pt-14 lg:pb-32"
     >
       <div className="container-espp relative">
         <SectionHeading
