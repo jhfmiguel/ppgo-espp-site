@@ -36,7 +36,7 @@ export function Estrutura() {
         </div>
       </div>
 
-      <div className="estrutura-faixa-degrade relative z-10 mt-10 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-12 text-white lg:mt-0 lg:py-14">
+      <div className="estrutura-faixa-degrade relative z-10 mt-10 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] pt-12 pb-20 text-white lg:mt-0 lg:pt-14 lg:pb-24">
         <div className="container-espp">
           <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
             <dl className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
