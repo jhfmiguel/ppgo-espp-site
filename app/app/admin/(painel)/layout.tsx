@@ -15,7 +15,13 @@ export default async function PainelLayout({ children }: { children: React.React
               src="/images/logo-espp.png"
               alt=""
               aria-hidden="true"
-              className="admin-espp-logo-image h-full w-full object-contain object-left"
+              className="admin-espp-logo-light h-full w-full object-contain object-left"
+            />
+            <img
+              src="/images/logo-espp-white.png"
+              alt=""
+              aria-hidden="true"
+              className="admin-espp-logo-dark hidden h-full w-full object-contain object-left"
             />
           </span>
           <span className="mt-6 block text-[0.65rem] font-semibold tracking-[0.16em] text-ink-400 uppercase">
