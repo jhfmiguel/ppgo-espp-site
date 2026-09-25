@@ -1,4 +1,5 @@
 import { indicadores } from "@/content/site";
+import { AnimatedCounter } from "@/components/animated-counter";
 
 export function StatsBand() {
   return (
@@ -15,7 +16,7 @@ export function StatsBand() {
           >
             <p className="flex items-baseline gap-2">
               <span className="title-display text-5xl text-gold-600 lg:text-6xl">
-                {item.valor}
+                <AnimatedCounter valor={item.valor} />
               </span>
               <span className="text-xs font-semibold tracking-[0.18em] text-ink-400 uppercase">
                 {item.unidade}
