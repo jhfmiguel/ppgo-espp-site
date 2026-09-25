@@ -50,6 +50,57 @@ function detalheJson(valor: string | null, rotulo: string) {
   }
 
   return (
+    <details>
+      <summary className="cursor-pointer text-xs font-semibold text-gold-700">{rotulo}</summary>
+      <pre className="mt-2 max-h-64 max-w-xl overflow-auto whitespace-pre-wrap rounded-md bg-ink-050 p-3 text-[11px] leading-relaxed text-ink-700">
+        {texto}
+      </pre>
+    </details>
+  );
+}
+
+function aplicarFiltros(registros: Awaited<ReturnType<typeof listarAuditoria>>, filtros: Filtros) {
+  const inicio = filtros.inicio ? new Date(`${filtros.inicio}T00:00:00-03:00`) : null;
+  const fim = filtros.fim ? new Date(`${filtros.fim}T23:59:59.999-03:00`) : null;
+  const termo = filtros.termo?.trim().toLocaleLowerCase("pt-BR");
+
+  return registros.filter((registro) => {
+    const data = new Date(registro.criadoEm);
+    if (inicio && data < inicio) return false;
+    if (fim && data > fim) return false;
+    if (filtros.usuario && registro.usuario !== filtros.usuario) return false;
+    if (filtros.modulo && registro.modulo !== filtros.modulo) return false;
+    if (filtros.acao && registro.acao !== filtros.acao) return false;
+    if (termo) {
+      const texto = [registro.usuario, registro.modulo, registro.acao, registro.entidadeId, registro.titulo, registro.dadosAntes, registro.dadosDepois]
+        .filter(Boolean).join(" ").toLocaleLowerCase("pt-BR");
+      if (!texto.includes(termo)) return false;
+    }
+    return true;
+  });
+}
+
+export default async function ControleAlteracoesPage({
+  searchParams,
+}: {
+  searchParams: Promise<Filtros>;
+}) {
+  await exigirPermissao("auditoria");
+  const filtros = await searchParams;
+  const todos = await listarAuditoria(500);
+  const registros = aplicarFiltros(todos, filtros);
+  const usuarios = [...new Set(todos.map((item) => item.usuario))].sort((a, b) => a.localeCompare(b, "pt-BR"));
+  const totalPorModulo = Object.entries(registros.reduce<Record<string, number>>((acc, item) => {
+    acc[item.modulo] = (acc[item.modulo] ?? 0) + 1; return acc;
+  }, {})).sort((a, b) => b[1] - a[1]);
+  const totalPorAcao = Object.entries(registros.reduce<Record<string, number>>((acc, item) => {
+    acc[item.acao] = (acc[item.acao] ?? 0) + 1; return acc;
+  }, {})).sort((a, b) => b[1] - a[1]);
+  const totalPorUsuario = Object.entries(registros.reduce<Record<string, number>>((acc, item) => {
+    acc[item.usuario] = (acc[item.usuario] ?? 0) + 1; return acc;
+  }, {})).sort((a, b) => b[1] - a[1]);
+
+  return (
     <>
       <header className="mb-8 border-b border-ink-200 pb-5">
         <p className="text-[0.7rem] font-bold tracking-[0.16em] text-gold-600 uppercase">ESPP</p>
