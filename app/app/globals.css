@@ -1010,3 +1010,50 @@ main#conteudo > section.areas-escola {
   box-shadow: 0 0 0 3px rgb(245 196 0 / .18);
   outline: none;
 }
+
+
+/* Contraste automático para todo conteúdo inserido sobre os degradês escuros.
+   A Home permanece fora desta regra: ela é a referência visual original. */
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) {
+  --public-surface-text: #fff;
+  --public-surface-muted: rgb(255 255 255 / .76);
+  --public-surface-border: rgb(255 255 255 / .16);
+  --public-surface-card: rgb(11 49 87 / .72);
+  --public-surface-card-strong: rgb(7 21 34 / .72);
+}
+
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) :where(h1,h2,h3,h4,h5,h6,dt,strong),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(h1,h2,h3,h4,h5,h6,dt,strong) {
+  color: var(--public-surface-text);
+}
+
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) :where(p,li,dd,label,.text-ink-500,.text-ink-600,.text-ink-700),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(p,li,dd,label,.text-ink-500,.text-ink-600,.text-ink-700) {
+  color: var(--public-surface-muted);
+}
+
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) :where(.text-gold-400,.text-gold-500,.text-gold-600,.text-gov-teal),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(.text-gold-400,.text-gold-500,.text-gold-600,.text-gov-teal) {
+  color: #f5c400;
+}
+
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) :where(article,li,div)[class*="rounded"][class*="border"]:not([role="dialog"]),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(article,li,div)[class*="rounded"][class*="border"]:not([role="dialog"]) {
+  border-color: var(--public-surface-border);
+  background-color: var(--public-surface-card);
+  color: #fff;
+}
+
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) :where(input,select,textarea),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(input,select,textarea) {
+  border-color: rgb(255 255 255 / .28);
+  background-color: rgb(255 255 255 / .96);
+  color: #071522;
+}
+
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) :where(a,button)[class*="border"]:not([class*="bg-gold"]),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(a,button)[class*="border"]:not([class*="bg-gold"]) {
+  border-color: rgb(255 255 255 / .58);
+  color: #fff;
+}
