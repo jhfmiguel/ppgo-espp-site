@@ -45,8 +45,8 @@ export function Estrutura() {
                   key={item.label}
                   className="flex min-h-[9rem] items-start gap-3 rounded-lg border border-white/15 bg-[#0b3157]/70 p-5 shadow-sm"
                 >
-                  <span className="flex size-9 shrink-0 items-center justify-center text-[#f5c400]">
-                    <Icon name={item.icone} className="size-4 fill-none stroke-current" />
+                  <span className="flex size-11 shrink-0 items-center justify-center text-[#f5c400]">
+                    <Icon name={item.icone} className="size-5 fill-none stroke-current" />
                   </span>
                   <div>
                     <dt className="flex items-baseline gap-1.5">
