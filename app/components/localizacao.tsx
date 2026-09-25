@@ -48,6 +48,15 @@ export function Localizacao() {
                 Traçar rota
               </a>
             </div>
+            <div className="localizacao-faixa-degrade mt-8 rounded-lg border border-white/15 bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] px-6 py-7 text-white shadow-sm">
+              <h3 className="title-display flex items-center gap-2.5 text-lg text-white">
+                <MapPin className="size-5 text-[#f5c400]" aria-hidden="true" />
+                Localização e acesso
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/80">
+                Consulte o mapa acima ou utilize os atalhos para abrir a localização e traçar sua rota até a Escola Superior de Polícia Penal.
+              </p>
+            </div>
           </div>
 
           <div className="lg:col-span-5">
