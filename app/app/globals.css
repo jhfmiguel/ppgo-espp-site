@@ -826,8 +826,10 @@ main#conteudo > section.bg-\[\#071522\] {
 }
 
 
-/* A seção Conheça cada área da Escola não participa dos degradês globais. */
+
+
+/* Áreas da Escola: mesmo degradê institucional do bloco de recredenciamento. */
 main#conteudo > section.areas-escola {
-  background-color: #f4f7fa !important;
-  background-image: none !important;
+  background-color: #071522 !important;
+  background-image: linear-gradient(135deg, #071522 0%, #0b3157 58%, #123f6a 100%) !important;
 }
