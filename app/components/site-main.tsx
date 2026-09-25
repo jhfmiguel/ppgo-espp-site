@@ -53,6 +53,14 @@ export function SiteMain({ children }: { children: ReactNode }) {
     const registered = new WeakSet<HTMLElement>();
     const animations = new Set<Animation>();
     const sequences = new WeakMap<HTMLElement, number>();
+    let lastScrollY = window.scrollY;
+    let scrollDirection: "up" | "down" = "down";
+    const onScroll = () => {
+      const current = window.scrollY;
+      scrollDirection = current < lastScrollY ? "up" : "down";
+      lastScrollY = current;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     function eligible(element: HTMLElement) {
       if (element === root || element.closest("header, footer, .admin-panel, .espp-hero, [role='dialog'], [aria-modal='true'], [data-no-scroll-animation]")) return false;
@@ -65,7 +73,8 @@ export function SiteMain({ children }: { children: ReactNode }) {
       const explicit = declaredEffect(element);
       const isSectionBackground = element.tagName === "SECTION" || element.classList.contains("espp-hero-stage-bg");
       const effects: ScrollEffect[] = ["fade-in", "fade-left", "fade-right", "fade-in", "fade-right", "fade-left"];
-      const effect = isSectionBackground ? "fade-in" : (explicit ?? (visibleAtLoad ? "fade-in" : effects[sequence % effects.length]));
+      const directionalEffect: ScrollEffect = scrollDirection === "up" ? (sequence % 2 === 0 ? "fade-right" : "fade-left") : effects[sequence % effects.length];
+      const effect = isSectionBackground ? "fade-in" : (explicit ?? (visibleAtLoad ? "fade-in" : directionalEffect));
       const animation = element.animate(framesFor(effect), {
         duration: effect === "fade-in" ? 1250 : 1150,
         delay: visibleAtLoad ? Math.min(sequence, 8) * 55 : 0,
@@ -112,6 +121,7 @@ export function SiteMain({ children }: { children: ReactNode }) {
 
     return () => {
       window.clearTimeout(timer);
+      window.removeEventListener("scroll", onScroll);
       mutations.disconnect();
       observer.disconnect();
       animations.forEach((animation) => animation.cancel());
