@@ -394,22 +394,14 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
 :root[data-admin-theme="dark"] .admin-user-menu-item:hover,
 :root[data-admin-theme="dark"] .admin-user-menu-logout:hover { background: var(--color-ink-700); color: #fff; }
 
-/* Marca ESPP no painel: brasão sempre colorido; apenas a tipografia fica
-   branca nos fundos escuros. As duas camadas usam a mesma arte para preservar
-   exatamente as proporções da identidade visual. */
-.admin-espp-logo-base { filter: none; opacity: 1; }
-.admin-espp-logo-text { display: none; }
-
-:root[data-admin-theme="dark"] .admin-panel .admin-espp-logo-base,
-:root[data-admin-theme="mixed"] .admin-panel .admin-espp-logo-base {
-  clip-path: inset(0 70% 0 0);
+/* Logomarca institucional do painel: no claro usa a arte original; nos
+   modos escuro e misto fica integralmente branca, como a marca do Estado. */
+.admin-espp-logo-image {
   filter: none;
   opacity: 1;
 }
-:root[data-admin-theme="dark"] .admin-panel .admin-espp-logo-text,
-:root[data-admin-theme="mixed"] .admin-panel .admin-espp-logo-text {
-  display: block;
-  clip-path: inset(0 0 0 30%);
-  filter: brightness(0) invert(1);
+:root[data-admin-theme="dark"] .admin-panel .admin-espp-logo-image,
+:root[data-admin-theme="mixed"] .admin-panel .admin-espp-logo-image {
+  filter: grayscale(1) brightness(0) invert(1) contrast(1.15);
   opacity: 1;
 }
