@@ -6,7 +6,7 @@ import { hero } from "@/content/site";
 export function Hero() {
   return (
     <section id="top" className="espp-hero bg-white">
-      <div className="container-espp pt-6 pb-8 lg:pt-8 lg:pb-8">
+      <div className="container-espp py-6 lg:py-8">
         <div className="espp-hero-frame">
           <div className="espp-hero-stage-bg" aria-hidden="true">
             <Image
