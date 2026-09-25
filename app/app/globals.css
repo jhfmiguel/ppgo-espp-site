@@ -625,8 +625,8 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
   position: absolute;
   z-index: 2;
   left: 5%;
-  top: 13%;
-  width: 35%;
+  top: 9%;
+  width: 40%;
   color: white;
   animation: espp-hero-copy-in 1450ms cubic-bezier(0.16, 1, 0.3, 1) 650ms both;
 }
@@ -643,7 +643,7 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
   color: #ffd21a;
   background: rgb(3 31 56 / .55);
   backdrop-filter: blur(5px);
-  font-size: .78cqw;
+  font-size: .9cqw;
   font-weight: 700;
   line-height: 1.2;
 }
@@ -657,7 +657,7 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
 .espp-hero-title {
   margin: .75cqw 0 0;
   font-family: var(--font-sans);
-  font-size: 3.25cqw;
+  font-size: 3.55cqw;
   font-weight: 900;
   line-height: .98;
   letter-spacing: -.045em;
@@ -689,7 +689,7 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
   max-width: 35cqw;
   margin: .65cqw 0 0;
   color: rgb(255 255 255 / .94);
-  font-size: 1.02cqw;
+  font-size: 1.16cqw;
   font-weight: 400;
   line-height: 1.45;
   text-shadow: 0 1px 8px rgb(0 0 0 / .35);
@@ -699,7 +699,7 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
   position: absolute;
   z-index: 3;
   left: 5%;
-  bottom: 13%;
+  bottom: 17%;
   display: flex;
   gap: .72cqw;
   animation: espp-hero-actions-in 1250ms cubic-bezier(0.16, 1, 0.3, 1) 1350ms both;
