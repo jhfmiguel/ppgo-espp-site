@@ -14,7 +14,7 @@ export default async function Page() {
         titulo="Nova campanha"
         descricao="Prepare a comunicação antes do envio aos assinantes ativos."
       />
-      <form action={criarCampanha} className="max-w-5xl space-y-6 rounded-xl border border-ink-200 bg-white p-6">
+      <form action={criarCampanha} className="admin-form-surface max-w-5xl space-y-6 rounded-xl border border-ink-200 bg-white p-6">
         <label className="block text-sm font-bold text-ink-900">
           Assunto
           <input
