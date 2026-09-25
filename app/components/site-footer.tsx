@@ -106,9 +106,9 @@ export function SiteFooter() {
               <Image
                 src="/images/logo-espp.png"
                 alt="Escola Superior de Polícia Penal"
-                width={82}
-                height={96}
-                className="h-[72px] w-auto shrink-0 mix-blend-screen grayscale contrast-[1.35] brightness-[2]" style={{ opacity: 0.96 }}
+                width={320}
+                height={104}
+                className="h-[58px] w-auto shrink-0 object-contain"
                 data-contrast-ignore
               />
               <span className="hidden leading-tight sm:block">
