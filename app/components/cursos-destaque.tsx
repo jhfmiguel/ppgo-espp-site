@@ -1,4 +1,4 @@
-import { Clock, MapPin } from "lucide-react";
+import { ArrowUpRight, Clock, FileText, GraduationCap, MapPin } from "lucide-react";
 import { cursos } from "@/content/site";
 import { PageHeader } from "@/components/ui/page-header";
 import { ActionLink } from "@/components/ui/action-link";
@@ -54,23 +54,30 @@ export function CursosDestaque() {
 
       <div className="cursos-faixa-degrade mt-14 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-16 text-white lg:mt-16 lg:py-20">
         <div className="container-espp">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className="max-w-xl text-sm leading-relaxed !text-white/80">
-              Editais, matrizes curriculares e processos seletivos são publicados
-              no portal oficial da Polícia Penal de Goiás.
+          <div>
+            <p className="max-w-3xl text-base leading-7 !text-white/80">
+              Editais, matrizes curriculares e processos seletivos são publicados no portal oficial da Polícia Penal de Goiás.
             </p>
-            <div className="flex flex-wrap gap-x-6 gap-y-3">
-              {cursos.links.map((link) => (
-                <ActionLink
-                  key={link.label}
-                  href={link.href}
-                  variant="ghost"
-                  external={link.external}
-                  className="text-xs !text-white hover:!text-[#f5c400]"
-                >
-                  {link.label}
-                </ActionLink>
-              ))}
+
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              {cursos.links.map((link, index) => {
+                const LinkIcon = index === 0 ? GraduationCap : FileText;
+                return (
+                  <ActionLink
+                    key={link.label}
+                    href={link.href}
+                    variant="ghost"
+                    external={link.external}
+                    className="group flex min-h-20 items-center justify-between gap-4 rounded-lg border border-white/15 px-5 py-4 !text-white transition-colors hover:border-[#f5c400]/70 hover:!text-[#f5c400]"
+                  >
+                    <span className="flex items-center gap-3">
+                      <LinkIcon className="size-5 shrink-0 text-[#f5c400]" aria-hidden="true" />
+                      <span className="text-sm font-bold tracking-wide uppercase">{link.label}</span>
+                    </span>
+                    <ArrowUpRight className="size-4 shrink-0 opacity-70 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+                  </ActionLink>
+                );
+              })}
             </div>
           </div>
         </div>
