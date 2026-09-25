@@ -871,3 +871,24 @@ main#conteudo > section.areas-escola {
 .site-public-main :where(.text-gold-500, .text-gold-600) {
   color: #d9aa00;
 }
+
+
+/* Cards e ícones públicos seguem a mesma linguagem visual da Home. */
+.site-public-main :where(article, li, div)[class*="rounded"][class*="border"]:not([role="dialog"]):not(.espp-hero-frame) {
+  transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease, background-color 280ms ease;
+}
+.site-public-main :where(article, li, div)[class*="rounded"][class*="border"]:not([role="dialog"]):not(.espp-hero-frame):hover {
+  border-color: rgb(229 180 0 / .72);
+  box-shadow: 0 16px 38px rgb(7 21 34 / .11);
+}
+.site-public-main :where(svg):not(header svg):not(footer svg) {
+  stroke-width: 1.8;
+}
+.site-public-main :where(.text-gold-500, .text-gold-600) svg,
+.site-public-main :where([class*="text-[#f5c400]"]) svg {
+  fill: none;
+  stroke: currentColor;
+}
+.site-public-main :where(a, button, article, li) > :where(span, div)[class*="items-center"][class*="justify-center"]:has(> svg) {
+  border-color: transparent;
+}
