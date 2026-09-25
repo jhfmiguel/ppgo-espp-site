@@ -336,3 +336,64 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
   border: 0;
   border-top: 1px solid var(--color-ink-200);
 }
+
+
+/* Painel administrativo — aparência alinhada ao NASPP */
+.admin-user-menu-popover { background: #fff; border-color: var(--color-ink-200); color: var(--color-ink-800); }
+.admin-user-menu-heading, .admin-user-menu-divider { border-color: var(--color-ink-200); }
+.admin-user-menu-kicker, .admin-user-menu-meta, .admin-user-menu-section { color: var(--color-ink-500); }
+.admin-user-menu-name { color: var(--color-ink-900); }
+.admin-user-trigger { border-color: var(--color-ink-700); color: #fff; }
+.admin-user-trigger:hover { background: var(--color-ink-800); }
+.admin-user-avatar { border-color: var(--color-ink-600); background: var(--color-ink-800); color: var(--color-gold-400); }
+.admin-user-menu-theme { border-color: var(--color-ink-200); color: var(--color-ink-700); }
+.admin-user-menu-theme[aria-pressed="true"] { border-color: var(--color-gold-600); background: var(--color-gold-050); color: var(--color-ink-950); }
+.admin-user-menu-item, .admin-user-menu-logout { color: var(--color-ink-700); }
+.admin-user-menu-item:hover, .admin-user-menu-logout:hover { background: var(--color-ink-100); color: var(--color-ink-950); }
+
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar { background: #fff; border-right: 1px solid var(--color-ink-200); }
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar-header,
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar-footer { border-color: var(--color-ink-200); }
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar-header img { filter: none; }
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar-header span,
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar-user { color: var(--color-ink-900); }
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar-email { color: var(--color-ink-500); }
+:root[data-admin-theme="light"] .admin-panel .admin-nav-link:not([aria-current="page"]) { color: var(--color-ink-700); }
+:root[data-admin-theme="light"] .admin-panel .admin-nav-link:not([aria-current="page"]):hover { background: var(--color-ink-100); color: var(--color-ink-950); }
+:root[data-admin-theme="light"] .admin-panel .admin-user-trigger { border-color: var(--color-ink-200); color: var(--color-ink-900); }
+:root[data-admin-theme="light"] .admin-panel .admin-user-trigger:hover { background: var(--color-ink-100); }
+:root[data-admin-theme="light"] .admin-panel .admin-user-avatar { border-color: var(--color-ink-200); background: var(--color-ink-100); color: var(--color-ink-900); }
+
+:root[data-admin-theme="dark"] .admin-panel,
+:root[data-admin-theme="dark"] .admin-panel main { background: var(--color-ink-950); color: var(--color-ink-200); }
+:root[data-admin-theme="dark"] .admin-panel .bg-white { background: var(--color-ink-900); }
+:root[data-admin-theme="dark"] .admin-panel .bg-ink-050,
+:root[data-admin-theme="dark"] .admin-panel .bg-ink-100 { background: var(--color-ink-950); }
+:root[data-admin-theme="dark"] .admin-panel .text-ink-900,
+:root[data-admin-theme="dark"] .admin-panel .text-ink-950,
+:root[data-admin-theme="dark"] .admin-panel .text-ink-800,
+:root[data-admin-theme="dark"] .admin-panel .text-ink-700 { color: var(--color-ink-100); }
+:root[data-admin-theme="dark"] .admin-panel .text-ink-600,
+:root[data-admin-theme="dark"] .admin-panel .text-ink-500 { color: var(--color-ink-300); }
+:root[data-admin-theme="dark"] .admin-panel .border-ink-100,
+:root[data-admin-theme="dark"] .admin-panel .border-ink-200 { border-color: var(--color-ink-700); }
+:root[data-admin-theme="dark"] .admin-panel input,
+:root[data-admin-theme="dark"] .admin-panel select,
+:root[data-admin-theme="dark"] .admin-panel textarea { background: var(--color-ink-850); border-color: var(--color-ink-700); color: #fff; }
+:root[data-admin-theme="dark"] .admin-user-menu-popover { background: var(--color-ink-850); border-color: var(--color-ink-700); color: #fff; }
+:root[data-admin-theme="dark"] .admin-user-menu-heading,
+:root[data-admin-theme="dark"] .admin-user-menu-divider { border-color: var(--color-ink-700); }
+:root[data-admin-theme="dark"] .admin-user-menu-name { color: #fff; }
+:root[data-admin-theme="dark"] .admin-user-menu-kicker,
+:root[data-admin-theme="dark"] .admin-user-menu-meta,
+:root[data-admin-theme="dark"] .admin-user-menu-section { color: var(--color-ink-300); }
+:root[data-admin-theme="dark"] .admin-user-menu-theme { border-color: var(--color-ink-700); color: var(--color-ink-200); }
+:root[data-admin-theme="dark"] .admin-user-menu-theme[aria-pressed="true"] { background: var(--color-ink-700); border-color: var(--color-gold-500); color: var(--color-gold-400); }
+:root[data-admin-theme="dark"] .admin-user-menu-item,
+:root[data-admin-theme="dark"] .admin-user-menu-logout { color: var(--color-ink-200); }
+:root[data-admin-theme="dark"] .admin-user-menu-item:hover,
+:root[data-admin-theme="dark"] .admin-user-menu-logout:hover { background: var(--color-ink-700); color: #fff; }
+
+/* No fundo escuro, a arte institucional recebe contraste sem caixa/fundo adicional. */
+:root[data-admin-theme="dark"] .admin-panel .admin-sidebar-header img,
+:root[data-admin-theme="mixed"] .admin-panel .admin-sidebar-header img { filter: brightness(0) invert(1); opacity: .96; }
