@@ -10,6 +10,8 @@ const servicos = [
   ["SEI Governadoria", "https://sei.go.gov.br/"],
   ["Cadastro de Autoridades", "https://goias.gov.br/cadastro-de-autoridades/"],
   ["Escola de Governo", "https://goias.gov.br/escoladegoverno/"],
+  ["Polícia Penal do Estado de Goiás", "https://www.policiapenal.go.gov.br/"],
+  ["Secretaria de Segurança Pública do Estado de Goiás", "https://goias.gov.br/seguranca/"],
 ] as const;
 
 const outrosSites = [
@@ -20,8 +22,6 @@ const outrosSites = [
   ["Procuradoria-Geral do Estado de Goiás", "https://goias.gov.br/procuradoria/"],
   ["Controladoria-Geral do Estado de Goiás", "https://goias.gov.br/controladoria/"],
   ["Diário Oficial", "https://diariooficial.abc.go.gov.br/"],
-  ["Polícia Penal do Estado de Goiás", "https://www.policiapenal.go.gov.br/"],
-  ["Secretaria de Segurança Pública do Estado de Goiás", "https://goias.gov.br/seguranca/"],
 ] as const;
 
 const transparencia = [
@@ -107,7 +107,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="grid gap-10 pt-[15px] md:grid-cols-[0.82fr_1.18fr_1.28fr] md:gap-[56px]">
+        <div className="grid gap-10 pt-[15px] md:grid-cols-3 md:gap-[72px] lg:gap-[96px]">
           <section>
             <h2 className="text-[17px] font-bold leading-[1.25]">Serviços</h2>
             <ListaLinks itens={servicos} />
