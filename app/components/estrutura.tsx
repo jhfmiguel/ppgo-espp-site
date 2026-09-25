@@ -51,11 +51,11 @@ export function Estrutura() {
                   <div>
                     <dt className="flex items-baseline gap-1.5">
                       {item.valor !== "—" ? (
-                        <span className="title-display text-xl !text-white">{item.valor}</span>
+                        <span className="title-display text-2xl !text-white">{item.valor}</span>
                       ) : null}
-                      <span className="text-xs font-semibold !text-white">{item.label}</span>
+                      <span className="text-sm font-semibold !text-white">{item.label}</span>
                     </dt>
-                    <dd className="mt-1 text-xs leading-relaxed !text-white/80">{item.texto}</dd>
+                    <dd className="mt-2 text-sm leading-relaxed !text-white/80">{item.texto}</dd>
                   </div>
                 </div>
               ))}
