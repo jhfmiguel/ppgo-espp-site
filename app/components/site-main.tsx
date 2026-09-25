@@ -15,7 +15,7 @@ const TARGET_SELECTOR = [
   "[data-animate-scroll-only]",
 ].join(", ");
 
-type ScrollEffect = "fade-in" | "fade-up" | "fade-left" | "fade-right" | "zoom-up";
+type ScrollEffect = "fade-in" | "fade-up" | "fade-down" | "fade-left" | "fade-right" | "zoom-up" | "zoom-in" | "spin-left" | "spin-right";
 const EASING = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 function framesFor(effect: ScrollEffect): Keyframe[] {
@@ -24,6 +24,14 @@ function framesFor(effect: ScrollEffect): Keyframe[] {
       return [{ opacity: 0, transform: "translate3d(-48px,0,0) scale(.985)", filter: "blur(1px)" }, { opacity: 1, transform: "none", filter: "blur(0)" }];
     case "fade-right":
       return [{ opacity: 0, transform: "translate3d(44px,0,0) scale(.985)", filter: "blur(1px)" }, { opacity: 1, transform: "none", filter: "blur(0)" }];
+    case "fade-down":
+      return [{ opacity: 0, transform: "translate3d(0,-72px,0)", filter: "blur(2px)" }, { opacity: 1, transform: "none", filter: "blur(0)" }];
+    case "zoom-in":
+      return [{ opacity: 0, transform: "scale(.5)", filter: "blur(2px)" }, { opacity: 1, transform: "none", filter: "blur(0)" }];
+    case "spin-left":
+      return [{ opacity: 0, transform: "translate3d(0,-48px,0) rotate(-45deg) scale(.88)", filter: "blur(2px)" }, { opacity: 1, transform: "none", filter: "blur(0)" }];
+    case "spin-right":
+      return [{ opacity: 0, transform: "translate3d(0,-48px,0) rotate(45deg) scale(.88)", filter: "blur(2px)" }, { opacity: 1, transform: "none", filter: "blur(0)" }];
     case "zoom-up":
       return [{ opacity: 0, transform: "translate3d(0,28px,0) scale(.94)", filter: "blur(1px)" }, { opacity: 1, transform: "none", filter: "blur(0)" }];
     case "fade-in":
@@ -35,7 +43,7 @@ function framesFor(effect: ScrollEffect): Keyframe[] {
 
 function declaredEffect(element: HTMLElement): ScrollEffect | null {
   const effect = element.dataset.animateEffect;
-  return effect === "fade-in" || effect === "fade-up" || effect === "fade-left" || effect === "fade-right" || effect === "zoom-up" ? effect : null;
+  return effect === "fade-in" || effect === "fade-up" || effect === "fade-down" || effect === "fade-left" || effect === "fade-right" || effect === "zoom-up" || effect === "zoom-in" || effect === "spin-left" || effect === "spin-right" ? effect : null;
 }
 
 export function SiteMain({ children }: { children: ReactNode }) {
@@ -61,10 +69,10 @@ export function SiteMain({ children }: { children: ReactNode }) {
       played.add(element);
       if (reduced) return;
       const explicit = declaredEffect(element);
-      const effects: ScrollEffect[] = ["fade-up", "fade-left", "fade-right"];
+      const effects: ScrollEffect[] = ["fade-left", "fade-in", "fade-right", "fade-down", "fade-up", "zoom-in", "spin-left", "zoom-up", "spin-right"];
       const effect = explicit ?? (visibleAtLoad ? "fade-in" : effects[sequence % effects.length]);
       const animation = element.animate(framesFor(effect), {
-        duration: effect === "fade-in" ? 700 : 580,
+        duration: effect === "fade-in" ? 1250 : 1150,
         delay: visibleAtLoad ? Math.min(sequence, 8) * 55 : 0,
         easing: EASING,
         fill: "both",
