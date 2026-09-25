@@ -11,7 +11,7 @@ const ROTULO_MODULO: Record<string, string> = {
   MENSAGENS: "Mensagens",
   NEWSLETTER_ASSINANTES: "Assinantes da newsletter",
   NEWSLETTER_CAMPANHAS: "Campanhas da newsletter",
-  USUARIOS_AUTORIZADOS: "Usuários e permissões",
+  USUARIOS_AUTORIZADOS: "Usuários e permissões",\n  CONFIGURACOES: "Configurações",
 };
 
 const ROTULO_ACAO: Record<string, string> = {
