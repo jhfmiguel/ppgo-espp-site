@@ -531,3 +531,50 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
 :root[data-admin-theme="mixed"] .admin-panel [role="status"] {
   box-shadow: none;
 }
+
+
+/* Editor rico — contraste correto nos temas escuro e misto */
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor {
+  background: var(--color-ink-900);
+  border-color: var(--color-ink-700);
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor-toolbar,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor-toolbar {
+  background: var(--color-ink-800);
+  border-color: var(--color-ink-700);
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor-toolbar button,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor-toolbar button {
+  color: var(--color-ink-200);
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor-toolbar button:hover,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor-toolbar button:hover {
+  background: var(--color-ink-700);
+  border-color: var(--color-ink-600);
+  color: #fff;
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor-toolbar button[aria-pressed="true"],
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor-toolbar button[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--color-gold-500) 16%, var(--color-ink-800));
+  border-color: var(--color-gold-500);
+  color: var(--color-gold-400);
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor-toolbar > span,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor-toolbar > span {
+  background: var(--color-ink-600);
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor-link,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor-link {
+  background: var(--color-ink-850);
+  border-color: var(--color-ink-700);
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor .editor-conteudo,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor .editor-conteudo {
+  background: var(--color-ink-900);
+  color: var(--color-ink-100);
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor .text-ink-400,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor .text-ink-400 {
+  color: var(--color-ink-400);
+}
