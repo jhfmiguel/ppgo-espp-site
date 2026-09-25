@@ -394,6 +394,11 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
 :root[data-admin-theme="dark"] .admin-user-menu-item:hover,
 :root[data-admin-theme="dark"] .admin-user-menu-logout:hover { background: var(--color-ink-700); color: #fff; }
 
-/* No fundo escuro, a arte institucional recebe contraste sem caixa/fundo adicional. */
+/* A marca permanece colorida nos temas escuro/misto. A versão do painel usa
+   composição para clarear somente a tipografia sem dessaturar o brasão. */
 :root[data-admin-theme="dark"] .admin-panel .admin-sidebar-header img,
-:root[data-admin-theme="mixed"] .admin-panel .admin-sidebar-header img { filter: brightness(0) invert(1); opacity: .96; }
+:root[data-admin-theme="mixed"] .admin-panel .admin-sidebar-header img {
+  filter: none;
+  opacity: 1;
+  mix-blend-mode: screen;
+}
