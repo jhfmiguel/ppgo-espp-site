@@ -10,7 +10,7 @@ export default async function PainelLayout({ children }: { children: React.React
     <div className="admin-panel flex min-h-screen flex-col bg-ink-050 lg:flex-row">
       <aside className="admin-sidebar flex shrink-0 flex-col bg-ink-900 lg:sticky lg:top-0 lg:h-screen lg:w-64">
         <div className="admin-sidebar-header flex shrink-0 flex-col items-start border-b border-ink-800 px-4 py-4">
-          <span className="admin-espp-logo block h-12 w-full max-w-[10.5rem]" role="img" aria-label="Escola Superior de Polícia Penal">
+          <span className="admin-espp-logo block h-16 w-full max-w-[13rem]" role="img" aria-label="Escola Superior de Polícia Penal">
             <img
               src="/images/logo-espp.png"
               alt=""
