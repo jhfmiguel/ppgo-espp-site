@@ -580,62 +580,216 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
 }
 
 
-/* Hero ESPP — mesma sequência de entrada usada no NASPP: imagem -> texto -> ações. */
-.espp-hero-image-wrap {
+/* Hero ESPP — composição em camadas e sequência de entrada do NASPP. */
+.espp-hero-frame {
+  position: relative;
+  aspect-ratio: 3 / 1;
+  min-height: 31rem;
+  overflow: hidden;
+  border: 1px solid var(--color-ink-100);
+  border-radius: 1rem;
+  background: #071f38;
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.08);
+  isolation: isolate;
+  container-type: inline-size;
+}
+
+.espp-hero-stage-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   animation: espp-hero-bg-in 1600ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.espp-hero-image {
+  object-fit: cover;
+  object-position: center;
+}
+
+.espp-hero-blue-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(2 30 59 / .96) 0%, rgb(3 47 85 / .86) 23%, rgb(4 54 91 / .48) 39%, rgb(3 39 67 / .08) 57%, transparent 70%);
+}
+
+.espp-hero-diagonals {
+  position: absolute;
+  inset: 0;
+  opacity: .9;
+  pointer-events: none;
+  background:
+    linear-gradient(112deg, transparent 0 8%, rgb(7 60 106 / .62) 8.1% 12%, transparent 12.1% 18%, rgb(7 69 118 / .42) 18.1% 21%, transparent 21.1% 29%, rgb(226 175 0 / .22) 29.1% 32%, transparent 32.1% 75%, rgb(255 255 255 / .16) 75.1% 77%, transparent 77.1% 88%, rgb(226 175 0 / .46) 88.1% 92%, transparent 92.1%);
+}
+
 .espp-hero-copy {
+  position: absolute;
+  z-index: 2;
+  left: 5%;
+  top: 11%;
+  width: 35%;
+  color: white;
   animation: espp-hero-copy-in 1450ms cubic-bezier(0.16, 1, 0.3, 1) 650ms both;
 }
 
+.espp-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .55cqw;
+  max-width: 100%;
+  margin: 0;
+  border: 1px solid #e5b400;
+  border-radius: 999px;
+  padding: .62cqw 1cqw;
+  color: #ffd21a;
+  background: rgb(3 31 56 / .55);
+  backdrop-filter: blur(5px);
+  font-size: .78cqw;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.espp-hero-badge svg {
+  width: 1cqw;
+  height: 1cqw;
+  flex: none;
+}
+
+.espp-hero-title {
+  margin: 1.15cqw 0 0;
+  font-family: var(--font-sans);
+  font-size: 3.25cqw;
+  font-weight: 900;
+  line-height: .98;
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 14px rgb(0 0 0 / .28);
+}
+
+.espp-hero-title span,
+.espp-hero-title strong {
+  display: block;
+}
+
+.espp-hero-title strong {
+  margin-top: .35cqw;
+  color: #f5c400;
+  font-weight: 900;
+}
+
+.espp-hero-rule {
+  width: 5.8cqw;
+  height: .22cqw;
+  min-height: 3px;
+  margin-top: 1.25cqw;
+  border-radius: 999px;
+  background: #f5c400;
+}
+
+.espp-hero-subtitle {
+  max-width: 35cqw;
+  margin: 1.05cqw 0 0;
+  color: rgb(255 255 255 / .94);
+  font-size: 1.02cqw;
+  font-weight: 400;
+  line-height: 1.45;
+  text-shadow: 0 1px 8px rgb(0 0 0 / .35);
+}
+
 .espp-hero-actions {
+  position: absolute;
+  z-index: 3;
+  left: 5%;
+  bottom: 8.5%;
+  display: flex;
+  gap: .72cqw;
   animation: espp-hero-actions-in 1250ms cubic-bezier(0.16, 1, 0.3, 1) 1350ms both;
 }
 
+.espp-hero-button {
+  display: inline-flex;
+  height: 3.7cqw;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: .8cqw;
+  border-radius: .45cqw;
+  padding: 0 1.35cqw;
+  font-size: .82cqw;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.espp-hero-button svg {
+  width: 1.05cqw;
+  height: 1.05cqw;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+.espp-hero-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 22px rgb(0 0 0 / .18);
+}
+
+.espp-hero-button-primary {
+  border: 2px solid #f5c400;
+  background: rgb(245 196 0 / .92);
+  color: #071522;
+}
+
+.espp-hero-button-primary:hover {
+  background: #ffd21a;
+}
+
+.espp-hero-button-secondary {
+  border: 2px solid rgb(255 255 255 / .78);
+  background: rgb(3 31 56 / .42);
+  backdrop-filter: blur(6px);
+  color: white;
+}
+
+.espp-hero-button-secondary:hover {
+  background: rgb(3 31 56 / .68);
+}
+
 @keyframes espp-hero-bg-in {
-  from {
-    opacity: 0;
-    transform: scale(1.018);
-    filter: blur(4px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-    filter: blur(0);
-  }
+  from { opacity: 0; transform: scale(1.018); filter: blur(4px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
 }
 
 @keyframes espp-hero-copy-in {
-  from {
-    opacity: 0;
-    transform: translate3d(-34px, 0, 0);
-    filter: blur(2px);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-    filter: blur(0);
-  }
+  from { opacity: 0; transform: translate3d(-34px, 0, 0); filter: blur(2px); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
 }
 
 @keyframes espp-hero-actions-in {
-  0% {
-    visibility: hidden;
-    transform: translate3d(0, 22px, 0) scale(0.97);
-  }
-  1% {
-    visibility: visible;
-    transform: translate3d(0, 22px, 0) scale(0.97);
-  }
-  100% {
-    visibility: visible;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
+  0% { visibility: hidden; opacity: 0; transform: translate3d(0, 22px, 0) scale(.97); }
+  1% { visibility: visible; opacity: 0; transform: translate3d(0, 22px, 0) scale(.97); }
+  100% { visibility: visible; opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@media (max-width: 767px) {
+  .espp-hero-frame { min-height: 38rem; aspect-ratio: auto; container-type: normal; }
+  .espp-hero-image { object-position: 63% center; }
+  .espp-hero-blue-overlay { background: linear-gradient(180deg, rgb(2 30 59 / .92) 0%, rgb(2 30 59 / .68) 55%, rgb(2 30 59 / .78) 100%); }
+  .espp-hero-copy { left: 1.5rem; top: 2rem; right: 1.5rem; width: auto; }
+  .espp-hero-badge { gap: .5rem; padding: .55rem .8rem; font-size: .68rem; }
+  .espp-hero-badge svg { width: .9rem; height: .9rem; }
+  .espp-hero-title { margin-top: 1.2rem; max-width: 10ch; font-size: clamp(2.25rem, 10vw, 3.4rem); }
+  .espp-hero-title strong { margin-top: .25rem; }
+  .espp-hero-rule { width: 5rem; height: 3px; margin-top: 1.15rem; }
+  .espp-hero-subtitle { max-width: 31rem; margin-top: 1rem; font-size: .9rem; line-height: 1.45; }
+  .espp-hero-actions { left: 1.5rem; right: 1.5rem; bottom: 1.5rem; display: grid; grid-template-columns: 1fr; gap: .7rem; }
+  .espp-hero-button { width: 100%; height: 3.25rem; min-height: 3.25rem; border-radius: .55rem; padding: 0 1rem; font-size: .78rem; gap: .65rem; }
+  .espp-hero-button svg { width: 1rem; height: 1rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .espp-hero-image-wrap,
+  .espp-hero-stage-bg,
   .espp-hero-copy,
   .espp-hero-actions {
     animation: none !important;
