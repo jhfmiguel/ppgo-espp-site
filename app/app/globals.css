@@ -824,3 +824,10 @@ main#conteudo > section.bg-ink-900,
 main#conteudo > section.bg-\[\#071522\] {
   color: #fff;
 }
+
+
+/* A seção Conheça cada área da Escola não participa dos degradês globais. */
+main#conteudo > section.areas-escola {
+  background-color: #f4f7fa !important;
+  background-image: none !important;
+}
