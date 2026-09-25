@@ -43,7 +43,7 @@ export function Estrutura() {
               {estrutura.itens.map((item) => (
                 <div
                   key={item.label}
-                  className="flex min-h-[9rem] items-start gap-3 rounded-lg border border-white/15 bg-[#0b3157]/70 p-5 shadow-sm"
+                  className="flex min-h-[9rem] items-start gap-3 p-5"
                 >
                   <span className="flex size-11 shrink-0 items-center justify-center text-[#f5c400]">
                     <Icon name={item.icone} className="size-5 fill-none stroke-current" />
