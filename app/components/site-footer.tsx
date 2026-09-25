@@ -92,34 +92,15 @@ export function SiteFooter() {
     <footer id="rodape" className="bg-[#00534b] text-white">
       <div className="mx-auto w-full max-w-[1248px] px-6 pt-[28px] pb-[22px] md:px-8">
         <div className="grid min-h-[136px] items-start gap-8 border-b border-white/10 pb-[26px] lg:grid-cols-[1fr_auto]">
-          <div className="flex items-center gap-[22px]">
-            <img
-              src="/images/goias-white.png"
-              alt="Estado de Goiás"
-              className="h-[72px] w-auto shrink-0"
+          <div className="flex items-center">
+            <Image
+              src="/images/logo-go-espp-branca.png"
+              alt="Estado de Goiás e Escola Superior de Polícia Penal"
+              width={2000}
+              height={688}
+              className="h-[76px] w-auto max-w-[min(62vw,47rem)] object-contain object-left"
               data-contrast-ignore
             />
-
-            <span aria-hidden="true" className="hidden h-[72px] w-px bg-white/25 sm:block" />
-
-            <span className="flex items-center gap-[14px]">
-              <Image
-                src="/images/logo-espp.png"
-                alt="Escola Superior de Polícia Penal"
-                width={320}
-                height={104}
-                className="h-[58px] w-auto shrink-0 object-contain"
-                data-contrast-ignore
-              />
-              <span className="hidden leading-tight sm:block">
-                <span className="block text-[18px] font-bold tracking-[0.04em] text-white">
-                  ESPP
-                </span>
-                <span className="mt-[2px] block whitespace-nowrap text-[12px] font-semibold leading-[1.2] tracking-[0.04em] text-white/90 uppercase">
-                  Escola Superior de Polícia Penal
-                </span>
-              </span>
-            </span>
           </div>
 
           <div className="min-w-[330px] pt-[12px] lg:pr-[23px]">
