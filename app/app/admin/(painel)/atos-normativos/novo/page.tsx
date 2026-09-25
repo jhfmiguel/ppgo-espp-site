@@ -13,7 +13,7 @@ export default async function NovoAtoPage() {
         titulo="Novo ato normativo"
         descricao="Anexe o PDF do ato ou aponte para a publicação oficial na Casa Civil."
       />
-      <div className="rounded-xl border border-ink-200 bg-white p-6 lg:p-8">
+      <div className="admin-form-surface rounded-xl border border-ink-200 bg-white p-6 lg:p-8">
         <AtoForm />
       </div>
     </>
