@@ -584,7 +584,6 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
 .espp-hero-frame {
   position: relative;
   aspect-ratio: 3 / 1;
-  min-height: 31rem;
   overflow: hidden;
   border: 1px solid var(--color-ink-100);
   border-radius: 1rem;
