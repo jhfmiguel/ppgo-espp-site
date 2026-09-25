@@ -28,7 +28,7 @@ export function AreaCards() {
               >
                 <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-[#0b3157] transition-colors duration-300 group-hover:bg-[#f5c400]" />
                 <span className="flex size-14 items-center justify-center rounded-xl bg-[#0b3157] text-[#f5c400] shadow-[0_7px_18px_rgba(7,21,34,0.20)] transition-all duration-300 group-hover:bg-[#071522] group-hover:scale-105">
-                  <Icon name={area.icone} className="size-6" />
+                  <Icon name={area.icone} className="size-7 fill-none stroke-current" />
                 </span>
                 <h3 className="title-display mt-5 text-xl text-white">{area.titulo}</h3>
                 <p className="mt-3 grow text-sm leading-7 text-white/75">{area.texto}</p>
