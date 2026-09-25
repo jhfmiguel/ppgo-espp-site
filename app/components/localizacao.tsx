@@ -90,39 +90,15 @@ export function Localizacao() {
               </dl>
             </div>
 
-            <div className="mt-6 rounded-lg border border-ink-200 bg-ink-050 p-7">
-              <h3 className="title-display flex items-center gap-2.5 text-base text-ink-900">
-                <Building2 className="size-4 text-gold-600" aria-hidden="true" />
-                {localizacao.sedeDgpp.titulo}
-              </h3>
-              <address className="mt-3 text-sm leading-relaxed text-ink-700 not-italic">
-                {localizacao.sedeDgpp.endereco}
-              </address>
-              <p className="mt-3 text-sm text-ink-700">
-                <a
-                  href="tel:+556232708711"
-                  className="transition-colors hover:text-gold-600"
-                >
-                  {localizacao.sedeDgpp.telefone}
-                </a>
-                {" · "}
-                <a
-                  href={`mailto:${localizacao.sedeDgpp.email}`}
-                  className="break-all transition-colors hover:text-gold-600"
-                >
-                  {localizacao.sedeDgpp.email}
-                </a>
-              </p>
-            </div>
           </div>
         </div>
       </div>
 
-      <div className="localizacao-faixa-degrade mt-10 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-16 text-white lg:mt-12 lg:py-20">
+      <div className="localizacao-faixa-degrade mt-4 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-16 text-white lg:mt-6 lg:py-20">
         <div className="container-espp">
           <div className="grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-12">
             <div>
-              <h2 className="title-display flex items-center gap-3 text-xl text-white">
+              <h2 className="title-display flex items-center gap-3 text-xl !text-white">
                 <MapPin className="size-5 shrink-0 text-[#f5c400]" aria-hidden="true" />
                 Localização e acesso
               </h2>
@@ -132,7 +108,7 @@ export function Localizacao() {
             </div>
 
             <div>
-              <h3 className="title-display flex items-center gap-3 text-xl text-white">
+              <h3 className="title-display flex items-center gap-3 text-xl !text-white">
                 <Clock className="size-5 shrink-0 text-[#f5c400]" aria-hidden="true" />
                 Atendimento
               </h3>
@@ -142,7 +118,7 @@ export function Localizacao() {
             </div>
 
             <div>
-              <h3 className="title-display flex items-center gap-3 text-xl text-white">
+              <h3 className="title-display flex items-center gap-3 text-xl !text-white">
                 <Building2 className="size-5 shrink-0 text-[#f5c400]" aria-hidden="true" />
                 {localizacao.sedeDgpp.titulo}
               </h3>
