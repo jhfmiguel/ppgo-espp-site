@@ -86,7 +86,7 @@ export const hero = {
   titulo: "Escola Superior de Polícia Penal",
   subtitulo: "Goiás",
   texto:
-    "A primeira escola de serviços penais do Brasil credenciada como Escola de Governo. Formar, aperfeiçoar e qualificar os servidores da Polícia Penal de Goiás com ensino, pesquisa e prática operacional.",
+    "A primeira escola de serviços penais do Brasil credenciada como Escola de Governo. Formando, aperfeiçoando e qualificando os servidores da Polícia Penal de Goiás com ensino, pesquisa e prática operacional.",
   ctaPrimario: { label: "Conheça a Escola", href: "/institucional" },
   ctaSecundario: { label: "Cursos e programas", href: "/formacao" },
   imagem: {
@@ -135,7 +135,7 @@ export const institucional = {
     {
       titulo: "Missão",
       texto:
-        "Formar, aperfeiçoar e qualificar os servidores da Polícia Penal de Goiás, produzindo e difundindo conhecimento aplicado à execução penal.",
+        "Formando, aperfeiçoando e qualificando os servidores da Polícia Penal de Goiás, produzindo e difundindo conhecimento aplicado à execução penal.",
     }, // VALIDAR
     {
       titulo: "Visão",
