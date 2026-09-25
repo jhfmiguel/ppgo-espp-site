@@ -797,3 +797,30 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
     filter: none !important;
   }
 }
+
+
+/* Gradientes institucionais dos blocos de conteúdo público */
+main#conteudo > section:not(.espp-hero):nth-of-type(4n + 1) {
+  background-image: linear-gradient(135deg, rgb(255 255 255 / .98) 0%, rgb(244 248 252 / .98) 52%, rgb(229 180 0 / .07) 100%);
+}
+main#conteudo > section:not(.espp-hero):nth-of-type(4n + 2) {
+  background-image: linear-gradient(135deg, #071522 0%, #0b3157 58%, #123f6a 100%);
+}
+main#conteudo > section:not(.espp-hero):nth-of-type(4n + 3) {
+  background-image: linear-gradient(135deg, #ffffff 0%, #f2f6fa 55%, rgb(11 49 87 / .10) 100%);
+}
+main#conteudo > section:not(.espp-hero):nth-of-type(4n) {
+  background-image: linear-gradient(135deg, #0b3157 0%, #071522 72%, rgb(229 180 0 / .16) 100%);
+}
+
+/* Mantém leitura e identidade dos blocos claros/escuros já existentes. */
+main#conteudo > section.bg-white,
+main#conteudo > section.bg-ink-050,
+main#conteudo > section.bg-ink-100,
+main#conteudo > section.bg-\[\#f4f7fa\] {
+  background-color: #fff;
+}
+main#conteudo > section.bg-ink-900,
+main#conteudo > section.bg-\[\#071522\] {
+  color: #fff;
+}
