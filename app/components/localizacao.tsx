@@ -96,7 +96,7 @@ export function Localizacao() {
 
       <div className="localizacao-faixa-degrade mt-4 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-16 text-white lg:mt-6 lg:py-20">
         <div className="container-espp">
-          <div className="grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-12">
+          <div className="grid gap-10 md:grid-cols-3 md:gap-10">
             <div>
               <h2 className="title-display flex items-center gap-3 text-xl !text-white">
                 <MapPin className="size-5 shrink-0 text-[#f5c400]" aria-hidden="true" />
