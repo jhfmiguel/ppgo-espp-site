@@ -397,7 +397,6 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
 /* Alterna entre os arquivos reais da identidade visual conforme o tema. */
 .admin-espp-logo-light {
   display: block;
-  /* No tema claro, preserva o brasão colorido e escurece a tipografia da arte. */
   filter: none;
 }
 .admin-espp-logo-dark { display: none; }
