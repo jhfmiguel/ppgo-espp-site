@@ -1,6 +1,4 @@
 import Image from "next/image";
-import { AiFillApple } from "react-icons/ai";
-import { FaGooglePlay } from "react-icons/fa";
 import { localizacao } from "@/content/site";
 
 const servicos = [
@@ -33,6 +31,24 @@ const transparencia = [
   ["Regulamentação da LAI", "https://transparencia.go.gov.br/"],
   ["Relatório Estatístico da Ouvidoria", "https://www.ouvidoriageral.go.gov.br/"],
 ] as const;
+
+function GooglePlayMark() {
+  return (
+    <svg viewBox="0 0 30 34" className="mr-[8px] size-[27px] shrink-0" aria-hidden="true">
+      <path d="M2.4 2.1 17.8 17 2.4 31.9c-.5-.5-.8-1.3-.8-2.2V4.3c0-.9.3-1.7.8-2.2Z" fill="currentColor" />
+      <path d="m17.8 17 9.5-1.7c1.5.9 1.5 2.5 0 3.4L17.8 17Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+function AppleStoreMark() {
+  return (
+    <svg viewBox="0 0 28 34" className="mr-[8px] size-[30px] shrink-0" aria-hidden="true">
+      <path d="M18.1 5.4c1.2-1.4 2-3.3 1.8-5.1-1.7.1-3.7 1.2-4.9 2.6-1.1 1.2-2 3.1-1.8 4.9 1.9.1 3.7-.9 4.9-2.4Z" fill="currentColor" />
+      <path d="M23.2 18.1c0-4.3 3.5-6.4 3.7-6.5-2-2.9-5.1-3.3-6.2-3.4-2.6-.3-5.1 1.5-6.4 1.5-1.4 0-3.5-1.5-5.7-1.5-2.9 0-5.6 1.7-7.1 4.3-3.1 5.3-.8 13.2 2.2 17.5 1.5 2.1 3.2 4.5 5.4 4.4 2.1-.1 3-1.4 5.6-1.4 2.5 0 3.4 1.4 5.7 1.3 2.4 0 3.9-2.1 5.3-4.2 1.7-2.4 2.4-4.8 2.4-4.9-.1 0-4.9-1.9-4.9-7.1Z" fill="currentColor" />
+    </svg>
+  );
+}
 
 function ListaLinks({
   itens,
@@ -83,7 +99,7 @@ export function SiteFooter() {
                 aria-label="Disponível no Google Play"
                 className="flex h-[45px] w-[149px] items-center rounded-[5px] border border-white bg-transparent px-[7px] text-white transition-opacity hover:opacity-85"
               >
-                <FaGooglePlay className="mr-[8px] size-[27px] shrink-0" aria-hidden="true" />
+                <GooglePlayMark />
                 <span className="leading-none">
                   <span className="block text-[8px] font-medium leading-[1]">Disponível no</span>
                   <span className="mt-[2px] block whitespace-nowrap text-[17px] font-semibold leading-[1] tracking-[-0.03em]">Google Play</span>
@@ -97,7 +113,7 @@ export function SiteFooter() {
                 aria-label="Baixar na App Store"
                 className="flex h-[45px] w-[150px] items-center rounded-[5px] border border-white bg-transparent px-[9px] text-white transition-opacity hover:opacity-85"
               >
-                <AiFillApple className="mr-[8px] size-[30px] shrink-0" aria-hidden="true" />
+                <AppleStoreMark />
                 <span className="leading-none">
                   <span className="block text-[8px] font-medium leading-[1]">Baixar na</span>
                   <span className="mt-[2px] block whitespace-nowrap text-[17px] font-semibold leading-[1] tracking-[-0.03em]">App Store</span>
