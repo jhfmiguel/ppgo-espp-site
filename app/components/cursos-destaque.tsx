@@ -55,7 +55,7 @@ export function CursosDestaque() {
       <div className="cursos-faixa-degrade mt-14 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-16 text-white lg:mt-16 lg:py-20">
         <div className="container-espp">
           <div>
-            <p className="max-w-3xl text-base leading-7 !text-white/80">
+            <p className="mx-auto max-w-4xl text-center text-xl leading-8 font-medium !text-white lg:text-2xl lg:leading-9">
               Editais, matrizes curriculares e processos seletivos são publicados no portal oficial da Polícia Penal de Goiás.
             </p>
 
