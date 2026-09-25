@@ -1,6 +1,7 @@
 import { localizacao, site } from "@/content/site";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { SiteMain } from "@/components/site-main";
 
 /** Dados estruturados para busca e mapas */
 const jsonLd = {
@@ -51,9 +52,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         Ir para o conteúdo principal
       </a>
       <SiteHeader />
-      <main id="conteudo" className="flex-1 pt-header xl:pt-header-xl">
-        {children}
-      </main>
+      <SiteMain>{children}</SiteMain>
       <SiteFooter />
       <script
         type="application/ld+json"
