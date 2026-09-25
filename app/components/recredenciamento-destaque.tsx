@@ -10,7 +10,6 @@ export function RecredenciamentoDestaque() {
       aria-labelledby="recredenciamento-destaque-titulo"
       className="relative overflow-hidden border-y border-ink-200 bg-ink-900 py-16 lg:py-20"
     >
-      <div aria-hidden="true" className="hatch absolute inset-0 opacity-60" />
 
       <div className="container-espp relative grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
         <div className="lg:col-span-7">
