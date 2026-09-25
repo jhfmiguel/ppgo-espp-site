@@ -31,7 +31,7 @@ export function Institucional() {
               {institucional.pilares.map((pilar) => (
                 <div
                   key={pilar.titulo}
-                  className="rounded-lg border border-ink-200 bg-ink-050 p-6"
+                  className="rounded-lg border border-ink-200 bg-white p-6"
                 >
                   <dt className="title-display text-lg text-gold-600">
                     {pilar.titulo}
