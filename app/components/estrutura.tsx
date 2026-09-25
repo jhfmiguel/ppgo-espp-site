@@ -22,14 +22,16 @@ export function Estrutura() {
               tone="light"
             />
           </div>
-          <div className="relative hidden min-h-[12rem] overflow-hidden rounded-t-lg border border-b-0 border-ink-200 lg:col-span-5 lg:block">
-            <Image
-              src={estrutura.imagem.src}
-              alt={estrutura.imagem.alt}
-              fill
-              sizes="40vw"
-              className="object-cover object-top"
-            />
+          <div className="relative hidden lg:col-span-5 lg:block">
+            <div className="absolute inset-x-0 top-0 z-10 h-[calc(100%+27rem)] overflow-hidden rounded-lg border border-ink-200">
+              <Image
+                src={estrutura.imagem.src}
+                alt={estrutura.imagem.alt}
+                fill
+                sizes="40vw"
+                className="object-cover object-center"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -59,15 +61,14 @@ export function Estrutura() {
               ))}
             </dl>
 
-            <div className="relative min-h-[20rem] overflow-hidden rounded-b-lg border border-white/15 shadow-sm lg:col-span-5 lg:-mt-14 lg:min-h-[27rem] lg:border-t-0">
+            <div className="relative min-h-[20rem] overflow-hidden rounded-lg border border-white/15 shadow-sm lg:col-span-5 lg:min-h-[27rem] lg:border-0 lg:shadow-none">
               <Image
                 src={estrutura.imagem.src}
-                alt=""
+                alt={estrutura.imagem.alt}
                 fill
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                className="object-cover object-center"
+                sizes="100vw"
+                className="object-cover object-center lg:hidden"
               />
-              <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#071522]/55 to-transparent" />
             </div>
           </div>
         </div>
