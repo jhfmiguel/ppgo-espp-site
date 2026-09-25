@@ -90,7 +90,7 @@ export const hero = {
   ctaPrimario: { label: "Conheça a Escola", href: "/institucional" },
   ctaSecundario: { label: "Cursos e programas", href: "/formacao" },
   imagem: {
-    src: "/images/formacao-policial-01.jpg",
+    src: "/images/hero-espp.png",
     alt: "Turma de policiais penais de Goiás em formatura, uniformizados e em formação",
   },
 } as const;
