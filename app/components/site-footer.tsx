@@ -92,13 +92,13 @@ export function SiteFooter() {
     <footer id="rodape" className="bg-[#00534b] text-white">
       <div className="mx-auto w-full max-w-[1248px] px-6 pt-[28px] pb-[22px] md:px-8">
         <div className="grid min-h-[136px] items-start gap-8 border-b border-white/10 pb-[26px] lg:grid-cols-[1fr_auto]">
-          <div className="flex items-center">
+          <div className="flex min-w-0 items-center overflow-hidden">
             <Image
               src="/images/logo-go-espp-branca.png"
               alt="Estado de Goiás e Escola Superior de Polícia Penal"
               width={2000}
               height={688}
-              className="h-[76px] w-auto max-w-[min(62vw,47rem)] object-contain object-left"
+              className="h-[94px] w-auto max-w-[min(68vw,53rem)] object-contain object-left mix-blend-screen" style={{ clipPath: "inset(0)" }}
               data-contrast-ignore
             />
           </div>
