@@ -54,7 +54,7 @@ export function Recredenciamento() {
                 <li key={doc.slug}>
                   <Link
                     href={`/documentos/${doc.slug}`}
-                    className="group flex items-center gap-4 rounded-lg border border-ink-200 bg-white px-5 py-4 transition-colors hover:border-gold-500"
+                    className="group flex items-center gap-4 rounded-lg border border-white/15 bg-[#0b3157] px-5 py-4 text-white transition-colors hover:border-[#f5c400]"
                   >
                     <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-ink-900 text-gold-500">
                       <FileText className="size-4" aria-hidden="true" />
@@ -78,7 +78,7 @@ export function Recredenciamento() {
           </div>
 
           <div className="lg:col-span-5">
-            <div className="rounded-lg border border-ink-200 bg-white p-7">
+            <div className="rounded-lg border border-white/15 bg-[#0b3157] p-7 text-white">
               <h3 className="title-display text-xl text-ink-900">Ficha institucional</h3>
               <dl className="mt-6 divide-y divide-ink-100">
                 {recredenciamento.ficha.map((linha) => (
