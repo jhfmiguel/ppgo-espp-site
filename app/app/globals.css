@@ -496,3 +496,38 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
   border-color: var(--color-ink-700);
   color: #fff;
 }
+
+
+/* Painel administrativo — mensagens globais compatíveis com temas escuro e misto */
+:root[data-admin-theme="dark"] .admin-panel .bg-green-50,
+:root[data-admin-theme="mixed"] .admin-panel .bg-green-50 {
+  background: #0b2e1b;
+}
+:root[data-admin-theme="dark"] .admin-panel .text-green-700,
+:root[data-admin-theme="mixed"] .admin-panel .text-green-700,
+:root[data-admin-theme="dark"] .admin-panel .text-green-800,
+:root[data-admin-theme="mixed"] .admin-panel .text-green-800 {
+  color: #86efac;
+}
+:root[data-admin-theme="dark"] .admin-panel .border-green-200,
+:root[data-admin-theme="mixed"] .admin-panel .border-green-200 {
+  border-color: #166534;
+}
+:root[data-admin-theme="dark"] .admin-panel .bg-red-100,
+:root[data-admin-theme="mixed"] .admin-panel .bg-red-100 {
+  background: #451a1a;
+}
+:root[data-admin-theme="dark"] .admin-panel .text-red-800,
+:root[data-admin-theme="mixed"] .admin-panel .text-red-800 {
+  color: #fecaca;
+}
+:root[data-admin-theme="dark"] .admin-panel .border-red-300,
+:root[data-admin-theme="mixed"] .admin-panel .border-red-300 {
+  border-color: #991b1b;
+}
+:root[data-admin-theme="dark"] .admin-panel [role="alert"],
+:root[data-admin-theme="mixed"] .admin-panel [role="alert"],
+:root[data-admin-theme="dark"] .admin-panel [role="status"],
+:root[data-admin-theme="mixed"] .admin-panel [role="status"] {
+  box-shadow: none;
+}
