@@ -26,7 +26,7 @@ export function AreaCards() {
                 href={area.href}
                 className="group flex h-full flex-col py-2 text-white transition-transform duration-300 hover:-translate-y-1"
               >
-                <span className="inline-flex w-fit self-center items-center justify-center text-[#f5c400] transition-transform duration-300 group-hover:scale-110">
+                <span className="inline-flex w-fit items-center justify-center text-[#f5c400] transition-transform duration-300 group-hover:scale-110">
                   <Icon name={area.icone} className="size-7 fill-none stroke-current" />
                 </span>
                 <h3 className="title-display mt-5 text-xl text-white">{area.titulo}</h3>
