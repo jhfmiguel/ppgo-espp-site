@@ -17,6 +17,11 @@ const scriptAcessibilidade = `
     if (localStorage.getItem("espp-contraste") === "alto") {
       document.documentElement.setAttribute("data-contrast", "alto");
     }
+    if ((window.location.pathname || "").indexOf("/admin") === 0) {
+      var temaAdmin = localStorage.getItem("espp-admin-theme");
+      if (temaAdmin !== "light" && temaAdmin !== "dark" && temaAdmin !== "mixed") temaAdmin = "mixed";
+      document.documentElement.setAttribute("data-admin-theme", temaAdmin);
+    }
   } catch (e) {}
 })();
 `;
