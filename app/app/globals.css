@@ -1057,3 +1057,10 @@ main#conteudo > section.areas-escola {
   border-color: rgb(255 255 255 / .58);
   color: #fff;
 }
+
+
+/* Em todos os blocos com degradê escuro, nenhum texto permanece preto/escuro. */
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) :where(.text-ink-950,.text-ink-900,.text-ink-850,.text-ink-800,.text-ink-700,.text-black),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(.text-ink-950,.text-ink-900,.text-ink-850,.text-ink-800,.text-ink-700,.text-black) {
+  color: #fff;
+}
