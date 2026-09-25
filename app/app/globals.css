@@ -394,14 +394,10 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
 :root[data-admin-theme="dark"] .admin-user-menu-item:hover,
 :root[data-admin-theme="dark"] .admin-user-menu-logout:hover { background: var(--color-ink-700); color: #fff; }
 
-/* Logomarca institucional do painel: no claro usa a arte original; nos
-   modos escuro e misto fica integralmente branca, como a marca do Estado. */
-.admin-espp-logo-image {
-  filter: none;
-  opacity: 1;
-}
-:root[data-admin-theme="dark"] .admin-panel .admin-espp-logo-image,
-:root[data-admin-theme="mixed"] .admin-panel .admin-espp-logo-image {
-  filter: grayscale(1) brightness(0) invert(1) contrast(1.15);
-  opacity: 1;
-}
+/* Alterna entre os arquivos reais da identidade visual conforme o tema. */
+.admin-espp-logo-light { display: block; }
+.admin-espp-logo-dark { display: none; }
+:root[data-admin-theme="dark"] .admin-panel .admin-espp-logo-light,
+:root[data-admin-theme="mixed"] .admin-panel .admin-espp-logo-light { display: none; }
+:root[data-admin-theme="dark"] .admin-panel .admin-espp-logo-dark,
+:root[data-admin-theme="mixed"] .admin-panel .admin-espp-logo-dark { display: block; }
