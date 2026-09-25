@@ -1064,3 +1064,12 @@ main#conteudo > section.areas-escola {
 .site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(.text-ink-950,.text-ink-900,.text-ink-850,.text-ink-800,.text-ink-700,.text-black) {
   color: #fff;
 }
+
+
+/* Localização: qualquer tipografia azul/ink sobre a faixa em degradê deve ser branca. */
+.localizacao-faixa-degrade :where(
+  .text-ink-950,.text-ink-900,.text-ink-850,.text-ink-800,.text-ink-700,.text-ink-600,.text-ink-500,
+  .text-gov-blue,.text-gov-teal
+) {
+  color: #fff !important;
+}
