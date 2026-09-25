@@ -23,7 +23,7 @@ export function Estrutura() {
             />
           </div>
           <div className="relative z-[60] hidden overflow-visible lg:col-span-5 lg:block">
-            <div className="absolute inset-x-0 top-0 z-[70] h-[calc(100%+27rem)] overflow-hidden rounded-lg bg-white shadow-[0_18px_45px_rgba(7,21,34,0.24)]">
+            <div className="absolute inset-x-0 top-0 z-[70] h-[calc(100%+27rem)] overflow-hidden rounded-lg bg-white shadow-[0_24px_60px_-12px_rgba(7,21,34,0.42),0_8px_24px_-8px_rgba(7,21,34,0.28)]">
               <Image
                 src={estrutura.imagem.src}
                 alt={estrutura.imagem.alt}
