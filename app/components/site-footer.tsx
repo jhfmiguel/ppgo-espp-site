@@ -98,7 +98,7 @@ export function SiteFooter() {
               alt="Estado de Goiás e Escola Superior de Polícia Penal"
               width={2000}
               height={688}
-              className="h-[88px] w-auto max-w-[min(70vw,51rem)] object-contain object-left mix-blend-screen" style={{ clipPath: "inset(0)" }}
+              className="h-[108px] w-auto max-w-[min(74vw,58rem)] scale-[1.16] origin-left object-contain object-left mix-blend-screen" style={{ clipPath: "inset(0)" }}
               data-contrast-ignore
             />
           </div>
