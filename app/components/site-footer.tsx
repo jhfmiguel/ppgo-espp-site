@@ -61,8 +61,8 @@ export function SiteFooter() {
   return (
     <footer id="rodape" className="bg-[#00534b] text-white">
       <div className="mx-auto w-full max-w-[1248px] px-6 pt-[28px] pb-[22px] md:px-8">
-        <div className="grid min-h-[136px] items-start gap-8 border-b border-white/10 pb-[26px] lg:grid-cols-[1fr_auto]">
-          <div className="flex min-w-0 items-center overflow-hidden">
+        <div className="grid min-h-[136px] items-start gap-8 border-b border-white/10 pb-[30px] lg:grid-cols-[1fr_auto]">
+          <div className="flex min-w-0 items-end overflow-hidden self-stretch">
             <Image
               src="/images/logo-go-espp-branca.png"
               alt="Estado de Goiás e Escola Superior de Polícia Penal"
