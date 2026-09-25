@@ -12,7 +12,7 @@ export function Estrutura() {
         <Breadcrumb itens={trilhaDe("/estrutura")} />
 
         <div className="mt-8 grid gap-8 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-7">
+          <div className="mb-10 lg:col-span-7 lg:mb-16">
             <SectionHeading
               as="h1"
               id="estrutura-titulo"
