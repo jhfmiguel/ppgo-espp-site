@@ -100,7 +100,7 @@ export async function Eventos() {
     <section
       id="eventos"
       aria-labelledby="eventos-titulo"
-      className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-white pt-10 lg:pt-14"
     >
       <div className="container-espp">
         <PageHeader
@@ -144,6 +144,8 @@ export async function Eventos() {
           </div>
         ) : null}
       </div>
+
+      <div className="midias-faixa-degrade mt-14 min-h-40 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] lg:mt-16 lg:min-h-52" data-no-scroll-animation />
     </section>
   );
 }
