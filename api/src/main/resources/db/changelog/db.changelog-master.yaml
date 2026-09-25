@@ -283,4 +283,29 @@ databaseChangeLog:
               );
               CREATE INDEX IX_ESPP_AUDIT_DATA ON ESPP_AUDITORIA_ALTERACAO(CRIADO_EM);
               CREATE INDEX IX_ESPP_AUDIT_MODULO ON ESPP_AUDITORIA_ALTERACAO(MODULO, CRIADO_EM);
-\n  - changeSet:\n      id: 010-configuracao-email-smtp\n      author: ppgo\n      preConditions:\n        - onFail: MARK_RAN\n        - not:\n            - tableExists:\n                tableName: ESPP_CONFIGURACAO_EMAIL\n      changes:\n        - sql:\n            splitStatements: true\n            sql: |\n              CREATE TABLE ESPP_CONFIGURACAO_EMAIL (\n                  ID NUMBER(19) PRIMARY KEY,\n                  HOST VARCHAR2(255) NOT NULL,\n                  PORTA NUMBER(5) NOT NULL,\n                  REMETENTE VARCHAR2(320) NOT NULL,\n                  DESTINATARIO VARCHAR2(320) NOT NULL,\n                  SENHA_CRIPTOGRAFADA VARCHAR2(2048) NOT NULL,\n                  AUTENTICACAO NUMBER(1) DEFAULT 1 NOT NULL,\n                  STARTTLS NUMBER(1) DEFAULT 1 NOT NULL,\n                  ATUALIZADO_EM TIMESTAMP WITH TIME ZONE NOT NULL,\n                  CONSTRAINT CK_ESPP_CFG_EMAIL_AUTH CHECK (AUTENTICACAO IN (0,1)),\n                  CONSTRAINT CK_ESPP_CFG_EMAIL_TLS CHECK (STARTTLS IN (0,1))\n              );\n
+
+  - changeSet:
+      id: 010-configuracao-email-smtp
+      author: ppgo
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: ESPP_CONFIGURACAO_EMAIL
+      changes:
+        - sql:
+            splitStatements: true
+            sql: |
+              CREATE TABLE ESPP_CONFIGURACAO_EMAIL (
+                  ID NUMBER(19) PRIMARY KEY,
+                  HOST VARCHAR2(255) NOT NULL,
+                  PORTA NUMBER(5) NOT NULL,
+                  REMETENTE VARCHAR2(320) NOT NULL,
+                  DESTINATARIO VARCHAR2(320) NOT NULL,
+                  SENHA_CRIPTOGRAFADA VARCHAR2(2048) NOT NULL,
+                  AUTENTICACAO NUMBER(1) DEFAULT 1 NOT NULL,
+                  STARTTLS NUMBER(1) DEFAULT 1 NOT NULL,
+                  ATUALIZADO_EM TIMESTAMP WITH TIME ZONE NOT NULL,
+                  CONSTRAINT CK_ESPP_CFG_EMAIL_AUTH CHECK (AUTENTICACAO IN (0,1)),
+                  CONSTRAINT CK_ESPP_CFG_EMAIL_TLS CHECK (STARTTLS IN (0,1))
+              );
