@@ -353,7 +353,7 @@ export function EditorRico({ name, valorInicial = "", erro, rotulo, descricao }:
       ) : null}
 
       <div
-        className={`mt-2 overflow-hidden rounded-lg border bg-white ${
+        className={`admin-rich-editor mt-2 overflow-hidden rounded-lg border bg-white ${
           erro ? "border-red-400" : "border-ink-200"
         }`}
       >
@@ -361,7 +361,7 @@ export function EditorRico({ name, valorInicial = "", erro, rotulo, descricao }:
           role="toolbar"
           aria-label="Formatação do texto"
           aria-controls={idArea}
-          className="flex flex-wrap items-center gap-1 border-b border-ink-100 bg-ink-050/70 px-2 py-1.5"
+          className="admin-rich-editor-toolbar flex flex-wrap items-center gap-1 border-b border-ink-100 bg-ink-050/70 px-2 py-1.5"
         >
           {GRUPOS.map((grupo, indice) => (
             <div key={grupo.titulo} className="flex items-center gap-1">
@@ -437,7 +437,7 @@ export function EditorRico({ name, valorInicial = "", erro, rotulo, descricao }:
         </div>
 
         {painelLink ? (
-          <div className="flex flex-wrap items-center gap-2 border-b border-ink-100 bg-white px-3 py-2">
+          <div className="admin-rich-editor-link flex flex-wrap items-center gap-2 border-b border-ink-100 bg-white px-3 py-2">
             <label htmlFor={`${idArea}-link`} className="text-xs font-semibold text-ink-700">
               Endereço do link
             </label>
