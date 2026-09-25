@@ -833,3 +833,41 @@ main#conteudo > section.areas-escola {
   background-color: #071522 !important;
   background-image: linear-gradient(135deg, #071522 0%, #0b3157 58%, #123f6a 100%) !important;
 }
+
+
+/* Padrão visual único para o main de todas as páginas públicas. */
+.site-public-main {
+  background: #fff;
+  color: #071522;
+}
+.site-public-main > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(odd) {
+  background-color: #fff;
+  background-image: linear-gradient(135deg, #ffffff 0%, #f2f6fa 58%, rgb(11 49 87 / .10) 100%);
+}
+.site-public-main > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(even) {
+  background-color: #071522;
+  background-image: linear-gradient(135deg, #071522 0%, #0b3157 58%, #123f6a 100%);
+}
+.site-public-main :where(a, button) {
+  --espp-accent: #e5b400;
+}
+.site-public-main :where(.rounded-lg, .rounded-xl, .rounded-2xl):not([role="dialog"]) {
+  border-color: rgb(11 49 87 / .16);
+}
+.site-public-main :where(a, button):focus-visible {
+  outline-color: #e5b400;
+  outline-offset: 3px;
+}
+.site-public-main :where(input, select, textarea):focus {
+  border-color: #0b3157;
+  box-shadow: 0 0 0 3px rgb(229 180 0 / .18);
+}
+.site-public-main :where(.text-gov-teal) {
+  color: #0b3157;
+}
+.site-public-main :where(.bg-gov-teal) {
+  background-color: #0b3157;
+}
+.site-public-main :where(.text-gold-500, .text-gold-600) {
+  color: #d9aa00;
+}
