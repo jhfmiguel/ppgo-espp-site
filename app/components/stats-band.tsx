@@ -5,27 +5,27 @@ export function StatsBand() {
   return (
     <section
       aria-label="Indicadores da Escola"
-      className="relative border-y border-ink-200 bg-ink-050"
+      className="relative border-y border-[#0b3157]/15 bg-white"
     >
       <div aria-hidden="true" className="hatch absolute inset-0 opacity-70" />
       <div className="container-espp relative grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4">
         {indicadores.map((item) => (
           <div
             key={item.label}
-            className="border-b border-ink-200 px-1 py-10 last:border-b-0 lg:border-r lg:border-b-0 lg:px-8 lg:last:border-r-0"
+            className="border-b border-[#0b3157]/15 px-1 py-10 last:border-b-0 lg:border-r lg:border-b-0 lg:px-8 lg:last:border-r-0"
           >
             <p className="flex items-baseline gap-2">
-              <span className="title-display text-5xl text-gold-600 lg:text-6xl">
+              <span className="title-display text-5xl text-[#d9aa00] lg:text-6xl">
                 <AnimatedCounter valor={item.valor} />
               </span>
-              <span className="text-xs font-semibold tracking-[0.18em] text-ink-400 uppercase">
+              <span className="text-xs font-semibold tracking-[0.18em] text-[#0b3157]/65 uppercase">
                 {item.unidade}
               </span>
             </p>
-            <p className="mt-4 text-sm font-semibold text-ink-900">
+            <p className="mt-4 text-sm font-semibold text-[#071522]">
               {item.label}
             </p>
-            <p className="mt-1.5 text-sm leading-relaxed text-ink-600">
+            <p className="mt-1.5 text-sm leading-relaxed text-[#0b3157]/75">
               {item.detalhe}
             </p>
           </div>
