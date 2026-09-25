@@ -9,7 +9,7 @@ import {
   LayoutDashboard,
   Mail,
   Megaphone,
-  UsersRound,
+  UsersRound,\n  Settings,
 } from "lucide-react";
 
 import { podeGerenciar, type Perfil, type Recurso } from "@/lib/auth/users";
@@ -30,7 +30,7 @@ const ITENS: {
   { href: "/admin/noticias", rotulo: "Notícias", Icone: Megaphone, recurso: "noticias" },
   { href: "/admin/eventos", rotulo: "Eventos", Icone: CalendarDays, recurso: "eventos" },
   { href: "/admin/mensagens", rotulo: "Mensagens", Icone: Mail, recurso: "mensagens" },
-  { href: "/admin/newsletter", rotulo: "Newsletter", Icone: UsersRound, recurso: "newsletter" },
+  { href: "/admin/newsletter", rotulo: "Newsletter", Icone: UsersRound, recurso: "newsletter" },\n  { href: "/admin/configuracoes", rotulo: "Configurações", Icone: Settings, recurso: "configuracoes" },
   {
     href: "/admin/atos-normativos",
     rotulo: "Atos normativos",
