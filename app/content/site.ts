@@ -846,8 +846,6 @@ export const contato = {
   ],
   formulario: {
     titulo: "Envie uma mensagem",
-    aviso:
-      "O envio de mensagens por este formulário ainda não está ativo. Utilize, por enquanto, o e-mail ou os telefones da Escola.",
   },
   redes: [
     { label: "Instagram", href: "https://www.instagram.com/esppgoias/", handle: "@esppgoias" },
