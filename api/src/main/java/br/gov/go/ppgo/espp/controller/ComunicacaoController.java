@@ -140,7 +140,7 @@ public class ComunicacaoController {
             mail.enviarContato(m.getNome(), m.getEmail(), m.getAssunto(), m.getMensagem());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE,
-                    "A mensagem foi registrada, mas o canal de e-mail da ESPP não pôde ser acionado.", e);
+                    "Não foi possível encaminhar a mensagem ao e-mail configurado da ESPP.", e);
         }
         return m;
     }
