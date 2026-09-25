@@ -23,7 +23,7 @@ export function Estrutura() {
             />
           </div>
           <div className="relative z-[60] hidden overflow-visible lg:col-span-5 lg:block">
-            <div className="absolute inset-x-0 top-0 z-[70] h-[calc(100%+27rem)] overflow-hidden rounded-lg border border-ink-200 bg-white shadow-sm">
+            <div className="absolute inset-x-0 top-0 z-[70] h-[calc(100%+27rem)] overflow-hidden rounded-lg bg-white shadow-[0_18px_45px_rgba(7,21,34,0.24)]">
               <Image
                 src={estrutura.imagem.src}
                 alt={estrutura.imagem.alt}
@@ -61,7 +61,7 @@ export function Estrutura() {
               ))}
             </dl>
 
-            <div className="relative min-h-[20rem] overflow-hidden rounded-lg border border-white/15 shadow-sm lg:col-span-5 lg:min-h-[27rem] lg:border-0 lg:shadow-none">
+            <div className="relative min-h-[20rem] overflow-hidden rounded-lg shadow-[0_18px_45px_rgba(7,21,34,0.24)] lg:col-span-5 lg:min-h-[27rem]">
               <Image
                 src={estrutura.imagem.src}
                 alt={estrutura.imagem.alt}
