@@ -66,8 +66,9 @@ export function SiteMain({ children }: { children: ReactNode }) {
       played.add(element);
       if (reduced) return;
       const explicit = declaredEffect(element);
+      const isSectionBackground = element.tagName === "SECTION" || element.classList.contains("espp-hero-stage-bg");
       const effects: ScrollEffect[] = ["fade-in", "fade-left", "fade-right", "fade-in", "fade-right", "fade-left"];
-      const effect = explicit ?? (visibleAtLoad ? "fade-in" : effects[sequence % effects.length]);
+      const effect = isSectionBackground ? "fade-in" : (explicit ?? (visibleAtLoad ? "fade-in" : effects[sequence % effects.length]));
       const animation = element.animate(framesFor(effect), {
         duration: effect === "fade-in" ? 1250 : 1150,
         delay: visibleAtLoad ? Math.min(sequence, 8) * 55 : 0,
