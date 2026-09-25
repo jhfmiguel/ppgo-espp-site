@@ -8,7 +8,7 @@ export function AreaCards() {
   return (
     <section
       aria-labelledby="areas-titulo"
-      className="bg-ink-100 pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-[#f4f7fa] pt-10 pb-24 lg:pt-14 lg:pb-32"
     >
       <div className="container-espp">
         <SectionHeading
@@ -24,14 +24,14 @@ export function AreaCards() {
             <li key={area.href}>
               <Link
                 href={area.href}
-                className="group flex h-full flex-col rounded-lg border border-ink-200 bg-white p-6 transition-colors hover:border-gold-500"
+                className="group flex h-full flex-col rounded-lg border border-[#0b3157]/15 bg-white p-6 transition-colors hover:border-[#e5b400]"
               >
-                <span className="flex size-11 items-center justify-center rounded-md bg-ink-900 text-gold-500">
+                <span className="flex size-11 items-center justify-center rounded-md bg-[#0b3157] text-[#f5c400]">
                   <Icon name={area.icone} className="size-5" />
                 </span>
-                <h3 className="title-display mt-5 text-lg text-ink-900">{area.titulo}</h3>
-                <p className="mt-2 grow text-sm leading-relaxed text-ink-700">{area.texto}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-gold-600 uppercase">
+                <h3 className="title-display mt-5 text-lg text-[#071522]">{area.titulo}</h3>
+                <p className="mt-2 grow text-sm leading-relaxed text-[#29445f]">{area.texto}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-[#b78d00] uppercase">
                   Saiba mais
                   <ArrowRight
                     className="size-4 transition-transform group-hover:translate-x-0.5"
