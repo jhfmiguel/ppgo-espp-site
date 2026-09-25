@@ -602,7 +602,7 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
 
 .espp-hero-image {
   object-fit: cover;
-  object-position: center;
+  object-position: center 42%;
 }
 
 .espp-hero-blue-overlay {
@@ -625,7 +625,7 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
   position: absolute;
   z-index: 2;
   left: 5%;
-  top: 9%;
+  top: 13%;
   width: 40%;
   color: white;
   animation: espp-hero-copy-in 1450ms cubic-bezier(0.16, 1, 0.3, 1) 650ms both;
@@ -699,7 +699,7 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
   position: absolute;
   z-index: 3;
   left: 5%;
-  bottom: 17%;
+  bottom: 12%;
   display: flex;
   gap: .72cqw;
   animation: espp-hero-actions-in 1250ms cubic-bezier(0.16, 1, 0.3, 1) 1350ms both;
