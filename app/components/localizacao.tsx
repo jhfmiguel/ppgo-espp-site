@@ -120,23 +120,43 @@ export function Localizacao() {
 
       <div className="localizacao-faixa-degrade mt-10 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-16 text-white lg:mt-12 lg:py-20">
         <div className="container-espp">
-          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+          <div className="grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-12">
             <div>
-              <h2 className="title-display flex items-center gap-3 text-2xl text-white">
-                <MapPin className="size-6 text-[#f5c400]" aria-hidden="true" />
+              <h2 className="title-display flex items-center gap-3 text-xl text-white">
+                <MapPin className="size-5 shrink-0 text-[#f5c400]" aria-hidden="true" />
                 Localização e acesso
               </h2>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/80">
+              <p className="mt-4 text-sm leading-relaxed text-white/80">
                 Consulte o mapa acima ou utilize os atalhos para abrir a localização e traçar sua rota até a Escola Superior de Polícia Penal.
               </p>
             </div>
+
             <div>
-              <h3 className="title-display flex items-center gap-3 text-lg text-white">
-                <Building2 className="size-5 text-[#f5c400]" aria-hidden="true" />
+              <h3 className="title-display flex items-center gap-3 text-xl text-white">
+                <Clock className="size-5 shrink-0 text-[#f5c400]" aria-hidden="true" />
                 Atendimento
               </h3>
               <p className="mt-4 text-sm leading-relaxed text-white/80">
                 {localizacao.horario}
+              </p>
+            </div>
+
+            <div>
+              <h3 className="title-display flex items-center gap-3 text-xl text-white">
+                <Building2 className="size-5 shrink-0 text-[#f5c400]" aria-hidden="true" />
+                {localizacao.sedeDgpp.titulo}
+              </h3>
+              <address className="mt-4 text-sm leading-relaxed text-white/80 not-italic">
+                {localizacao.sedeDgpp.endereco}
+              </address>
+              <p className="mt-3 text-sm leading-relaxed text-white/80">
+                <a href="tel:+556232708711" className="text-white transition-colors hover:text-[#f5c400]">
+                  {localizacao.sedeDgpp.telefone}
+                </a>
+                {" · "}
+                <a href={`mailto:${localizacao.sedeDgpp.email}`} className="break-all text-white transition-colors hover:text-[#f5c400]">
+                  {localizacao.sedeDgpp.email}
+                </a>
               </p>
             </div>
           </div>
