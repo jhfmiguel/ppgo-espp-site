@@ -395,7 +395,11 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
 :root[data-admin-theme="dark"] .admin-user-menu-logout:hover { background: var(--color-ink-700); color: #fff; }
 
 /* Alterna entre os arquivos reais da identidade visual conforme o tema. */
-.admin-espp-logo-light { display: block; }
+.admin-espp-logo-light {
+  display: block;
+  /* No tema claro, preserva o brasão colorido e escurece a tipografia da arte. */
+  filter: none;
+}
 .admin-espp-logo-dark { display: none; }
 :root[data-admin-theme="dark"] .admin-panel .admin-espp-logo-light,
 :root[data-admin-theme="mixed"] .admin-panel .admin-espp-logo-light { display: none; }
