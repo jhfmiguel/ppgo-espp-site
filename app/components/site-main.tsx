@@ -128,5 +128,5 @@ export function SiteMain({ children }: { children: ReactNode }) {
     };
   }, [pathname]);
 
-  return <main ref={ref} id="conteudo" tabIndex={-1} className="flex-1 pt-header xl:pt-header-xl">{children}</main>;
+  return <main ref={ref} id="conteudo" tabIndex={-1} className="site-public-main flex-1 pt-header xl:pt-header-xl">{children}</main>;
 }
