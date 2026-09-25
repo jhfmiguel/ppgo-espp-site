@@ -582,15 +582,15 @@ html[data-contrast="alto"] img:not([data-contrast-ignore]) {
 
 /* Hero ESPP — mesma sequência de entrada usada no NASPP: imagem -> texto -> ações. */
 .espp-hero-image-wrap {
-  animation: espp-hero-bg-in 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: espp-hero-bg-in 1600ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .espp-hero-copy {
-  animation: espp-hero-copy-in 1000ms cubic-bezier(0.16, 1, 0.3, 1) 550ms both;
+  animation: espp-hero-copy-in 1450ms cubic-bezier(0.16, 1, 0.3, 1) 650ms both;
 }
 
 .espp-hero-actions {
-  animation: espp-hero-actions-in 850ms cubic-bezier(0.16, 1, 0.3, 1) 1150ms both;
+  animation: espp-hero-actions-in 1250ms cubic-bezier(0.16, 1, 0.3, 1) 1350ms both;
 }
 
 @keyframes espp-hero-bg-in {
