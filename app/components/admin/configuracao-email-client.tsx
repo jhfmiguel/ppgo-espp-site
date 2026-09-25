@@ -1,0 +1,24 @@
+"use client";
+import { FormEvent,useState } from "react";
+import { Mail,Save,Send } from "lucide-react";
+import type { ConfiguracaoEmailAdmin } from "@/lib/data/store";
+import { salvarEmailAction,testarEmailAction } from "@/lib/actions/configuracoes";
+
+export function ConfiguracaoEmailClient({email}:{email:ConfiguracaoEmailAdmin}){
+ const [senhaConfigurada,setSenhaConfigurada]=useState(email.senhaConfigurada); const [msg,setMsg]=useState(""); const [erro,setErro]=useState(""); const [ocupado,setOcupado]=useState(false);
+ async function salvar(e:FormEvent<HTMLFormElement>){e.preventDefault();const form=e.currentTarget;if(!form.reportValidity())return;const d=new FormData(form);setOcupado(true);setMsg("");setErro("");try{const r=await salvarEmailAction({host:String(d.get("host")||"").trim(),porta:Number(d.get("porta")),remetente:String(d.get("remetente")||"").trim(),destinatario:String(d.get("destinatario")||"").trim(),senha:String(d.get("senha")||""),autenticacao:d.get("autenticacao")==="on",starttls:d.get("starttls")==="on"});setSenhaConfigurada(r.senhaConfigurada);const i=form.elements.namedItem("senha");if(i instanceof HTMLInputElement)i.value="";setMsg("Configuração SMTP salva com segurança.");}catch(x){setErro(x instanceof Error?x.message:"Não foi possível salvar.");}finally{setOcupado(false);}}
+ async function testar(){setOcupado(true);setMsg("");setErro("");try{const r=await testarEmailAction();setMsg(r.mensagem);}catch(x){setErro(x instanceof Error?x.message:"Falha no teste SMTP.");}finally{setOcupado(false);}}
+ return <form onSubmit={salvar} className="rounded-xl border border-ink-200 bg-white p-6">
+  <div className="mb-5 flex items-center gap-2"><Mail className="size-5 text-gold-600"/><div><h2 className="title-display text-xl text-ink-900">Configuração de e-mail</h2><p className="mt-1 text-sm text-ink-600">Parâmetros usados pelo formulário de contato e pelo envio da newsletter.</p></div></div>
+  <div className="grid gap-4 md:grid-cols-2">
+   <label className="text-xs font-semibold text-ink-700">Servidor SMTP<input name="host" defaultValue={email.host} required className="mt-1.5 w-full rounded-md border border-ink-200 px-3 py-2.5 text-sm"/></label>
+   <label className="text-xs font-semibold text-ink-700">Porta SMTP<input name="porta" type="number" min={1} max={65535} defaultValue={email.porta} required className="mt-1.5 w-full rounded-md border border-ink-200 px-3 py-2.5 text-sm"/></label>
+   <label className="text-xs font-semibold text-ink-700">Remetente<input name="remetente" type="email" defaultValue={email.remetente} required className="mt-1.5 w-full rounded-md border border-ink-200 px-3 py-2.5 text-sm"/></label>
+   <label className="text-xs font-semibold text-ink-700">Destinatário do formulário<input name="destinatario" type="email" defaultValue={email.destinatario} required className="mt-1.5 w-full rounded-md border border-ink-200 px-3 py-2.5 text-sm"/></label>
+   <label className="text-xs font-semibold text-ink-700 md:col-span-2">Senha / senha de app<input name="senha" type="password" autoComplete="new-password" placeholder={senhaConfigurada?"Deixe em branco para manter a senha atual":"Informe a senha SMTP"} className="mt-1.5 w-full rounded-md border border-ink-200 px-3 py-2.5 text-sm"/><span className="mt-1.5 block text-[0.72rem] font-normal text-ink-500">{senhaConfigurada?"Há uma senha criptografada configurada no backend.":"Ainda não há senha SMTP armazenada."}</span></label>
+  </div>
+  <div className="mt-5 flex flex-wrap gap-6 rounded-lg border border-ink-100 bg-ink-050 p-4 text-sm text-ink-700"><label className="flex items-center gap-2"><input name="autenticacao" type="checkbox" defaultChecked={email.autenticacao}/>Autenticação SMTP</label><label className="flex items-center gap-2"><input name="starttls" type="checkbox" defaultChecked={email.starttls}/>STARTTLS</label></div>
+  <div className="mt-6 flex flex-wrap gap-3"><button disabled={ocupado} className="inline-flex items-center gap-2 rounded-md bg-gold-500 px-5 py-3 text-xs font-bold text-ink-950 disabled:opacity-60"><Save className="size-4"/>{ocupado?"Aguarde...":"Salvar SMTP"}</button><button type="button" onClick={testar} disabled={ocupado||!senhaConfigurada} className="inline-flex items-center gap-2 rounded-md border border-ink-200 bg-white px-5 py-3 text-xs font-bold text-ink-700 disabled:opacity-50"><Send className="size-4"/>Testar conexão SMTP</button></div>
+  {msg?<p className="mt-4 rounded-md border border-green-200 bg-green-50 p-3 text-sm text-green-800">{msg}</p>:null}{erro?<p className="mt-4 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800">{erro}</p>:null}
+ </form>;
+}
