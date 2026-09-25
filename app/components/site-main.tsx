@@ -63,7 +63,7 @@ export function SiteMain({ children }: { children: ReactNode }) {
     window.addEventListener("scroll", onScroll, { passive: true });
 
     function eligible(element: HTMLElement) {
-      if (element === root || element.closest("header, footer, .admin-panel, .espp-hero, [role='dialog'], [aria-modal='true'], [data-no-scroll-animation]")) return false;
+      if (element === root || element.closest("header, footer, .admin-panel, .espp-hero, .localizacao-faixa-degrade, .estrutura-faixa-degrade, .formacao-faixa-degrade, .cursos-faixa-degrade, .matrizes-faixa-degrade, [role='dialog'], [aria-modal='true'], [data-no-scroll-animation]")) return false;
       if (element.classList.contains("fixed") || element.offsetParent === null) return false;
       return !["SCRIPT","STYLE","NOSCRIPT","TEMPLATE","BR","HR"].includes(element.tagName);
     }
