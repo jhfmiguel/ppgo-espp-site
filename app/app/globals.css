@@ -836,66 +836,66 @@ main#conteudo > section.areas-escola {
 
 
 /* Padrão visual único para o main de todas as páginas públicas. */
-.site-public-main {
+.site-public-inner {
   background: #fff;
   color: #071522;
 }
-.site-public-main > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(odd) {
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(odd) {
   background-color: #fff;
   background-image: linear-gradient(135deg, #ffffff 0%, #f2f6fa 58%, rgb(11 49 87 / .10) 100%);
 }
-.site-public-main > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(even) {
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(even) {
   background-color: #071522;
   background-image: linear-gradient(135deg, #071522 0%, #0b3157 58%, #123f6a 100%);
 }
-.site-public-main :where(a, button) {
+.site-public-inner :where(a, button) {
   --espp-accent: #e5b400;
 }
-.site-public-main :where(.rounded-lg, .rounded-xl, .rounded-2xl):not([role="dialog"]) {
+.site-public-inner :where(.rounded-lg, .rounded-xl, .rounded-2xl):not([role="dialog"]) {
   border-color: rgb(11 49 87 / .16);
 }
-.site-public-main :where(a, button):focus-visible {
+.site-public-inner :where(a, button):focus-visible {
   outline-color: #e5b400;
   outline-offset: 3px;
 }
-.site-public-main :where(input, select, textarea):focus {
+.site-public-inner :where(input, select, textarea):focus {
   border-color: #0b3157;
   box-shadow: 0 0 0 3px rgb(229 180 0 / .18);
 }
-.site-public-main :where(.text-gov-teal) {
+.site-public-inner :where(.text-gov-teal) {
   color: #0b3157;
 }
-.site-public-main :where(.bg-gov-teal) {
+.site-public-inner :where(.bg-gov-teal) {
   background-color: #0b3157;
 }
-.site-public-main :where(.text-gold-500, .text-gold-600) {
+.site-public-inner :where(.text-gold-500, .text-gold-600) {
   color: #d9aa00;
 }
 
 
 /* Cards e ícones públicos seguem a mesma linguagem visual da Home. */
-.site-public-main :where(article, li, div)[class*="rounded"][class*="border"]:not([role="dialog"]):not(.espp-hero-frame) {
+.site-public-inner :where(article, li, div)[class*="rounded"][class*="border"]:not([role="dialog"]):not(.espp-hero-frame) {
   transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease, background-color 280ms ease;
 }
-.site-public-main :where(article, li, div)[class*="rounded"][class*="border"]:not([role="dialog"]):not(.espp-hero-frame):hover {
+.site-public-inner :where(article, li, div)[class*="rounded"][class*="border"]:not([role="dialog"]):not(.espp-hero-frame):hover {
   border-color: rgb(229 180 0 / .72);
   box-shadow: 0 16px 38px rgb(7 21 34 / .11);
 }
-.site-public-main :where(svg):not(header svg):not(footer svg) {
+.site-public-inner :where(svg):not(header svg):not(footer svg) {
   stroke-width: 1.8;
 }
-.site-public-main :where(.text-gold-500, .text-gold-600) svg,
-.site-public-main :where([class*="text-[#f5c400]"]) svg {
+.site-public-inner :where(.text-gold-500, .text-gold-600) svg,
+.site-public-inner :where([class*="text-[#f5c400]"]) svg {
   fill: none;
   stroke: currentColor;
 }
-.site-public-main :where(a, button, article, li) > :where(span, div)[class*="items-center"][class*="justify-center"]:has(> svg) {
+.site-public-inner :where(a, button, article, li) > :where(span, div)[class*="items-center"][class*="justify-center"]:has(> svg) {
   border-color: transparent;
 }
 
 
 /* Sistema visual público unificado: a Home é a referência para TODAS as páginas. */
-.site-public-main {
+.site-public-inner {
   --public-blue: #0b3157;
   --public-blue-deep: #071522;
   --public-blue-mid: #123f6a;
@@ -906,106 +906,106 @@ main#conteudo > section.areas-escola {
 }
 
 /* Tipografia, títulos, frases e pequenos destaques. */
-.site-public-main :where(h1, h2, h3):not(.espp-hero-title) {
+.site-public-inner :where(h1, h2, h3):not(.espp-hero-title) {
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -.01em;
 }
-.site-public-main :where(h1, h2):not(.espp-hero-title) {
+.site-public-inner :where(h1, h2):not(.espp-hero-title) {
   text-transform: uppercase;
   color: var(--public-blue-deep);
 }
-.site-public-main :where(h3):not(.espp-hero-title) {
+.site-public-inner :where(h3):not(.espp-hero-title) {
   color: var(--public-blue);
 }
-.site-public-main :where(p, li, dd) {
+.site-public-inner :where(p, li, dd) {
   line-height: 1.7;
 }
-.site-public-main :where(.text-ink-500, .text-ink-600, .text-ink-700) {
+.site-public-inner :where(.text-ink-500, .text-ink-600, .text-ink-700) {
   color: var(--public-copy);
 }
-.site-public-main :where(.text-gold-400, .text-gold-500, .text-gold-600, .text-gov-teal) {
+.site-public-inner :where(.text-gold-400, .text-gold-500, .text-gold-600, .text-gov-teal) {
   color: var(--public-gold-dark);
 }
 
 /* Blocos: alternância institucional igual à linguagem da página inicial. */
-.site-public-main > :where(section, article):not(.espp-hero):not(.areas-escola) {
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola) {
   position: relative;
   overflow: hidden;
 }
-.site-public-main > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 1),
-.site-public-main > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 3) {
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 1),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 3) {
   background-color: #fff;
   background-image: linear-gradient(135deg, #fff 0%, #f2f6fa 56%, rgb(229 180 0 / .07) 100%);
 }
-.site-public-main > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) {
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) {
   background-color: var(--public-blue-deep);
   background-image: linear-gradient(135deg, var(--public-blue-deep) 0%, var(--public-blue) 58%, var(--public-blue-mid) 100%);
   color: #fff;
 }
-.site-public-main > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) {
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) {
   background-color: var(--public-blue);
   background-image: linear-gradient(135deg, var(--public-blue) 0%, var(--public-blue-deep) 72%, rgb(229 180 0 / .16) 100%);
   color: #fff;
 }
-.site-public-main > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(even) :where(h1,h2,h3,p,li,dt,dd,label) {
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(even) :where(h1,h2,h3,p,li,dt,dd,label) {
   color: inherit;
 }
 
 /* Cards. */
-.site-public-main :where(article, li, div)[class*="rounded"][class*="border"]:not([role="dialog"]):not(.espp-hero-frame) {
+.site-public-inner :where(article, li, div)[class*="rounded"][class*="border"]:not([role="dialog"]):not(.espp-hero-frame) {
   border-color: var(--public-card-border);
   box-shadow: 0 8px 24px rgb(7 21 34 / .06);
   transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
 }
-.site-public-main :where(article, li, div)[class*="rounded"][class*="border"]:not([role="dialog"]):not(.espp-hero-frame):hover {
+.site-public-inner :where(article, li, div)[class*="rounded"][class*="border"]:not([role="dialog"]):not(.espp-hero-frame):hover {
   transform: translateY(-3px);
   border-color: rgb(245 196 0 / .72);
   box-shadow: 0 16px 38px rgb(7 21 34 / .12);
 }
 
 /* Ícones: desenho em contorno, sem caixas/fundos decorativos. */
-.site-public-main :where(svg):not(header svg):not(footer svg) {
+.site-public-inner :where(svg):not(header svg):not(footer svg) {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
 }
-.site-public-main :where(a, button, article, li) > :where(span, div)[class*="items-center"][class*="justify-center"]:has(> svg) {
+.site-public-inner :where(a, button, article, li) > :where(span, div)[class*="items-center"][class*="justify-center"]:has(> svg) {
   background: transparent;
   box-shadow: none;
 }
-.site-public-main :where(article, li) > :where(a, div) > span:has(> svg) {
+.site-public-inner :where(article, li) > :where(a, div) > span:has(> svg) {
   color: var(--public-gold);
 }
 
 /* Botões e links de ação. */
-.site-public-main :where(a, button)[class*="rounded"]:not(.espp-hero-button) {
+.site-public-inner :where(a, button)[class*="rounded"]:not(.espp-hero-button) {
   transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
-.site-public-main :where(a, button)[class*="bg-gold"],
-.site-public-main :where(a, button)[class*="bg-[#f5c400]"] {
+.site-public-inner :where(a, button)[class*="bg-gold"],
+.site-public-inner :where(a, button)[class*="bg-[#f5c400]"] {
   border-color: var(--public-gold);
   background: var(--public-gold);
   color: var(--public-blue-deep);
 }
-.site-public-main :where(a, button)[class*="rounded"]:not(.espp-hero-button):hover {
+.site-public-inner :where(a, button)[class*="rounded"]:not(.espp-hero-button):hover {
   transform: translateY(-2px);
 }
-.site-public-main :where(a, button)[class*="border"]:not(.espp-hero-button):hover {
+.site-public-inner :where(a, button)[class*="border"]:not(.espp-hero-button):hover {
   border-color: var(--public-gold);
 }
-.site-public-main :where(a, button):focus-visible {
+.site-public-inner :where(a, button):focus-visible {
   outline: 2px solid var(--public-gold);
   outline-offset: 3px;
 }
 
 /* Formulários também herdam o mesmo acabamento institucional. */
-.site-public-main :where(input, select, textarea) {
+.site-public-inner :where(input, select, textarea) {
   border-color: var(--public-card-border);
   background-color: #fff;
   color: var(--public-blue-deep);
 }
-.site-public-main :where(input, select, textarea):focus {
+.site-public-inner :where(input, select, textarea):focus {
   border-color: var(--public-blue);
   box-shadow: 0 0 0 3px rgb(245 196 0 / .18);
   outline: none;
