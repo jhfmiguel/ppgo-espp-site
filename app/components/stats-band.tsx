@@ -7,7 +7,6 @@ export function StatsBand() {
       aria-label="Indicadores da Escola"
       className="relative border-y border-[#0b3157]/15 bg-white"
     >
-      <div aria-hidden="true" className="hatch absolute inset-0 opacity-70" />
       <div className="container-espp relative grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4">
         {indicadores.map((item) => (
           <div
