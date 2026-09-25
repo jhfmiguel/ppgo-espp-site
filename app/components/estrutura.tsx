@@ -51,17 +51,17 @@ export function Estrutura() {
                   <div>
                     <dt className="flex items-baseline gap-1.5">
                       {item.valor !== "—" ? (
-                        <span className="title-display text-2xl !text-white">{item.valor}</span>
+                        <span className="title-display text-3xl !text-white">{item.valor}</span>
                       ) : null}
-                      <span className="text-sm font-semibold !text-white">{item.label}</span>
+                      <span className="text-base font-semibold !text-white">{item.label}</span>
                     </dt>
-                    <dd className="mt-2 text-sm leading-relaxed !text-white/80">{item.texto}</dd>
+                    <dd className="mt-2 text-base leading-relaxed !text-white/80">{item.texto}</dd>
                   </div>
                 </div>
               ))}
             </dl>
 
-            <div className="relative min-h-[20rem] overflow-hidden rounded-lg shadow-[0_18px_45px_rgba(7,21,34,0.24)] lg:col-span-5 lg:min-h-[27rem]">
+            <div className="relative min-h-[20rem] overflow-hidden rounded-lg shadow-[0_18px_45px_rgba(7,21,34,0.24)] lg:col-span-5 lg:min-h-0 lg:overflow-visible lg:rounded-none lg:shadow-none">
               <Image
                 src={estrutura.imagem.src}
                 alt={estrutura.imagem.alt}
