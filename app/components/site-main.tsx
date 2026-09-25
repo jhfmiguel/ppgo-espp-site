@@ -63,6 +63,7 @@ export function SiteMain({ children }: { children: ReactNode }) {
     window.addEventListener("scroll", onScroll, { passive: true });
 
     function eligible(element: HTMLElement) {
+      if (element.tagName === "SECTION") return false;
       if (element === root || element.closest("header, footer, .admin-panel, .espp-hero, .localizacao-faixa-degrade, .estrutura-faixa-degrade, .formacao-faixa-degrade, .cursos-faixa-degrade, .matrizes-faixa-degrade, [role='dialog'], [aria-modal='true'], [data-no-scroll-animation]")) return false;
       if (element.classList.contains("fixed") || element.offsetParent === null) return false;
       return !["SCRIPT","STYLE","NOSCRIPT","TEMPLATE","BR","HR"].includes(element.tagName);
@@ -71,10 +72,9 @@ export function SiteMain({ children }: { children: ReactNode }) {
     function play(element: HTMLElement, sequence: number, visibleAtLoad: boolean) {
       if (reduced) return;
       const explicit = declaredEffect(element);
-      const isSectionBackground = element.tagName === "SECTION" || element.classList.contains("espp-hero-stage-bg");
       const effects: ScrollEffect[] = ["fade-in", "fade-left", "fade-right", "fade-in", "fade-right", "fade-left"];
       const directionalEffect: ScrollEffect = scrollDirection === "up" ? (sequence % 2 === 0 ? "fade-right" : "fade-left") : effects[sequence % effects.length];
-      const effect = isSectionBackground ? "fade-in" : (explicit ?? (visibleAtLoad ? "fade-in" : directionalEffect));
+      const effect = explicit ?? (visibleAtLoad ? "fade-in" : directionalEffect);
       const animation = element.animate(framesFor(effect), {
         duration: effect === "fade-in" ? 1250 : 1150,
         delay: visibleAtLoad ? Math.min(sequence, 8) * 55 : 0,
