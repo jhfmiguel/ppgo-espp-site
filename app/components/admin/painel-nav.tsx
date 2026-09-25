@@ -61,7 +61,7 @@ export function PainelNav({ perfil }: { perfil: Perfil }) {
               <Link
                 href={href}
                 aria-current={ativo ? "page" : undefined}
-                className={`flex items-center gap-2.5 rounded-md px-3 py-2.5 text-sm font-semibold whitespace-nowrap transition-colors ${
+                className={`admin-nav-link flex items-center gap-2.5 rounded-md px-3 py-2.5 text-sm font-semibold whitespace-nowrap transition-colors ${
                   ativo
                     ? "bg-gold-500 text-ink-950"
                     : "text-ink-300 hover:bg-ink-800 hover:text-white"
