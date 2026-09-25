@@ -29,27 +29,39 @@ export function AnimatedCounter({ valor }: Props) {
     }
 
     let frame = 0;
-    let started = false;
+    let running = false;
     const duration = parsed.target >= 1000 ? 1800 : 1400;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting || started) return;
-        started = true;
-        observer.disconnect();
-        const start = performance.now();
+        if (entry.isIntersecting && !running) {
+          running = true;
+          cancelAnimationFrame(frame);
+          setDisplay("0");
+          const start = performance.now();
 
-        const tick = (now: number) => {
-          const progress = Math.min((now - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 4);
-          const current = Math.round(parsed.target * eased);
-          setDisplay(`${current.toLocaleString("pt-BR")}${parsed.suffix}`);
-          if (progress < 1) frame = requestAnimationFrame(tick);
-        };
+          const tick = (now: number) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 4);
+            const current = Math.round(parsed.target * eased);
+            setDisplay(`${current.toLocaleString("pt-BR")}${parsed.suffix}`);
+            if (progress < 1) {
+              frame = requestAnimationFrame(tick);
+            } else {
+              running = false;
+            }
+          };
 
-        frame = requestAnimationFrame(tick);
+          frame = requestAnimationFrame(tick);
+        }
+
+        if (!entry.isIntersecting) {
+          cancelAnimationFrame(frame);
+          running = false;
+          setDisplay("0");
+        }
       },
-      { threshold: 0.45 },
+      { threshold: 0.35 },
     );
 
     observer.observe(element);
