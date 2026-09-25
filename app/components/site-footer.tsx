@@ -10,8 +10,8 @@ const servicos = [
   ["SEI Governadoria", "https://sei.go.gov.br/"],
   ["Cadastro de Autoridades", "https://goias.gov.br/cadastro-de-autoridades/"],
   ["Escola de Governo", "https://goias.gov.br/escoladegoverno/"],
-  ["Polícia Penal do Estado de Goiás", "https://www.policiapenal.go.gov.br/"],
   ["Secretaria de Segurança Pública do Estado de Goiás", "https://goias.gov.br/seguranca/"],
+  ["Polícia Penal do Estado de Goiás", "https://www.policiapenal.go.gov.br/"],
 ] as const;
 
 const outrosSites = [
@@ -107,7 +107,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="grid gap-10 pt-[15px] md:grid-cols-3 md:gap-[72px] lg:gap-[96px]">
+        <div className="grid gap-10 pt-[15px] md:grid-cols-[0.9fr_1.05fr_1.25fr] md:gap-[48px] lg:grid-cols-[0.88fr_1.08fr_1.3fr] lg:gap-[64px]">
           <section>
             <h2 className="text-[17px] font-bold leading-[1.25]">Serviços</h2>
             <ListaLinks itens={servicos} />
