@@ -25,19 +25,17 @@ export function Estrutura() {
       <div className="estrutura-faixa-degrade relative z-10 mt-10 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] pt-12 pb-28 text-white lg:mt-0 lg:pt-14 lg:pb-36">
         <div className="container-espp">
           <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
-            <dl className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
+            <dl className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:col-span-7">
               {estrutura.itens.map((item) => (
-                <div key={item.label} className="group flex min-h-[9rem] items-start gap-3 rounded-2xl border border-white/15 bg-transparent p-5 text-white transition-all duration-300 hover:-translate-y-1 hover:border-[#f5c400]/70">
-                  <span className="flex size-11 shrink-0 items-center justify-center text-[#f5c400] transition-transform duration-300 group-hover:scale-110">
-                    <Icon name={item.icone} className="size-5 fill-none stroke-current" />
+                <div key={item.label} className="group flex h-full min-h-[11rem] flex-col rounded-2xl border border-white/15 bg-transparent px-6 py-7 text-white transition-all duration-300 hover:-translate-y-1 hover:border-[#f5c400]/70">
+                  <span className="inline-flex w-fit items-center justify-center text-[#f5c400] transition-transform duration-300 group-hover:scale-110">
+                    <Icon name={item.icone} className="size-7 fill-none stroke-current" />
                   </span>
-                  <div>
-                    <dt className="flex items-baseline gap-1.5">
-                      {item.valor !== "—" ? <span className="title-display text-3xl !text-white">{item.valor}</span> : null}
-                      <span className="text-base font-semibold !text-white">{item.label}</span>
-                    </dt>
-                    <dd className="mt-2 text-base leading-relaxed !text-white/75">{item.texto}</dd>
-                  </div>
+                  <dt className="mt-5 flex items-baseline gap-2">
+                    {item.valor !== "—" ? <span className="title-display text-3xl !text-white">{item.valor}</span> : null}
+                    <span className="title-display text-xl !text-white">{item.label}</span>
+                  </dt>
+                  <dd className="mt-3 grow text-sm leading-7 !text-white/75">{item.texto}</dd>
                 </div>
               ))}
             </dl>
