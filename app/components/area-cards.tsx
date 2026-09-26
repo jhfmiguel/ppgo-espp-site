@@ -6,35 +6,17 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 export function AreaCards() {
   return (
-    <section
-      aria-labelledby="areas-titulo"
-      className="areas-escola relative overflow-hidden border-b-[32px] border-b-white bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] pt-10 pb-24 text-white lg:pt-14 lg:pb-32"
-    >
+    <section aria-labelledby="areas-titulo" className="areas-escola relative overflow-hidden border-b-[32px] border-b-white bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] pt-10 pb-24 text-white lg:pt-14 lg:pb-32">
       <div className="container-espp relative">
-        <SectionHeading
-          id="areas-titulo"
-          eyebrow={areas.eyebrow}
-          titulo={areas.titulo}
-          texto={areas.texto}
-          tone="dark"
-        />
-
+        <SectionHeading id="areas-titulo" eyebrow={areas.eyebrow} titulo={areas.titulo} texto={areas.texto} tone="dark" />
         <ul className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {areas.itens.map((area) => (
             <li key={area.href}>
-              <Link
-                href={area.href}
-                className="group flex h-full flex-col rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(7,21,34,.78)_0%,rgba(11,49,87,.82)_58%,rgba(18,63,106,.88)_100%)] px-6 py-7 text-white shadow-[0_16px_38px_rgba(3,20,38,.18)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_20px_44px_rgba(3,20,38,.28)]"
-              >
-                <span className="inline-flex w-fit items-center justify-center text-[#f5c400] transition-transform duration-300 group-hover:scale-110">
-                  <Icon name={area.icone} className="size-7 fill-none stroke-current" />
-                </span>
+              <Link href={area.href} className="group flex h-full flex-col rounded-2xl border border-white/15 bg-transparent px-6 py-7 text-white transition-all duration-300 hover:-translate-y-1 hover:border-[#f5c400]/70">
+                <span className="inline-flex w-fit items-center justify-center text-[#f5c400] transition-transform duration-300 group-hover:scale-110"><Icon name={area.icone} className="size-7 fill-none stroke-current" /></span>
                 <h3 className="title-display mt-5 text-xl text-white">{area.titulo}</h3>
                 <p className="mt-3 grow text-sm leading-7 text-white/75">{area.texto}</p>
-                <span className="mt-6 inline-flex w-fit items-center gap-2 text-xs font-bold tracking-wide text-[#f5c400] uppercase transition-colors group-hover:text-white">
-                  Saiba mais
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
-                </span>
+                <span className="mt-6 inline-flex w-fit items-center gap-2 text-xs font-bold tracking-wide text-[#f5c400] uppercase transition-colors group-hover:text-white">Saiba mais<ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" /></span>
               </Link>
             </li>
           ))}
