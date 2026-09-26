@@ -82,37 +82,39 @@ export function AtosNormativos({ atos }: { atos: AtoNormativo[] }) {
             </span>
           </label>
 
-          <label className="flex flex-col gap-2 text-xs font-semibold tracking-wider text-ink-700 uppercase">
-            Categoria
-            <select
-              value={tipo}
-              onChange={(e) => setTipo(e.target.value)}
-              className="rounded-md border border-ink-300 bg-white px-3 py-2.5 text-sm font-normal tracking-normal text-ink-900 normal-case"
-            >
-              <option value={TODOS}>Todas</option>
-              {tipos.map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div className="flex shrink-0 flex-row items-end gap-4">
+            <label className="flex flex-col gap-2 text-xs font-semibold tracking-wider text-ink-700 uppercase">
+              Categoria
+              <select
+                value={tipo}
+                onChange={(e) => setTipo(e.target.value)}
+                className="rounded-md border border-ink-300 bg-white px-3 py-2.5 text-sm font-normal tracking-normal text-ink-900 normal-case"
+              >
+                <option value={TODOS}>Todas</option>
+                {tipos.map((t) => (
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
+                ))}
+              </select>
+            </label>
 
-          <label className="flex flex-col gap-2 text-xs font-semibold tracking-wider text-ink-700 uppercase">
-            Ano
-            <select
-              value={ano}
-              onChange={(e) => setAno(e.target.value === TODOS ? TODOS : Number(e.target.value))}
-              className="rounded-md border border-ink-300 bg-white px-3 py-2.5 text-sm font-normal tracking-normal text-ink-900 normal-case"
-            >
-              <option value={TODOS}>Todos</option>
-              {anos.map((a) => (
-                <option key={a} value={a}>
-                  {a}
-                </option>
-              ))}
-            </select>
-          </label>
+            <label className="flex flex-col gap-2 text-xs font-semibold tracking-wider text-ink-700 uppercase">
+              Ano
+              <select
+                value={ano}
+                onChange={(e) => setAno(e.target.value === TODOS ? TODOS : Number(e.target.value))}
+                className="rounded-md border border-ink-300 bg-white px-3 py-2.5 text-sm font-normal tracking-normal text-ink-900 normal-case"
+              >
+                <option value={TODOS}>Todos</option>
+                {anos.map((a) => (
+                  <option key={a} value={a}>
+                    {a}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
         </div>
 
         <p className="mt-6 text-xs font-semibold tracking-wider text-ink-500 uppercase">
