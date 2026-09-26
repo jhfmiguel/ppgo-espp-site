@@ -16,10 +16,13 @@ export function Hero() {
               fill
               sizes="(max-width: 1280px) 100vw, 1280px"
               className="espp-hero-image"
+              style={{ animation: "esppHeroImageFadeIn 900ms ease-out both", transform: "none" }}
             />
             <div className="espp-hero-blue-overlay" />
             <div className="espp-hero-diagonals" />
           </div>
+
+          <style>{`@keyframes esppHeroImageFadeIn { from { opacity: 0; } to { opacity: 1; } } @media (prefers-reduced-motion: reduce) { .espp-hero-image { animation: none !important; opacity: 1 !important; } }`}</style>
 
           <div className="espp-hero-copy">
             <p className="espp-hero-badge">
