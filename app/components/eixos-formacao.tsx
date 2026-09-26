@@ -34,7 +34,7 @@ export function EixosFormacao() {
                 </span>
               </>
             );
-            const className = "group flex h-full flex-col py-2 transition-transform duration-300 hover:-translate-y-1";
+            const className = "group flex h-full flex-col rounded-xl border border-[#0b3157]/20 bg-transparent px-5 py-5 transition-transform duration-300 hover:-translate-y-1";
 
             return (
               <li key={eixo.titulo}>
