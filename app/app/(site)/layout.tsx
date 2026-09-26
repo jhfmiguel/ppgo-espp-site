@@ -2,6 +2,7 @@ import { localizacao, site } from "@/content/site";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteMain } from "@/components/site-main";
+import { EsppMobileShell } from "@/components/espp-mobile-shell";
 
 /** Dados estruturados para busca e mapas */
 const jsonLd = {
@@ -32,33 +33,18 @@ const jsonLd = {
     latitude: localizacao.geo.lat,
     longitude: localizacao.geo.lng,
   },
-  sameAs: [
-    "https://www.instagram.com/esppgoias/",
-    "https://www.facebook.com/esppgoias/",
-  ],
+  sameAs: ["https://www.instagram.com/esppgoias/", "https://www.facebook.com/esppgoias/"],
 };
 
-/**
- * Casca do site institucional público — header, rodapé e dados estruturados.
- * O painel administrativo (/admin) fica fora deste grupo e tem casca própria.
- */
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <a
-        href="#conteudo"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-100 focus:rounded-md focus:bg-gold-500 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-ink-950"
-      >
-        Ir para o conteúdo principal
-      </a>
+      <a href="#conteudo" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-100 focus:rounded-md focus:bg-gold-500 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-ink-950">Ir para o conteúdo principal</a>
       <SiteHeader />
       <SiteMain>{children}</SiteMain>
       <SiteFooter />
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <EsppMobileShell />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </>
   );
 }
