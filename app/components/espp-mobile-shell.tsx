@@ -12,7 +12,7 @@ const items=[
 
 export function EsppMobileShell(){
  const pathname=usePathname();
- return <nav className={styles.nav} aria-label="Navegação principal mobile">
+ return <nav className={`${styles.nav} espp-mobile-bottom-nav`} aria-label="Navegação principal mobile">
   {items.map(({label,href,icon:Icon,...item})=>{
    const active=!("external" in item)&&(pathname===href||pathname.startsWith(`${href}/`));
    const cn=`${styles.item} ${"primary" in item?styles.primary:""} ${active?styles.active:""}`;
