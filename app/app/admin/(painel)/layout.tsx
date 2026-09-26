@@ -5,6 +5,11 @@ import { AdminUserMenu } from "@/components/admin/admin-user-menu";
 
 export default async function PainelLayout({ children }: { children: React.ReactNode }) {
   const usuario = await exigirUsuario();
+  const menuUsuario = {
+    nome: usuario.nome,
+    email: usuario.email,
+    perfil: ROTULO_PERFIL[usuario.perfil],
+  };
 
   return (
     <div className="admin-panel flex min-h-screen flex-col bg-ink-050 lg:flex-row">
@@ -16,12 +21,18 @@ export default async function PainelLayout({ children }: { children: React.React
           </span>
           <span className="mt-6 block text-[0.65rem] font-semibold tracking-[0.16em] text-ink-400 uppercase">Painel administrativo</span>
         </div>
-        <div className="min-h-0 flex-1 overflow-y-auto"><PainelNav perfil={usuario.perfil} /></div>
+
+        <div className="flex min-h-0 items-center border-b border-ink-800 lg:block lg:flex-1 lg:overflow-y-auto lg:border-b-0">
+          <div className="min-w-0 flex-1"><PainelNav perfil={usuario.perfil} /></div>
+          <div className="relative z-50 shrink-0 pr-3 lg:hidden">
+            <AdminUserMenu {...menuUsuario} compact />
+          </div>
+        </div>
       </aside>
 
       <div className="min-w-0 flex-1">
-        <header className="admin-topbar sticky top-0 z-40 flex h-16 items-center justify-end border-b border-ink-200 bg-white/95 px-4 backdrop-blur lg:px-7">
-          <AdminUserMenu nome={usuario.nome} email={usuario.email} perfil={ROTULO_PERFIL[usuario.perfil]} compact />
+        <header className="admin-topbar sticky top-0 z-40 hidden h-16 items-center justify-end border-b border-ink-200 bg-white/95 px-7 backdrop-blur lg:flex">
+          <AdminUserMenu {...menuUsuario} compact />
         </header>
         <main className="min-w-0 bg-ink-050 px-5 py-8 lg:px-6 lg:py-10 xl:px-7">
           <div className="mx-auto w-full max-w-none">{children}</div>
