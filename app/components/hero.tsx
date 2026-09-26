@@ -10,7 +10,7 @@ export function Hero() {
         <div className="espp-hero-frame">
           <div className="espp-hero-stage-bg" aria-hidden="true">
             <Image
-              src={hero.imagem.src}
+              src="/images/espp-hero-background.png"
               alt=""
               priority
               fill
