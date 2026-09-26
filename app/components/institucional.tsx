@@ -47,7 +47,7 @@ export function Institucional() {
           <div className="lg:col-span-5">
             <div className="relative aspect-4/3 overflow-hidden rounded-lg border border-ink-200">
               <Image
-                src={institucional.imagem.src}
+                src="/images/espp-viaturas.png"
                 alt={institucional.imagem.alt}
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"
