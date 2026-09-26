@@ -5,6 +5,7 @@ import { StatsBand } from "@/components/stats-band";
 import { EventosBand } from "@/components/eventos-band";
 import { AreaCards } from "@/components/area-cards";
 import { EsppMobileHome } from "@/components/espp-mobile-home";
+import { NewsletterHome } from "@/components/newsletter-home";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <StatsBand />
         <EventosBand />
         <AreaCards />
+        <NewsletterHome />
       </div>
 
       <div className="hidden md:block">
@@ -25,6 +27,7 @@ export default function Home() {
         <StatsBand />
         <EventosBand />
         <AreaCards />
+        <NewsletterHome />
       </div>
     </>
   );
