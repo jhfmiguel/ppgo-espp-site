@@ -8,7 +8,7 @@ export function Hero() {
     <section id="top" className="espp-hero bg-white">
       <div className="container-espp py-6 lg:py-8">
         <div className="espp-hero-frame">
-          <div className="espp-hero-stage-bg" aria-hidden="true">
+          <div className="espp-hero-stage-bg" aria-hidden="true" style={{ animation: "none", opacity: 1, transform: "none", filter: "none" }}>
             <Image
               src="/images/espp-hero-background.png"
               alt=""
