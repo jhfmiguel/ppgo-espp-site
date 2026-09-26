@@ -1,0 +1,24 @@
+/* Ajustes isolados dos temas do painel administrativo. */
+
+/* Misto: menu escuro e toda a área de trabalho clara. */
+:root[data-admin-theme="mixed"] .admin-panel main {
+  background: #f6f7f9 !important;
+  color: var(--color-ink-800) !important;
+}
+:root[data-admin-theme="mixed"] .admin-panel main .bg-white { background: #fff !important; }
+:root[data-admin-theme="mixed"] .admin-panel main .bg-ink-050 { background: var(--color-ink-050) !important; }
+:root[data-admin-theme="mixed"] .admin-panel main .bg-ink-100 { background: var(--color-ink-100) !important; }
+:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-900,.text-ink-950) { color: var(--color-ink-900) !important; }
+:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-800,.text-ink-700) { color: var(--color-ink-800) !important; }
+:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-600,.text-ink-500) { color: var(--color-ink-500) !important; }
+:root[data-admin-theme="mixed"] .admin-panel main :is(.border-ink-100,.border-ink-200,.border-ink-300) { border-color: var(--color-ink-200) !important; }
+:root[data-admin-theme="mixed"] .admin-panel main :is(input,select,textarea) { background:#fff !important; border-color:var(--color-ink-200) !important; color:var(--color-ink-900) !important; }
+:root[data-admin-theme="mixed"] .admin-panel .admin-sidebar { background:var(--color-ink-950) !important; color:var(--color-ink-100) !important; }
+
+/* Escuro: mantém contraste sem deixar o main quase preto. */
+:root[data-admin-theme="dark"] .admin-panel,
+:root[data-admin-theme="dark"] .admin-panel main { background:#161c25 !important; color:var(--color-ink-200); }
+:root[data-admin-theme="dark"] .admin-panel main .bg-ink-050,
+:root[data-admin-theme="dark"] .admin-panel main .bg-ink-100 { background:#161c25 !important; }
+:root[data-admin-theme="dark"] .admin-panel main .bg-white { background:#1f2733 !important; }
+:root[data-admin-theme="dark"] .admin-panel main :is(input,select,textarea) { background:#252e3a !important; }
