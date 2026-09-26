@@ -24,7 +24,8 @@ const jsonLd = {
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return <>
     <a href="#conteudo" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-100 focus:rounded-md focus:bg-gold-500 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-ink-950">Ir para o conteúdo principal</a>
-    <div className="hidden md:block"><SiteHeader /></div>
+    <div className="espp-desktop-site hidden md:block"><SiteHeader /></div>
+    <style>{`@media (min-width:768px){.espp-desktop-site header img[src$="/images/logo-go-espp.png"]{transform:scale(1.06)!important;transform-origin:left center!important}}`}</style>
     <EsppMobileHeader />
     <SiteMain>{children}</SiteMain>
     <div className="hidden md:block"><SiteFooter /></div>
