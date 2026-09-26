@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ShieldCheck } from "lucide-react";
 
 import { LoginForm } from "@/components/admin/login-form";
-import { ROTULO_PERFIL } from "@/lib/auth/users";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -21,15 +19,14 @@ export default async function LoginPage({
   return (
     <div className="flex min-h-screen items-center justify-center bg-ink-900 px-5 py-12">
       <div className="w-full max-w-md">
-        <div className="mb-6 flex items-center justify-center gap-2.5">
-          <ShieldCheck className="size-8 text-gold-500" aria-hidden="true" />
-          <span>
-            <span className="title-display block text-2xl leading-none text-white">
-              {site.sigla}
-            </span>
-            <span className="block text-[0.65rem] font-semibold tracking-[0.16em] text-ink-400 uppercase">
-              Painel administrativo
-            </span>
+        <div className="mb-6 flex flex-col items-center justify-center">
+          <img
+            src="/images/logo-espp-white.png"
+            alt="ESPP — Escola Superior de Polícia Penal"
+            className="h-16 w-auto max-w-[15rem] object-contain"
+          />
+          <span className="mt-2 block text-[0.65rem] font-semibold tracking-[0.16em] text-ink-400 uppercase">
+            Painel administrativo
           </span>
         </div>
 
