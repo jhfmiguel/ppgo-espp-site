@@ -1,1 +1,1075 @@
-PLACEHOLDER
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Tema institucional ESPP
+   Paleta extraída do brasão da Escola: grafite/preto como base, amarelo
+   institucional como cor de ação e verde como acento secundário.
+   --------------------------------------------------------------------------- */
+@theme {
+  --color-ink-950: #07090c;
+  --color-ink-900: #0b0f14;
+  --color-ink-850: #10151c;
+  --color-ink-800: #161c25;
+  --color-ink-700: #1f2733;
+  --color-ink-600: #2c3542;
+  --color-ink-500: #55606d;
+  --color-ink-400: #7c8797;
+  --color-ink-300: #b7c0cc;
+  --color-ink-200: #c9d0da;
+  --color-ink-100: #e7eaef;
+  --color-ink-050: #f6f7f9;
+
+  --color-gold-500: #f5c400;
+  --color-gold-400: #ffd426;
+  --color-gold-600: #d3a800;
+  /* usado em selos sobre gold-050; escurecido para atingir 5,7:1 (WCAG AA) */
+  --color-gold-700: #7a5f00;
+  --color-gold-050: #fff8dd;
+
+  --color-forest-500: #149b4a;
+  --color-forest-600: #0f7a3a;
+
+  /* Paleta institucional do Governo de Goiás — barra utilitária, menu e rodapé */
+  --color-gov-blue: #0064b6;
+  --color-gov-teal: #037770;
+  --color-gov-teal-dark: #00534b;
+
+  /* Altura do header fixo, somando as faixas de components/site-header.tsx:
+     barra utilitária (h-9) + brasões (h-24) e, a partir de xl, o menu (h-12).
+     Usada no espaçamento do <main>, no scroll de âncoras e no menu mobile. */
+  --spacing-header: 8.8rem;
+  --spacing-header-xl: 12.35rem;
+
+  --font-display: var(--font-display), "Arial Narrow", system-ui, sans-serif;
+  --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* compensa o header fixo ao navegar por âncoras; é o único mecanismo de
+       offset, por isso as seções não precisam de scroll-margin-top */
+    scroll-padding-top: var(--spacing-header);
+    transition: font-size 0.15s ease;
+  }
+
+  @media (min-width: 1280px) {
+    html {
+      scroll-padding-top: var(--spacing-header-xl);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: #ffffff;
+    color: var(--color-ink-800);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-gold-500);
+    color: var(--color-ink-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Alto contraste (eMAG 3.1 / WCAG 2.1) — sobrepõe as cores do tema por uma
+   paleta preto/branco/amarelo de alto contraste, preservando a estrutura.
+   Ativado via atributo `data-contrast="alto"` no <html>, alternado pelo
+   botão "Alto contraste" na barra utilitária.
+   --------------------------------------------------------------------------- */
+html[data-contrast="alto"] {
+  color-scheme: dark;
+}
+
+html[data-contrast="alto"] body {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+html[data-contrast="alto"] * {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+html[data-contrast="alto"] a,
+html[data-contrast="alto"] button,
+html[data-contrast="alto"] [role="button"] {
+  color: #ffe600 !important;
+}
+
+html[data-contrast="alto"] a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+html[data-contrast="alto"] :is(button, a, input, select, textarea):hover,
+html[data-contrast="alto"] :is(button, a):focus-visible {
+  color: #000000 !important;
+  background-color: #ffe600 !important;
+}
+
+html[data-contrast="alto"] :focus-visible {
+  outline: 3px solid #ffe600 !important;
+  outline-offset: 2px;
+}
+
+html[data-contrast="alto"] img:not([data-contrast-ignore]) {
+  filter: grayscale(1) contrast(1.15);
+  opacity: 0.9;
+}
+
+@utility container-espp {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Título de seção em caixa alta condensada, marca visual do site */
+@utility title-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+/* Textura sutil de faixas diagonais usada em faixas institucionais */
+@utility hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--color-gold-500) 12%, transparent) 0 1px,
+    transparent 1px 9px
+  );
+}
+
+@keyframes espp-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility fade-up {
+  animation: espp-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes espp-pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+}
+
+@utility pulse-dot {
+  animation: espp-pulse-dot 2s ease-in-out infinite;
+}
+
+/* ---------------------------------------------------------------------------
+   Corpo de texto rico — usado na área editável do painel (.editor-conteudo) e
+   na renderização pública das notícias e eventos (.conteudo-rico). As duas
+   classes compartilham a mesma tipografia para que o painel mostre fielmente o
+   resultado final.
+   --------------------------------------------------------------------------- */
+.editor-conteudo,
+.conteudo-rico {
+  color: var(--color-ink-800);
+}
+
+.editor-conteudo > :first-child,
+.conteudo-rico > :first-child {
+  margin-top: 0;
+}
+
+.editor-conteudo p,
+.conteudo-rico p {
+  margin-block: 0.85em;
+  line-height: 1.75;
+}
+
+.editor-conteudo h2,
+.conteudo-rico h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  font-size: 1.5rem;
+  line-height: 1.15;
+  margin-block: 1.6em 0.5em;
+  color: var(--color-ink-900);
+}
+
+.editor-conteudo h3,
+.conteudo-rico h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  margin-block: 1.4em 0.4em;
+  color: var(--color-ink-900);
+}
+
+.editor-conteudo h4,
+.conteudo-rico h4 {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-block: 1.2em 0.3em;
+  color: var(--color-ink-900);
+}
+
+.editor-conteudo ul,
+.conteudo-rico ul,
+.editor-conteudo ol,
+.conteudo-rico ol {
+  margin-block: 0.9em;
+  padding-inline-start: 1.5rem;
+}
+
+.editor-conteudo ul,
+.conteudo-rico ul {
+  list-style: disc;
+}
+
+.editor-conteudo ol,
+.conteudo-rico ol {
+  list-style: decimal;
+}
+
+.editor-conteudo li,
+.conteudo-rico li {
+  margin-block: 0.35em;
+  line-height: 1.7;
+}
+
+.editor-conteudo blockquote,
+.conteudo-rico blockquote {
+  margin-block: 1.3em;
+  padding: 0.75rem 0 0.75rem 1.25rem;
+  border-inline-start: 3px solid var(--color-gold-500);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  line-height: 1.35;
+  text-transform: none;
+  color: var(--color-ink-700);
+}
+
+.editor-conteudo a,
+.conteudo-rico a {
+  color: var(--color-gov-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.editor-conteudo strong,
+.conteudo-rico strong,
+.editor-conteudo b,
+.conteudo-rico b {
+  font-weight: 700;
+  color: var(--color-ink-900);
+}
+
+.editor-conteudo figure,
+.conteudo-rico figure {
+  margin-block: 1.6em;
+}
+
+.editor-conteudo img,
+.conteudo-rico img {
+  display: block;
+  /* `max-width` em vez de `width`: uma imagem pequena mantém o tamanho real
+     em vez de ser esticada até a largura da coluna. */
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-ink-100);
+}
+
+.editor-conteudo figcaption,
+.conteudo-rico figcaption {
+  margin-top: 0.6em;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-ink-500);
+  border-inline-start: 2px solid var(--color-gold-500);
+  padding-inline-start: 0.65rem;
+}
+
+.editor-conteudo hr,
+.conteudo-rico hr {
+  margin-block: 2em;
+  border: 0;
+  border-top: 1px solid var(--color-ink-200);
+}
+
+
+/* Painel administrativo — aparência alinhada ao NASPP */
+.admin-user-menu-popover { background: #fff; border-color: var(--color-ink-200); color: var(--color-ink-800); }
+.admin-user-menu-heading, .admin-user-menu-divider { border-color: var(--color-ink-200); }
+.admin-user-menu-kicker, .admin-user-menu-meta, .admin-user-menu-section { color: var(--color-ink-500); }
+.admin-user-menu-name { color: var(--color-ink-900); }
+.admin-user-trigger { border-color: var(--color-ink-700); color: #fff; }
+.admin-user-trigger:hover { background: var(--color-ink-800); }
+.admin-user-avatar { border-color: var(--color-ink-600); background: var(--color-ink-800); color: var(--color-gold-400); }
+.admin-user-menu-theme { border-color: var(--color-ink-200); color: var(--color-ink-700); }
+.admin-user-menu-theme[aria-pressed="true"] { border-color: var(--color-gold-600); background: var(--color-gold-050); color: var(--color-ink-950); }
+.admin-user-menu-item, .admin-user-menu-logout { color: var(--color-ink-700); }
+.admin-user-menu-item:hover, .admin-user-menu-logout:hover { background: var(--color-ink-100); color: var(--color-ink-950); }
+
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar { background: #fff; border-right: 1px solid var(--color-ink-200); }
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar-header,
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar-footer { border-color: var(--color-ink-200); }
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar-header img { filter: none; }
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar-header span,
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar-user { color: var(--color-ink-900); }
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar-email { color: var(--color-ink-500); }
+:root[data-admin-theme="light"] .admin-panel .admin-nav-link:not([aria-current="page"]) { color: var(--color-ink-700); }
+:root[data-admin-theme="light"] .admin-panel .admin-nav-link:not([aria-current="page"]):hover { background: var(--color-ink-100); color: var(--color-ink-950); }
+:root[data-admin-theme="light"] .admin-panel .admin-user-trigger { border-color: var(--color-ink-200); color: var(--color-ink-900); }
+:root[data-admin-theme="light"] .admin-panel .admin-user-trigger:hover { background: var(--color-ink-100); }
+:root[data-admin-theme="light"] .admin-panel .admin-user-avatar { border-color: var(--color-ink-200); background: var(--color-ink-100); color: var(--color-ink-900); }
+
+:root[data-admin-theme="dark"] .admin-panel,
+:root[data-admin-theme="dark"] .admin-panel main { background: var(--color-ink-950); color: var(--color-ink-200); }
+:root[data-admin-theme="dark"] .admin-panel .bg-white { background: var(--color-ink-900); }
+:root[data-admin-theme="dark"] .admin-panel .bg-ink-050,
+:root[data-admin-theme="dark"] .admin-panel .bg-ink-100 { background: var(--color-ink-950); }
+:root[data-admin-theme="dark"] .admin-panel .text-ink-900,
+:root[data-admin-theme="dark"] .admin-panel .text-ink-950,
+:root[data-admin-theme="dark"] .admin-panel .text-ink-800,
+:root[data-admin-theme="dark"] .admin-panel .text-ink-700 { color: var(--color-ink-100); }
+:root[data-admin-theme="dark"] .admin-panel .text-ink-600,
+:root[data-admin-theme="dark"] .admin-panel .text-ink-500 { color: var(--color-ink-300); }
+:root[data-admin-theme="dark"] .admin-panel .border-ink-100,
+:root[data-admin-theme="dark"] .admin-panel .border-ink-200 { border-color: var(--color-ink-700); }
+:root[data-admin-theme="dark"] .admin-panel input,
+:root[data-admin-theme="dark"] .admin-panel select,
+:root[data-admin-theme="dark"] .admin-panel textarea { background: var(--color-ink-850); border-color: var(--color-ink-700); color: #fff; }
+:root[data-admin-theme="dark"] .admin-user-menu-popover { background: var(--color-ink-850); border-color: var(--color-ink-700); color: #fff; }
+:root[data-admin-theme="dark"] .admin-user-menu-heading,
+:root[data-admin-theme="dark"] .admin-user-menu-divider { border-color: var(--color-ink-700); }
+:root[data-admin-theme="dark"] .admin-user-menu-name { color: #fff; }
+:root[data-admin-theme="dark"] .admin-user-menu-kicker,
+:root[data-admin-theme="dark"] .admin-user-menu-meta,
+:root[data-admin-theme="dark"] .admin-user-menu-section { color: var(--color-ink-300); }
+:root[data-admin-theme="dark"] .admin-user-menu-theme { border-color: var(--color-ink-700); color: var(--color-ink-200); }
+:root[data-admin-theme="dark"] .admin-user-menu-theme[aria-pressed="true"] { background: var(--color-ink-700); border-color: var(--color-gold-500); color: var(--color-gold-400); }
+:root[data-admin-theme="dark"] .admin-user-menu-item,
+:root[data-admin-theme="dark"] .admin-user-menu-logout { color: var(--color-ink-200); }
+:root[data-admin-theme="dark"] .admin-user-menu-item:hover,
+:root[data-admin-theme="dark"] .admin-user-menu-logout:hover { background: var(--color-ink-700); color: #fff; }
+
+/* Alterna entre os arquivos reais da identidade visual conforme o tema. */
+.admin-espp-logo-light {
+  display: block;
+  filter: none;
+}
+.admin-espp-logo-dark { display: none; }
+:root[data-admin-theme="dark"] .admin-panel .admin-espp-logo-light,
+:root[data-admin-theme="mixed"] .admin-panel .admin-espp-logo-light { display: none; }
+:root[data-admin-theme="dark"] .admin-panel .admin-espp-logo-dark,
+:root[data-admin-theme="mixed"] .admin-panel .admin-espp-logo-dark { display: block; }
+
+
+/* Painel administrativo — superfícies, editores e mensagens em tema escuro/misto */
+:root[data-admin-theme="dark"] .admin-panel .admin-form-surface,
+:root[data-admin-theme="mixed"] .admin-panel .admin-form-surface {
+  background: var(--color-ink-900);
+  border-color: var(--color-ink-700);
+}
+:root[data-admin-theme="dark"] .admin-panel fieldset,
+:root[data-admin-theme="mixed"] .admin-panel fieldset {
+  border-color: var(--color-ink-700);
+}
+:root[data-admin-theme="dark"] .admin-panel fieldset.bg-ink-050\/40,
+:root[data-admin-theme="mixed"] .admin-panel fieldset.bg-ink-050\/40 {
+  background: var(--color-ink-850);
+}
+:root[data-admin-theme="dark"] .admin-panel .editor-conteudo,
+:root[data-admin-theme="mixed"] .admin-panel .editor-conteudo {
+  color: var(--color-ink-100);
+}
+:root[data-admin-theme="dark"] .admin-panel .editor-conteudo :is(h2,h3,h4,strong,b),
+:root[data-admin-theme="mixed"] .admin-panel .editor-conteudo :is(h2,h3,h4,strong,b) {
+  color: #fff;
+}
+:root[data-admin-theme="dark"] .admin-panel .editor-conteudo blockquote,
+:root[data-admin-theme="mixed"] .admin-panel .editor-conteudo blockquote {
+  color: var(--color-ink-200);
+}
+:root[data-admin-theme="dark"] .admin-panel .bg-gold-050,
+:root[data-admin-theme="mixed"] .admin-panel .bg-gold-050 {
+  background: color-mix(in srgb, var(--color-gold-500) 14%, var(--color-ink-900));
+}
+:root[data-admin-theme="dark"] .admin-panel .text-red-600,
+:root[data-admin-theme="mixed"] .admin-panel .text-red-600,
+:root[data-admin-theme="dark"] .admin-panel .text-red-700,
+:root[data-admin-theme="mixed"] .admin-panel .text-red-700 {
+  color: #fca5a5;
+}
+:root[data-admin-theme="dark"] .admin-panel .bg-red-50,
+:root[data-admin-theme="mixed"] .admin-panel .bg-red-50 {
+  background: #3b1218;
+}
+:root[data-admin-theme="dark"] .admin-panel .border-red-200,
+:root[data-admin-theme="mixed"] .admin-panel .border-red-200 {
+  border-color: #7f1d1d;
+}
+:root[data-admin-theme="dark"] .admin-panel .bg-amber-50,
+:root[data-admin-theme="mixed"] .admin-panel .bg-amber-50 {
+  background: #33270b;
+}
+:root[data-admin-theme="dark"] .admin-panel .text-amber-800,
+:root[data-admin-theme="mixed"] .admin-panel .text-amber-800 {
+  color: #fde68a;
+}
+:root[data-admin-theme="dark"] .admin-panel .border-amber-200,
+:root[data-admin-theme="mixed"] .admin-panel .border-amber-200 {
+  border-color: #92400e;
+}
+:root[data-admin-theme="dark"] .admin-panel [role="status"],
+:root[data-admin-theme="mixed"] .admin-panel [role="status"] {
+  color: #86efac;
+}
+:root[data-admin-theme="dark"] .admin-panel input::file-selector-button,
+:root[data-admin-theme="mixed"] .admin-panel input::file-selector-button {
+  background: var(--color-ink-700);
+  color: #fff;
+}
+:root[data-admin-theme="mixed"] .admin-panel main {
+  background: var(--color-ink-950);
+  color: var(--color-ink-200);
+}
+:root[data-admin-theme="mixed"] .admin-panel main .bg-white {
+  background: var(--color-ink-900);
+}
+:root[data-admin-theme="mixed"] .admin-panel main .bg-ink-050,
+:root[data-admin-theme="mixed"] .admin-panel main .bg-ink-100 {
+  background: var(--color-ink-950);
+}
+:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-900,.text-ink-950,.text-ink-800,.text-ink-700) {
+  color: var(--color-ink-100);
+}
+:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-600,.text-ink-500) {
+  color: var(--color-ink-300);
+}
+:root[data-admin-theme="mixed"] .admin-panel main :is(.border-ink-100,.border-ink-200,.border-ink-300) {
+  border-color: var(--color-ink-700);
+}
+:root[data-admin-theme="mixed"] .admin-panel main :is(input,select,textarea) {
+  background: var(--color-ink-850);
+  border-color: var(--color-ink-700);
+  color: #fff;
+}
+
+
+/* Painel administrativo — mensagens globais compatíveis com temas escuro e misto */
+:root[data-admin-theme="dark"] .admin-panel .bg-green-50,
+:root[data-admin-theme="mixed"] .admin-panel .bg-green-50 {
+  background: #0b2e1b;
+}
+:root[data-admin-theme="dark"] .admin-panel .text-green-700,
+:root[data-admin-theme="mixed"] .admin-panel .text-green-700,
+:root[data-admin-theme="dark"] .admin-panel .text-green-800,
+:root[data-admin-theme="mixed"] .admin-panel .text-green-800 {
+  color: #86efac;
+}
+:root[data-admin-theme="dark"] .admin-panel .border-green-200,
+:root[data-admin-theme="mixed"] .admin-panel .border-green-200 {
+  border-color: #166534;
+}
+:root[data-admin-theme="dark"] .admin-panel .bg-red-100,
+:root[data-admin-theme="mixed"] .admin-panel .bg-red-100 {
+  background: #451a1a;
+}
+:root[data-admin-theme="dark"] .admin-panel .text-red-800,
+:root[data-admin-theme="mixed"] .admin-panel .text-red-800 {
+  color: #fecaca;
+}
+:root[data-admin-theme="dark"] .admin-panel .border-red-300,
+:root[data-admin-theme="mixed"] .admin-panel .border-red-300 {
+  border-color: #991b1b;
+}
+:root[data-admin-theme="dark"] .admin-panel [role="alert"],
+:root[data-admin-theme="mixed"] .admin-panel [role="alert"],
+:root[data-admin-theme="dark"] .admin-panel [role="status"],
+:root[data-admin-theme="mixed"] .admin-panel [role="status"] {
+  box-shadow: none;
+}
+
+
+/* Editor rico — contraste correto nos temas escuro e misto */
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor {
+  background: var(--color-ink-900);
+  border-color: var(--color-ink-700);
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor-toolbar,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor-toolbar {
+  background: var(--color-ink-800);
+  border-color: var(--color-ink-700);
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor-toolbar button,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor-toolbar button {
+  color: var(--color-ink-200);
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor-toolbar button:hover,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor-toolbar button:hover {
+  background: var(--color-ink-700);
+  border-color: var(--color-ink-600);
+  color: #fff;
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor-toolbar button[aria-pressed="true"],
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor-toolbar button[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--color-gold-500) 16%, var(--color-ink-800));
+  border-color: var(--color-gold-500);
+  color: var(--color-gold-400);
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor-toolbar > span,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor-toolbar > span {
+  background: var(--color-ink-600);
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor-link,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor-link {
+  background: var(--color-ink-850);
+  border-color: var(--color-ink-700);
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor .editor-conteudo,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor .editor-conteudo {
+  background: var(--color-ink-900);
+  color: var(--color-ink-100);
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-rich-editor .text-ink-400,
+:root[data-admin-theme="mixed"] .admin-panel .admin-rich-editor .text-ink-400 {
+  color: var(--color-ink-400);
+}
+
+
+/* Hero ESPP — composição em camadas e sequência de entrada do NASPP. */
+.espp-hero-frame {
+  position: relative;
+  aspect-ratio: 1672 / 914;
+  overflow: hidden;
+  border: 1px solid var(--color-ink-100);
+  border-radius: 1rem;
+  background: #071f38;
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.08);
+  isolation: isolate;
+  container-type: inline-size;
+}
+
+.espp-hero-stage-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  animation: espp-hero-bg-in 1600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.espp-hero-image {
+  object-fit: cover;
+  object-position: center 42%;
+}
+
+.espp-hero-blue-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(2 30 59 / .96) 0%, rgb(3 47 85 / .86) 23%, rgb(4 54 91 / .48) 39%, rgb(3 39 67 / .08) 57%, transparent 70%);
+}
+
+.espp-hero-diagonals {
+  position: absolute;
+  inset: 0;
+  opacity: .9;
+  pointer-events: none;
+  background:
+    linear-gradient(112deg, transparent 0 8%, rgb(7 60 106 / .62) 8.1% 12%, transparent 12.1% 18%, rgb(7 69 118 / .42) 18.1% 21%, transparent 21.1% 29%, rgb(226 175 0 / .22) 29.1% 32%, transparent 32.1% 75%, rgb(255 255 255 / .16) 75.1% 77%, transparent 77.1% 88%, rgb(226 175 0 / .46) 88.1% 92%, transparent 92.1%);
+}
+
+.espp-hero-copy {
+  position: absolute;
+  z-index: 2;
+  left: 5%;
+  top: 13%;
+  width: 40%;
+  color: white;
+  animation: espp-hero-copy-in 1450ms cubic-bezier(0.16, 1, 0.3, 1) 650ms both;
+}
+
+.espp-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .55cqw;
+  max-width: 100%;
+  margin: 0;
+  border: 1px solid #e5b400;
+  border-radius: 999px;
+  padding: .62cqw 1cqw;
+  color: #ffd21a;
+  background: rgb(3 31 56 / .55);
+  backdrop-filter: blur(5px);
+  font-size: .9cqw;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.espp-hero-badge svg {
+  width: 1cqw;
+  height: 1cqw;
+  flex: none;
+}
+
+.espp-hero-title {
+  margin: 1.05cqw 0 0;
+  font-family: var(--font-sans);
+  font-size: 3.55cqw;
+  font-weight: 900;
+  line-height: .98;
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 14px rgb(0 0 0 / .28);
+}
+
+.espp-hero-title span,
+.espp-hero-title strong {
+  display: block;
+}
+
+.espp-hero-title strong {
+  margin-top: .12cqw;
+  color: #f5c400;
+  font-weight: 900;
+}
+
+.espp-hero-rule {
+  width: 5.8cqw;
+  height: .22cqw;
+  min-height: 3px;
+  margin-top: 1.05cqw;
+  border-radius: 999px;
+  background: #f5c400;
+}
+
+.espp-hero-subtitle {
+  max-width: 35cqw;
+  margin: 1cqw 0 0;
+  color: rgb(255 255 255 / .94);
+  font-size: 1.16cqw;
+  font-weight: 400;
+  line-height: 1.45;
+  text-shadow: 0 1px 8px rgb(0 0 0 / .35);
+}
+
+.espp-hero-actions {
+  position: absolute;
+  z-index: 3;
+  left: 5%;
+  bottom: 12%;
+  display: flex;
+  gap: .72cqw;
+  animation: espp-hero-actions-in 1250ms cubic-bezier(0.16, 1, 0.3, 1) 1350ms both;
+}
+
+.espp-hero-button {
+  display: inline-flex;
+  height: 3.7cqw;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: .8cqw;
+  border-radius: .45cqw;
+  padding: 0 1.35cqw;
+  font-size: .82cqw;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.espp-hero-button svg {
+  width: 1.05cqw;
+  height: 1.05cqw;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+.espp-hero-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 22px rgb(0 0 0 / .18);
+}
+
+.espp-hero-button-primary {
+  border: 2px solid #f5c400;
+  background: rgb(245 196 0 / .92);
+  color: #071522;
+}
+
+.espp-hero-button-primary:hover {
+  background: #ffd21a;
+}
+
+.espp-hero-button-secondary {
+  border: 2px solid rgb(255 255 255 / .78);
+  background: rgb(3 31 56 / .42);
+  backdrop-filter: blur(6px);
+  color: white;
+}
+
+.espp-hero-button-secondary:hover {
+  background: rgb(3 31 56 / .68);
+}
+
+@keyframes espp-hero-bg-in {
+  from { opacity: 0; transform: scale(1.018); filter: blur(4px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+@keyframes espp-hero-copy-in {
+  from { opacity: 0; transform: translate3d(-34px, 0, 0); filter: blur(2px); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+
+@keyframes espp-hero-actions-in {
+  0% { visibility: hidden; opacity: 0; transform: translate3d(0, 22px, 0) scale(.97); }
+  1% { visibility: visible; opacity: 0; transform: translate3d(0, 22px, 0) scale(.97); }
+  100% { visibility: visible; opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@media (max-width: 767px) {
+  .espp-hero-frame { min-height: 38rem; aspect-ratio: auto; container-type: normal; }
+  .espp-hero-image { object-position: 63% center; }
+  .espp-hero-blue-overlay { background: linear-gradient(180deg, rgb(2 30 59 / .92) 0%, rgb(2 30 59 / .68) 55%, rgb(2 30 59 / .78) 100%); }
+  .espp-hero-copy { left: 1.5rem; top: 2rem; right: 1.5rem; width: auto; }
+  .espp-hero-badge { gap: .5rem; padding: .55rem .8rem; font-size: .68rem; }
+  .espp-hero-badge svg { width: .9rem; height: .9rem; }
+  .espp-hero-title { margin-top: 1.2rem; max-width: 10ch; font-size: clamp(2.25rem, 10vw, 3.4rem); }
+  .espp-hero-title strong { margin-top: .25rem; }
+  .espp-hero-rule { width: 5rem; height: 3px; margin-top: 1.15rem; }
+  .espp-hero-subtitle { max-width: 31rem; margin-top: 1rem; font-size: .9rem; line-height: 1.45; }
+  .espp-hero-actions { left: 1.5rem; right: 1.5rem; bottom: 1.5rem; display: grid; grid-template-columns: 1fr; gap: .7rem; }
+  .espp-hero-button { width: 100%; height: 3.25rem; min-height: 3.25rem; border-radius: .55rem; padding: 0 1rem; font-size: .78rem; gap: .65rem; }
+  .espp-hero-button svg { width: 1rem; height: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .espp-hero-stage-bg,
+  .espp-hero-copy,
+  .espp-hero-actions {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+
+/* Gradientes institucionais dos blocos de conteúdo público */
+main#conteudo > section:not(.espp-hero):nth-of-type(4n + 1) {
+  background-image: linear-gradient(135deg, rgb(255 255 255 / .98) 0%, rgb(244 248 252 / .98) 52%, rgb(229 180 0 / .07) 100%);
+}
+main#conteudo > section:not(.espp-hero):nth-of-type(4n + 2) {
+  background-image: linear-gradient(135deg, #071522 0%, #0b3157 58%, #123f6a 100%);
+}
+main#conteudo > section:not(.espp-hero):nth-of-type(4n + 3) {
+  background-image: linear-gradient(135deg, #ffffff 0%, #f2f6fa 55%, rgb(11 49 87 / .10) 100%);
+}
+main#conteudo > section:not(.espp-hero):nth-of-type(4n) {
+  background-image: linear-gradient(135deg, #0b3157 0%, #071522 72%, rgb(229 180 0 / .16) 100%);
+}
+
+/* Mantém leitura e identidade dos blocos claros/escuros já existentes. */
+main#conteudo > section.bg-white,
+main#conteudo > section.bg-ink-050,
+main#conteudo > section.bg-ink-100,
+main#conteudo > section.bg-\[\#f4f7fa\] {
+  background-color: #fff;
+}
+main#conteudo > section.bg-ink-900,
+main#conteudo > section.bg-\[\#071522\] {
+  color: #fff;
+}
+
+
+
+
+/* Áreas da Escola: mesmo degradê institucional do bloco de recredenciamento. */
+main#conteudo > section.areas-escola {
+  background-color: #071522 !important;
+  background-image: linear-gradient(135deg, #071522 0%, #0b3157 58%, #123f6a 100%) !important;
+}
+
+
+/* Padrão visual único para o main de todas as páginas públicas. */
+.site-public-inner {
+  background: #fff;
+  color: #071522;
+}
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(odd) {
+  background-color: #fff;
+  background-image: linear-gradient(135deg, #ffffff 0%, #f2f6fa 58%, rgb(11 49 87 / .10) 100%);
+}
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(even) {
+  background-color: #071522;
+  background-image: linear-gradient(135deg, #071522 0%, #0b3157 58%, #123f6a 100%);
+}
+.site-public-inner :where(a, button) {
+  --espp-accent: #e5b400;
+}
+.site-public-inner :where(.rounded-lg, .rounded-xl, .rounded-2xl):not([role="dialog"]) {
+  border-color: rgb(11 49 87 / .16);
+}
+.site-public-inner :where(a, button):focus-visible {
+  outline-color: #e5b400;
+  outline-offset: 3px;
+}
+.site-public-inner :where(input, select, textarea):focus {
+  border-color: #0b3157;
+  box-shadow: 0 0 0 3px rgb(229 180 0 / .18);
+}
+.site-public-inner :where(.text-gov-teal) {
+  color: #0b3157;
+}
+.site-public-inner :where(.bg-gov-teal) {
+  background-color: #0b3157;
+}
+.site-public-inner :where(.text-gold-500, .text-gold-600) {
+  color: #d9aa00;
+}
+
+
+/* Cards e ícones públicos seguem a mesma linguagem visual da Home. */
+.site-public-inner :where(article, li, div)[class*="rounded"][class*="border"]:not([role="dialog"]):not(.espp-hero-frame) {
+  transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease, background-color 280ms ease;
+}
+.site-public-inner :where(article, li, div)[class*="rounded"][class*="border"]:not([role="dialog"]):not(.espp-hero-frame):hover {
+  border-color: rgb(229 180 0 / .72);
+  box-shadow: 0 16px 38px rgb(7 21 34 / .11);
+}
+.site-public-inner :where(svg):not(header svg):not(footer svg) {
+  stroke-width: 1.8;
+}
+.site-public-inner :where(.text-gold-500, .text-gold-600) svg,
+.site-public-inner :where([class*="text-[#f5c400]"]) svg {
+  fill: none;
+  stroke: currentColor;
+}
+.site-public-inner :where(a, button, article, li) > :where(span, div)[class*="items-center"][class*="justify-center"]:has(> svg) {
+  border-color: transparent;
+}
+
+
+/* Sistema visual público unificado: a Home é a referência para TODAS as páginas. */
+.site-public-inner {
+  --public-blue: #0b3157;
+  --public-blue-deep: #071522;
+  --public-blue-mid: #123f6a;
+  --public-gold: #f5c400;
+  --public-gold-dark: #d9aa00;
+  --public-card-border: rgb(11 49 87 / .16);
+  --public-copy: #334155;
+}
+
+/* Tipografia, títulos, frases e pequenos destaques. */
+.site-public-inner :where(h1, h2, h3):not(.espp-hero-title) {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+.site-public-inner :where(h1, h2):not(.espp-hero-title) {
+  text-transform: uppercase;
+  color: var(--public-blue-deep);
+}
+.site-public-inner :where(h3):not(.espp-hero-title) {
+  color: var(--public-blue);
+}
+.site-public-inner :where(p, li, dd) {
+  line-height: 1.7;
+}
+.site-public-inner :where(.text-ink-500, .text-ink-600, .text-ink-700) {
+  color: var(--public-copy);
+}
+.site-public-inner :where(.text-gold-400, .text-gold-500, .text-gold-600, .text-gov-teal) {
+  color: var(--public-gold-dark);
+}
+
+/* Blocos: alternância institucional igual à linguagem da página inicial. */
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola) {
+  position: relative;
+  overflow: hidden;
+}
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 1),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 3) {
+  background-color: #fff;
+  background-image: linear-gradient(135deg, #fff 0%, #f2f6fa 56%, rgb(229 180 0 / .07) 100%);
+}
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) {
+  background-color: var(--public-blue-deep);
+  background-image: linear-gradient(135deg, var(--public-blue-deep) 0%, var(--public-blue) 58%, var(--public-blue-mid) 100%);
+  color: #fff;
+}
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) {
+  background-color: var(--public-blue);
+  background-image: linear-gradient(135deg, var(--public-blue) 0%, var(--public-blue-deep) 72%, rgb(229 180 0 / .16) 100%);
+  color: #fff;
+}
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(even) :where(h1,h2,h3,p,li,dt,dd,label) {
+  color: inherit;
+}
+
+/* Cards. */
+.site-public-inner :where(article, li, div)[class*="rounded"][class*="border"]:not([role="dialog"]):not(.espp-hero-frame) {
+  border-color: var(--public-card-border);
+  box-shadow: 0 8px 24px rgb(7 21 34 / .06);
+  transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
+}
+.site-public-inner :where(article, li, div)[class*="rounded"][class*="border"]:not([role="dialog"]):not(.espp-hero-frame):hover {
+  transform: translateY(-3px);
+  border-color: rgb(245 196 0 / .72);
+  box-shadow: 0 16px 38px rgb(7 21 34 / .12);
+}
+
+/* Ícones: desenho em contorno, sem caixas/fundos decorativos. */
+.site-public-inner :where(svg):not(header svg):not(footer svg) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+.site-public-inner :where(a, button, article, li) > :where(span, div)[class*="items-center"][class*="justify-center"]:has(> svg) {
+  background: transparent;
+  box-shadow: none;
+}
+.site-public-inner :where(article, li) > :where(a, div) > span:has(> svg) {
+  color: var(--public-gold);
+}
+
+/* Botões e links de ação. */
+.site-public-inner :where(a, button)[class*="rounded"]:not(.espp-hero-button) {
+  transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+.site-public-inner :where(a, button)[class*="bg-gold"],
+.site-public-inner :where(a, button)[class*="bg-[#f5c400]"] {
+  border-color: var(--public-gold);
+  background: var(--public-gold);
+  color: var(--public-blue-deep);
+}
+.site-public-inner :where(a, button)[class*="rounded"]:not(.espp-hero-button):hover {
+  transform: translateY(-2px);
+}
+.site-public-inner :where(a, button)[class*="border"]:not(.espp-hero-button):hover {
+  border-color: var(--public-gold);
+}
+.site-public-inner :where(a, button):focus-visible {
+  outline: 2px solid var(--public-gold);
+  outline-offset: 3px;
+}
+
+/* Formulários também herdam o mesmo acabamento institucional. */
+.site-public-inner :where(input, select, textarea) {
+  border-color: var(--public-card-border);
+  background-color: #fff;
+  color: var(--public-blue-deep);
+}
+.site-public-inner :where(input, select, textarea):focus {
+  border-color: var(--public-blue);
+  box-shadow: 0 0 0 3px rgb(245 196 0 / .18);
+  outline: none;
+}
+
+
+/* Contraste automático para todo conteúdo inserido sobre os degradês escuros.
+   A Home permanece fora desta regra: ela é a referência visual original. */
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) {
+  --public-surface-text: #fff;
+  --public-surface-muted: rgb(255 255 255 / .76);
+  --public-surface-border: rgb(255 255 255 / .16);
+  --public-surface-card: rgb(11 49 87 / .72);
+  --public-surface-card-strong: rgb(7 21 34 / .72);
+}
+
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) :where(h1,h2,h3,h4,h5,h6,dt,strong),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(h1,h2,h3,h4,h5,h6,dt,strong) {
+  color: var(--public-surface-text);
+}
+
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) :where(p,li,dd,label,.text-ink-500,.text-ink-600,.text-ink-700),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(p,li,dd,label,.text-ink-500,.text-ink-600,.text-ink-700) {
+  color: var(--public-surface-muted);
+}
+
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) :where(.text-gold-400,.text-gold-500,.text-gold-600,.text-gov-teal),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(.text-gold-400,.text-gold-500,.text-gold-600,.text-gov-teal) {
+  color: #f5c400;
+}
+
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) :where(article,li,div)[class*="rounded"][class*="border"]:not([role="dialog"]),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(article,li,div)[class*="rounded"][class*="border"]:not([role="dialog"]) {
+  border-color: var(--public-surface-border);
+  background-color: var(--public-surface-card);
+  color: #fff;
+}
+
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) :where(input,select,textarea),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(input,select,textarea) {
+  border-color: rgb(255 255 255 / .28);
+  background-color: rgb(255 255 255 / .96);
+  color: #071522;
+}
+
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) :where(a,button)[class*="border"]:not([class*="bg-gold"]),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(a,button)[class*="border"]:not([class*="bg-gold"]) {
+  border-color: rgb(255 255 255 / .58);
+  color: #fff;
+}
+
+
+/* Em todos os blocos com degradê escuro, nenhum texto permanece preto/escuro. */
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n + 2) :where(.text-ink-950,.text-ink-900,.text-ink-850,.text-ink-800,.text-ink-700,.text-black),
+.site-public-inner > :where(section, article):not(.espp-hero):not(.areas-escola):nth-of-type(4n) :where(.text-ink-950,.text-ink-900,.text-ink-850,.text-ink-800,.text-ink-700,.text-black) {
+  color: #fff;
+}
+
+
+/* Localização: qualquer tipografia azul/ink sobre a faixa em degradê deve ser branca. */
+.localizacao-faixa-degrade :where(
+  .text-ink-950,.text-ink-900,.text-ink-850,.text-ink-800,.text-ink-700,.text-ink-600,.text-ink-500,
+  .text-gov-blue,.text-gov-teal
+) {
+  color: #fff !important;
+}
