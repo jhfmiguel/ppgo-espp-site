@@ -9,7 +9,15 @@ import { EsppMobileHome } from "@/components/espp-mobile-home";
 export default function Home() {
   return (
     <>
-      <EsppMobileHome />
+      <div className="md:hidden">
+        <EsppMobileHome />
+        <RecredenciamentoDestaque />
+        <NoticiasTeaser />
+        <StatsBand />
+        <EventosBand />
+        <AreaCards />
+      </div>
+
       <div className="hidden md:block">
         <Hero />
         <RecredenciamentoDestaque />
