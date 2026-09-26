@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./admin-theme-fixes.css";
 
 export const metadata: Metadata = {
   title: {
