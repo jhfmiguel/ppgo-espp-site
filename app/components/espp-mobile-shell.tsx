@@ -1,28 +1,11 @@
 "use client";
-
 import Link from "next/link";
+import { useEffect,useState } from "react";
 import { usePathname } from "next/navigation";
-import { BookOpen, GraduationCap, Scale } from "lucide-react";
+import { BookOpen, Building2, CalendarDays, FileText, GraduationCap, Home, LockKeyhole, MapPin, Menu, MessageCircle, Newspaper, Scale, ShieldCheck, X } from "lucide-react";
 import styles from "./espp-mobile-shell.module.css";
-
-const items = [
-  { label: "Ensino", href: "/formacao", icon: BookOpen },
-  { label: "Portal do aluno", href: "https://ead.policiapenal.go.gov.br/login/index.php", icon: GraduationCap, external: true, primary: true },
-  { label: "Normas e regulamentos", href: "/atos-normativos", icon: Scale },
+const items=[{label:"Ensino",href:"/formacao",icon:BookOpen},{label:"Portal do aluno",href:"https://ead.policiapenal.go.gov.br/login/index.php",icon:GraduationCap,external:true,primary:true},{label:"Normas",href:"/atos-normativos",icon:Scale}] as const;
+const links=[
+ {label:"Início",href:"/",Icon:Home},{label:"Institucional",href:"/institucional",Icon:Building2},{label:"Localização",href:"/localizacao",Icon:MapPin},{label:"Estrutura",href:"/estrutura",Icon:Building2},{label:"Formação",href:"/formacao",Icon:BookOpen},{label:"Cursos",href:"/cursos",Icon:GraduationCap},{label:"Matrizes Curriculares",href:"/matrizes-curriculares",Icon:FileText},{label:"Notícias",href:"/noticias",Icon:Newspaper},{label:"Eventos",href:"/eventos",Icon:CalendarDays},{label:"Regimento Interno",href:"/regimento-interno",Icon:Scale},{label:"Atos Normativos",href:"/atos-normativos",Icon:Scale},{label:"Documentos",href:"/documentos",Icon:FileText},{label:"Contato",href:"/contato",Icon:MessageCircle},{label:"Ouvidoria",href:"https://www.policiapenal.go.gov.br/ouvidoria",Icon:MessageCircle,external:true},{label:"LGPD",href:"https://goias.gov.br/casacivil/lei-geral-de-protecao-de-dados/",Icon:ShieldCheck,external:true},{label:"Acesso Restrito",href:"/admin",Icon:LockKeyhole},
 ] as const;
-
-export function EsppMobileShell() {
-  const pathname = usePathname();
-  return (
-    <nav className={styles.nav} aria-label="Ações principais no celular" data-no-scroll-animation>
-      {items.map(({ label, href, icon: Icon, ...item }) => {
-        const active = !("external" in item) && (pathname === href || pathname.startsWith(`${href}/`));
-        const className = `${styles.item} ${"primary" in item ? styles.primary : ""} ${active ? styles.active : ""}`;
-        const content = <><Icon aria-hidden="true"/><span>{label}</span></>;
-        return "external" in item
-          ? <a key={label} href={href} target="_blank" rel="noreferrer" className={className}>{content}</a>
-          : <Link key={label} href={href} className={className}>{content}</Link>;
-      })}
-    </nav>
-  );
-}
+export function EsppMobileShell(){const pathname=usePathname();const[open,setOpen]=useState(false);useEffect(()=>setOpen(false),[pathname]);useEffect(()=>{document.body.style.overflow=open?"hidden":"";return()=>{document.body.style.overflow=""}},[open]);return <>{open?<><div className={styles.backdrop} onClick={()=>setOpen(false)}/><section className={styles.sheet}><div className={styles.sheetHead}><div><small>ESPP · Goiás</small><h2>Navegação</h2></div><button className={styles.close} onClick={()=>setOpen(false)} aria-label="Fechar"><X/></button></div><div className={styles.links}>{links.map(({label,href,Icon,...link})=>{const active=!("external" in link)&&(pathname===href||href!=="/"&&pathname.startsWith(`${href}/`));const cn=`${styles.link} ${active?styles.linkActive:""}`;const body=<><Icon/><span>{label}</span></>;return "external" in link?<a key={label} href={href} target="_blank" rel="noreferrer" className={cn}>{body}</a>:<Link key={label} href={href} className={cn}>{body}</Link>})}</div></section></>:null}<nav className={styles.nav} aria-label="Navegação principal mobile">{items.map(({label,href,icon:Icon,...item})=>{const active=!("external" in item)&&(pathname===href||pathname.startsWith(`${href}/`));const cn=`${styles.item} ${"primary" in item?styles.primary:""} ${active?styles.active:""}`;const body=<><Icon/><span>{label}</span></>;return "external" in item?<a key={label} href={href} target="_blank" rel="noreferrer" className={cn}>{body}</a>:<Link key={label} href={href} className={cn}>{body}</Link>})}<button type="button" className={`${styles.item} ${open?styles.active:""}`} onClick={()=>setOpen(v=>!v)} aria-expanded={open}><Menu/><span>Mais</span></button></nav></>}
