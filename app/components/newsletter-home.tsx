@@ -35,9 +35,9 @@ export function NewsletterHome() {
   }
 
   return (
-    <section className="newsletter-home bg-white px-4 py-7 md:px-6 md:py-12" data-no-scroll-animation>
+    <section className="newsletter-home bg-white px-4 py-7 md:px-6 md:py-12">
       <div className="container-espp mx-auto max-w-6xl">
-        <div className="rounded-[1.5rem] border border-[#0b3157]/10 bg-white px-5 py-6 shadow-[0_14px_42px_rgba(7,21,34,.07)] md:flex md:items-center md:justify-between md:gap-10 md:px-9 md:py-8">
+        <div data-animate-scroll data-animate-effect="fade-up" className="rounded-[1.5rem] border border-[#0b3157]/10 bg-white px-5 py-6 shadow-[0_14px_42px_rgba(7,21,34,.07)] md:flex md:items-center md:justify-between md:gap-10 md:px-9 md:py-8">
           <div className="max-w-xl">
             <div className="mb-3 inline-flex items-center justify-center text-[#f5c400]">
               <Mail className="size-7 fill-none stroke-current" strokeWidth={1.8} />
