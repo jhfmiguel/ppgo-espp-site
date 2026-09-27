@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
+import { ExternalLink, MapPin } from "lucide-react";
 import { Contato } from "@/components/contato";
-import { contato } from "@/content/site";
-
-export const metadata: Metadata = {
-  title: contato.titulo,
-  description: contato.texto,
-};
-
-export default function ContatoPage() {
-  return <Contato />;
-}
+import { contato, localizacao } from "@/content/site";
+export const metadata:Metadata={title:contato.titulo,description:contato.texto};
+export default function ContatoPage(){const mapa=`https://www.google.com/maps?q=${encodeURIComponent(localizacao.mapaQuery)}&output=embed`;return <><Contato/><section className="bg-white pb-24 lg:pb-32" aria-labelledby="localizacao-contato"><div className="container-espp"><div className="grid gap-6 lg:grid-cols-[.85fr_1.15fr]"><div className="rounded-xl border border-ink-200 bg-ink-050 p-6"><div className="flex items-center gap-2 text-gov-teal"><MapPin className="size-5"/><h2 id="localizacao-contato" className="title-display text-xl text-ink-900">Localização e Ouvidoria</h2></div><p className="mt-4 text-sm leading-6 text-ink-700"><strong>ESPP:</strong> {localizacao.endereco.completo}</p><p className="mt-2 text-sm leading-6 text-ink-600">{localizacao.horario}</p><a href="https://www.policiapenal.go.gov.br/ouvidoria" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 rounded-md bg-gov-teal px-4 py-2.5 text-xs font-bold text-white">Acessar Ouvidoria <ExternalLink className="size-4"/></a></div><div className="overflow-hidden rounded-xl border border-ink-200 bg-ink-100"><iframe title="Mapa da Escola Superior de Polícia Penal" src={mapa} className="h-[22rem] w-full border-0" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen/></div></div></div></section></>}
