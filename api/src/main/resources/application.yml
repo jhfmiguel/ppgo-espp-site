@@ -46,7 +46,9 @@ espp:
 
 app:
   auth:
-    mode: ${ESPP_AUTH_MODE:ssp}
+    # development mantém o ambiente local funcional enquanto a SSP-GO não fornece
+    # o contrato/token real. Em homologação/produção configure ESPP_AUTH_MODE=ssp.
+    mode: ${ESPP_AUTH_MODE:development}
   frontend-url: ${ESPP_FRONTEND_URL:http://localhost:3001}
   storage:
     attachments-dir: ${ESPP_ATTACHMENTS_DIR:C:/workspace/ppgo/espp/site-institucional/storage/mensagens}
