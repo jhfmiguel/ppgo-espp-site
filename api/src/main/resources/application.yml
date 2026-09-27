@@ -39,10 +39,7 @@ espp:
 
 app:
   auth:
-    mode: ${ESPP_AUTH_MODE:local}
+    mode: ${ESPP_AUTH_MODE:ssp}
   frontend-url: ${ESPP_FRONTEND_URL:http://localhost:3001}
-  admin:
-    user: ${ESPP_ADMIN_USER:admin}
-    password: ${ESPP_ADMIN_PASSWORD}
   storage:
     attachments-dir: ${ESPP_ATTACHMENTS_DIR:C:/workspace/ppgo/espp/site-institucional/storage/mensagens}
