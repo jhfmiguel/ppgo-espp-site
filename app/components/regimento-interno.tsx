@@ -19,43 +19,27 @@ export function RegimentoInterno() {
           texto={regimentoInterno.texto}
         />
 
-        <div className="mt-12 grid max-w-4xl gap-x-10 gap-y-10 md:grid-cols-2">
-          <div className="group flex items-start gap-4 py-2 transition-transform duration-300 hover:-translate-y-1">
-            <span className="flex size-11 shrink-0 items-center justify-center text-[#f5c400]">
+        <div className="mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
+          <div className="group flex h-full flex-col rounded-2xl border border-ink-200 bg-transparent px-6 py-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#f5c400]/70">
+            <span className="inline-flex w-fit items-center justify-center text-[#d9aa00] transition-transform duration-300 group-hover:scale-110">
               <FileText className="size-7 fill-none stroke-current" aria-hidden="true" />
             </span>
-            <div>
-              <p className="text-sm font-semibold text-ink-900">{regimentoInterno.portaria.numero}</p>
-              <p className="mt-1 text-sm leading-relaxed text-ink-700">{regimentoInterno.portaria.ementa}</p>
-              <ActionLink
-                href={regimentoInterno.portaria.href}
-                external
-                variant="ghost"
-                className="mt-3"
-              >
-                Ver publicação oficial
-              </ActionLink>
-            </div>
+            <p className="title-display mt-5 text-xl text-ink-900">{regimentoInterno.portaria.numero}</p>
+            <p className="mt-3 grow text-sm leading-7 text-ink-700">{regimentoInterno.portaria.ementa}</p>
+            <ActionLink href={regimentoInterno.portaria.href} external variant="ghost" className="mt-6 w-fit">
+              Ver publicação oficial
+            </ActionLink>
           </div>
 
-          <div className="group flex items-start gap-4 py-2 transition-transform duration-300 hover:-translate-y-1">
-            <span className="flex size-11 shrink-0 items-center justify-center text-[#f5c400]">
+          <div className="group flex h-full flex-col rounded-2xl border border-ink-200 bg-transparent px-6 py-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#f5c400]/70">
+            <span className="inline-flex w-fit items-center justify-center text-[#d9aa00] transition-transform duration-300 group-hover:scale-110">
               <FileText className="size-7 fill-none stroke-current" aria-hidden="true" />
             </span>
-            <div>
-              <p className="text-sm font-semibold text-ink-500 line-through decoration-ink-400">
-                {regimentoInterno.revogada.numero}
-              </p>
-              <p className="mt-1 text-sm leading-relaxed text-ink-700">{regimentoInterno.revogada.texto}</p>
-              <ActionLink
-                href={regimentoInterno.revogada.href}
-                external
-                variant="ghost"
-                className="mt-3"
-              >
-                Ver norma revogada
-              </ActionLink>
-            </div>
+            <p className="title-display mt-5 text-xl text-ink-500 line-through decoration-ink-400">{regimentoInterno.revogada.numero}</p>
+            <p className="mt-3 grow text-sm leading-7 text-ink-700">{regimentoInterno.revogada.texto}</p>
+            <ActionLink href={regimentoInterno.revogada.href} external variant="ghost" className="mt-6 w-fit">
+              Ver norma revogada
+            </ActionLink>
           </div>
         </div>
       </div>
