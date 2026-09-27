@@ -39,8 +39,8 @@ export function NewsletterHome() {
       <div className="container-espp mx-auto max-w-6xl">
         <div className="rounded-[1.5rem] border border-[#0b3157]/10 bg-white px-5 py-6 shadow-[0_14px_42px_rgba(7,21,34,.07)] md:flex md:items-center md:justify-between md:gap-10 md:px-9 md:py-8">
           <div className="max-w-xl">
-            <div className="mb-3 inline-flex size-10 items-center justify-center rounded-xl bg-[#f5c400]/15 text-[#0b3157] md:size-11">
-              <Mail className="size-5" />
+            <div className="mb-3 inline-flex items-center justify-center text-[#f5c400]">
+              <Mail className="size-7 fill-none stroke-current" strokeWidth={1.8} />
             </div>
             <p className="mb-1 text-[.65rem] font-black tracking-[.16em] text-[#0b3157]/55 uppercase">Newsletter ESPP</p>
             <h2 className="text-xl font-black tracking-tight text-[#071522] md:text-2xl">Fique por dentro das novidades da Escola</h2>
