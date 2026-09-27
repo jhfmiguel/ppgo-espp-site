@@ -17,6 +17,8 @@
 
 /* Escuro: superficies, formularios, tabelas, popups, filtros e estados. */
 :root[data-admin-theme="dark"] .admin-panel,:root[data-admin-theme="dark"] .admin-panel main{background:#161c25!important;color:#e5eaf0!important}
+/* Restaura a barra lateral grafite/preta original da ESPP. O main continua no cinza escuro mais suave. */
+:root[data-admin-theme="dark"] .admin-panel .admin-sidebar{background:var(--color-ink-950)!important;color:var(--color-ink-100)!important}
 :root[data-admin-theme="dark"] .admin-panel main :is(.bg-ink-050,.bg-ink-100){background:#161c25!important}
 :root[data-admin-theme="dark"] .admin-panel main :is(.bg-white,.admin-form-surface,[role="dialog"]){background:#1f2733!important;border-color:#364152!important}
 :root[data-admin-theme="dark"] .admin-panel main :is(.text-ink-950,.text-ink-900,.text-ink-800,.text-ink-700){color:#f4f7fa!important}
