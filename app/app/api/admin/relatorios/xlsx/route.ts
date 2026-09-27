@@ -1,0 +1,3 @@
+import { exigirPermissao } from "@/lib/auth/dal";
+const API=(process.env.ESPP_API_URL??"http://localhost:8081").replace(/\/$/,"");
+export async function POST(req:Request){await exigirPermissao("auditoria");const resposta=await fetch(`${API}/api/v1/admin/relatorios/xlsx`,{method:"POST",headers:{"content-type":"application/json"},body:await req.text(),cache:"no-store"});return new Response(await resposta.arrayBuffer(),{status:resposta.status,headers:{"content-type":resposta.headers.get("content-type")??"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","content-disposition":resposta.headers.get("content-disposition")??"attachment; filename=espp-relatorio.xlsx"}})}
