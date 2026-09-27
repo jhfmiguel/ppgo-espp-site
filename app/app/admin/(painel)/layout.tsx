@@ -2,25 +2,28 @@ import { exigirUsuario } from "@/lib/auth/dal";
 import { ROTULO_PERFIL } from "@/lib/auth/users";
 import { PainelNav } from "@/components/admin/painel-nav";
 import { AdminUserMenu } from "@/components/admin/admin-user-menu";
+import { AdminShell } from "@/components/admin/admin-shell";
+import { AdminSidebarBrand } from "@/components/admin/admin-sidebar-brand";
 
 export default async function PainelLayout({ children }: { children: React.ReactNode }) {
   const usuario = await exigirUsuario();
-  const menuUsuario = { nome: usuario.nome, email: usuario.email, perfil: ROTULO_PERFIL[usuario.perfil] };
-  return (
-    <div className="admin-panel flex min-h-screen flex-col bg-ink-050 lg:flex-row">
-      <aside className="admin-sidebar relative z-[200] flex shrink-0 flex-col bg-ink-900 lg:sticky lg:top-0 lg:h-screen lg:w-64">
-        <div className="admin-sidebar-header relative flex shrink-0 flex-col items-start border-b border-ink-800 px-4 py-4">
-          <span className="admin-espp-logo block h-16 w-full max-w-[13rem] pr-12 lg:h-14 lg:max-w-[11rem] lg:pr-0" role="img" aria-label="Escola Superior de Polícia Penal">
-            <img src="/images/logo-espp.png" alt="" aria-hidden="true" className="admin-espp-logo-light h-full w-full object-contain object-left" />
-            <img src="/images/logo-espp-white.png" alt="" aria-hidden="true" className="admin-espp-logo-dark hidden h-full w-full object-contain object-left" />
-          </span>
-          <span className="mt-6 block text-[0.65rem] font-semibold tracking-[0.16em] text-ink-400 uppercase">Painel administrativo</span>
-          <div className="absolute right-3 top-3 z-[220] lg:hidden"><AdminUserMenu {...menuUsuario} compact /></div>
-        </div>
-        <div className="min-h-0 flex-1 overflow-y-auto"><PainelNav perfil={usuario.perfil} /></div>
-        <div className="admin-sidebar-footer hidden shrink-0 border-t border-ink-800 px-3 py-3 lg:block"><AdminUserMenu {...menuUsuario} /></div>
-      </aside>
-      <main className="min-w-0 flex-1 bg-ink-050 px-5 py-8 lg:px-6 lg:py-10 xl:px-7"><div className="mx-auto w-full max-w-none">{children}</div></main>
-    </div>
+  const menuUsuario = {
+    nome: usuario.nome,
+    email: usuario.email,
+    perfil: ROTULO_PERFIL[usuario.perfil],
+  };
+
+  const sidebar = (
+    <>
+      <AdminSidebarBrand mobileAvatar={<AdminUserMenu {...menuUsuario} compact />} />
+      <div className="min-h-0 flex-1 overflow-y-auto overflow-x-visible">
+        <PainelNav perfil={usuario.perfil} />
+      </div>
+      <div className="admin-sidebar-footer hidden shrink-0 border-t border-ink-800 px-3 py-3 lg:block">
+        <AdminUserMenu {...menuUsuario} />
+      </div>
+    </>
   );
+
+  return <AdminShell sidebar={sidebar}>{children}</AdminShell>;
 }
