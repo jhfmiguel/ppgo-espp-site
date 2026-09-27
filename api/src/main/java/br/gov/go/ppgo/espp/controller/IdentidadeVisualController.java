@@ -29,6 +29,8 @@ public class IdentidadeVisualController {
             "admin-light", "admin-dark",
             "brasao-light", "brasao-dark",
             "relatorio-light", "relatorio-dark");
+    private static final Set<String> CONTENT_TYPES = Set.of(
+            "image/png", "image/jpeg", "image/webp", "image/svg+xml");
 
     private final IdentidadeVisualRepository repository;
     private final AuditoriaService auditoria;
@@ -41,27 +43,42 @@ public class IdentidadeVisualController {
     @GetMapping("/identidade-visual/{chave}")
     public ResponseEntity<byte[]> imagem(@PathVariable String chave) {
         validar(chave);
-        return repository.findById(chave)
-                .map(item -> ResponseEntity.ok()
-                        .cacheControl(CacheControl.noCache())
-                        .contentType(MediaType.parseMediaType(item.getContentType()))
-                        .body(item.getConteudo()))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        try {
+            return repository.findById(chave)
+                    .filter(this::registroValido)
+                    .map(item -> ResponseEntity.ok()
+                            .cacheControl(CacheControl.noCache())
+                            .contentType(MediaType.parseMediaType(item.getContentType()))
+                            .body(item.getConteudo()))
+                    .orElseGet(() -> ResponseEntity.notFound().build());
+        } catch (RuntimeException ex) {
+            // Identidade visual é opcional. Um registro legado/corrompido não pode
+            // derrubar Configurações nem os relatórios; o frontend usa a imagem padrão
+            // quando recebe 404. O próximo upload substitui o registro normalmente.
+            return ResponseEntity.notFound().cacheControl(CacheControl.noCache()).build();
+        }
     }
 
     @PutMapping(value = "/admin/configuracoes/identidade-visual/{chave}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void salvar(@PathVariable String chave, @RequestPart("arquivo") MultipartFile arquivo, Authentication auth) throws IOException {
         validar(chave);
-        String tipo = arquivo.getContentType();
+        String tipo = normalizarContentType(arquivo.getContentType());
         if (arquivo.isEmpty() || arquivo.getSize() > 3_000_000) {
             throw new IllegalArgumentException("A imagem deve ter no máximo 3 MB.");
         }
-        if (!Set.of("image/png", "image/jpeg", "image/webp", "image/svg+xml").contains(tipo)) {
+        if (!CONTENT_TYPES.contains(tipo)) {
             throw new IllegalArgumentException("Use PNG, JPG, WebP ou SVG.");
         }
-        var item = repository.findById(chave).orElseGet(IdentidadeVisual::new);
+
+        // Evita depender da leitura de um registro legado/corrompido para substituí-lo.
+        // delete + flush garante que um novo upload sempre consiga reparar a chave.
+        if (repository.existsById(chave)) {
+            repository.deleteById(chave);
+            repository.flush();
+        }
+        var item = new IdentidadeVisual();
         item.atualizar(chave, arquivo.getBytes(), tipo, ator(auth));
-        repository.save(item);
+        repository.saveAndFlush(item);
         auditoria.registrar("CONFIGURACOES", "EDICAO", chave, "Identidade visual", ator(auth), null, Map.of("chave", chave));
     }
 
@@ -69,8 +86,22 @@ public class IdentidadeVisualController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable String chave, Authentication auth) {
         validar(chave);
-        repository.deleteById(chave);
+        if (repository.existsById(chave)) {
+            repository.deleteById(chave);
+        }
         auditoria.registrar("CONFIGURACOES", "EXCLUSAO", chave, "Identidade visual", ator(auth), null, Map.of("chave", chave));
+    }
+
+    private boolean registroValido(IdentidadeVisual item) {
+        return item.getConteudo() != null
+                && item.getConteudo().length > 0
+                && CONTENT_TYPES.contains(normalizarContentType(item.getContentType()));
+    }
+
+    private String normalizarContentType(String tipo) {
+        if (tipo == null) return "";
+        int separador = tipo.indexOf(';');
+        return (separador >= 0 ? tipo.substring(0, separador) : tipo).trim().toLowerCase();
     }
 
     private void validar(String chave) {
