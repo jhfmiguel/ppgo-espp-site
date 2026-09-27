@@ -1,9 +1,9 @@
-/* Temas do painel administrativo ESPP: superfícies, formulários, tabelas, menus e avatar. */
+/* Temas do painel administrativo ESPP: cobertura transversal do painel. */
 :root[data-admin-theme="light"] .admin-panel,:root[data-admin-theme="light"] .admin-panel main{background:#f6f7f9!important;color:var(--color-ink-800)!important}
 :root[data-admin-theme="light"] .admin-panel main .bg-white{background:#fff!important}
 :root[data-admin-theme="light"] .admin-panel main :is(input,select,textarea){background:#fff!important;color:var(--color-ink-900)!important}
 
-/* Misto = navegação escura + área de trabalho clara. */
+/* Misto = navegacao escura + area de trabalho clara. */
 :root[data-admin-theme="mixed"] .admin-panel main{background:#f6f7f9!important;color:var(--color-ink-800)!important}
 :root[data-admin-theme="mixed"] .admin-panel main .bg-white{background:#fff!important}
 :root[data-admin-theme="mixed"] .admin-panel main .bg-ink-050{background:var(--color-ink-050)!important}
@@ -15,20 +15,33 @@
 :root[data-admin-theme="mixed"] .admin-panel main :is(input,select,textarea){background:#fff!important;border-color:var(--color-ink-200)!important;color:var(--color-ink-900)!important}
 :root[data-admin-theme="mixed"] .admin-panel .admin-sidebar{background:var(--color-ink-950)!important;color:var(--color-ink-100)!important}
 
-/* Escuro: todas as superfícies acompanham o tema. */
+/* Escuro: superficies, formularios, tabelas, popups, filtros e estados. */
 :root[data-admin-theme="dark"] .admin-panel,:root[data-admin-theme="dark"] .admin-panel main{background:#161c25!important;color:#e5eaf0!important}
 :root[data-admin-theme="dark"] .admin-panel main :is(.bg-ink-050,.bg-ink-100){background:#161c25!important}
-:root[data-admin-theme="dark"] .admin-panel main .bg-white,:root[data-admin-theme="dark"] .admin-panel main .admin-form-surface{background:#1f2733!important;border-color:#364152!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(.bg-white,.admin-form-surface,[role="dialog"]){background:#1f2733!important;border-color:#364152!important}
 :root[data-admin-theme="dark"] .admin-panel main :is(.text-ink-950,.text-ink-900,.text-ink-800,.text-ink-700){color:#f4f7fa!important}
 :root[data-admin-theme="dark"] .admin-panel main :is(.text-ink-600,.text-ink-500,.text-ink-400){color:#aeb9c7!important}
 :root[data-admin-theme="dark"] .admin-panel main :is(.border-ink-100,.border-ink-200,.border-ink-300,.divide-ink-100){border-color:#364152!important}
 :root[data-admin-theme="dark"] .admin-panel main :is(input,select,textarea){background:#252e3a!important;border-color:#465264!important;color:#f8fafc!important;color-scheme:dark}
 :root[data-admin-theme="dark"] .admin-panel main :is(input,textarea)::placeholder{color:#8795a8!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(input,select,textarea):disabled{background:#202833!important;color:#8997a9!important;border-color:#354152!important;opacity:1}
 :root[data-admin-theme="dark"] .admin-panel main option{background:#252e3a;color:#f8fafc}
 :root[data-admin-theme="dark"] .admin-panel main thead{background:#252e3a!important;color:#c8d1dc!important}
-:root[data-admin-theme="dark"] .admin-panel main tbody tr:hover{background:rgba(255,255,255,.025)}
+:root[data-admin-theme="dark"] .admin-panel main tbody tr{border-color:#364152!important}
+:root[data-admin-theme="dark"] .admin-panel main tbody tr:hover{background:rgba(255,255,255,.035)}
 :root[data-admin-theme="dark"] .admin-panel main pre{background:#161c25!important;color:#dce3eb!important;border:1px solid #364152}
 :root[data-admin-theme="dark"] .admin-panel main details summary{color:#f5c400!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(.bg-red-50,.bg-rose-50){background:rgba(239,68,68,.12)!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(.text-red-600,.text-red-700,.text-red-800,.text-rose-600,.text-rose-700){color:#fca5a5!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(.border-red-100,.border-red-200,.border-rose-100,.border-rose-200){border-color:rgba(248,113,113,.35)!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(.bg-green-50,.bg-emerald-50){background:rgba(16,185,129,.12)!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(.text-green-600,.text-green-700,.text-green-800,.text-emerald-600,.text-emerald-700,.text-emerald-800){color:#86efac!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(.border-green-100,.border-green-200,.border-emerald-100,.border-emerald-200){border-color:rgba(52,211,153,.35)!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(.bg-yellow-50,.bg-amber-50){background:rgba(245,196,0,.10)!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(.text-yellow-700,.text-yellow-800,.text-amber-700,.text-amber-800){color:#fde68a!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(.border-yellow-100,.border-yellow-200,.border-amber-100,.border-amber-200){border-color:rgba(245,196,0,.35)!important}
+:root[data-admin-theme="dark"] .admin-panel main [aria-busy="true"]{color:#dce3eb}
+:root[data-admin-theme="dark"] .admin-panel main :focus-visible{outline-color:#f5c400!important}
 
 /* Barra superior/avatar. */
 :root[data-admin-theme="dark"] .admin-panel .admin-topbar{background:rgba(31,39,51,.97)!important;border-color:#364152!important;color:#f4f7fa!important}
