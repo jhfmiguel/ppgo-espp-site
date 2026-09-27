@@ -5,6 +5,8 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { trilhaDe } from "@/components/ui/page-header";
 
+const IMAGEM_ESTRUTURA = "/images/estrutura-espp.png";
+
 export function Estrutura() {
   return (
     <section id="estrutura" aria-labelledby="estrutura-titulo" className="bg-white pt-10">
@@ -15,8 +17,8 @@ export function Estrutura() {
             <SectionHeading as="h1" id="estrutura-titulo" eyebrow={estrutura.eyebrow} titulo={estrutura.titulo} texto={estrutura.texto} tone="light" />
           </div>
           <div className="relative z-[60] hidden overflow-visible lg:col-span-5 lg:block">
-            <div className="absolute inset-x-0 top-0 z-[70] h-[calc(100%+27rem)] overflow-hidden rounded-lg bg-white shadow-[0_24px_60px_-12px_rgba(7,21,34,0.42),0_8px_24px_-8px_rgba(7,21,34,0.28)]">
-              <Image src={estrutura.imagem.src} alt={estrutura.imagem.alt} fill sizes="40vw" className="object-cover object-center" />
+            <div className="absolute inset-x-0 top-0 z-[70] h-[calc(100%+27rem)] overflow-hidden rounded-2xl border border-white/20 bg-white shadow-[0_24px_60px_-12px_rgba(7,21,34,0.42),0_8px_24px_-8px_rgba(7,21,34,0.28)]">
+              <Image src={IMAGEM_ESTRUTURA} alt={estrutura.imagem.alt} fill sizes="40vw" className="object-cover object-center" priority />
             </div>
           </div>
         </div>
@@ -25,9 +27,12 @@ export function Estrutura() {
       <div className="estrutura-faixa-degrade relative z-10 mt-10 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] pt-12 pb-28 text-white lg:mt-0 lg:pt-14 lg:pb-36">
         <div className="container-espp">
           <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
-            <dl className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:col-span-7">
+            <dl className="grid gap-5 sm:grid-cols-2 lg:col-span-7 lg:gap-6">
               {estrutura.itens.map((item) => (
-                <div key={item.label} className="flex h-full flex-col rounded-2xl border border-white/20 bg-transparent px-6 py-7 text-white">
+                <div
+                  key={item.label}
+                  className="flex h-full flex-col rounded-2xl border border-white/20 bg-white/[0.08] px-6 py-7 text-white shadow-[0_18px_50px_rgba(0,0,0,.16)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.12]"
+                >
                   <span className="inline-flex w-fit items-center justify-center text-[#f5c400]">
                     <Icon name={item.icone} className="size-7 fill-none stroke-current" />
                   </span>
@@ -35,12 +40,12 @@ export function Estrutura() {
                     {item.valor !== "—" ? <span className="title-display text-3xl !text-white">{item.valor}</span> : null}
                     <span className="title-display text-xl !text-white">{item.label}</span>
                   </dt>
-                  <dd className="mt-3 grow text-sm leading-7 !text-white/75">{item.texto}</dd>
+                  <dd className="mt-3 grow text-sm leading-7 !text-white/80">{item.texto}</dd>
                 </div>
               ))}
             </dl>
-            <div className="relative min-h-[20rem] overflow-hidden rounded-lg shadow-[0_18px_45px_rgba(7,21,34,0.24)] lg:col-span-5 lg:min-h-0 lg:overflow-visible lg:rounded-none lg:shadow-none">
-              <Image src={estrutura.imagem.src} alt={estrutura.imagem.alt} fill sizes="100vw" className="object-cover object-center lg:hidden" />
+            <div className="relative min-h-[20rem] overflow-hidden rounded-2xl border border-white/20 bg-white/[0.08] shadow-[0_18px_50px_rgba(0,0,0,.16)] backdrop-blur-sm lg:col-span-5 lg:min-h-0 lg:overflow-visible lg:border-0 lg:bg-transparent lg:shadow-none lg:backdrop-blur-none">
+              <Image src={IMAGEM_ESTRUTURA} alt={estrutura.imagem.alt} fill sizes="100vw" className="object-cover object-center lg:hidden" priority />
             </div>
           </div>
         </div>
