@@ -1,1 +1,34 @@
-const API=(process.env.ESPP_API_URL??"http://localhost:8081").replace(/\/$/,"");function auth(){const u=process.env.ESPP_API_ADMIN_USER?.trim(),p=process.env.ESPP_API_ADMIN_PASSWORD;if(!u||!p)throw new Error("Credenciais administrativas não configuradas.");return `Basic ${Buffer.from(`${u}:${p}`).toString("base64")}`;}export async function PUT(req:Request,{params}:{params:Promise<{chave:string}>}){const{chave}=await params;const r=await fetch(`${API}/api/v1/admin/configuracoes/identidade-visual/${encodeURIComponent(chave)}`,{method:"PUT",headers:{Authorization:auth()},body:await req.formData()});return new Response(await r.text(),{status:r.status,headers:{"content-type":r.headers.get("content-type")??"application/json"}})}export async function DELETE(_req:Request,{params}:{params:Promise<{chave:string}>}){const{chave}=await params;const r=await fetch(`${API}/api/v1/admin/configuracoes/identidade-visual/${encodeURIComponent(chave)}`,{method:"DELETE",headers:{Authorization:auth()}});return new Response(null,{status:r.status})}
+import { exigirPermissao } from "@/lib/auth/dal";
+
+const API = (process.env.ESPP_API_URL ?? "http://localhost:8081").replace(/\/$/, "");
+
+export async function PUT(
+  req: Request,
+  { params }: { params: Promise<{ chave: string }> },
+) {
+  await exigirPermissao("configuracoes");
+  const { chave } = await params;
+  const resposta = await fetch(
+    `${API}/api/v1/admin/configuracoes/identidade-visual/${encodeURIComponent(chave)}`,
+    { method: "PUT", body: await req.formData() },
+  );
+  return new Response(await resposta.text(), {
+    status: resposta.status,
+    headers: {
+      "content-type": resposta.headers.get("content-type") ?? "application/json",
+    },
+  });
+}
+
+export async function DELETE(
+  _req: Request,
+  { params }: { params: Promise<{ chave: string }> },
+) {
+  await exigirPermissao("configuracoes");
+  const { chave } = await params;
+  const resposta = await fetch(
+    `${API}/api/v1/admin/configuracoes/identidade-visual/${encodeURIComponent(chave)}`,
+    { method: "DELETE" },
+  );
+  return new Response(null, { status: resposta.status });
+}
