@@ -25,13 +25,21 @@ yarn start      # http://localhost:3001
 
 Copie `.env.example` para o ambiente apropriado. Nunca versione segredos reais.
 
-O painel usa `ESPP_SESSION_SECRET` para a sessão e está preparado para autenticação institucional SSP-GO. Em produção, mantenha `ESPP_AUTH_MODE=ssp`. O modo `local` é exclusivamente técnico para desenvolvimento/homologação e exige `ESPP_TEST_ADMIN_USER` e `ESPP_TEST_ADMIN_PASSWORD`.
+O painel usa `ESPP_SESSION_SECRET` para a sessão e está preparado para autenticação institucional SSP-GO. Em produção, mantenha `ESPP_AUTH_MODE=ssp`. O modo `development` é exclusivamente técnico para desenvolvimento/homologação e usa `ESPP_TEST_ADMIN_USER` e `ESPP_TEST_ADMIN_PASSWORD`.
 
 A integração SSP aguarda o contrato oficial (authorization/token endpoints, client ID/secret ou PKCE, scopes, claims/perfis e logout). O fluxo, callback, state anti-CSRF, sessão, autorização e logout já estão preparados.
 
 ## Navegação pública
 
-A Central de **Acessos** (`/acessos`) concentra Portal do Aluno e Painel Administrativo. No mobile, os três atalhos persistentes são **Ensino**, **Portal do Aluno** e **Normas e Regulamentos**. Contato reúne canais da Escola, Ouvidoria e mapa/localização.
+Não existe Central de Acessos pública. O cadastro de **Acessos** pertence exclusivamente ao painel administrativo e controla quais identidades institucionais estão autorizadas a utilizar o sistema e com qual perfil.
+
+No site público, o Portal do Aluno permanece como destino próprio da navegação. No mobile, os três atalhos persistentes são **Ensino**, **Portal do Aluno** e **Normas e Regulamentos**. Contato reúne canais da Escola, Ouvidoria e mapa/localização.
+
+## Painel administrativo
+
+O módulo **Acessos** fica em `/admin/acessos` e é administrativo. Ele mantém identificador institucional, nome, perfil e situação da autorização. Os perfis atualmente tratados são **Administrador** e **Comunicação**.
+
+A autenticação do usuário do painel é feita pela camada de sessão/SSP (ou pelo modo de desenvolvimento). As chamadas internas do frontend para a API não dependem mais do antigo Basic Auth técnico com `ESPP_API_ADMIN_USER`/`ESPP_API_ADMIN_PASSWORD`. Operações administrativas encaminham a identidade do operador quando necessário para autorização/auditoria.
 
 ## Conteúdo
 
@@ -49,4 +57,4 @@ Também valide desktop/mobile, navegação por teclado, links externos, formulá
 
 ## Backend
 
-O frontend usa `ESPP_API_URL` (padrão local `http://localhost:8081`). Banco, credenciais administrativas da API e URL do frontend são configurados pelas variáveis documentadas em `.env.example`.
+O frontend usa `ESPP_API_URL` (padrão local `http://localhost:8081`). Banco, criptografia de configurações, integração SSP e URL do frontend são configurados pelas variáveis documentadas em `.env.example`.
