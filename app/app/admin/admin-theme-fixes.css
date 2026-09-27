@@ -22,3 +22,23 @@
 :root[data-admin-theme="dark"] .admin-panel main .bg-ink-100 { background:#161c25 !important; }
 :root[data-admin-theme="dark"] .admin-panel main .bg-white { background:#1f2733 !important; }
 :root[data-admin-theme="dark"] .admin-panel main :is(input,select,textarea) { background:#252e3a !important; }
+
+/* A barra superior que contém o avatar também acompanha o modo escuro. */
+:root[data-admin-theme="dark"] .admin-panel .admin-topbar {
+  background: rgba(31, 39, 51, 0.96) !important;
+  border-color: #364152 !important;
+  color: var(--color-ink-100) !important;
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-trigger {
+  background: #252e3a !important;
+  border-color: #465264 !important;
+  color: var(--color-ink-100) !important;
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-trigger:hover {
+  background: #2d3745 !important;
+}
+:root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-avatar {
+  background: #161c25 !important;
+  border-color: #526075 !important;
+  color: var(--color-ink-100) !important;
+}
