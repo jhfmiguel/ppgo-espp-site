@@ -1,0 +1,1 @@
+package br.gov.go.ppgo.espp.repository;import br.gov.go.ppgo.espp.domain.IdentidadeVisual;import org.springframework.data.jpa.repository.JpaRepository;public interface IdentidadeVisualRepository extends JpaRepository<IdentidadeVisual,String>{}
