@@ -25,7 +25,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   return <>
     <a href="#conteudo" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-100 focus:rounded-md focus:bg-gold-500 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-ink-950">Ir para o conteúdo principal</a>
     <div className="espp-desktop-site hidden md:block"><SiteHeader /></div>
-    <style>{`@media (max-width:767px){#rodape{padding-bottom:5.75rem}}`}</style>
+    <style>{`@media (max-width:767px){html,body{width:100%;max-width:100%;overflow-x:hidden!important}body{margin:0!important;padding:0!important}.site-public-main{box-sizing:border-box!important;width:100%!important;max-width:100vw!important;min-width:0!important;margin-left:0!important;margin-right:0!important;transform:none!important;overflow-x:hidden!important}.site-public-main>*,#rodape{max-width:100vw!important}#rodape{width:100%!important;margin-left:0!important;margin-right:0!important;padding-bottom:5.75rem}.espp-mobile-header{left:0!important;right:0!important;width:100%!important;max-width:100vw!important;margin:0!important;transform:none!important}.espp-mobile-bottom-nav{position:fixed!important;left:.75rem!important;right:.75rem!important;bottom:max(.6rem,env(safe-area-inset-bottom))!important;width:auto!important;max-width:none!important;margin:0!important;transform:none!important;display:grid!important;visibility:visible!important;opacity:1!important}}`}</style>
     <EsppMobileHeader />
     <SiteMain>{children}</SiteMain>
     <SiteFooter />
