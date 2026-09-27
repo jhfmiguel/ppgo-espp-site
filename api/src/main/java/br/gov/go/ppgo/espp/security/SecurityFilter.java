@@ -28,21 +28,22 @@ public class SecurityFilter extends OncePerRequestFilter {
     public SecurityFilter(
             TokenValidator tokenValidator,
             AuthorizationService authorizationService,
-            @Value("${app.auth.mode:local}") String authMode) {
+            @Value("${app.auth.mode:development}") String authMode) {
         this.tokenValidator = tokenValidator;
         this.authorizationService = authorizationService;
-        this.authMode = authMode == null ? "ssp" : authMode.trim().toLowerCase();
+        this.authMode = authMode == null ? "development" : authMode.trim().toLowerCase();
     }
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        if ("local".equals(authMode)) {
+        if ("development".equals(authMode) || "local".equals(authMode)) {
             return true;
         }
 
         String path = request.getRequestURI();
         return path.startsWith("/api/v1/public/")
                 || "/actuator/health".equals(path)
+                || "/error".equals(path)
                 || "OPTIONS".equalsIgnoreCase(request.getMethod());
     }
 
