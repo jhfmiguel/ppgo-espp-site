@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { CalendarDays,FileClock,FileText,LayoutDashboard,Mail,Megaphone,UsersRound,Settings,ShieldCheck } from "lucide-react";
-import { podeGerenciar,type Perfil,type Recurso } from "@/lib/auth/users";
+import {usePathname} from "next/navigation";
+import {BarChart3,CalendarDays,FileClock,FileText,LayoutDashboard,Mail,Megaphone,UsersRound,Settings,ShieldCheck} from "lucide-react";
+import {podeGerenciar,type Perfil,type Recurso} from "@/lib/auth/users";
 const ITENS:{href:string;rotulo:string;Icone:typeof LayoutDashboard;recurso?:Recurso}[]=[
  {href:"/admin",rotulo:"Visão geral",Icone:LayoutDashboard},
  {href:"/admin/noticias",rotulo:"Notícias",Icone:Megaphone,recurso:"noticias"},
@@ -10,6 +10,7 @@ const ITENS:{href:string;rotulo:string;Icone:typeof LayoutDashboard;recurso?:Rec
  {href:"/admin/mensagens",rotulo:"Mensagens",Icone:Mail,recurso:"mensagens"},
  {href:"/admin/newsletter",rotulo:"Newsletter",Icone:UsersRound,recurso:"newsletter"},
  {href:"/admin/atos-normativos",rotulo:"Atos normativos",Icone:FileText,recurso:"atosNormativos"},
+ {href:"/admin/relatorios",rotulo:"Relatórios",Icone:BarChart3},
  {href:"/admin/acessos",rotulo:"Acessos",Icone:ShieldCheck,recurso:"acessos"},
  {href:"/admin/auditoria",rotulo:"Auditoria",Icone:FileClock,recurso:"auditoria"},
  {href:"/admin/configuracoes",rotulo:"Configurações",Icone:Settings,recurso:"configuracoes"},
