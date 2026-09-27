@@ -11,23 +11,11 @@ export type AuditoriaAlteracao = {
 };
 
 const API_URL = (process.env.ESPP_API_URL ?? "http://localhost:8081").replace(/\/$/, "");
-const ADMIN_USER = process.env.ESPP_API_ADMIN_USER?.trim();
-const ADMIN_PASSWORD = process.env.ESPP_API_ADMIN_PASSWORD;
-
-function autorizacaoAdmin() {
-  if (!ADMIN_USER || !ADMIN_PASSWORD) {
-    throw new Error("Credenciais técnicas da API não configuradas.");
-  }
-  return `Basic ${Buffer.from(`${ADMIN_USER}:${ADMIN_PASSWORD}`).toString("base64")}`;
-}
 
 export async function listarAuditoria(): Promise<AuditoriaAlteracao[]> {
   const resposta = await fetch(`${API_URL}/api/v1/admin/auditoria`, {
     cache: "no-store",
-    headers: {
-      Accept: "application/json",
-      Authorization: autorizacaoAdmin(),
-    },
+    headers: { Accept: "application/json" },
   });
 
   if (!resposta.ok) {
