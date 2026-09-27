@@ -5,22 +5,16 @@ import { lerSessao } from "@/lib/auth/session";
 import { buscarUsuario, podeGerenciar, type Recurso, type Usuario } from "@/lib/auth/users";
 
 /**
- * Camada de acesso a dados de autenticação (DAL).
- *
- * Toda página e Server Action do painel passa por aqui. O `proxy.ts` faz apenas
- * uma checagem otimista da presença do cookie; a verificação que vale é esta,
- * o mais perto possível dos dados — inclusive porque Server Actions são
- * alcançáveis por POST direto, sem passar pela navegação da interface.
+ * Camada central de autenticação e autorização do painel.
+ * O cookie apenas identifica a sessão; a autorização efetiva continua aqui,
+ * próxima dos dados e das Server Actions.
  */
-
-/** Sessão do usuário logado, ou `null`. Memoizada por render. */
 export const obterUsuario = cache(async (): Promise<Usuario | null> => {
   const sessao = await lerSessao();
   if (!sessao) return null;
-  return buscarUsuario(sessao.userId);
+  return buscarUsuario(sessao.userId, sessao);
 });
 
-/** Exige um usuário autenticado; redireciona para o login caso contrário. */
 export async function exigirUsuario(destino?: string) {
   const usuario = await obterUsuario();
   if (!usuario) {
@@ -30,11 +24,8 @@ export async function exigirUsuario(destino?: string) {
   return usuario;
 }
 
-/** Exige permissão sobre um recurso; redireciona para o painel caso não tenha. */
 export async function exigirPermissao(recurso: Recurso) {
   const usuario = await exigirUsuario();
-  if (!podeGerenciar(usuario.perfil, recurso)) {
-    redirect("/admin?erro=sem-permissao");
-  }
+  if (!podeGerenciar(usuario.perfil, recurso)) redirect("/admin?erro=sem-permissao");
   return usuario;
 }
