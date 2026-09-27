@@ -61,7 +61,6 @@ export function NewsletterHome() {
           </form>
         </div>
       </div>
-      <style jsx global>{`:root[data-mobile-theme="dark"] .newsletter-home{background:#1c2430!important}:root[data-mobile-theme="dark"] .newsletter-home>div>div{background:#171d27!important;border-color:rgba(255,255,255,.1)!important;box-shadow:0 14px 42px rgba(0,0,0,.22)!important}:root[data-mobile-theme="dark"] .newsletter-home h2{color:#fff!important}:root[data-mobile-theme="dark"] .newsletter-home p,:root[data-mobile-theme="dark"] .newsletter-home label{color:#cbd5e1!important}:root[data-mobile-theme="dark"] .newsletter-home form>div{background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.1)!important}:root[data-mobile-theme="dark"] .newsletter-home input{color:#fff!important}:root[data-mobile-theme="dark"] .newsletter-home input::placeholder{color:#94a3b8!important}`}</style>
     </section>
   );
 }
