@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ShieldCheck } from "lucide-react";
 
 import { LoginForm } from "@/components/admin/login-form";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Entrar",
+  title: "Acesso administrativo",
   robots: { index: false, follow: false },
 };
 
@@ -31,29 +32,31 @@ export default async function LoginPage({
         </div>
 
         <div className="rounded-xl border border-ink-200 bg-white p-7 shadow-lg">
-          <h1 className="title-display text-2xl text-ink-900">Entrar no painel</h1>
-          <p className="mt-1.5 mb-6 text-sm text-ink-600">
-            Acesso restrito à equipe de comunicação e à administração da Escola.
+          <div className="mb-4 flex items-center gap-2 text-gov-teal">
+            <ShieldCheck className="size-5" aria-hidden="true" />
+            <span className="text-[0.65rem] font-black tracking-[0.14em] uppercase">Acesso institucional</span>
+          </div>
+          <h1 className="title-display text-2xl text-ink-900">Acesso administrativo</h1>
+          <p className="mt-1.5 text-sm leading-6 text-ink-600">
+            O acesso definitivo ao painel da ESPP será autenticado pela Secretaria de Segurança Pública de Goiás (SSP-GO), conforme o perfil e as permissões institucionais do usuário.
           </p>
+
+          <div className="my-5 rounded-lg border border-gov-blue/15 bg-gov-blue/5 px-4 py-3 text-xs leading-5 text-ink-700">
+            Enquanto a integração oficial com a SSP não estiver disponível neste ambiente, o formulário abaixo permanece exclusivamente para desenvolvimento e homologação.
+          </div>
 
           <LoginForm proximo={proximo} />
         </div>
 
-        {/* Ambiente de testes com dados mockados — remover ao integrar a
-            autenticação oficial. */}
-        <div className="mt-5 rounded-xl border border-ink-700 bg-ink-850 p-5">
-          <p className="text-[0.65rem] font-bold tracking-[0.16em] text-gold-500 uppercase">
-            Logins de exemplo (ambiente de testes)
-          </p>
-          <ul className="mt-3 space-y-3">
-          </ul>
-        </div>
-
-        <p className="mt-6 text-center text-xs text-ink-400">
+        <div className="mt-6 flex items-center justify-center gap-4 text-xs text-ink-400">
+          <Link href="/acessos" className="underline underline-offset-4 hover:text-white">
+            Central de acessos
+          </Link>
+          <span aria-hidden="true">•</span>
           <Link href="/" className="underline underline-offset-4 hover:text-white">
             Voltar para o site da {site.sigla}
           </Link>
-        </p>
+        </div>
       </div>
     </div>
   );
