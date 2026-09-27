@@ -32,10 +32,13 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers("/api/v1/public/**", "/actuator/health", "/error").permitAll();
+                    authorize.requestMatchers(
+                                    "/api/v1/public/**",
+                                    "/api/v1/identidade-visual/**",
+                                    "/actuator/health",
+                                    "/error")
+                            .permitAll();
                     if (development) {
-                        // Desenvolvimento local: a sessão e as permissões do painel são validadas pelo Next.
-                        // Não há usuário/senha HTTP Basic nem senha gerada pelo Spring.
                         authorize.requestMatchers("/api/v1/admin/**").permitAll();
                     } else {
                         authorize.requestMatchers(
