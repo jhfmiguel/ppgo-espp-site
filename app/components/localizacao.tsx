@@ -8,132 +8,58 @@ const rotaLink = `https://www.google.com/maps/dir/?api=1&destination=${encodeURI
 
 export function Localizacao() {
   return (
-    <section
-      id="localizacao"
-      aria-labelledby="localizacao-titulo"
-      className="bg-white pt-10 lg:pt-14"
-    >
+    <section id="localizacao" aria-labelledby="localizacao-titulo" className="bg-white pt-10 lg:pt-14">
       <div className="container-espp">
-        <PageHeader
-          href="/localizacao"
-          id="localizacao-titulo"
-          eyebrow={localizacao.eyebrow}
-          titulo={localizacao.titulo}
-          texto={localizacao.texto}
-        />
+        <PageHeader href="/localizacao" id="localizacao-titulo" eyebrow={localizacao.eyebrow} titulo={localizacao.titulo} texto={localizacao.texto} />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <MapEmbed
-              query={localizacao.mapaQuery}
-              title={`Mapa da localização da Escola Superior de Polícia Penal — ${localizacao.endereco.completo}`}
-            />
+            <MapEmbed query={localizacao.mapaQuery} title={`Mapa da localização da Escola Superior de Polícia Penal — ${localizacao.endereco.completo}`} />
             <div className="mt-4 flex flex-wrap gap-3">
-              <a
-                href={mapsLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-md border border-ink-300 px-5 py-2.5 text-xs font-bold tracking-wider text-ink-900 uppercase transition-colors hover:border-gold-500 hover:text-gold-600"
-              >
-                <MapPin className="size-4" aria-hidden="true" />
-                Abrir no Google Maps
+              <a href={mapsLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-md border border-ink-300 px-5 py-2.5 text-xs font-bold tracking-wider text-ink-900 uppercase transition-colors hover:border-gold-500 hover:text-gold-600">
+                <MapPin className="size-4" aria-hidden="true" /> Abrir no Google Maps
               </a>
-              <a
-                href={rotaLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-md bg-gold-500 px-5 py-2.5 text-xs font-bold tracking-wider text-ink-950 uppercase transition-colors hover:bg-gold-400"
-              >
-                <Navigation className="size-4" aria-hidden="true" />
-                Traçar rota
+              <a href={rotaLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-md bg-gold-500 px-5 py-2.5 text-xs font-bold tracking-wider text-ink-950 uppercase transition-colors hover:bg-gold-400">
+                <Navigation className="size-4" aria-hidden="true" /> Traçar rota
               </a>
             </div>
           </div>
 
           <div className="lg:col-span-5">
             <div className="rounded-lg border border-ink-200 bg-white p-7 shadow-sm">
-              <h3 className="title-display flex items-center gap-2.5 text-xl text-ink-900">
-                <MapPin className="size-5 text-gold-600" aria-hidden="true" />
-                Sede da Escola
-              </h3>
-              <address className="mt-4 text-base leading-relaxed text-ink-800 not-italic">
-                {localizacao.endereco.logradouro}
-                <br />
-                {localizacao.endereco.bairro} — {localizacao.endereco.cidade}/
-                {localizacao.endereco.uf}
-              </address>
-
-              <p className="mt-5 flex items-center gap-2 text-sm text-ink-500">
-                <Clock className="size-4 shrink-0" aria-hidden="true" />
-                {localizacao.horario}
-              </p>
-
+              <h3 className="title-display flex items-center gap-2.5 text-xl text-ink-900"><MapPin className="size-5 text-gold-600" aria-hidden="true" />Sede da Escola</h3>
+              <address className="mt-4 text-base leading-relaxed text-ink-800 not-italic">{localizacao.endereco.logradouro}<br />{localizacao.endereco.bairro} — {localizacao.endereco.cidade}/{localizacao.endereco.uf}</address>
+              <p className="mt-5 flex items-center gap-2 text-sm text-ink-500"><Clock className="size-4 shrink-0" aria-hidden="true" />{localizacao.horario}</p>
               <dl className="mt-6 divide-y divide-ink-200 border-t border-ink-200">
                 {localizacao.contatos.map((c) => (
-                  <div
-                    key={`${c.label}-${c.valor}`}
-                    className="flex items-center justify-between gap-4 py-3"
-                  >
-                    <dt className="text-xs font-semibold tracking-[0.14em] text-ink-500 uppercase">
-                      {c.label}
-                    </dt>
-                    <dd>
-                      <a
-                        href={c.href}
-                        className="text-sm font-medium text-ink-800 transition-colors hover:text-gold-600"
-                      >
-                        {c.valor}
-                      </a>
-                    </dd>
+                  <div key={`${c.label}-${c.valor}`} className="flex items-center justify-between gap-4 py-3">
+                    <dt className="text-xs font-semibold tracking-[0.14em] text-ink-500 uppercase">{c.label}</dt>
+                    <dd><a href={c.href} className="text-sm font-medium text-ink-800 transition-colors hover:text-gold-600">{c.valor}</a></dd>
                   </div>
                 ))}
               </dl>
             </div>
-
           </div>
         </div>
       </div>
 
       <div className="localizacao-faixa-degrade mt-4 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-16 text-white lg:mt-6 lg:py-20">
         <div className="container-espp">
-          <div className="grid gap-10 md:grid-cols-3 md:gap-10">
-            <div>
-              <h2 className="title-display flex items-center gap-3 text-xl !text-white">
-                <MapPin className="size-5 shrink-0 text-[#f5c400]" aria-hidden="true" />
-                Localização e acesso
-              </h2>
-              <p className="mt-4 text-sm leading-relaxed text-white/80">
-                Consulte o mapa acima ou utilize os atalhos para abrir a localização e traçar sua rota até a Escola Superior de Polícia Penal.
-              </p>
+          <div className="grid gap-5 md:grid-cols-3 lg:gap-6">
+            <div className="flex h-full flex-col rounded-2xl border border-white/20 bg-white/[0.08] px-6 py-7 text-white shadow-[0_18px_50px_rgba(0,0,0,.16)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.12]">
+              <h2 className="title-display flex items-center gap-3 text-xl !text-white"><MapPin className="size-6 shrink-0 text-[#f5c400]" aria-hidden="true" />Localização e acesso</h2>
+              <p className="mt-4 grow text-sm leading-7 !text-white/80">Consulte o mapa acima ou utilize os atalhos para abrir a localização e traçar sua rota até a Escola Superior de Polícia Penal.</p>
             </div>
 
-            <div>
-              <h3 className="title-display flex items-center gap-3 text-xl !text-white">
-                <Clock className="size-5 shrink-0 text-[#f5c400]" aria-hidden="true" />
-                Atendimento
-              </h3>
-              <p className="mt-4 text-sm leading-relaxed text-white/80">
-                {localizacao.horario}
-              </p>
+            <div className="flex h-full flex-col rounded-2xl border border-white/20 bg-white/[0.08] px-6 py-7 text-white shadow-[0_18px_50px_rgba(0,0,0,.16)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.12]">
+              <h3 className="title-display flex items-center gap-3 text-xl !text-white"><Clock className="size-6 shrink-0 text-[#f5c400]" aria-hidden="true" />Atendimento</h3>
+              <p className="mt-4 grow text-sm leading-7 !text-white/80">{localizacao.horario}</p>
             </div>
 
-            <div>
-              <h3 className="title-display flex items-center gap-3 text-xl !text-white">
-                <Building2 className="size-5 shrink-0 text-[#f5c400]" aria-hidden="true" />
-                {localizacao.sedeDgpp.titulo}
-              </h3>
-              <address className="mt-4 text-sm leading-relaxed text-white/80 not-italic">
-                {localizacao.sedeDgpp.endereco}
-              </address>
-              <p className="mt-3 text-sm leading-relaxed text-white/80">
-                <a href="tel:+556232708711" className="text-white transition-colors hover:text-[#f5c400]">
-                  {localizacao.sedeDgpp.telefone}
-                </a>
-                {" · "}
-                <a href={`mailto:${localizacao.sedeDgpp.email}`} className="break-all text-white transition-colors hover:text-[#f5c400]">
-                  {localizacao.sedeDgpp.email}
-                </a>
-              </p>
+            <div className="flex h-full flex-col rounded-2xl border border-white/20 bg-white/[0.08] px-6 py-7 text-white shadow-[0_18px_50px_rgba(0,0,0,.16)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.12]">
+              <h3 className="title-display flex items-center gap-3 text-xl !text-white"><Building2 className="size-6 shrink-0 text-[#f5c400]" aria-hidden="true" />{localizacao.sedeDgpp.titulo}</h3>
+              <address className="mt-4 text-sm leading-7 !text-white/80 not-italic">{localizacao.sedeDgpp.endereco}</address>
+              <p className="mt-3 text-sm leading-7 !text-white/80"><a href="tel:+556232708711" className="text-white transition-colors hover:text-[#f5c400]">{localizacao.sedeDgpp.telefone}</a>{" · "}<a href={`mailto:${localizacao.sedeDgpp.email}`} className="break-all text-white transition-colors hover:text-[#f5c400]">{localizacao.sedeDgpp.email}</a></p>
             </div>
           </div>
         </div>
