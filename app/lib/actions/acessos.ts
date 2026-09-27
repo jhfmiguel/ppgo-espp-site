@@ -1,0 +1,8 @@
+"use server";
+import { revalidatePath } from "next/cache";
+import { exigirPermissao } from "@/lib/auth/dal";
+const API_URL=(process.env.ESPP_API_URL??"http://localhost:8081").replace(/\/$/,"");
+function auth(){const u=process.env.ESPP_API_ADMIN_USER?.trim(),p=process.env.ESPP_API_ADMIN_PASSWORD;if(!u||!p)throw new Error("Credenciais administrativas da API ESPP não configuradas.");return `Basic ${Buffer.from(`${u}:${p}`).toString("base64")}`}
+async function enviar(caminho:string,method:string,body?:unknown){const operador=await exigirPermissao("acessos");const r=await fetch(`${API_URL}${caminho}`,{method,cache:"no-store",headers:{Authorization:auth(),"Content-Type":"application/json","X-ESPP-Usuario":operador.email},body:body===undefined?undefined:JSON.stringify(body)});if(!r.ok){let msg="Não foi possível concluir a operação.";try{const e=await r.json();msg=e.detail||e.message||msg}catch{}throw new Error(msg)}revalidatePath("/admin/acessos")}
+export async function salvarAcesso(form:FormData){const id=String(form.get("id")||"").trim();const payload={identificadorInstitucional:String(form.get("identificadorInstitucional")||"").trim(),nome:String(form.get("nome")||"").trim()||null,perfil:String(form.get("perfil")||"COMUNICACAO"),ativo:String(form.get("ativo")||"true")==="true"};if(!payload.identificadorInstitucional)throw new Error("Informe o identificador institucional.");await enviar(`/api/v1/admin/usuarios-autorizados${id?`/${encodeURIComponent(id)}`:""}`,id?"PUT":"POST",payload)}
+export async function revogarAcesso(form:FormData){const id=String(form.get("id")||"").trim();if(!id)throw new Error("Usuário inválido.");await enviar(`/api/v1/admin/usuarios-autorizados/${encodeURIComponent(id)}`,"DELETE")}
