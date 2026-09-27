@@ -1,16 +1,15 @@
-import { nav } from "@/content/site";
+import { navPublica } from "@/content/navigation";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 type Trilha = { label: string; href?: string };
 
 /**
- * Deriva a trilha de navegação a partir de `nav`, para que a hierarquia do
- * menu seja a única fonte da verdade. Grupos de menu (ex.: "A ESPP") não têm
- * página própria e entram na trilha sem link.
+ * Deriva a trilha de navegação da fonte única da navegação pública.
+ * Grupos de menu (ex.: "A ESPP") não têm página própria e entram na trilha sem link.
  */
 export function trilhaDe(href: string): Trilha[] {
-  for (const item of nav) {
+  for (const item of navPublica) {
     if ("submenu" in item) {
       for (const sub of item.submenu) {
         if ("href" in sub && sub.href === href) {
@@ -25,13 +24,11 @@ export function trilhaDe(href: string): Trilha[] {
 }
 
 type Props = {
-  /** Rota da página, usada para derivar a trilha. */
   href: string;
   eyebrow: string;
   titulo: string;
   texto?: string;
   id?: string;
-  /** Para páginas fora do menu principal (ex.: FORTIS, Acessibilidade). */
   trilha?: Trilha[];
 };
 
