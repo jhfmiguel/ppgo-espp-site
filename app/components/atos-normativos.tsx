@@ -52,9 +52,9 @@ export function AtosNormativos({ atos }: { atos: AtoNormativo[] }) {
     <section
       id="atos-normativos"
       aria-labelledby="atos-normativos-titulo"
-      className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="bg-white pt-10 lg:pt-14"
     >
-      <div className="container-espp">
+      <div className="container-espp pb-12 lg:pb-14">
         <PageHeader
           href="/atos-normativos"
           id="atos-normativos-titulo"
@@ -181,14 +181,18 @@ export function AtosNormativos({ atos }: { atos: AtoNormativo[] }) {
             Nenhum ato normativo encontrado para os filtros selecionados.
           </p>
         )}
+      </div>
 
-        <div className="mt-12 flex flex-col gap-4 rounded-lg border border-ink-200 bg-ink-050 p-7 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-ink-700">
-            Esta linha do tempo traz uma seleção de exemplo. A relação completa e atualizada dos atos normativos está disponível no Diário Oficial e no portal da Polícia Penal de Goiás.
-          </p>
-          <ActionLink href={atosNormativos.fonteHref} variant="ghost" external className="shrink-0 text-xs">
-            Portal de atos normativos
-          </ActionLink>
+      <div className="w-full bg-gradient-to-br from-[#071d33] via-[#0b3157] to-[#124b78] px-4 py-10 md:px-6 md:py-12 lg:py-14">
+        <div className="container-espp">
+          <div className="flex flex-col gap-4 rounded-2xl border border-white/20 bg-white/[0.08] p-7 shadow-[0_18px_50px_rgba(0,0,0,.16)] backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between md:px-8 md:py-7">
+            <p className="text-sm leading-relaxed text-white/90">
+              Esta linha do tempo traz uma seleção de exemplo. A relação completa e atualizada dos atos normativos está disponível no Diário Oficial e no portal da Polícia Penal de Goiás.
+            </p>
+            <ActionLink href={atosNormativos.fonteHref} variant="ghost" external className="shrink-0 text-xs text-[#f2c400] hover:text-white">
+              Portal de atos normativos
+            </ActionLink>
+          </div>
         </div>
       </div>
     </section>
