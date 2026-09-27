@@ -27,8 +27,8 @@ export function Estrutura() {
           <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
             <dl className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:col-span-7">
               {estrutura.itens.map((item) => (
-                <div key={item.label} className="group flex h-full flex-col rounded-2xl border border-white/15 bg-transparent px-6 py-7 text-white transition-all duration-300 hover:-translate-y-1 hover:border-[#f5c400]/70">
-                  <span className="inline-flex w-fit items-center justify-center text-[#f5c400] transition-transform duration-300 group-hover:scale-110">
+                <div key={item.label} className="flex h-full flex-col rounded-2xl border border-white/20 bg-transparent px-6 py-7 text-white">
+                  <span className="inline-flex w-fit items-center justify-center text-[#f5c400]">
                     <Icon name={item.icone} className="size-7 fill-none stroke-current" />
                   </span>
                   <dt className="mt-5 flex items-baseline gap-2">
