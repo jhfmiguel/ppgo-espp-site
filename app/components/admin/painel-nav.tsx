@@ -10,7 +10,7 @@ const ITENS:{href:string;rotulo:string;Icone:typeof LayoutDashboard;recurso?:Rec
  {href:"/admin/mensagens",rotulo:"Mensagens",Icone:Mail,recurso:"mensagens"},
  {href:"/admin/newsletter",rotulo:"Newsletter",Icone:UsersRound,recurso:"newsletter"},
  {href:"/admin/atos-normativos",rotulo:"Atos normativos",Icone:FileText,recurso:"atosNormativos"},
- {href:"/admin/controle-alteracoes",rotulo:"Auditoria",Icone:FileClock,recurso:"auditoria"},
+ {href:"/admin/auditoria",rotulo:"Auditoria",Icone:FileClock,recurso:"auditoria"},
  {href:"/admin/configuracoes",rotulo:"Configurações",Icone:Settings,recurso:"configuracoes"},
  {href:"/acessos",rotulo:"Acessos",Icone:ShieldCheck,externoPainel:true},
 ];
