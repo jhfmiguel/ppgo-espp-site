@@ -42,6 +42,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
         return path.startsWith("/api/v1/public/")
+                || path.startsWith("/api/v1/identidade-visual/")
                 || "/actuator/health".equals(path)
                 || "/error".equals(path)
                 || "OPTIONS".equalsIgnoreCase(request.getMethod());
