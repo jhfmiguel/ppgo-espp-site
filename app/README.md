@@ -1,63 +1,52 @@
 # ESPP — Site institucional
 
-Landing page institucional da **Escola Superior de Polícia Penal (ESPP)** da Polícia Penal de Goiás,
-com seção dedicada ao **FORTIS**, a plataforma de ensino e gestão escolar em desenvolvimento.
+Site institucional e painel administrativo da **Escola Superior de Polícia Penal (ESPP)** da Polícia Penal do Estado de Goiás.
 
 ## Stack
 
 - Next.js 16 (App Router) + React 19 + TypeScript
 - Tailwind CSS v4
-- lucide-react (ícones)
-- Google Maps em modo embed público (não exige chave de API)
+- lucide-react
+- API Spring Boot + Oracle
+- Google Maps embed público
 
-## Rodar localmente
+## Rodar o frontend
 
 ```bash
-npm install
-npm run dev     # http://localhost:3000
-npm run build   # build de produção
-npm start       # servir o build
+yarn install
+yarn dev        # http://localhost:3001
+yarn typecheck
+yarn build
+yarn check      # typecheck + build
+yarn start      # http://localhost:3001
 ```
 
-## Onde editar o conteúdo
+## Configuração
 
-Todo o texto, números, contatos e links da página ficam em **`content/site.ts`**.
-Editar esse arquivo é suficiente para atualizar o site — os componentes só consomem esses dados.
+Copie `.env.example` para o ambiente apropriado. Nunca versione segredos reais.
 
-Marcações no arquivo:
+O painel usa `ESPP_SESSION_SECRET` para a sessão e está preparado para autenticação institucional SSP-GO. Em produção, mantenha `ESPP_AUTH_MODE=ssp`. O modo `local` é exclusivamente técnico para desenvolvimento/homologação e exige `ESPP_TEST_ADMIN_USER` e `ESPP_TEST_ADMIN_PASSWORD`.
 
-- `// VALIDAR` — conteúdo redigido como rascunho, pendente de aprovação da Escola
-  (missão, visão, valores, horário de atendimento e o domínio em `site.url`).
-- `// FONTE` — dado extraído de fonte pública oficial.
+A integração SSP aguarda o contrato oficial (authorization/token endpoints, client ID/secret ou PKCE, scopes, claims/perfis e logout). O fluxo, callback, state anti-CSRF, sessão, autorização e logout já estão preparados.
 
-## Estrutura
+## Navegação pública
 
+A Central de **Acessos** (`/acessos`) concentra Portal do Aluno e Painel Administrativo. No mobile, os três atalhos persistentes são **Ensino**, **Portal do Aluno** e **Normas e Regulamentos**. Contato reúne canais da Escola, Ouvidoria e mapa/localização.
+
+## Conteúdo
+
+O conteúdo institucional permanece em `content/site.ts`. A navegação pública consolidada está em `content/navigation.ts`. Marcações `VALIDAR` indicam conteúdo que ainda precisa de aprovação institucional; `FONTE` identifica dados provenientes de fonte oficial.
+
+## Qualidade e release
+
+Antes de publicar:
+
+```bash
+yarn check
 ```
-app/
-  layout.tsx      metadata, fontes, JSON-LD (EducationalOrganization + geo)
-  page.tsx        composição das seções
-  globals.css     tokens do tema institucional (grafite / amarelo / verde)
-  sitemap.ts, robots.ts, icon.png
-components/       uma seção por arquivo
-content/site.ts   fonte única de conteúdo
-public/images/    brasão e fotos institucionais
-```
 
-## Deploy na Vercel
+Também valide desktop/mobile, navegação por teclado, links externos, formulários, estados de loading/erro/vazio e os perfis Administrador/Comunicação. O diretório `/admin` não deve ser indexado.
 
-O projeto é estático (SSG) e **não exige variáveis de ambiente**.
+## Backend
 
-1. `git init && git add . && git commit -m "site institucional ESPP"` e publicar o repositório.
-2. Na Vercel: *Add New → Project* → importar o repositório. O framework é detectado
-   automaticamente (Next.js); build `next build`, sem configuração extra.
-3. Após o primeiro deploy, ajustar `site.url` em `content/site.ts` para o domínio definitivo
-   (usado em metadata, Open Graph, `sitemap.xml` e `robots.txt`).
-
-## Pendências conhecidas
-
-- **Formulários sem backend**: tanto o "avise-me" do FORTIS quanto o formulário de contato
-  apenas confirmam visualmente e orientam o envio por e-mail. Para ativar, plugar uma Server
-  Action (ex.: Resend para e-mail, ou gravação em banco).
-- **Notícias** não foram incluídas: o portal do Governo de Goiás está com a divulgação de
-  notícias suspensa por período eleitoral, sem fonte estável para popular a seção.
-- **Conteúdo institucional** marcado com `// VALIDAR` precisa de aprovação antes da publicação.
+O frontend usa `ESPP_API_URL` (padrão local `http://localhost:8081`). Banco, credenciais administrativas da API e URL do frontend são configurados pelas variáveis documentadas em `.env.example`.
