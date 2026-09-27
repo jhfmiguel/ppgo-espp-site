@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: ppgo-espp-api
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.security.autoconfigure.UserDetailsServiceAutoConfiguration
   datasource:
     url: ${ESPP_DB_URL:jdbc:oracle:thin:@//localhost:1521/FREEPDB1}
     username: ${ESPP_DB_USERNAME:ESPP}
@@ -13,6 +16,10 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          fetch_size: ${ESPP_JDBC_FETCH_SIZE:50}
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
   servlet:
