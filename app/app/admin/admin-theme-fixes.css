@@ -1,70 +1,54 @@
-/* Ajustes isolados dos temas do painel administrativo. */
+/* Temas do painel administrativo ESPP: superfícies, formulários, tabelas, menus e avatar. */
+:root[data-admin-theme="light"] .admin-panel,:root[data-admin-theme="light"] .admin-panel main{background:#f6f7f9!important;color:var(--color-ink-800)!important}
+:root[data-admin-theme="light"] .admin-panel main .bg-white{background:#fff!important}
+:root[data-admin-theme="light"] .admin-panel main :is(input,select,textarea){background:#fff!important;color:var(--color-ink-900)!important}
 
-/* Misto: menu escuro e toda a área de trabalho clara. */
-:root[data-admin-theme="mixed"] .admin-panel main {
-  background: #f6f7f9 !important;
-  color: var(--color-ink-800) !important;
-}
-:root[data-admin-theme="mixed"] .admin-panel main .bg-white { background: #fff !important; }
-:root[data-admin-theme="mixed"] .admin-panel main .bg-ink-050 { background: var(--color-ink-050) !important; }
-:root[data-admin-theme="mixed"] .admin-panel main .bg-ink-100 { background: var(--color-ink-100) !important; }
-:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-900,.text-ink-950) { color: var(--color-ink-900) !important; }
-:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-800,.text-ink-700) { color: var(--color-ink-800) !important; }
-:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-600,.text-ink-500) { color: var(--color-ink-500) !important; }
-:root[data-admin-theme="mixed"] .admin-panel main :is(.border-ink-100,.border-ink-200,.border-ink-300) { border-color: var(--color-ink-200) !important; }
-:root[data-admin-theme="mixed"] .admin-panel main :is(input,select,textarea) { background:#fff !important; border-color:var(--color-ink-200) !important; color:var(--color-ink-900) !important; }
-:root[data-admin-theme="mixed"] .admin-panel .admin-sidebar { background:var(--color-ink-950) !important; color:var(--color-ink-100) !important; }
+/* Misto = navegação escura + área de trabalho clara. */
+:root[data-admin-theme="mixed"] .admin-panel main{background:#f6f7f9!important;color:var(--color-ink-800)!important}
+:root[data-admin-theme="mixed"] .admin-panel main .bg-white{background:#fff!important}
+:root[data-admin-theme="mixed"] .admin-panel main .bg-ink-050{background:var(--color-ink-050)!important}
+:root[data-admin-theme="mixed"] .admin-panel main .bg-ink-100{background:var(--color-ink-100)!important}
+:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-900,.text-ink-950){color:var(--color-ink-900)!important}
+:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-800,.text-ink-700){color:var(--color-ink-800)!important}
+:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-600,.text-ink-500){color:var(--color-ink-500)!important}
+:root[data-admin-theme="mixed"] .admin-panel main :is(.border-ink-100,.border-ink-200,.border-ink-300){border-color:var(--color-ink-200)!important}
+:root[data-admin-theme="mixed"] .admin-panel main :is(input,select,textarea){background:#fff!important;border-color:var(--color-ink-200)!important;color:var(--color-ink-900)!important}
+:root[data-admin-theme="mixed"] .admin-panel .admin-sidebar{background:var(--color-ink-950)!important;color:var(--color-ink-100)!important}
 
-/* Escuro: mantém contraste sem deixar o main quase preto. */
-:root[data-admin-theme="dark"] .admin-panel,
-:root[data-admin-theme="dark"] .admin-panel main { background:#161c25 !important; color:var(--color-ink-200); }
-:root[data-admin-theme="dark"] .admin-panel main .bg-ink-050,
-:root[data-admin-theme="dark"] .admin-panel main .bg-ink-100 { background:#161c25 !important; }
-:root[data-admin-theme="dark"] .admin-panel main .bg-white { background:#1f2733 !important; }
-:root[data-admin-theme="dark"] .admin-panel main :is(input,select,textarea) { background:#252e3a !important; }
+/* Escuro: todas as superfícies acompanham o tema. */
+:root[data-admin-theme="dark"] .admin-panel,:root[data-admin-theme="dark"] .admin-panel main{background:#161c25!important;color:#e5eaf0!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(.bg-ink-050,.bg-ink-100){background:#161c25!important}
+:root[data-admin-theme="dark"] .admin-panel main .bg-white,:root[data-admin-theme="dark"] .admin-panel main .admin-form-surface{background:#1f2733!important;border-color:#364152!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(.text-ink-950,.text-ink-900,.text-ink-800,.text-ink-700){color:#f4f7fa!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(.text-ink-600,.text-ink-500,.text-ink-400){color:#aeb9c7!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(.border-ink-100,.border-ink-200,.border-ink-300,.divide-ink-100){border-color:#364152!important}
+:root[data-admin-theme="dark"] .admin-panel main :is(input,select,textarea){background:#252e3a!important;border-color:#465264!important;color:#f8fafc!important;color-scheme:dark}
+:root[data-admin-theme="dark"] .admin-panel main :is(input,textarea)::placeholder{color:#8795a8!important}
+:root[data-admin-theme="dark"] .admin-panel main option{background:#252e3a;color:#f8fafc}
+:root[data-admin-theme="dark"] .admin-panel main thead{background:#252e3a!important;color:#c8d1dc!important}
+:root[data-admin-theme="dark"] .admin-panel main tbody tr:hover{background:rgba(255,255,255,.025)}
+:root[data-admin-theme="dark"] .admin-panel main pre{background:#161c25!important;color:#dce3eb!important;border:1px solid #364152}
+:root[data-admin-theme="dark"] .admin-panel main details summary{color:#f5c400!important}
 
-/* A barra superior que contém o avatar também acompanha o modo escuro. */
-:root[data-admin-theme="dark"] .admin-panel .admin-topbar {
-  background: rgba(31, 39, 51, 0.96) !important;
-  border-color: #364152 !important;
-  color: var(--color-ink-100) !important;
-}
-:root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-trigger {
-  background: #252e3a !important;
-  border-color: #465264 !important;
-  color: var(--color-ink-100) !important;
-}
-:root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-trigger:hover {
-  background: #2d3745 !important;
-}
-:root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-avatar {
-  background: #161c25 !important;
-  border-color: #526075 !important;
-  color: var(--color-ink-100) !important;
-}
+/* Barra superior/avatar. */
+:root[data-admin-theme="dark"] .admin-panel .admin-topbar{background:rgba(31,39,51,.97)!important;border-color:#364152!important;color:#f4f7fa!important}
+:root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-trigger{background:#252e3a!important;border-color:#465264!important;color:#f4f7fa!important}
+:root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-avatar{background:#161c25!important;border-color:#526075!important;color:#f4f7fa!important}
 
-/* Desktop: o avatar deixa evidente que abre um menu. */
-@media (min-width: 1024px) {
-  .admin-topbar .admin-user-trigger {
-    cursor: pointer;
-    transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
-  }
-  .admin-topbar .admin-user-trigger:hover {
-    background: var(--color-ink-050);
-    border-color: var(--color-ink-300);
-    box-shadow: 0 5px 16px rgba(15, 23, 42, 0.12);
-    transform: translateY(-1px);
-  }
-  .admin-topbar .admin-user-trigger:hover .admin-user-avatar {
-    border-color: var(--color-ink-400);
-  }
-  :root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-trigger:hover {
-    background: #323d4c !important;
-    border-color: #66758b !important;
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.28);
-  }
-  :root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-trigger:hover .admin-user-avatar {
-    background: #202936 !important;
-    border-color: #7b8ba3 !important;
-  }
-}
+/* Menu do avatar: claro no claro/misto e integralmente escuro no dark. */
+.admin-user-menu-popover{background:#fff;border-color:var(--color-ink-200);color:var(--color-ink-900)}
+.admin-user-menu-heading,.admin-user-menu-divider{border-color:var(--color-ink-200)}
+.admin-user-menu-item,.admin-user-menu-icon,.admin-user-menu-theme{transition:background-color 160ms ease,border-color 160ms ease,color 160ms ease}
+.admin-user-menu-item:hover,.admin-user-menu-icon:hover{background:var(--color-ink-050)}
+:root[data-admin-theme="dark"] .admin-user-menu-popover{background:#1f2733!important;border-color:#465264!important;color:#f4f7fa!important}
+:root[data-admin-theme="dark"] .admin-user-menu-heading,:root[data-admin-theme="dark"] .admin-user-menu-divider{border-color:#364152!important}
+:root[data-admin-theme="dark"] :is(.admin-user-menu-name,.admin-user-menu-kicker,.admin-user-menu-section){color:#f4f7fa!important}
+:root[data-admin-theme="dark"] .admin-user-menu-meta{color:#aeb9c7!important}
+:root[data-admin-theme="dark"] :is(.admin-user-menu-item,.admin-user-menu-icon){color:#e5eaf0!important}
+:root[data-admin-theme="dark"] :is(.admin-user-menu-item,.admin-user-menu-icon):hover{background:#2d3745!important;color:#fff!important}
+:root[data-admin-theme="dark"] .admin-user-menu-theme{background:#252e3a!important;border-color:#465264!important;color:#dce3eb!important}
+:root[data-admin-theme="dark"] .admin-user-menu-theme[aria-pressed="true"]{border-color:#f5c400!important;color:#f5c400!important;background:rgba(245,196,0,.08)!important}
+:root[data-admin-theme="dark"] .admin-user-menu-logout{color:#fca5a5!important}
+:root[data-admin-theme="dark"] .admin-user-menu-logout:hover{background:rgba(239,68,68,.12)!important}
+
+@media (min-width:1024px){.admin-topbar .admin-user-trigger{cursor:pointer;transition:background-color 160ms ease,border-color 160ms ease,box-shadow 160ms ease,transform 160ms ease}.admin-topbar .admin-user-trigger:hover{background:var(--color-ink-050);border-color:var(--color-ink-300);box-shadow:0 5px 16px rgba(15,23,42,.12);transform:translateY(-1px)}.admin-topbar .admin-user-trigger:hover .admin-user-avatar{border-color:var(--color-ink-400)}:root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-trigger:hover{background:#323d4c!important;border-color:#66758b!important;box-shadow:0 5px 18px rgba(0,0,0,.28)}:root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-trigger:hover .admin-user-avatar{background:#202936!important;border-color:#7b8ba3!important}}
