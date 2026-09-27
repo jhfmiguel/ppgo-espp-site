@@ -8,8 +8,8 @@ const total = documentos.categorias.reduce((soma, cat) => soma + cat.itens.lengt
 
 export function Documentos() {
   return (
-    <section id="documentos" aria-labelledby="documentos-titulo" className="bg-white pt-10 pb-24 lg:pt-14 lg:pb-32">
-      <div className="container-espp">
+    <section id="documentos" aria-labelledby="documentos-titulo" className="bg-white pt-10 lg:pt-14">
+      <div className="container-espp pb-16 lg:pb-20">
         <PageHeader href="/documentos" id="documentos-titulo" eyebrow={documentos.eyebrow} titulo={documentos.titulo} texto={documentos.texto} />
         <p className="mt-6 flex items-center gap-2 text-xs font-semibold tracking-wider text-ink-500 uppercase"><FileText className="size-4 text-gold-600" aria-hidden="true" />{total} documentos publicados</p>
         <div className="mt-14 space-y-16">
@@ -29,7 +29,14 @@ export function Documentos() {
             </div>
           ))}
         </div>
-        <p className="mt-16 rounded-2xl border border-[#0b3157]/15 bg-transparent p-7 text-sm leading-relaxed text-ink-700">{documentos.aviso}</p>
+      </div>
+
+      <div className="w-full bg-gradient-to-br from-[#071d33] via-[#0b3157] to-[#124b78] px-4 py-10 md:px-6 md:py-12 lg:py-14">
+        <div className="container-espp">
+          <div className="rounded-2xl border border-white/20 bg-white/[0.08] p-7 shadow-[0_18px_50px_rgba(0,0,0,.16)] backdrop-blur-sm md:px-8 md:py-7">
+            <p className="text-sm leading-relaxed text-white/90">{documentos.aviso}</p>
+          </div>
+        </div>
       </div>
     </section>
   );
