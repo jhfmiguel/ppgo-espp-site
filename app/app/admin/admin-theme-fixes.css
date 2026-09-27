@@ -42,3 +42,29 @@
   border-color: #526075 !important;
   color: var(--color-ink-100) !important;
 }
+
+/* Desktop: o avatar deixa evidente que abre um menu. */
+@media (min-width: 1024px) {
+  .admin-topbar .admin-user-trigger {
+    cursor: pointer;
+    transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  }
+  .admin-topbar .admin-user-trigger:hover {
+    background: var(--color-ink-050);
+    border-color: var(--color-ink-300);
+    box-shadow: 0 5px 16px rgba(15, 23, 42, 0.12);
+    transform: translateY(-1px);
+  }
+  .admin-topbar .admin-user-trigger:hover .admin-user-avatar {
+    border-color: var(--color-ink-400);
+  }
+  :root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-trigger:hover {
+    background: #323d4c !important;
+    border-color: #66758b !important;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.28);
+  }
+  :root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-trigger:hover .admin-user-avatar {
+    background: #202936 !important;
+    border-color: #7b8ba3 !important;
+  }
+}
