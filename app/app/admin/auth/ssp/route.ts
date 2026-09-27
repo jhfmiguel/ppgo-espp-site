@@ -1,22 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-
-import { urlLoginSsp } from "@/lib/auth/ssp";
-
-function destinoSeguro(valor: string | null) {
-  if (!valor || !valor.startsWith("/admin") || valor.startsWith("//")) return "/admin";
-  return valor === "/admin/login" ? "/admin" : valor;
-}
+import { COOKIE_SSP_NEXT, COOKIE_SSP_STATE, criarStateSsp, destinoAdminSeguro, urlLoginSsp } from "@/lib/auth/ssp";
 
 export async function GET(request: NextRequest) {
-  const proximo = destinoSeguro(request.nextUrl.searchParams.get("proximo"));
-  const destino = urlLoginSsp(proximo);
-
-  if (!destino) {
-    const login = new URL("/admin/login", request.url);
-    login.searchParams.set("ssp", "indisponivel");
-    if (proximo !== "/admin") login.searchParams.set("proximo", proximo);
+  const proximo=destinoAdminSeguro(request.nextUrl.searchParams.get("proximo"));
+  const state=criarStateSsp();
+  const destino=urlLoginSsp(state);
+  if(!destino){
+    const login=new URL("/admin/login",request.url); login.searchParams.set("ssp","indisponivel");
+    if(proximo!=="/admin") login.searchParams.set("proximo",proximo);
     return NextResponse.redirect(login);
   }
-
-  return NextResponse.redirect(destino);
+  const response=NextResponse.redirect(destino);
+  const options={httpOnly:true,secure:process.env.NODE_ENV==="production",sameSite:"lax" as const,path:"/admin/auth/ssp",maxAge:600};
+  response.cookies.set(COOKIE_SSP_STATE,state,options);
+  response.cookies.set(COOKIE_SSP_NEXT,proximo,options);
+  return response;
 }
