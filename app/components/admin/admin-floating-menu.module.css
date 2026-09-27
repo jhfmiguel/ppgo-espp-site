@@ -1,0 +1,18 @@
+.menu { background:#07090c; border-color:#1f2733; color:#e7eaef; }
+.header { border-color:#161c25; }
+.muted { color:#7c8797; }
+.item { color:#b7c0cc; }
+.item:hover { background:#161c25; color:#fff; }
+.active { background:#161c25; color:#ffd426; }
+.themeButton { background:#10151c; border-color:#1f2733; color:#b7c0cc; }
+.themeButton:hover { background:#161c25; color:#fff; }
+.themeButtonActive { background:#1f2733; border-color:#f5c400; color:#ffd426; }
+:global(html[data-admin-theme="light"]) .menu { background:#f8fafc; border-color:#c9d0da; color:#1f2733; box-shadow:0 18px 45px rgb(15 23 42 / .16); }
+:global(html[data-admin-theme="light"]) .header { border-color:#dfe4ea; }
+:global(html[data-admin-theme="light"]) .muted { color:#55606d; }
+:global(html[data-admin-theme="light"]) .item { color:#2c3542; }
+:global(html[data-admin-theme="light"]) .item:hover { background:#e7eaef; color:#0b0f14; }
+:global(html[data-admin-theme="light"]) .active { background:#fff3bf; color:#5f4a00; }
+:global(html[data-admin-theme="light"]) .themeButton { background:#fff; border-color:#c9d0da; color:#2c3542; }
+:global(html[data-admin-theme="light"]) .themeButton:hover { background:#e7eaef; color:#0b0f14; }
+:global(html[data-admin-theme="light"]) .themeButtonActive { background:#fff3bf; border-color:#d3a800; color:#5f4a00; }
