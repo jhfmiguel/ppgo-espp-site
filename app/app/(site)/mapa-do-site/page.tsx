@@ -11,24 +11,31 @@ export const metadata: Metadata = {
 type PaginaLink = { label: string; href: string };
 
 /**
- * O painel administrativo está no menu (A ESPP › Acesso Restrito), mas não é
- * página pública: fica fora do mapa do site, como já está fora do sitemap.xml
- * e bloqueado no robots.txt.
+ * A Central de Acessos é pública e concentra os pontos de entrada para os
+ * serviços autenticados. O painel administrativo continua fora do mapa,
+ * do sitemap.xml e protegido contra indexação.
  */
 const ehPublica = (href: string) => !href.startsWith("/admin");
 
-const paginas: PaginaLink[] = [
+const paginasBase: PaginaLink[] = [
   ...nav.flatMap((item): PaginaLink[] =>
     "submenu" in item
       ? item.submenu.flatMap((sub): PaginaLink[] =>
           "href" in sub && !("external" in sub && sub.external) ? [{ label: sub.label, href: sub.href }] : [],
         )
-      : [{ label: item.label, href: item.href }],
+      : "external" in item && item.external
+        ? []
+        : [{ label: item.label, href: item.href }],
   ),
+  { label: "Acessos", href: "/acessos" },
   { label: "FORTIS", href: "/fortis" },
   { label: "Acessibilidade", href: "/acessibilidade" },
   { label: "Mapa do site", href: "/mapa-do-site" },
 ].filter((pagina) => ehPublica(pagina.href));
+
+const paginas = paginasBase.filter(
+  (pagina, indice, todas) => todas.findIndex((item) => item.href === pagina.href) === indice,
+);
 
 export default function MapaDoSitePage() {
   return (
