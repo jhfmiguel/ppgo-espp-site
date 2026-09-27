@@ -1,0 +1,15 @@
+import Link from "next/link";
+import {ArrowRight,CalendarDays,FileClock,FileSpreadsheet,FileText,Mail,ShieldCheck,UsersRound} from "lucide-react";
+import {exigirUsuario} from "@/lib/auth/dal";
+import {podeGerenciar,type Recurso} from "@/lib/auth/users";
+export const metadata={title:"Relatórios"};
+const itens:{href:string;titulo:string;descricao:string;Icone:typeof FileText;recurso:Recurso}[]=[
+ {href:"/admin/noticias",titulo:"Notícias",descricao:"Publicações por situação, categoria, autor e período, com exportação PDF e Excel.",Icone:FileText,recurso:"noticias"},
+ {href:"/admin/eventos",titulo:"Eventos",descricao:"Agenda por situação, modalidade, categoria, autor e período.",Icone:CalendarDays,recurso:"eventos"},
+ {href:"/admin/mensagens",titulo:"Mensagens",descricao:"Atendimentos por situação, responsável, período e dados de contato.",Icone:Mail,recurso:"mensagens"},
+ {href:"/admin/newsletter",titulo:"Newsletter",descricao:"Assinantes por situação, origem e período de consentimento.",Icone:UsersRound,recurso:"newsletter"},
+ {href:"/admin/atos-normativos",titulo:"Atos normativos",descricao:"Atos por situação, tipo, ano, autor e período.",Icone:FileSpreadsheet,recurso:"atosNormativos"},
+ {href:"/admin/acessos",titulo:"Acessos autorizados",descricao:"Identidades institucionais, perfis e situação das autorizações.",Icone:ShieldCheck,recurso:"acessos"},
+ {href:"/admin/auditoria",titulo:"Auditoria",descricao:"Trilha administrativa por usuário, módulo, ação, período e conteúdo.",Icone:FileClock,recurso:"auditoria"},
+];
+export default async function Page(){const usuario=await exigirUsuario();const visiveis=itens.filter(i=>podeGerenciar(usuario.perfil,i.recurso));return <><header className="mb-8 border-b border-ink-200 pb-5"><p className="text-[.7rem] font-bold tracking-[.16em] text-gold-600 uppercase">ESPP</p><h1 className="title-display mt-1 text-3xl text-ink-900">Relatórios</h1><p className="mt-1.5 max-w-3xl text-sm text-ink-600">Central de relatórios administrativos. Os filtros aplicados na tela são preservados nas exportações PDF e Excel.</p></header><section><div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{visiveis.map(({href,titulo,descricao,Icone})=><article key={href} className="flex h-full flex-col rounded-xl border border-ink-200 bg-white p-5"><div className="flex items-start gap-3"><span className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-gold-050 text-gold-700"><Icone className="size-5"/></span><div><h2 className="title-display text-lg text-ink-900">{titulo}</h2><p className="mt-1 text-sm leading-relaxed text-ink-500">{descricao}</p></div></div><div className="mt-5 flex items-center gap-2 text-xs font-semibold text-ink-500"><span className="text-red-700">PDF</span><span>•</span><span className="text-emerald-700">Excel</span></div><Link href={href} className="mt-5 inline-flex items-center gap-2 self-start rounded-md border border-ink-200 px-4 py-2.5 text-xs font-bold text-ink-700 transition-colors hover:border-gold-400 hover:bg-gold-050">Abrir filtros e exportar<ArrowRight className="size-3.5"/></Link></article>)}</div></section></>}
