@@ -5,6 +5,8 @@ import { formacao } from "@/content/site";
 import { Icon } from "@/components/ui/icon";
 import { PageHeader } from "@/components/ui/page-header";
 
+const IMAGEM_FORMACAO = "/images/formacao-espp.png";
+
 export function EixosFormacao() {
   return (
     <section id="formacao" aria-labelledby="formacao-titulo" className="bg-white pt-10 lg:pt-14">
@@ -18,7 +20,7 @@ export function EixosFormacao() {
           })}
         </ul>
       </div>
-      <div className="formacao-faixa-degrade mt-14 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] pt-14 pb-24 text-white lg:mt-16 lg:pt-16 lg:pb-32"><div className="container-espp flex justify-center"><div className="relative aspect-21/9 w-full max-w-[1216px] overflow-hidden rounded-lg shadow-[0_24px_60px_-12px_rgba(7,21,34,0.42),0_8px_24px_-8px_rgba(7,21,34,0.28)]"><Image src={formacao.imagem.src} alt={formacao.imagem.alt} fill sizes="(min-width: 1280px) 1216px, 100vw" className="object-cover object-center" /></div></div></div>
+      <div className="formacao-faixa-degrade mt-14 w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] pt-14 pb-24 text-white lg:mt-16 lg:pt-16 lg:pb-32"><div className="container-espp flex justify-center"><div className="relative aspect-21/9 w-full max-w-[1216px] overflow-hidden rounded-lg shadow-[0_24px_60px_-12px_rgba(7,21,34,0.42),0_8px_24px_-8px_rgba(7,21,34,0.28)]"><Image src={IMAGEM_FORMACAO} alt="Formação de policiais penais na Escola Superior de Polícia Penal de Goiás" fill sizes="(min-width: 1280px) 1216px, 100vw" className="object-cover object-center" priority /></div></div></div>
     </section>
   );
 }
