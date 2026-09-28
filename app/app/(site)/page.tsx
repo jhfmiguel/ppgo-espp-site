@@ -10,7 +10,7 @@ import { NewsletterHome } from "@/components/newsletter-home";
 export default function Home() {
   return (
     <>
-      <div className="md:hidden">
+      <div className="espp-home-mobile">
         <HeroMobile />
         <RecredenciamentoDestaque />
         <NoticiasTeaser />
@@ -20,7 +20,7 @@ export default function Home() {
         <NewsletterHome />
       </div>
 
-      <div className="hidden md:block">
+      <div className="espp-home-desktop">
         <Hero />
         <RecredenciamentoDestaque />
         <NoticiasTeaser />
@@ -29,6 +29,11 @@ export default function Home() {
         <AreaCards />
         <NewsletterHome />
       </div>
+      <style>{`
+        .espp-home-mobile{display:block}.espp-home-desktop{display:none}
+        @media(min-width:768px){.espp-home-mobile{display:none}.espp-home-desktop{display:block}}
+        @media (orientation:landscape) and (max-height:600px) and (pointer:coarse){.espp-home-mobile{display:block!important}.espp-home-desktop{display:none!important}}
+      `}</style>
     </>
   );
 }
