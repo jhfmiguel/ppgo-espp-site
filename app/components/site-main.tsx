@@ -10,6 +10,7 @@ function framesFor(effect: ScrollEffect): Keyframe[] { switch (effect) { case "f
 function declaredEffect(element: HTMLElement): ScrollEffect | null { const effect = element.dataset.animateEffect; return effect === "fade-in" || effect === "fade-up" || effect === "fade-down" || effect === "fade-left" || effect === "fade-right" || effect === "zoom-up" || effect === "zoom-in" ? effect : null; }
 function classText(element: HTMLElement) { return typeof element.className === "string" ? element.className : ""; }
 function isStaticBackground(element: HTMLElement) {
+  if (element.hasAttribute("data-no-scroll-animation")) return true;
   const className = classText(element);
   if (className.includes("faixa-degrade") || className.includes("areas-escola") || className.includes("bg-[#071522]") || className.includes("bg-black") || className.includes("from-black") || className.includes("to-black") || className.includes("linear-gradient(135deg,#071522")) return true;
   const style = window.getComputedStyle(element);
@@ -18,10 +19,11 @@ function isStaticBackground(element: HTMLElement) {
   return image.includes("linear-gradient") && (image.includes("7, 21, 34") || image.includes("11, 49, 87") || image.includes("18, 63, 106") || color.includes("7, 21, 34") || color.includes("11, 49, 87"));
 }
 function containsStaticBackground(element: HTMLElement) {
-  return Array.from(element.querySelectorAll<HTMLElement>("section, div")).some(isStaticBackground);
+  return Array.from(element.querySelectorAll<HTMLElement>("*")).some(isStaticBackground);
 }
 function clearStaticBackgroundMotion(root: HTMLElement) {
-  Array.from(root.querySelectorAll<HTMLElement>("section, div")).forEach((element) => {
+  const all = [root, ...Array.from(root.querySelectorAll<HTMLElement>("*"))];
+  all.forEach((element) => {
     if (!isStaticBackground(element)) return;
     element.getAnimations().forEach((animation) => animation.cancel());
     element.style.setProperty("transform", "none", "important");
@@ -30,6 +32,8 @@ function clearStaticBackgroundMotion(root: HTMLElement) {
     element.style.setProperty("filter", "none", "important");
     element.style.setProperty("animation", "none", "important");
     element.style.setProperty("transition-property", "none", "important");
+    element.style.setProperty("transition-duration", "0s", "important");
+    element.style.setProperty("background-position", "initial", "important");
   });
 }
 
