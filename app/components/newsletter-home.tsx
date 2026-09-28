@@ -23,9 +23,14 @@ export function NewsletterHome() {
         body: JSON.stringify({ email: valor }),
       });
       const dados = await resposta.json().catch(() => ({}));
-      if (!resposta.ok) throw new Error(dados?.message || dados?.mensagem || "Não foi possível realizar a inscrição.");
+      if (!resposta.ok) {
+        throw new Error(
+          dados?.erro || dados?.detail || dados?.message || dados?.mensagem ||
+          "Não foi possível realizar a inscrição.",
+        );
+      }
       setSucesso(true);
-      setMensagem(dados?.message || dados?.mensagem || "Inscrição realizada com sucesso.");
+      setMensagem(dados?.mensagem || dados?.message || "Inscrição realizada com sucesso.");
       setEmail("");
     } catch (erro) {
       setMensagem(erro instanceof Error ? erro.message : "Não foi possível realizar a inscrição.");
@@ -56,7 +61,7 @@ export function NewsletterHome() {
                 {!enviando && <ArrowRight className="size-3.5" />}
               </button>
             </div>
-            {mensagem && <p role="status" className={`mt-2 flex items-center gap-1.5 text-xs font-semibold ${sucesso ? "text-emerald-700" : "text-red-700"}`}>{sucesso && <CheckCircle2 className="size-3.5" />}{mensagem}</p>}
+            {mensagem && <p role="status" aria-live="polite" className={`mt-2 flex items-center gap-1.5 text-xs font-semibold ${sucesso ? "text-emerald-700" : "text-red-700"}`}>{sucesso && <CheckCircle2 className="size-3.5" />}{mensagem}</p>}
             <p className="mt-2 text-[.68rem] leading-4 text-slate-500">Ao se inscrever, você concorda em receber comunicações da ESPP. O cancelamento pode ser feito a qualquer momento.</p>
           </form>
         </div>
