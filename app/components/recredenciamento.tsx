@@ -50,8 +50,13 @@ export function Recredenciamento() {
 
             <h3 className="title-display mt-12 text-xl text-ink-900">Documentos do processo</h3>
             <ul className="mt-5 space-y-3">
-              {pecas.map((doc) => (
-                <li key={doc.slug}>
+              {pecas.map((doc, index) => (
+                <li
+                  key={doc.slug}
+                  data-animate-scroll
+                  data-animate-scroll-only
+                  data-animate-effect={index % 2 === 0 ? "fade-left" : "fade-right"}
+                >
                   <Link
                     href={`/documentos/${doc.slug}`}
                     className="group flex items-center gap-4 rounded-lg border border-white/15 bg-[#0b3157] px-5 py-4 text-white transition-colors hover:border-[#f5c400]"
