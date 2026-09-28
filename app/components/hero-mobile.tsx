@@ -15,7 +15,7 @@ export function HeroMobile() {
             fill
             sizes="100vw"
             className="object-cover"
-            style={{objectPosition:"56% 30%"}}
+            style={{objectPosition:"52% 30%"}}
           />
         </div>
 
@@ -27,8 +27,8 @@ export function HeroMobile() {
             <span>{hero.selo}</span>
           </p>
 
-          <h1 className="max-w-[18rem] font-black uppercase leading-[.96] tracking-[-.035em]">
-            <span className="block text-[1.75rem]">Escola Superior de</span>
+          <h1 className="font-black uppercase leading-[.96] tracking-[-.035em]">
+            <span className="block whitespace-nowrap text-[1.55rem]">Escola Superior de</span>
             <span className="block text-[1.75rem]">Polícia Penal</span>
             <strong className="mt-1 block text-[1.5rem] text-[#f5c400]">Goiás</strong>
           </h1>
