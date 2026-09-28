@@ -61,8 +61,8 @@ export default async function NoticiaPage({ params }: Props) {
   };
 
   return (
-    <article className="bg-white pb-24 lg:pb-32">
-      <div className="container-espp">
+    <article className="bg-white">
+      <div className="container-espp pb-20 lg:pb-24">
         <div className="mx-auto max-w-3xl pt-10 lg:pt-14">
           <Link href="/noticias" className="inline-flex items-center gap-2 text-xs font-bold tracking-wider text-ink-500 uppercase transition-colors hover:text-gold-600">
             <ArrowLeft className="size-4" aria-hidden="true" />
@@ -89,16 +89,24 @@ export default async function NoticiaPage({ params }: Props) {
         ) : null}
 
         <div className="conteudo-rico mx-auto mt-10 max-w-3xl text-base" dangerouslySetInnerHTML={{ __html: noticia.conteudo }} />
-
-        {outras.length > 0 ? (
-          <section aria-labelledby="outras-noticias" className="mx-auto mt-20 max-w-5xl">
-            <h2 id="outras-noticias" className="title-display border-t border-ink-200 pt-8 text-2xl text-ink-900">Outras notícias</h2>
-            <ul className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {outras.map((item) => <NoticiaCard key={item.id} item={item} />)}
-            </ul>
-          </section>
-        ) : null}
       </div>
+
+      {outras.length > 0 ? (
+        <section
+          aria-labelledby="outras-noticias"
+          className="bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-14 text-white lg:py-18"
+          data-no-scroll-animation
+        >
+          <div className="container-espp">
+            <div className="mx-auto max-w-5xl">
+              <h2 id="outras-noticias" className="title-display text-2xl text-white">Outras notícias</h2>
+              <ul className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                {outras.map((item) => <NoticiaCard key={item.id} item={item} />)}
+              </ul>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </article>
