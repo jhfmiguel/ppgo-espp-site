@@ -24,7 +24,7 @@ export function DocumentoViewer({ doc, categoria, irmaos }: Props) {
   const arquivo = `/docs/${doc.slug}.pdf`;
 
   return (
-    <article className="bg-white pt-8 pb-24 lg:pt-10 lg:pb-32">
+    <article className="bg-white pt-8 pb-0 lg:pt-10">
       <div className="container-espp">
         <Breadcrumb
           itens={[
@@ -83,9 +83,6 @@ export function DocumentoViewer({ doc, categoria, irmaos }: Props) {
           </a>
         </div>
 
-        {/* Leitor embutido: o PDF é exibido dentro do próprio site. Navegadores
-            móveis em geral não renderizam PDF em iframe, por isso o bloco
-            alternativo abaixo assume o lugar do leitor em telas pequenas. */}
         <div className="mt-10 hidden overflow-hidden rounded-lg border border-ink-200 bg-ink-050 shadow-sm md:block">
           <iframe
             src={`${arquivo}#view=FitH`}
@@ -113,34 +110,43 @@ export function DocumentoViewer({ doc, categoria, irmaos }: Props) {
           </a>
         </div>
 
-        <p className="mt-4 text-xs leading-relaxed text-ink-500">
+        <p className="mt-4 pb-12 text-xs leading-relaxed text-ink-500">
           Não conseguiu visualizar o documento? Use o botão{" "}
           <span className="font-semibold">Abrir em nova aba</span> ou baixe o arquivo em PDF.
         </p>
 
         {irmaos.length > 0 ? (
-          <nav aria-labelledby="outros-documentos" className="mt-16 border-t border-ink-200 pt-10">
-            <h2
-              id="outros-documentos"
-              className="text-xs font-bold tracking-[0.18em] text-ink-500 uppercase"
-            >
-              Outros documentos · {categoria.titulo}
-            </h2>
-            <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {irmaos.map((irmao) => (
-                <li key={irmao.slug}>
-                  <Link
-                    href={`/documentos/${irmao.slug}`}
-                    className="flex h-full items-center gap-3 rounded-lg border border-ink-200 bg-white px-5 py-4 text-sm font-semibold text-ink-900 shadow-sm transition-colors hover:border-gold-500 hover:text-gold-600"
-                  >
-                    <FileText className="size-4 shrink-0 text-gold-600" aria-hidden="true" />
-                    {irmao.tituloCurto}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <nav
+            aria-labelledby="outros-documentos"
+            className="relative left-1/2 w-screen -translate-x-1/2 bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-12 text-white lg:py-14"
+          >
+            <div className="container-espp">
+              <h2
+                id="outros-documentos"
+                className="text-xs font-bold tracking-[0.18em] text-white/70 uppercase"
+              >
+                Outros documentos · {categoria.titulo}
+              </h2>
+              <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {irmaos.map((irmao) => (
+                  <li key={irmao.slug}>
+                    <Link
+                      href={`/documentos/${irmao.slug}`}
+                      className="group flex h-full items-center gap-3 rounded-lg border border-white/15 bg-white/[0.06] px-5 py-4 text-sm font-semibold text-white shadow-sm transition-colors hover:border-gold-500/80 hover:bg-white/[0.10] hover:text-gold-400"
+                    >
+                      <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-white/10 text-gold-500 transition-colors group-hover:bg-gold-500 group-hover:text-ink-950">
+                        <FileText className="size-4" aria-hidden="true" />
+                      </span>
+                      {irmao.tituloCurto}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </nav>
-        ) : null}
+        ) : (
+          <div className="pb-24 lg:pb-32" />
+        )}
       </div>
     </article>
   );
