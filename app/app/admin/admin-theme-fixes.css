@@ -1,7 +1,46 @@
 /* Temas do painel administrativo ESPP — padrão visual do painel NASPP. */
 :root[data-admin-theme="light"] .admin-panel,:root[data-admin-theme="light"] .admin-panel main{background:#f6f7f9!important;color:#161c25!important}
-:root[data-admin-theme="light"] .admin-panel main .bg-white{background:#fff!important}
-:root[data-admin-theme="light"] .admin-panel main :is(input,select,textarea){background:#fff!important;color:#0b0f14!important}
+:root[data-admin-theme="light"] .admin-panel main :is(.bg-white,.admin-form-surface,.admin-card,.admin-filter-panel,.admin-table-shell,[role="dialog"]){background:#fff!important;color:#161c25!important;border-color:#dfe4ea!important}
+:root[data-admin-theme="light"] .admin-panel main .bg-ink-050{background:#f6f7f9!important}
+:root[data-admin-theme="light"] .admin-panel main .bg-ink-100{background:#eef1f4!important}
+:root[data-admin-theme="light"] .admin-panel main :is(.text-ink-950,.text-ink-900,.text-ink-800,.text-ink-700){color:#161c25!important}
+:root[data-admin-theme="light"] .admin-panel main :is(.text-ink-600,.text-ink-500,.text-ink-400){color:#55606d!important}
+:root[data-admin-theme="light"] .admin-panel main :is(.border-ink-100,.border-ink-200,.border-ink-300,.divide-ink-100){border-color:#dfe4ea!important}
+:root[data-admin-theme="light"] .admin-panel main :is(input,select,textarea){background:#fff!important;border-color:#c9d0da!important;color:#0b0f14!important;color-scheme:light}
+:root[data-admin-theme="light"] .admin-panel main :is(input,textarea)::placeholder{color:#7c8797!important;opacity:1}
+:root[data-admin-theme="light"] .admin-panel main :is(input,select,textarea):disabled{background:#eef1f4!important;color:#7c8797!important;border-color:#dfe4ea!important;opacity:1}
+:root[data-admin-theme="light"] .admin-panel main option{background:#fff;color:#161c25}
+:root[data-admin-theme="light"] .admin-panel main thead{background:#eef1f4!important;color:#2c3542!important}
+:root[data-admin-theme="light"] .admin-panel main tbody tr{border-color:#dfe4ea!important}
+:root[data-admin-theme="light"] .admin-panel main tbody tr:hover{background:#f8fafc!important}
+:root[data-admin-theme="light"] .admin-panel main pre{background:#f8fafc!important;color:#161c25!important;border:1px solid #dfe4ea}
+:root[data-admin-theme="light"] .admin-panel main details summary{color:#7a5b00!important}
+:root[data-admin-theme="light"] .admin-panel main :is(input,select,textarea):focus{border-color:#a77d00!important;box-shadow:0 0 0 1px #a77d00}
+:root[data-admin-theme="light"] .admin-panel main :is(.admin-loading-state,.admin-empty-state,[data-empty-state],[data-loading-state]){background:transparent!important;color:#55606d!important}
+:root[data-admin-theme="light"] .admin-panel main :is([role="alert"],[role="status"]){border-color:#dfe4ea}
+
+/* No tema claro, toda a estrutura do painel também é clara. */
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar{background:#fff!important;color:#161c25!important;border-color:#dfe4ea!important}
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar-header,:root[data-admin-theme="light"] .admin-panel .admin-sidebar-footer{background:#fff!important;border-color:#dfe4ea!important}
+:root[data-admin-theme="light"] .admin-panel .admin-nav-link{color:#2c3542!important}
+:root[data-admin-theme="light"] .admin-panel .admin-nav-link:hover{background:#eef1f4!important;color:#0b0f14!important}
+:root[data-admin-theme="light"] .admin-panel .admin-nav-link[aria-current="page"]{background:#f5c400!important;color:#0b0f14!important}
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar>button{color:#55606d!important}
+:root[data-admin-theme="light"] .admin-panel .admin-sidebar>button:hover{color:#0b0f14!important}
+:root[data-admin-theme="light"] .admin-panel .admin-topbar{background:#fff!important;border-color:#dfe4ea!important;color:#161c25!important}
+:root[data-admin-theme="light"] .admin-panel .admin-topbar .admin-user-trigger{background:#fff!important;border-color:#dfe4ea!important;color:#161c25!important}
+:root[data-admin-theme="light"] .admin-panel .admin-topbar .admin-user-avatar{background:#f6f7f9!important;border-color:#c9d0da!important;color:#161c25!important}
+
+/* Estados semânticos claros. */
+:root[data-admin-theme="light"] .admin-panel main :is(.bg-red-50,.bg-rose-50){background:#fff1f2!important}
+:root[data-admin-theme="light"] .admin-panel main :is(.text-red-600,.text-red-700,.text-red-800,.text-rose-600,.text-rose-700){color:#b42318!important}
+:root[data-admin-theme="light"] .admin-panel main :is(.border-red-100,.border-red-200,.border-rose-100,.border-rose-200){border-color:#fecdd3!important}
+:root[data-admin-theme="light"] .admin-panel main :is(.bg-green-50,.bg-emerald-50){background:#ecfdf3!important}
+:root[data-admin-theme="light"] .admin-panel main :is(.text-green-600,.text-green-700,.text-green-800,.text-emerald-600,.text-emerald-700,.text-emerald-800){color:#067647!important}
+:root[data-admin-theme="light"] .admin-panel main :is(.border-green-100,.border-green-200,.border-emerald-100,.border-emerald-200){border-color:#abefc6!important}
+:root[data-admin-theme="light"] .admin-panel main :is(.bg-yellow-50,.bg-amber-50){background:#fffaeb!important}
+:root[data-admin-theme="light"] .admin-panel main :is(.text-yellow-700,.text-yellow-800,.text-amber-700,.text-amber-800){color:#7a5b00!important}
+:root[data-admin-theme="light"] .admin-panel main :is(.border-yellow-100,.border-yellow-200,.border-amber-100,.border-amber-200){border-color:#fedf89!important}
 
 /* Misto = menu NASPP escuro + main claro. */
 :root[data-admin-theme="mixed"] .admin-panel main{background:#f6f7f9!important;color:#161c25!important}
