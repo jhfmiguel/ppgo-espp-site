@@ -42,6 +42,25 @@ const securityHeaders = [
   },
 ];
 
+const documentHeaders = [
+  {
+    key: "Content-Security-Policy",
+    value: "default-src 'self'; frame-ancestors 'self'; object-src 'self'; base-uri 'self'",
+  },
+  {
+    key: "X-Content-Type-Options",
+    value: "nosniff",
+  },
+  {
+    key: "X-Frame-Options",
+    value: "SAMEORIGIN",
+  },
+  {
+    key: "Referrer-Policy",
+    value: "strict-origin-when-cross-origin",
+  },
+];
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
 
@@ -53,8 +72,14 @@ const nextConfig: NextConfig = {
 
   async headers() {
     return [
+      // PDFs públicos precisam poder ser exibidos no iframe do próprio site.
+      // As demais páginas continuam protegidas contra framing externo.
       {
-        source: "/(.*)",
+        source: "/docs/:path*",
+        headers: documentHeaders,
+      },
+      {
+        source: "/((?!docs(?:/|$)).*)",
         headers: securityHeaders,
       },
     ];
