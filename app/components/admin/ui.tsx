@@ -5,9 +5,12 @@ import type { Status } from "@/lib/data/types";
 
 /** Peças compartilhadas do painel, alinhadas ao padrão NASPP. */
 export function TituloPagina({ titulo, descricao, acao }: { titulo:string; descricao?:string; acao?:{href:string;rotulo:string} }) {
-  return <header className="mb-7 flex flex-wrap items-start justify-between gap-4 border-b border-ink-200 pb-5">
-    <div><h1 className="title-display text-3xl text-ink-900">{titulo}</h1>{descricao?<p className="mt-1.5 max-w-3xl text-sm text-ink-600">{descricao}</p>:null}</div>
-    {acao?<Link href={acao.href} className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-gold-500 bg-gold-500 px-5 py-2.5 text-xs font-bold tracking-wide text-ink-950 uppercase transition hover:bg-gold-400 hover:border-gold-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500"><Plus className="size-4" aria-hidden="true"/>{acao.rotulo}</Link>:null}
+  return <header className="mb-7 border-b border-ink-200 pb-5">
+    <div className="flex items-center justify-between gap-3">
+      <h1 className="title-display min-w-0 text-3xl text-ink-900">{titulo}</h1>
+      {acao?<Link href={acao.href} className="inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-md border border-gold-500 bg-gold-500 px-3 py-2.5 text-xs font-bold tracking-wide text-ink-950 uppercase transition hover:bg-gold-400 hover:border-gold-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500 sm:px-5"><Plus className="size-4" aria-hidden="true"/>{acao.rotulo}</Link>:null}
+    </div>
+    {descricao?<p className="mt-1.5 max-w-3xl text-sm text-ink-600">{descricao}</p>:null}
   </header>;
 }
 
