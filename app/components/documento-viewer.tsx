@@ -124,7 +124,7 @@ export function DocumentoViewer({ doc, categoria, irmaos }: Props) {
             <div className="container-espp">
               <h2
                 id="outros-documentos"
-                className="title-display text-xl text-yellow-300 sm:text-2xl"
+                className="title-display text-xl text-white sm:text-2xl"
               >
                 Outros documentos · {categoria.titulo}
               </h2>
