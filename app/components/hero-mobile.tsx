@@ -35,12 +35,12 @@ export function HeroMobile() {
 
           <p className="max-w-[19rem] text-[13px] leading-[1.5] text-white/90">{hero.texto}</p>
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Link href={hero.ctaPrimario.href} className="inline-flex min-h-10 items-center gap-1.5 rounded-lg bg-[#f5c400] px-3.5 text-[11px] font-extrabold uppercase tracking-wide text-[#071522]">
-              <span>{hero.ctaPrimario.label}</span><ArrowRight className="size-4" aria-hidden="true" />
+          <div className="mt-4 grid w-full grid-cols-2 gap-2">
+            <Link href={hero.ctaPrimario.href} className="inline-flex min-h-10 w-full items-center justify-center gap-1.5 rounded-lg bg-[#f5c400] px-3 text-center text-[11px] font-extrabold uppercase tracking-wide text-[#071522]">
+              <span>{hero.ctaPrimario.label}</span><ArrowRight className="size-4 shrink-0" aria-hidden="true" />
             </Link>
-            <Link href={hero.ctaSecundario.href} className="inline-flex min-h-10 items-center gap-1.5 rounded-lg border border-white/55 bg-black/20 px-3.5 text-[11px] font-extrabold uppercase tracking-wide text-white backdrop-blur-[2px]">
-              <span>{hero.ctaSecundario.label}</span><ArrowRight className="size-4" aria-hidden="true" />
+            <Link href={hero.ctaSecundario.href} className="inline-flex min-h-10 w-full items-center justify-center gap-1.5 rounded-lg border border-white/55 bg-black/20 px-3 text-center text-[11px] font-extrabold uppercase tracking-wide text-white backdrop-blur-[2px]">
+              <span>{hero.ctaSecundario.label}</span><ArrowRight className="size-4 shrink-0" aria-hidden="true" />
             </Link>
           </div>
         </div>
