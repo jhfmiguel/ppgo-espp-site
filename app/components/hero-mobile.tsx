@@ -13,7 +13,7 @@ export function HeroMobile() {
           priority
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover espp-mobile-hero-image"
           style={{objectPosition:"58% 30%"}}
         />
 
@@ -44,6 +44,22 @@ export function HeroMobile() {
             </Link>
           </div>
         </div>
+
+        <style>{`
+          @keyframes esppHeroImageFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          .espp-mobile-hero-image {
+            animation: esppHeroImageFadeIn 900ms ease-out both;
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .espp-mobile-hero-image {
+              animation: none !important;
+              opacity: 1 !important;
+            }
+          }
+        `}</style>
       </div>
     </section>
   );
