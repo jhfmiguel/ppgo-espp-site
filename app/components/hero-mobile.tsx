@@ -13,7 +13,7 @@ export function HeroMobile() {
           priority
           fill
           sizes="100vw"
-          className="object-cover object-[100%_28%]"
+          className="object-cover object-[62%_center]"
         />
 
         <div className="absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-black/80 via-black/34 to-transparent" aria-hidden="true" />
