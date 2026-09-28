@@ -18,8 +18,6 @@
 :root[data-admin-theme="light"] .admin-panel main :is(input,select,textarea):focus{border-color:#a77d00!important;box-shadow:0 0 0 1px #a77d00}
 :root[data-admin-theme="light"] .admin-panel main :is(.admin-loading-state,.admin-empty-state,[data-empty-state],[data-loading-state]){background:transparent!important;color:#55606d!important}
 :root[data-admin-theme="light"] .admin-panel main :is([role="alert"],[role="status"]){border-color:#dfe4ea}
-
-/* No tema claro, toda a estrutura do painel também é clara. */
 :root[data-admin-theme="light"] .admin-panel .admin-sidebar{background:#fff!important;color:#161c25!important;border-color:#dfe4ea!important}
 :root[data-admin-theme="light"] .admin-panel .admin-sidebar-header,:root[data-admin-theme="light"] .admin-panel .admin-sidebar-footer{background:#fff!important;border-color:#dfe4ea!important}
 :root[data-admin-theme="light"] .admin-panel .admin-nav-link{color:#2c3542!important}
@@ -30,8 +28,6 @@
 :root[data-admin-theme="light"] .admin-panel .admin-topbar{background:#fff!important;border-color:#dfe4ea!important;color:#161c25!important}
 :root[data-admin-theme="light"] .admin-panel .admin-topbar .admin-user-trigger{background:#fff!important;border-color:#dfe4ea!important;color:#161c25!important}
 :root[data-admin-theme="light"] .admin-panel .admin-topbar .admin-user-avatar{background:#f6f7f9!important;border-color:#c9d0da!important;color:#161c25!important}
-
-/* Estados semânticos claros. */
 :root[data-admin-theme="light"] .admin-panel main :is(.bg-red-50,.bg-rose-50){background:#fff1f2!important}
 :root[data-admin-theme="light"] .admin-panel main :is(.text-red-600,.text-red-700,.text-red-800,.text-rose-600,.text-rose-700){color:#b42318!important}
 :root[data-admin-theme="light"] .admin-panel main :is(.border-red-100,.border-red-200,.border-rose-100,.border-rose-200){border-color:#fecdd3!important}
@@ -72,14 +68,10 @@
 :root[data-admin-theme="dark"] .admin-panel main tbody tr:hover{background:#10151c!important}
 :root[data-admin-theme="dark"] .admin-panel main pre{background:#0b0f14!important;color:#e7eaef!important;border:1px solid #2c3542}
 :root[data-admin-theme="dark"] .admin-panel main details summary{color:#f5c400!important}
-
-/* Cards, filtros, tabelas, modais e superfícies — geometria/contraste NASPP. */
 .admin-panel main :is(.admin-form-surface,[role="dialog"],.admin-card,.admin-filter-panel,.admin-table-shell){border-radius:.75rem}
 :root[data-admin-theme="dark"] .admin-panel main :is(.admin-card,.admin-filter-panel,.admin-table-shell){background:#161c25!important;border-color:#2c3542!important;color:#e7eaef!important}
 :root[data-admin-theme="dark"] .admin-panel main :is(table,th,td){border-color:#2c3542}
 :root[data-admin-theme="dark"] .admin-panel main :is(input,select,textarea):focus{border-color:#f5c400!important;box-shadow:0 0 0 1px #f5c400}
-
-/* Estados semânticos. */
 :root[data-admin-theme="dark"] .admin-panel main :is(.bg-red-50,.bg-rose-50){background:rgba(239,68,68,.12)!important}
 :root[data-admin-theme="dark"] .admin-panel main :is(.text-red-600,.text-red-700,.text-red-800,.text-rose-600,.text-rose-700){color:#fca5a5!important}
 :root[data-admin-theme="dark"] .admin-panel main :is(.border-red-100,.border-red-200,.border-rose-100,.border-rose-200){border-color:rgba(248,113,113,.35)!important}
@@ -89,8 +81,6 @@
 :root[data-admin-theme="dark"] .admin-panel main :is(.bg-yellow-50,.bg-amber-50){background:rgba(245,196,0,.10)!important}
 :root[data-admin-theme="dark"] .admin-panel main :is(.text-yellow-700,.text-yellow-800,.text-amber-700,.text-amber-800){color:#ffd426!important}
 :root[data-admin-theme="dark"] .admin-panel main :is(.border-yellow-100,.border-yellow-200,.border-amber-100,.border-amber-200){border-color:rgba(245,196,0,.35)!important}
-
-/* Loading, vazios, mensagens e controles desabilitados. */
 :root[data-admin-theme="dark"] .admin-panel main :is(.admin-loading-state,.admin-empty-state,[data-empty-state],[data-loading-state]){background:transparent!important;color:#b7c0cc!important}
 :root[data-admin-theme="dark"] .admin-panel main [aria-busy="true"]{color:#e7eaef}
 :root[data-admin-theme="dark"] .admin-panel main :is([role="alert"],[role="status"]){border-color:#2c3542}
@@ -102,15 +92,25 @@
 .admin-panel main :is(button,a):focus-visible{outline:2px solid #f5c400;outline-offset:2px}
 :root[data-admin-theme="dark"] .admin-panel main button:not(:disabled):hover{border-color:#55606d}
 
+/* Ações da listagem de notícias — editar, publicar/despublicar e excluir. */
+:root[data-admin-theme="dark"] .admin-panel main .admin-news-actions>a,
+:root[data-admin-theme="dark"] .admin-panel main .admin-news-actions>form>button,
+:root[data-admin-theme="dark"] .admin-panel main .admin-news-actions>button{background:#10151c!important;border-color:#55606d!important;color:#e7eaef!important}
+:root[data-admin-theme="dark"] .admin-panel main .admin-news-actions>a:hover,
+:root[data-admin-theme="dark"] .admin-panel main .admin-news-actions>form>button:hover{background:#1f2733!important;border-color:#f5c400!important;color:#ffd426!important}
+:root[data-admin-theme="dark"] .admin-panel main .admin-news-actions>button:hover{background:rgba(239,68,68,.12)!important;border-color:#f87171!important;color:#fca5a5!important}
+:root[data-admin-theme="dark"] .admin-panel main .admin-news-actions form span[role="alert"]{color:#fca5a5!important}
+:root[data-admin-theme="dark"] .admin-panel main .admin-news-actions form button[type="submit"]{background:#b42318!important;border-color:#ef4444!important;color:#fff!important}
+:root[data-admin-theme="dark"] .admin-panel main .admin-news-actions form button[type="submit"]:hover{background:#dc2626!important;border-color:#f87171!important;color:#fff!important}
+:root[data-admin-theme="dark"] .admin-panel main .admin-news-actions form button[type="button"]{background:#10151c!important;border:1px solid #55606d!important;color:#b7c0cc!important}
+:root[data-admin-theme="dark"] .admin-panel main .admin-news-actions form button[type="button"]:hover{background:#1f2733!important;border-color:#7c8797!important;color:#fff!important}
+
 /* Paginação: página atual apenas contorno/label amarelos, como NASPP. */
 .admin-panel main [aria-current="page"]{background:transparent!important;border-color:#f5c400!important;color:#a77d00!important}
 :root[data-admin-theme="dark"] .admin-panel main [aria-current="page"]{color:#ffd426!important}
-
-/* Barra superior/avatar no mesmo grafite do NASPP. */
 :root[data-admin-theme="dark"] .admin-panel .admin-topbar{background:#10151c!important;border-color:#2c3542!important;color:#e7eaef!important}
 :root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-trigger{background:#161c25!important;border-color:#2c3542!important;color:#e7eaef!important}
 :root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-avatar{background:#0b0f14!important;border-color:#55606d!important;color:#e7eaef!important}
-
 .admin-user-menu-popover{background:#fff;border-color:#c9d0da;color:#0b0f14}
 .admin-user-menu-heading,.admin-user-menu-divider{border-color:#c9d0da}
 .admin-user-menu-item,.admin-user-menu-icon,.admin-user-menu-theme{transition:background-color 160ms ease,border-color 160ms ease,color 160ms ease}
@@ -125,5 +125,4 @@
 :root[data-admin-theme="dark"] .admin-user-menu-theme[aria-pressed="true"]{border-color:#f5c400!important;color:#ffd426!important;background:#161c25!important}
 :root[data-admin-theme="dark"] .admin-user-menu-logout{color:#fca5a5!important}
 :root[data-admin-theme="dark"] .admin-user-menu-logout:hover{background:rgba(239,68,68,.12)!important}
-
 @media (min-width:1024px){.admin-topbar .admin-user-trigger{cursor:pointer;transition:background-color 160ms ease,border-color 160ms ease,box-shadow 160ms ease,transform 160ms ease}.admin-topbar .admin-user-trigger:hover{background:#f6f7f9;border-color:#b7c0cc;box-shadow:0 5px 16px rgba(15,23,42,.12);transform:translateY(-1px)}.admin-topbar .admin-user-trigger:hover .admin-user-avatar{border-color:#7c8797}:root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-trigger:hover{background:#1f2733!important;border-color:#55606d!important;box-shadow:0 5px 18px rgba(0,0,0,.28)}:root[data-admin-theme="dark"] .admin-panel .admin-topbar .admin-user-trigger:hover .admin-user-avatar{background:#10151c!important;border-color:#7c8797!important}}
