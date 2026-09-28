@@ -15,7 +15,7 @@ export function HeroMobile() {
             fill
             sizes="100vw"
             className="object-cover"
-            style={{objectPosition:"52% 30%"}}
+            style={{objectPosition:"46% 30%"}}
           />
         </div>
 
