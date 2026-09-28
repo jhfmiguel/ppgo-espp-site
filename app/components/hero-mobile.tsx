@@ -5,8 +5,8 @@ import { hero } from "@/content/site";
 
 export function HeroMobile() {
   return (
-    <section id="top-mobile" className="relative h-[calc(100dvh-5rem)] min-h-[36rem] bg-[#071522] md:hidden">
-      <div className="relative h-full w-full overflow-hidden bg-[#071522] shadow-[0_14px_34px_rgba(7,21,34,.18)]">
+    <section id="top-mobile" className="relative h-[100dvh] min-h-[40rem] bg-[#071522] md:hidden">
+      <div className="relative h-full w-full overflow-hidden bg-[#071522]">
         <Image
           src="/images/espp-hero-background.png"
           alt=""
