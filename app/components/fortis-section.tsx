@@ -12,12 +12,6 @@ export function FortisSection() {
       aria-labelledby="fortis-titulo"
       className="relative overflow-hidden bg-white pt-10 lg:pt-14"
     >
-      {/* brilho de fundo */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[70rem] -translate-x-1/2 rounded-full bg-gold-500/10 blur-3xl"
-      />
-
       <div className="container-espp relative">
         <Breadcrumb itens={[{ label: fortis.nome }]} />
 
