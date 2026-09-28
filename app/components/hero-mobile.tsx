@@ -19,7 +19,7 @@ export function HeroMobile() {
 
         <div className="absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-black/80 via-black/34 to-transparent" aria-hidden="true" />
 
-        <div className="relative z-10 flex h-full flex-col justify-end px-5 pb-36 pt-5 text-white">
+        <div className="relative z-10 flex h-full flex-col justify-end px-5 pb-44 pt-5 text-white">
           <p className="mb-2 flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-[.12em] text-white/80">
             <BadgeCheck className="size-4" aria-hidden="true" />
             <span>{hero.selo}</span>
