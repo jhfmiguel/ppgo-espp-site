@@ -84,7 +84,7 @@ export function FortisSection() {
               <NotifyForm />
             </div>
             <div className="flex flex-col justify-center rounded-xl border border-white/15 bg-white/[0.08] p-7 text-white shadow-[0_18px_50px_rgba(0,0,0,.16)] backdrop-blur-sm lg:col-span-2">
-              <h3 className="title-display text-lg text-white">
+              <h3 className="title-display text-lg !text-white" style={{ color: "#ffffff" }}>
                 Enquanto o FORTIS não chega
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-white">
