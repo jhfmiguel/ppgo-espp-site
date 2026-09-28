@@ -8,7 +8,7 @@ export function HeroMobile() {
       <div className="relative h-[100dvh] min-h-[40rem] w-full overflow-hidden bg-[#071522]">
         <Image src="/images/espp-hero-background.png" alt="" priority fill sizes="100vw" className="object-cover espp-mobile-hero-image" style={{objectPosition:"58% 30%"}} />
         <div className="espp-mobile-hero-overlay absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-black/80 via-black/34 to-transparent" aria-hidden="true" />
-        <div className="relative z-10 flex h-full flex-col justify-end px-5 pb-28 pt-5 text-white">
+        <div className="relative z-10 flex h-full flex-col justify-end px-5 pb-40 pt-5 text-white">
           <p className="espp-mobile-hero-item espp-mobile-hero-badge mb-2 flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-[.12em] text-white/80"><BadgeCheck className="size-4" aria-hidden="true" /><span>{hero.selo}</span></p>
           <h1 className="espp-mobile-hero-item espp-mobile-hero-title font-black uppercase leading-[.96] tracking-[-.035em]"><span className="block whitespace-nowrap text-[1.55rem]">Escola Superior de</span><span className="block text-[1.75rem]">Polícia Penal</span><strong className="mt-1 block text-[1.5rem] text-[#f5c400]">Goiás</strong></h1>
           <div className="espp-mobile-hero-rule my-3 h-[2px] w-14 bg-[#f5c400]" aria-hidden="true" />
