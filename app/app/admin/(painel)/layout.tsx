@@ -6,7 +6,6 @@ import { AdminUserMenu } from "@/components/admin/admin-user-menu";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { AdminSidebarBrand } from "@/components/admin/admin-sidebar-brand";
 import { AdminRouteBreadcrumbs } from "@/components/admin/admin-route-breadcrumbs";
-import "./admin-theme-regression.css";
 
 export const metadata: Metadata = {
   title: { default: "Painel administrativo", template: "%s | Painel ESPP" },
