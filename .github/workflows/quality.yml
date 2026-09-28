@@ -105,9 +105,9 @@ jobs:
         shell: bash
         run: |
           curl --fail --silent http://127.0.0.1:8081/actuator/health
-          curl --fail --silent http://127.0.0.1:8081/api/noticias > "$RUNNER_TEMP/noticias.json"
-          curl --fail --silent http://127.0.0.1:8081/api/eventos > "$RUNNER_TEMP/eventos.json"
-          curl --fail --silent http://127.0.0.1:8081/api/atos-normativos > "$RUNNER_TEMP/atos.json"
+          curl --fail --silent http://127.0.0.1:8081/api/v1/public/noticias > "$RUNNER_TEMP/noticias.json"
+          curl --fail --silent http://127.0.0.1:8081/api/v1/public/eventos > "$RUNNER_TEMP/eventos.json"
+          curl --fail --silent http://127.0.0.1:8081/api/v1/public/atos-normativos > "$RUNNER_TEMP/atos.json"
       - name: Print API log on failure
         if: failure()
         run: cat "$RUNNER_TEMP/espp-api.log" || true
