@@ -5,19 +5,17 @@ import { hero } from "@/content/site";
 
 export function HeroMobile() {
   return (
-    <section id="top-mobile" className="relative bg-white px-4 pb-5 pt-0 md:hidden">
-      <div className="relative h-[calc(100dvh-5rem)] min-h-[36rem] overflow-hidden rounded-b-[1.6rem] bg-[#071522] shadow-[0_14px_34px_rgba(7,21,34,.18)]">
-        <div className="absolute inset-0 overflow-hidden">
-          <Image
-            src="/images/espp-hero-background.png"
-            alt=""
-            priority
-            fill
-            sizes="100vw"
-            className="object-cover"
-            style={{objectPosition:"46% 30%"}}
-          />
-        </div>
+    <section id="top-mobile" className="relative bg-white pb-5 pt-0 md:hidden">
+      <div className="relative h-[calc(100dvh-5rem)] min-h-[36rem] w-full overflow-hidden bg-[#071522] shadow-[0_14px_34px_rgba(7,21,34,.18)]">
+        <Image
+          src="/images/espp-hero-background.png"
+          alt=""
+          priority
+          fill
+          sizes="100vw"
+          className="object-cover"
+          style={{objectPosition:"46% 30%"}}
+        />
 
         <div className="absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-black/80 via-black/34 to-transparent" aria-hidden="true" />
 
