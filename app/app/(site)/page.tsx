@@ -1,5 +1,6 @@
 import { NoticiasTeaser } from "@/components/noticias-teaser";
 import { Hero } from "@/components/hero";
+import { HeroMobile } from "@/components/hero-mobile";
 import { RecredenciamentoDestaque } from "@/components/recredenciamento-destaque";
 import { StatsBand } from "@/components/stats-band";
 import { EventosBand } from "@/components/eventos-band";
@@ -10,7 +11,7 @@ export default function Home() {
   return (
     <>
       <div className="md:hidden">
-        <Hero />
+        <HeroMobile />
         <RecredenciamentoDestaque />
         <NoticiasTeaser />
         <StatsBand />
