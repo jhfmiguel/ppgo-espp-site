@@ -4,14 +4,13 @@ import { RecredenciamentoDestaque } from "@/components/recredenciamento-destaque
 import { StatsBand } from "@/components/stats-band";
 import { EventosBand } from "@/components/eventos-band";
 import { AreaCards } from "@/components/area-cards";
-import { EsppMobileHome } from "@/components/espp-mobile-home";
 import { NewsletterHome } from "@/components/newsletter-home";
 
 export default function Home() {
   return (
     <>
       <div className="md:hidden">
-        <EsppMobileHome />
+        <Hero />
         <RecredenciamentoDestaque />
         <NoticiasTeaser />
         <StatsBand />
