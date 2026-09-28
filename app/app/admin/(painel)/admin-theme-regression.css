@@ -1,0 +1,63 @@
+/* Fechamento da regressão visual do painel.
+   Misto = navegação escura + área de trabalho clara. */
+
+:root[data-admin-theme="mixed"] .admin-panel main,
+:root[data-admin-theme="mixed"] .admin-panel main .admin-form-surface,
+:root[data-admin-theme="mixed"] .admin-panel main .bg-white {
+  background: #fff;
+  color: var(--color-ink-800);
+}
+
+:root[data-admin-theme="mixed"] .admin-panel main .bg-ink-050,
+:root[data-admin-theme="mixed"] .admin-panel main .bg-ink-100,
+:root[data-admin-theme="mixed"] .admin-panel main fieldset.bg-ink-050\/40 {
+  background: var(--color-ink-050);
+}
+
+:root[data-admin-theme="mixed"] .admin-panel main .admin-form-surface,
+:root[data-admin-theme="mixed"] .admin-panel main fieldset,
+:root[data-admin-theme="mixed"] .admin-panel main :is(.border-ink-100,.border-ink-200) {
+  border-color: var(--color-ink-200);
+}
+
+:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-900,.text-ink-950) { color: var(--color-ink-900); }
+:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-800,.text-ink-700) { color: var(--color-ink-700); }
+:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-600,.text-ink-500) { color: var(--color-ink-500); }
+
+:root[data-admin-theme="mixed"] .admin-panel main :is(input,select,textarea) {
+  background: #fff;
+  border-color: var(--color-ink-200);
+  color: var(--color-ink-900);
+  color-scheme: light;
+}
+:root[data-admin-theme="mixed"] .admin-panel main :is(input,textarea)::placeholder { color: var(--color-ink-400); }
+:root[data-admin-theme="mixed"] .admin-panel main select option { background: #fff; color: var(--color-ink-900); }
+:root[data-admin-theme="mixed"] .admin-panel main input::file-selector-button { background: var(--color-ink-100); color: var(--color-ink-900); }
+
+:root[data-admin-theme="mixed"] .admin-panel main .editor-conteudo { color: var(--color-ink-800); }
+:root[data-admin-theme="mixed"] .admin-panel main .editor-conteudo :is(h2,h3,h4,strong,b) { color: var(--color-ink-900); }
+:root[data-admin-theme="mixed"] .admin-panel main .editor-conteudo blockquote { color: var(--color-ink-700); }
+
+:root[data-admin-theme="mixed"] .admin-panel main .bg-gold-050 { background: var(--color-gold-050); }
+:root[data-admin-theme="mixed"] .admin-panel main :is(.text-red-600,.text-red-700) { color: #b91c1c; }
+:root[data-admin-theme="mixed"] .admin-panel main .bg-red-50 { background: #fef2f2; }
+:root[data-admin-theme="mixed"] .admin-panel main .border-red-200 { border-color: #fecaca; }
+:root[data-admin-theme="mixed"] .admin-panel main .bg-amber-50 { background: #fffbeb; }
+:root[data-admin-theme="mixed"] .admin-panel main .text-amber-800 { color: #92400e; }
+:root[data-admin-theme="mixed"] .admin-panel main .border-amber-200 { border-color: #fde68a; }
+:root[data-admin-theme="mixed"] .admin-panel main [role="status"] { color: inherit; }
+
+/* No tema escuro, controles nativos e superfícies sobrepostas nunca devem voltar ao branco. */
+:root[data-admin-theme="dark"] .admin-panel main :is(input,select,textarea) { color-scheme: dark; }
+:root[data-admin-theme="dark"] .admin-panel main select option { background: var(--color-ink-850); color: #fff; }
+:root[data-admin-theme="dark"] .admin-panel main :is(dialog,[role="dialog"]) { color: var(--color-ink-100); }
+:root[data-admin-theme="dark"] .admin-panel main :is(dialog,[role="dialog"]) .bg-white { background: var(--color-ink-900); }
+
+/* O menu/identidade lateral permanece escuro no modo misto. */
+:root[data-admin-theme="mixed"] .admin-panel .admin-sidebar {
+  background: var(--color-ink-950);
+  color: var(--color-ink-200);
+}
+:root[data-admin-theme="mixed"] .admin-panel .admin-sidebar :is(.admin-sidebar-header,.admin-sidebar-footer) { border-color: var(--color-ink-700); }
+:root[data-admin-theme="mixed"] .admin-panel .admin-sidebar .admin-nav-link:not([aria-current="page"]) { color: var(--color-ink-300); }
+:root[data-admin-theme="mixed"] .admin-panel .admin-sidebar .admin-nav-link:not([aria-current="page"]):hover { background: var(--color-ink-800); color: #fff; }
