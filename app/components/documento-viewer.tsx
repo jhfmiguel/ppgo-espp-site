@@ -119,25 +119,26 @@ export function DocumentoViewer({ doc, categoria, irmaos }: Props) {
           <nav
             aria-labelledby="outros-documentos"
             className="relative left-1/2 w-screen -translate-x-1/2 bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-12 text-white lg:py-14"
+            data-no-scroll-animation
           >
             <div className="container-espp">
               <h2
                 id="outros-documentos"
-                className="text-xs font-bold tracking-[0.18em] text-white/70 uppercase"
+                className="title-display text-xl text-yellow-300 sm:text-2xl"
               >
                 Outros documentos · {categoria.titulo}
               </h2>
-              <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {irmaos.map((irmao) => (
                   <li key={irmao.slug}>
                     <Link
                       href={`/documentos/${irmao.slug}`}
-                      className="group flex h-full items-center gap-3 rounded-lg border border-white/15 bg-white/[0.06] px-5 py-4 text-sm font-semibold text-white shadow-sm transition-colors hover:border-gold-500/80 hover:bg-white/[0.10] hover:text-gold-400"
+                      className="group flex h-full items-center gap-3 rounded-xl border border-white/15 bg-white/[0.08] px-5 py-4 text-sm font-semibold text-white shadow-[0_14px_34px_rgba(0,0,0,.14)] backdrop-blur-sm transition-colors hover:border-gold-500/80 hover:bg-white/[0.12] hover:text-yellow-300"
                     >
-                      <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-white/10 text-gold-500 transition-colors group-hover:bg-gold-500 group-hover:text-ink-950">
+                      <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-white/10 text-yellow-300 transition-colors group-hover:bg-gold-500 group-hover:text-ink-950">
                         <FileText className="size-4" aria-hidden="true" />
                       </span>
-                      {irmao.tituloCurto}
+                      <span>{irmao.tituloCurto}</span>
                     </Link>
                   </li>
                 ))}
