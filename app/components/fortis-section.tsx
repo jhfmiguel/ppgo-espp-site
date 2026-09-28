@@ -10,7 +10,7 @@ export function FortisSection() {
     <section
       id="fortis"
       aria-labelledby="fortis-titulo"
-      className="relative overflow-hidden bg-white pt-10 pb-24 lg:pt-14 lg:pb-32"
+      className="relative overflow-hidden bg-white pt-10 lg:pt-14"
     >
       {/* brilho de fundo */}
       <div
@@ -60,7 +60,7 @@ export function FortisSection() {
         <h3 className="title-display mt-20 text-2xl text-ink-900">
           O que o FORTIS vai entregar
         </h3>
-        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-8 grid gap-5 pb-14 sm:grid-cols-2 lg:grid-cols-3 lg:pb-16">
           {fortis.modulos.map((mod) => (
             <li
               key={mod.titulo}
@@ -78,28 +78,35 @@ export function FortisSection() {
             </li>
           ))}
         </ul>
+      </div>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-5">
-          <div className="lg:col-span-3">
-            <NotifyForm />
-          </div>
-          <div className="flex flex-col justify-center rounded-lg border border-ink-200 bg-ink-050 p-7 lg:col-span-2">
-            <h3 className="title-display text-lg text-ink-900">
-              Enquanto o FORTIS não chega
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-ink-700">
-              O acesso do servidor ao portal do aluno da Escola continua
-              disponível no ambiente atual.
-            </p>
-            <a
-              href={fortis.portalAtual.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 self-start rounded-md border border-gold-500 px-5 py-2.5 text-xs font-bold tracking-wider text-gold-600 uppercase transition-colors hover:bg-gold-500 hover:text-ink-950"
-            >
-              {fortis.portalAtual.label}
-              <ExternalLink className="size-3.5" aria-hidden="true" />
-            </a>
+      <div
+        className="fortis-faixa-degrade w-full bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-14 lg:py-16"
+        data-no-scroll-animation
+      >
+        <div className="container-espp">
+          <div className="grid gap-6 lg:grid-cols-5">
+            <div className="lg:col-span-3">
+              <NotifyForm />
+            </div>
+            <div className="flex flex-col justify-center rounded-xl border border-white/15 bg-white/[0.08] p-7 text-white shadow-[0_18px_50px_rgba(0,0,0,.16)] backdrop-blur-sm lg:col-span-2">
+              <h3 className="title-display text-lg text-white">
+                Enquanto o FORTIS não chega
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/75">
+                O acesso do servidor ao portal do aluno da Escola continua
+                disponível no ambiente atual.
+              </p>
+              <a
+                href={fortis.portalAtual.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex items-center gap-2 self-start rounded-md border border-gold-500 bg-gold-500 px-5 py-2.5 text-xs font-bold tracking-wider text-ink-950 uppercase transition-colors hover:bg-gold-400"
+              >
+                {fortis.portalAtual.label}
+                <ExternalLink className="size-3.5" aria-hidden="true" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
