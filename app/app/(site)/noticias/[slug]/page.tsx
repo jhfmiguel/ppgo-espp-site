@@ -62,7 +62,7 @@ export default async function NoticiaPage({ params }: Props) {
 
   return (
     <article className="bg-white">
-      <div className="container-espp pb-20 lg:pb-24">
+      <div className="container-espp pb-14 lg:pb-16">
         <div className="mx-auto max-w-3xl pt-10 lg:pt-14">
           <Link href="/noticias" className="inline-flex items-center gap-2 text-xs font-bold tracking-wider text-ink-500 uppercase transition-colors hover:text-gold-600">
             <ArrowLeft className="size-4" aria-hidden="true" />
@@ -91,12 +91,12 @@ export default async function NoticiaPage({ params }: Props) {
         <div className="conteudo-rico mx-auto mt-10 max-w-3xl text-base" dangerouslySetInnerHTML={{ __html: noticia.conteudo }} />
       </div>
 
-      {outras.length > 0 ? (
-        <section
-          aria-labelledby="outras-noticias"
-          className="bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-14 text-white lg:py-18"
-          data-no-scroll-animation
-        >
+      <section
+        aria-labelledby={outras.length > 0 ? "outras-noticias" : undefined}
+        className="min-h-32 bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-14 text-white lg:min-h-40 lg:py-18"
+        data-no-scroll-animation
+      >
+        {outras.length > 0 ? (
           <div className="container-espp">
             <div className="mx-auto max-w-5xl">
               <h2 id="outras-noticias" className="title-display text-2xl text-white">Outras notícias</h2>
@@ -105,8 +105,8 @@ export default async function NoticiaPage({ params }: Props) {
               </ul>
             </div>
           </div>
-        </section>
-      ) : null}
+        ) : null}
+      </section>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </article>
