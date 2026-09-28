@@ -87,7 +87,7 @@ export function FortisSection() {
               <h3 className="title-display text-lg text-white">
                 Enquanto o FORTIS não chega
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/75">
+              <p className="mt-2 text-sm leading-relaxed text-white">
                 O acesso do servidor ao portal do aluno da Escola continua
                 disponível no ambiente atual.
               </p>
