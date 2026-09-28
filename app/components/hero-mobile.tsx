@@ -6,19 +6,19 @@ import { hero } from "@/content/site";
 export function HeroMobile() {
   return (
     <section id="top-mobile" className="relative bg-white px-4 pb-5 pt-10 md:hidden">
-      <div className="relative min-h-[27rem] overflow-hidden rounded-[1.6rem] bg-[#071522] shadow-[0_14px_34px_rgba(7,21,34,.18)]">
+      <div className="relative h-[calc(100dvh-7.5rem)] min-h-[36rem] overflow-hidden rounded-[1.6rem] bg-[#071522] shadow-[0_14px_34px_rgba(7,21,34,.18)]">
         <Image
           src="/images/espp-hero-background.png"
           alt=""
           priority
           fill
           sizes="100vw"
-          className="object-cover object-[78%_center]"
+          className="object-cover object-[92%_center]"
         />
 
-        <div className="absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-black/80 via-black/38 to-transparent" aria-hidden="true" />
+        <div className="absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-black/80 via-black/34 to-transparent" aria-hidden="true" />
 
-        <div className="relative z-10 flex min-h-[27rem] flex-col justify-end p-5 text-white">
+        <div className="relative z-10 flex h-full min-h-[36rem] flex-col justify-end p-5 text-white">
           <p className="mb-2 flex items-center gap-1.5 text-[9px] font-extrabold uppercase tracking-[.12em] text-white/80">
             <BadgeCheck className="size-3.5" aria-hidden="true" />
             <span>{hero.selo}</span>
