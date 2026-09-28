@@ -22,7 +22,19 @@ export function Hero() {
             <div className="espp-hero-diagonals" />
           </div>
 
-          <style>{`@keyframes esppHeroImageFadeIn { from { opacity: 0; } to { opacity: 1; } } @media (prefers-reduced-motion: reduce) { .espp-hero-image { animation: none !important; opacity: 1 !important; } }`}</style>
+          <style>{`
+            @keyframes esppHeroImageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+            @media (max-width: 767px) {
+              .espp-hero .espp-hero-blue-overlay { display: none !important; }
+              .espp-hero .espp-hero-diagonals { display: none !important; }
+              .espp-hero .espp-hero-image { object-position: 72% center !important; }
+              .espp-hero .espp-hero-title { font-size: clamp(1.7rem, 8vw, 2.35rem) !important; line-height: .98 !important; }
+              .espp-hero .espp-hero-subtitle { font-size: .78rem !important; line-height: 1.45 !important; max-width: 18rem !important; }
+              .espp-hero .espp-hero-badge { font-size: .62rem !important; }
+              .espp-hero .espp-hero-button { font-size: .66rem !important; }
+            }
+            @media (prefers-reduced-motion: reduce) { .espp-hero-image { animation: none !important; opacity: 1 !important; } }
+          `}</style>
 
           <div className="espp-hero-copy">
             <p className="espp-hero-badge">
