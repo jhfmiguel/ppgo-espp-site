@@ -125,6 +125,7 @@ export function DocumentoViewer({ doc, categoria, irmaos }: Props) {
               <h2
                 id="outros-documentos"
                 className="title-display text-xl !text-white sm:text-2xl"
+                style={{ color: "#ffffff" }}
               >
                 Outros documentos · {categoria.titulo}
               </h2>
