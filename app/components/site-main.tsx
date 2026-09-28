@@ -11,10 +11,26 @@ function declaredEffect(element: HTMLElement): ScrollEffect | null { const effec
 function classText(element: HTMLElement) { return typeof element.className === "string" ? element.className : ""; }
 function isStaticBackground(element: HTMLElement) {
   const className = classText(element);
-  return className.includes("faixa-degrade") || className.includes("areas-escola") || className.includes("bg-[#071522]") || className.includes("bg-black") || className.includes("from-black") || className.includes("to-black") || className.includes("linear-gradient(135deg,#071522");
+  if (className.includes("faixa-degrade") || className.includes("areas-escola") || className.includes("bg-[#071522]") || className.includes("bg-black") || className.includes("from-black") || className.includes("to-black") || className.includes("linear-gradient(135deg,#071522")) return true;
+  const style = window.getComputedStyle(element);
+  const image = style.backgroundImage.toLowerCase();
+  const color = style.backgroundColor.toLowerCase();
+  return image.includes("linear-gradient") && (image.includes("7, 21, 34") || image.includes("11, 49, 87") || image.includes("18, 63, 106") || color.includes("7, 21, 34") || color.includes("11, 49, 87"));
 }
 function containsStaticBackground(element: HTMLElement) {
   return Array.from(element.querySelectorAll<HTMLElement>("section, div")).some(isStaticBackground);
+}
+function clearStaticBackgroundMotion(root: HTMLElement) {
+  Array.from(root.querySelectorAll<HTMLElement>("section, div")).forEach((element) => {
+    if (!isStaticBackground(element)) return;
+    element.getAnimations().forEach((animation) => animation.cancel());
+    element.style.setProperty("transform", "none", "important");
+    element.style.setProperty("translate", "none", "important");
+    element.style.setProperty("opacity", "1", "important");
+    element.style.setProperty("filter", "none", "important");
+    element.style.setProperty("animation", "none", "important");
+    element.style.setProperty("transition-property", "none", "important");
+  });
 }
 
 export function SiteMain({ children }: { children: ReactNode }) {
@@ -22,13 +38,14 @@ export function SiteMain({ children }: { children: ReactNode }) {
   useEffect(() => {
     const currentRoot = ref.current; if (!currentRoot) return;
     const root: HTMLElement = currentRoot;
+    clearStaticBackgroundMotion(root);
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; const registered = new WeakSet<HTMLElement>(); const animations = new Set<Animation>(); const sequences = new WeakMap<HTMLElement, number>(); let lastScrollY = window.scrollY; let scrollDirection: "up" | "down" = "down";
-    const onScroll = () => { const current = window.scrollY; scrollDirection = current < lastScrollY ? "up" : "down"; lastScrollY = current; }; window.addEventListener("scroll", onScroll, { passive: true });
+    const onScroll = () => { const current = window.scrollY; scrollDirection = current < lastScrollY ? "up" : "down"; lastScrollY = current; clearStaticBackgroundMotion(root); }; window.addEventListener("scroll", onScroll, { passive: true });
     function eligible(element: HTMLElement) { if (element.tagName === "SECTION") return false; if (isStaticBackground(element) || containsStaticBackground(element)) return false; if (element === root || element.closest("header, footer, nav[aria-label='Navegação principal mobile'], .admin-panel, #top-mobile, .espp-hero, [role='dialog'], [aria-modal='true'], [data-no-scroll-animation]")) return false; if (element.classList.contains("fixed") || element.offsetParent === null) return false; return !["SCRIPT","STYLE","NOSCRIPT","TEMPLATE","BR","HR"].includes(element.tagName); }
     function play(element: HTMLElement, sequence: number, visibleAtLoad: boolean) { if (reduced) return; const explicit = declaredEffect(element); const effects: ScrollEffect[] = ["fade-in", "fade-left", "fade-right", "fade-in", "fade-right", "fade-left"]; const directionalEffect: ScrollEffect = scrollDirection === "up" ? (sequence % 2 === 0 ? "fade-right" : "fade-left") : effects[sequence % effects.length]; const effect = explicit ?? (visibleAtLoad ? "fade-in" : directionalEffect); const animation = element.animate(framesFor(effect), { duration: effect === "fade-in" ? 900 : 820, delay: visibleAtLoad ? Math.min(sequence, 8) * 45 : Math.min(sequence % 5, 4) * 70, easing: EASING, fill: "both" }); animations.add(animation); animation.finished.catch(() => undefined).finally(() => animations.delete(animation)); }
     const observer = new IntersectionObserver((entries) => { entries.forEach((entry) => { const element = entry.target as HTMLElement; if (entry.isIntersecting) play(element, sequences.get(element) ?? 0, false); else { element.getAnimations().forEach((animation) => animation.cancel()); element.style.removeProperty("opacity"); element.style.removeProperty("transform"); element.style.removeProperty("filter"); } }); }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
     function register(element: HTMLElement, sequence: number) { if (!eligible(element) || registered.has(element)) return; registered.add(element); sequences.set(element, sequence); const rect = element.getBoundingClientRect(); const visible = rect.bottom > 0 && rect.top < window.innerHeight; const scrollOnly = element.hasAttribute("data-animate-scroll-only") || Boolean(element.closest("[data-animate-scroll-only]")); observer.observe(element); if (visible && !scrollOnly) play(element, sequence, true); }
-    function scan() { Array.from(root.querySelectorAll<HTMLElement>(TARGET_SELECTOR)).forEach(register); }
+    function scan() { clearStaticBackgroundMotion(root); Array.from(root.querySelectorAll<HTMLElement>(TARGET_SELECTOR)).forEach(register); }
     const timer = window.setTimeout(scan, 0); const mutations = new MutationObserver(() => window.requestAnimationFrame(scan)); mutations.observe(root, { childList: true, subtree: true });
     return () => { window.clearTimeout(timer); window.removeEventListener("scroll", onScroll); mutations.disconnect(); observer.disconnect(); animations.forEach((animation) => animation.cancel()); };
   }, [pathname]);
