@@ -4,7 +4,7 @@ import { hero } from "@/content/site";
 
 export function HeroMobile() {
   return (
-    <section id="top-mobile" className="relative bg-white pb-6">
+    <section id="top-mobile" className="relative bg-white pb-10">
       <div className="relative h-[100dvh] min-h-[40rem] w-full overflow-hidden bg-[#071522]">
         <Image src="/images/espp-hero-background.png" alt="" priority fill sizes="100vw" className="object-cover espp-mobile-hero-image" style={{objectPosition:"58% 30%"}} />
         <div className="espp-mobile-hero-overlay absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-black/80 via-black/34 to-transparent" aria-hidden="true" />
