@@ -42,3 +42,72 @@ jobs:
           java-version: '25'
           cache: maven
       - run: mvn -B test
+      - run: mvn -B -DskipTests package
+
+  oracle-integration:
+    name: Oracle Integration
+    runs-on: ubuntu-latest
+    services:
+      oracle:
+        image: gvenzl/oracle-free:23-slim-faststart
+        env:
+          ORACLE_PASSWORD: ci_system_password
+          APP_USER: ESPP
+          APP_USER_PASSWORD: ci_espp_password
+        ports:
+          - 1521:1521
+        options: >-
+          --health-cmd "healthcheck.sh"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 30
+    defaults:
+      run:
+        working-directory: api
+    env:
+      ESPP_DB_URL: jdbc:oracle:thin:@//localhost:1521/FREEPDB1
+      ESPP_DB_USERNAME: ESPP
+      ESPP_DB_PASSWORD: ci_espp_password
+      ESPP_AUTH_MODE: development
+      ESPP_CONFIG_ENCRYPTION_KEY: ci-integration-key-change-in-production
+      ESPP_ATTACHMENTS_DIR: ${{ github.workspace }}/.tmp/espp-attachments
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+      - name: Package API
+        run: mvn -B -DskipTests package
+      - name: Start API against Oracle
+        run: |
+          mkdir -p "$ESPP_ATTACHMENTS_DIR"
+          java -jar target/*.jar > "$RUNNER_TEMP/espp-api.log" 2>&1 &
+          echo $! > "$RUNNER_TEMP/espp-api.pid"
+      - name: Wait for Spring, Liquibase and Hibernate validation
+        shell: bash
+        run: |
+          for attempt in {1..60}; do
+            if curl --fail --silent http://127.0.0.1:8081/actuator/health > "$RUNNER_TEMP/health.json"; then
+              cat "$RUNNER_TEMP/health.json"
+              exit 0
+            fi
+            if ! kill -0 "$(cat "$RUNNER_TEMP/espp-api.pid")" 2>/dev/null; then
+              cat "$RUNNER_TEMP/espp-api.log"
+              exit 1
+            fi
+            sleep 2
+          done
+          cat "$RUNNER_TEMP/espp-api.log"
+          exit 1
+      - name: Smoke test public API with Oracle persistence
+        shell: bash
+        run: |
+          curl --fail --silent http://127.0.0.1:8081/actuator/health
+          curl --fail --silent http://127.0.0.1:8081/api/noticias > "$RUNNER_TEMP/noticias.json"
+          curl --fail --silent http://127.0.0.1:8081/api/eventos > "$RUNNER_TEMP/eventos.json"
+          curl --fail --silent http://127.0.0.1:8081/api/atos-normativos > "$RUNNER_TEMP/atos.json"
+      - name: Print API log on failure
+        if: failure()
+        run: cat "$RUNNER_TEMP/espp-api.log" || true
