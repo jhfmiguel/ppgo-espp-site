@@ -15,7 +15,7 @@ export function NotifyForm() {
 
   return (
     <div className="rounded-xl border border-white/15 bg-white/[0.08] p-7 text-white shadow-[0_18px_50px_rgba(0,0,0,.16)] backdrop-blur-sm">
-      <h3 className="title-display text-xl text-white">{fortis.cta.titulo}</h3>
+      <h3 className="title-display text-xl text-gold-400">{fortis.cta.titulo}</h3>
       <p className="mt-2 text-sm leading-relaxed text-white/75">
         {fortis.cta.texto}
       </p>
