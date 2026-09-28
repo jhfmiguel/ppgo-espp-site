@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 export function AreaCards() {
   return (
-    <section aria-labelledby="areas-titulo" className="areas-escola relative overflow-hidden border-b-[32px] border-b-white bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] pt-10 pb-24 text-white lg:pt-14 lg:pb-32">
+    <section aria-labelledby="areas-titulo" className="areas-escola relative overflow-hidden border-b-0 border-b-white bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] pt-10 pb-24 text-white md:border-b-[32px] lg:pt-14 lg:pb-32">
       <div className="container-espp relative">
         <SectionHeading id="areas-titulo" eyebrow={areas.eyebrow} titulo={areas.titulo} texto={areas.texto} tone="dark" />
         <ul className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
