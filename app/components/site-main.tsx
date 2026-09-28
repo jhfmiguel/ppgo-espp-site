@@ -20,7 +20,8 @@ function containsStaticBackground(element: HTMLElement) {
 export function SiteMain({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLElement>(null); const pathname = usePathname();
   useEffect(() => {
-    const root = ref.current; if (!root) return;
+    const currentRoot = ref.current; if (!currentRoot) return;
+    const root: HTMLElement = currentRoot;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; const registered = new WeakSet<HTMLElement>(); const animations = new Set<Animation>(); const sequences = new WeakMap<HTMLElement, number>(); let lastScrollY = window.scrollY; let scrollDirection: "up" | "down" = "down";
     const onScroll = () => { const current = window.scrollY; scrollDirection = current < lastScrollY ? "up" : "down"; lastScrollY = current; }; window.addEventListener("scroll", onScroll, { passive: true });
     function eligible(element: HTMLElement) { if (element.tagName === "SECTION") return false; if (isStaticBackground(element) || containsStaticBackground(element)) return false; if (element === root || element.closest("header, footer, nav[aria-label='Navegação principal mobile'], .admin-panel, #top-mobile, .espp-hero, [role='dialog'], [aria-modal='true'], [data-no-scroll-animation]")) return false; if (element.classList.contains("fixed") || element.offsetParent === null) return false; return !["SCRIPT","STYLE","NOSCRIPT","TEMPLATE","BR","HR"].includes(element.tagName); }
