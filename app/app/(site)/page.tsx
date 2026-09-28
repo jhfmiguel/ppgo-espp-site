@@ -10,29 +10,27 @@ import { NewsletterHome } from "@/components/newsletter-home";
 export default function Home() {
   return (
     <>
-      <div className="espp-home-mobile">
+      {/* Apenas o hero possui versões distintas. O restante da home é compartilhado
+          entre desktop e mobile para que notícias e demais conteúdos publicados
+          apareçam de forma idêntica nos dois layouts. */}
+      <div className="espp-hero-mobile">
         <HeroMobile />
-        <RecredenciamentoDestaque />
-        <NoticiasTeaser />
-        <StatsBand />
-        <EventosBand />
-        <AreaCards />
-        <NewsletterHome />
+      </div>
+      <div className="espp-hero-desktop">
+        <Hero />
       </div>
 
-      <div className="espp-home-desktop">
-        <Hero />
-        <RecredenciamentoDestaque />
-        <NoticiasTeaser />
-        <StatsBand />
-        <EventosBand />
-        <AreaCards />
-        <NewsletterHome />
-      </div>
+      <RecredenciamentoDestaque />
+      <NoticiasTeaser />
+      <StatsBand />
+      <EventosBand />
+      <AreaCards />
+      <NewsletterHome />
+
       <style>{`
-        .espp-home-mobile{display:block}.espp-home-desktop{display:none}
-        @media(min-width:768px){.espp-home-mobile{display:none}.espp-home-desktop{display:block}}
-        @media (orientation:landscape) and (max-height:600px) and (pointer:coarse){.espp-home-mobile{display:block!important}.espp-home-desktop{display:none!important}}
+        .espp-hero-mobile{display:block}.espp-hero-desktop{display:none}
+        @media(min-width:768px){.espp-hero-mobile{display:none}.espp-hero-desktop{display:block}}
+        @media (orientation:landscape) and (max-height:600px) and (pointer:coarse){.espp-hero-mobile{display:block!important}.espp-hero-desktop{display:none!important}}
       `}</style>
     </>
   );
