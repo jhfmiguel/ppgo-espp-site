@@ -10,7 +10,7 @@ spring:
   datasource:
     url: ${ESPP_DB_URL:jdbc:oracle:thin:@//localhost:1521/FREEPDB1}
     username: ${ESPP_DB_USERNAME:ESPP}
-    password: ${ESPP_DB_PASSWORD}
+    password: ${ESPP_DB_PASSWORD:espp}
     driver-class-name: oracle.jdbc.OracleDriver
   jpa:
     open-in-view: false
@@ -18,10 +18,12 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
+        default_schema: ${ESPP_DB_SCHEMA:ESPP}
         jdbc:
           fetch_size: ${ESPP_JDBC_FETCH_SIZE:50}
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
+    default-schema: ${ESPP_DB_SCHEMA:ESPP}
   servlet:
     multipart:
       max-file-size: 8MB
