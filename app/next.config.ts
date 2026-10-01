@@ -63,6 +63,7 @@ const documentHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  output: "standalone",
 
   experimental: {
     serverActions: {
