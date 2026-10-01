@@ -4,3 +4,4 @@ resources:
   - espp.yaml
   - ingress.yaml
   - scaling.yaml
+  - security.yaml
