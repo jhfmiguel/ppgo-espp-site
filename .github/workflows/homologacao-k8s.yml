@@ -1,0 +1,80 @@
+name: Homologacao Kubernetes SSP
+
+on:
+  workflow_dispatch:
+    inputs:
+      context:
+        description: Contexto kubectl da SSP
+        required: true
+        type: string
+      api_image:
+        description: Imagem completa da API no registry
+        required: true
+        type: string
+      app_image:
+        description: Imagem completa do frontend no registry
+        required: true
+        type: string
+      apply:
+        description: Aplicar no cluster apos dry-run server-side
+        required: true
+        default: false
+        type: boolean
+      frontend_url:
+        description: URL externa do frontend para smoke opcional
+        required: false
+        type: string
+      api_url:
+        description: URL externa da API para smoke opcional
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: espp-homologacao-ssp
+  cancel-in-progress: false
+
+jobs:
+  homologacao:
+    name: Homologacao Kubernetes
+    runs-on: ubuntu-latest
+    environment: homologacao-ssp
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: v1.36.1
+
+      - name: Configurar kubeconfig da SSP
+        shell: pwsh
+        env:
+          SSP_KUBECONFIG_B64: ${{ secrets.SSP_KUBECONFIG_B64 }}
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:SSP_KUBECONFIG_B64)) {
+            throw "Secret SSP_KUBECONFIG_B64 nao configurado no environment homologacao-ssp."
+          }
+          $kubeDir = Join-Path $HOME ".kube"
+          New-Item -ItemType Directory -Force -Path $kubeDir | Out-Null
+          $bytes = [Convert]::FromBase64String($env:SSP_KUBECONFIG_B64)
+          [IO.File]::WriteAllBytes((Join-Path $kubeDir "config"), $bytes)
+
+      - name: Validacao offline antes da homologacao
+        shell: pwsh
+        run: ./infra/k8s/validar-k8s.ps1
+
+      - name: Dry-run server-side e homologacao
+        shell: pwsh
+        run: |
+          $params = @{
+            Context = '${{ inputs.context }}'
+            ApiImage = '${{ inputs.api_image }}'
+            AppImage = '${{ inputs.app_image }}'
+          }
+          if ('${{ inputs.frontend_url }}') { $params.FrontendUrl = '${{ inputs.frontend_url }}' }
+          if ('${{ inputs.api_url }}') { $params.ApiUrl = '${{ inputs.api_url }}' }
+          if ('${{ inputs.apply }}' -eq 'true') { $params.Apply = $true }
+          ./infra/k8s/homologar-k8s.ps1 @params
