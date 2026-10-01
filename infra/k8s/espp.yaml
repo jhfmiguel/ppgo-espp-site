@@ -37,6 +37,11 @@ metadata:
 spec:
   replicas: 1
   revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   selector:
     matchLabels:
       app: espp-api
@@ -45,6 +50,8 @@ spec:
       labels:
         app: espp-api
     spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
       securityContext:
         runAsNonRoot: true
         seccompProfile:
@@ -63,21 +70,21 @@ spec:
                 name: espp-secrets
           startupProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/liveness
               port: http
             periodSeconds: 5
             timeoutSeconds: 3
             failureThreshold: 24
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/readiness
               port: http
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 6
           livenessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/liveness
               port: http
             periodSeconds: 20
             timeoutSeconds: 5
@@ -125,8 +132,13 @@ metadata:
   name: espp-app
   namespace: espp
 spec:
-  replicas: 1
+  replicas: 2
   revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   selector:
     matchLabels:
       app: espp-app
@@ -135,6 +147,8 @@ spec:
       labels:
         app: espp-app
     spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
       securityContext:
         runAsNonRoot: true
         seccompProfile:
@@ -158,21 +172,21 @@ spec:
               value: "0.0.0.0"
           startupProbe:
             httpGet:
-              path: /
+              path: /api/health
               port: http
             periodSeconds: 5
             timeoutSeconds: 3
             failureThreshold: 18
           readinessProbe:
             httpGet:
-              path: /
+              path: /api/health
               port: http
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 6
           livenessProbe:
             httpGet:
-              path: /
+              path: /api/health
               port: http
             periodSeconds: 20
             timeoutSeconds: 5
