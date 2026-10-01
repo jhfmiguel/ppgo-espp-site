@@ -6,6 +6,7 @@ Este diretório contém a base de implantação da ESPP em Kubernetes, mantendo 
 
 - `espp.yaml`: Namespace, ConfigMap, PVC, Deployments e Services.
 - `ingress.yaml`: exposição HTTP(S) do frontend e da API.
+- `scaling.yaml`: HorizontalPodAutoscalers e PodDisruptionBudgets.
 - `secret.example.yaml`: modelo de Secret. Não contém credenciais reais e não deve ser usado em produção sem substituição.
 - `kustomization.yaml`: entrada para `kubectl kustomize`/`kubectl apply -k`.
 - `validar-k8s.ps1`: validação local dos manifests usando `kubectl`.
@@ -16,7 +17,13 @@ Este diretório contém a base de implantação da ESPP em Kubernetes, mantendo 
 
 - Deployment `espp-api`
 - Service `espp-api` (`ClusterIP`, porta 8081)
-- `startupProbe`, `readinessProbe` e `livenessProbe` em `/actuator/health`
+- `startupProbe` e `livenessProbe` em `/actuator/health/liveness`
+- `readinessProbe` em `/actuator/health/readiness`
+- restart automático com `restartPolicy: Always`
+- atualização `RollingUpdate` com `maxUnavailable: 0` e `maxSurge: 1`
+- `terminationGracePeriodSeconds: 30`
+- HPA de 1 a 4 réplicas por CPU e memória
+- PodDisruptionBudget com `minAvailable: 1`
 - Configuração por ConfigMap e Secret
 - Volume persistente em `/data/espp/attachments`
 - execução como usuário não-root, sem escalation e com capabilities removidas
@@ -25,9 +32,68 @@ Este diretório contém a base de implantação da ESPP em Kubernetes, mantendo 
 
 - Deployment `espp-app`
 - Service `espp-app` (`ClusterIP`, porta 3001)
+- endpoint dedicado `GET /api/health`
+- `startupProbe`, `readinessProbe` e `livenessProbe` em `/api/health`
+- 2 réplicas iniciais
+- restart automático com `restartPolicy: Always`
+- atualização `RollingUpdate` com `maxUnavailable: 0` e `maxSurge: 1`
+- `terminationGracePeriodSeconds: 30`
+- HPA de 2 a 6 réplicas por CPU e memória
+- PodDisruptionBudget com `minAvailable: 1`
 - comunicação interna com a API por `http://espp-api:8081`
-- `startupProbe`, `readinessProbe` e `livenessProbe`
 - execução como usuário não-root
+
+## Health checks e readiness
+
+A API usa os grupos de disponibilidade do Spring Boot Actuator:
+
+- liveness: `/actuator/health/liveness`
+- readiness: `/actuator/health/readiness`
+
+O frontend possui um endpoint leve e sem cache em `/api/health`, retornando `status: UP` quando o processo Next.js está atendendo requisições.
+
+O `startupProbe` impede que liveness mate um pod durante a inicialização. O `readinessProbe` retira pods indisponíveis do balanceamento do Service. O `livenessProbe` permite ao kubelet reiniciar containers que ficaram travados.
+
+## Restart e atualização sem indisponibilidade planejada
+
+Os dois Deployments declaram `restartPolicy: Always`. Em falha do processo/container, o kubelet tenta restaurá-lo automaticamente.
+
+As atualizações usam `RollingUpdate` com:
+
+```yaml
+maxUnavailable: 0
+maxSurge: 1
+```
+
+Assim o Kubernetes cria uma nova réplica antes de remover a antiga, respeitando o readiness check.
+
+Os PodDisruptionBudgets reduzem indisponibilidade durante manutenções voluntárias do cluster, exigindo ao menos um pod disponível de cada workload.
+
+## Escalabilidade
+
+O arquivo `scaling.yaml` usa `autoscaling/v2`.
+
+Frontend:
+
+- mínimo: 2 pods
+- máximo: 6 pods
+- alvo de CPU: 70%
+- alvo de memória: 75%
+
+API:
+
+- mínimo: 1 pod
+- máximo: 4 pods
+- alvo de CPU: 70%
+- alvo de memória: 75%
+
+O scale-down possui janela de estabilização para evitar sobe/desce frequente de réplicas.
+
+O HPA depende de Metrics Server ou serviço equivalente fornecido pelo cluster da SSP. Sem métricas de recursos, os objetos HPA podem existir, mas não conseguirão calcular a quantidade desejada de réplicas.
+
+### Observação sobre anexos da API
+
+A API ainda usa o PVC `espp-attachments` com `ReadWriteOnce`. Para escalar a API horizontalmente de forma irrestrita entre nós, a infraestrutura da SSP deverá fornecer storage compartilhado compatível (`ReadWriteMany`) ou migrar anexos para storage de objetos/serviço externo. O HPA já deixa a aplicação preparada, mas o storage deve ser homologado antes de usar múltiplas réplicas da API em produção.
 
 ## Comunicação Next.js ↔ Spring Boot
 
@@ -98,21 +164,6 @@ A URL deve apontar para o Oracle fornecido pela SSP, por exemplo `jdbc:oracle:th
 
 Não versione credenciais reais. O objeto `espp-secrets` deve ser criado no ambiente de destino pelo mecanismo de segredos adotado pela SSP.
 
-Exemplo manual para homologação controlada:
-
-```powershell
-kubectl create namespace espp --dry-run=client -o yaml | kubectl apply -f -
-kubectl -n espp create secret generic espp-secrets `
-  --from-literal=ESPP_DB_URL='jdbc:oracle:thin:@//HOST:1521/SERVICO' `
-  --from-literal=ESPP_DB_USERNAME='ESPP' `
-  --from-literal=ESPP_DB_PASSWORD='SENHA' `
-  --from-literal=ESPP_CONFIG_ENCRYPTION_KEY='CHAVE' `
-  --from-literal=ESPP_MAIL_HOST='SMTP' `
-  --from-literal=ESPP_MAIL_USERNAME='USUARIO' `
-  --from-literal=ESPP_MAIL_PASSWORD='SENHA_SMTP' `
-  --from-literal=ESPP_MAIL_TO='DESTINATARIO'
-```
-
 ## Imagens
 
 Antes da implantação, substitua no manifesto:
@@ -130,13 +181,15 @@ No PowerShell, na raiz do projeto:
 .\infra\k8s\validar-k8s.ps1
 ```
 
-A validação local confere também:
+A validação local confere:
 
 - renderização Kustomize;
-- presença do Ingress;
-- roteamento externo para `espp-app` e `espp-api`;
-- configuração TLS declarativa;
+- Deployments, Services, Ingress, HPA e PDB;
+- startup/readiness/liveness probes;
+- restart automático e RollingUpdate;
+- limites de escala e métricas do HPA;
 - comunicação interna `Next.js -> espp-api:8081`;
+- TLS declarativo;
 - separação entre configurações e Secrets.
 
 ## Implantação
@@ -147,7 +200,7 @@ Depois de configurar imagens, Secret, DNS e TLS:
 kubectl apply -k .\infra\k8s
 kubectl -n espp rollout status deployment/espp-api
 kubectl -n espp rollout status deployment/espp-app
-kubectl -n espp get pods,svc,pvc,ingress
+kubectl -n espp get pods,svc,pvc,ingress,hpa,pdb
 ```
 
-A validação server-side, resolução DNS, certificado TLS e acesso externo real devem ser realizados na homologação do cluster da SSP.
+A validação server-side, Metrics Server, comportamento real dos HPAs, storage compartilhado da API, resolução DNS, certificado TLS e acesso externo real devem ser realizados na homologação do cluster da SSP.
