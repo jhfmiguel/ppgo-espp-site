@@ -5,6 +5,7 @@ Este diretório contém a base de implantação da ESPP em Kubernetes, mantendo 
 ## Arquivos
 
 - `espp.yaml`: Namespace, ConfigMap, PVC, Deployments e Services.
+- `ingress.yaml`: exposição HTTP(S) do frontend e da API.
 - `secret.example.yaml`: modelo de Secret. Não contém credenciais reais e não deve ser usado em produção sem substituição.
 - `kustomization.yaml`: entrada para `kubectl kustomize`/`kubectl apply -k`.
 - `validar-k8s.ps1`: validação local dos manifests usando `kubectl`.
@@ -27,6 +28,61 @@ Este diretório contém a base de implantação da ESPP em Kubernetes, mantendo 
 - comunicação interna com a API por `http://espp-api:8081`
 - `startupProbe`, `readinessProbe` e `livenessProbe`
 - execução como usuário não-root
+
+## Comunicação Next.js ↔ Spring Boot
+
+O Next.js usa `ESPP_API_URL=http://espp-api:8081` dentro do cluster. Como `espp-api` é um Service `ClusterIP`, chamadas server-side do Next.js chegam diretamente ao Spring Boot pela rede interna do Kubernetes, sem passar pelo Ingress ou pela internet.
+
+Esse desenho também preserva as rotas `/api` do próprio Next.js, usadas como BFF/proxy pelo frontend. Por isso o Ingress não redireciona `/api` do host principal diretamente ao Spring Boot.
+
+Fluxo principal:
+
+```text
+Navegador
+   |
+   | HTTPS
+   v
+Ingress espp.exemplo.go.gov.br
+   |
+   v
+Service espp-app:3001
+   |
+   | ESPP_API_URL=http://espp-api:8081
+   v
+Service espp-api:8081
+   |
+   v
+Spring Boot
+```
+
+## Ingress
+
+O manifesto base publica dois hosts:
+
+- `espp.exemplo.go.gov.br` → Service `espp-app`
+- `api-espp.exemplo.go.gov.br` → Service `espp-api`
+
+O segundo host permite exposição controlada da API para integrações que realmente precisem chegar diretamente ao Spring Boot. O tráfego normal do frontend continua usando a comunicação interna entre os Services.
+
+O manifesto usa:
+
+- `networking.k8s.io/v1`
+- `ingressClassName: nginx`
+- TLS pelo Secret `espp-tls`
+
+Na SSP, substitua os hosts, a classe de Ingress e o mecanismo TLS pelos valores fornecidos pela infraestrutura. Se o ambiente usar OpenShift Route ou Gateway API em vez de Ingress NGINX, o arquivo serve como contrato de roteamento e deve ser adaptado ao controlador oficial.
+
+## TLS
+
+O certificado não deve ser versionado. O Secret `espp-tls` deve ser criado no cluster pelo mecanismo adotado pela SSP, por exemplo cert-manager, PKI institucional ou Secret previamente provisionado.
+
+Exemplo apenas para homologação controlada com arquivos fornecidos pela infraestrutura:
+
+```powershell
+kubectl -n espp create secret tls espp-tls `
+  --cert=.\tls.crt `
+  --key=.\tls.key
+```
 
 ## Oracle externo
 
@@ -74,21 +130,24 @@ No PowerShell, na raiz do projeto:
 .\infra\k8s\validar-k8s.ps1
 ```
 
+A validação local confere também:
+
+- renderização Kustomize;
+- presença do Ingress;
+- roteamento externo para `espp-app` e `espp-api`;
+- configuração TLS declarativa;
+- comunicação interna `Next.js -> espp-api:8081`;
+- separação entre configurações e Secrets.
+
 ## Implantação
 
-Depois de configurar imagens e Secret:
-
-```powershell
-kubectl apply -f .\infra\k8s\espp.yaml
-kubectl -n espp rollout status deployment/espp-api
-kubectl -n espp rollout status deployment/espp-app
-kubectl -n espp get pods,svc,pvc
-```
-
-Ou, quando os overlays do ambiente forem adicionados:
+Depois de configurar imagens, Secret, DNS e TLS:
 
 ```powershell
 kubectl apply -k .\infra\k8s
+kubectl -n espp rollout status deployment/espp-api
+kubectl -n espp rollout status deployment/espp-app
+kubectl -n espp get pods,svc,pvc,ingress
 ```
 
-O acesso externo (Ingress/Route/Gateway), storage class e integração com o gerenciador de Secrets devem seguir o padrão fornecido pela infraestrutura da SSP.
+A validação server-side, resolução DNS, certificado TLS e acesso externo real devem ser realizados na homologação do cluster da SSP.
