@@ -12,7 +12,7 @@ function Invoke-KubectlChecked {
 
     & kubectl @Arguments
     if ($LASTEXITCODE -ne 0) {
-        throw "kubectl falhou com exit code $LASTEXITCODE: kubectl $($Arguments -join ' ')"
+        throw "kubectl falhou com exit code ${LASTEXITCODE}: kubectl $($Arguments -join ' ')"
     }
 }
 
