@@ -50,6 +50,8 @@ spec:
       labels:
         app: espp-api
     spec:
+      serviceAccountName: espp-api
+      automountServiceAccountToken: false
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       securityContext:
@@ -147,6 +149,8 @@ spec:
       labels:
         app: espp-app
     spec:
+      serviceAccountName: espp-app
+      automountServiceAccountToken: false
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       securityContext:
