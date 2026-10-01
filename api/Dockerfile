@@ -8,7 +8,10 @@ RUN mvn -B -DskipTests package
 FROM eclipse-temurin:25-jre
 WORKDIR /app
 
-RUN groupadd --system --gid 1001 espp \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --system --gid 1001 espp \
     && useradd --system --uid 1001 --gid espp --create-home espp \
     && mkdir -p /data/espp/attachments \
     && chown -R espp:espp /app /data/espp
