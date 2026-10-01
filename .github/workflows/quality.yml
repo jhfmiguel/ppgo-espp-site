@@ -5,6 +5,11 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: espp-quality-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   frontend:
@@ -117,3 +122,24 @@ jobs:
       - name: Print API log on failure
         if: failure()
         run: cat "$RUNNER_TEMP/espp-api.log" || true
+
+  containers-kubernetes:
+    name: Containers e Kubernetes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Build API image
+        run: docker build -t ppgo-espp-api:ci ./api
+      - name: Build frontend image
+        run: docker build -t ppgo-espp-app:ci ./app
+      - name: Validate Docker Compose
+        run: ESPP_DB_PASSWORD=ci-placeholder docker compose config --quiet
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: v1.36.1
+      - name: Validate Kubernetes offline
+        shell: pwsh
+        run: ./infra/k8s/validar-k8s.ps1
+      - name: Verify repository cleanliness
+        run: git diff --exit-code
