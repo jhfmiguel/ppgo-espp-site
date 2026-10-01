@@ -36,6 +36,7 @@ public class SecurityConfig {
                                     "/api/v1/public/**",
                                     "/api/v1/identidade-visual/**",
                                     "/actuator/health",
+                                    "/actuator/health/**",
                                     "/error")
                             .permitAll();
                     if (development) {
