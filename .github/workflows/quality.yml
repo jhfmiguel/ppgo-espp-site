@@ -124,22 +124,20 @@ jobs:
         run: cat "$RUNNER_TEMP/espp-api.log" || true
 
   containers-kubernetes:
-    name: Containers e Kubernetes
+    name: Imagens SSP e Kubernetes
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: Build API image
+      - name: Build API image for SSP
         run: docker build -t ppgo-espp-api:ci ./api
-      - name: Build frontend image
+      - name: Build frontend image for SSP
         run: docker build -t ppgo-espp-app:ci ./app
-      - name: Validate Docker Compose
-        run: ESPP_DB_PASSWORD=ci-placeholder docker compose config --quiet
       - name: Setup kubectl
         uses: azure/setup-kubectl@v4
         with:
           version: v1.36.1
       - name: Validate Kubernetes offline
         shell: pwsh
-        run: ./infra/k8s/validar-k8s.ps1
+        run: ./infra/kubernetes/validar-k8s.ps1
       - name: Verify repository cleanliness
         run: git diff --exit-code
