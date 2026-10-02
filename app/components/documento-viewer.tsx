@@ -118,7 +118,7 @@ export function DocumentoViewer({ doc, categoria, irmaos }: Props) {
         {irmaos.length > 0 ? (
           <nav
             aria-labelledby="outros-documentos"
-            className="relative left-1/2 w-screen -translate-x-1/2 bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-12 text-white lg:py-14"
+            className="relative ml-[calc(50%_-_50vw)] w-screen bg-[#071522] bg-[linear-gradient(135deg,#071522_0%,#0b3157_58%,#123f6a_100%)] py-12 text-white lg:py-14"
             data-no-scroll-animation
           >
             <div className="container-espp">
