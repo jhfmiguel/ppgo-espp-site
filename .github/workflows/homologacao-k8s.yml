@@ -64,7 +64,7 @@ jobs:
 
       - name: Validacao offline antes da homologacao
         shell: pwsh
-        run: ./infra/k8s/validar-k8s.ps1
+        run: ./infra/kubernetes/validar-k8s.ps1
 
       - name: Dry-run server-side e homologacao
         shell: pwsh
@@ -77,4 +77,4 @@ jobs:
           if ('${{ inputs.frontend_url }}') { $params.FrontendUrl = '${{ inputs.frontend_url }}' }
           if ('${{ inputs.api_url }}') { $params.ApiUrl = '${{ inputs.api_url }}' }
           if ('${{ inputs.apply }}' -eq 'true') { $params.Apply = $true }
-          ./infra/k8s/homologar-k8s.ps1 @params
+          ./infra/kubernetes/homologar-k8s.ps1 @params
