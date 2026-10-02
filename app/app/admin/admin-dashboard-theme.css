@@ -4,10 +4,14 @@
  * escuro e misto.
  */
 
-/* Superfícies do dashboard: cards de resumo + blocos operacionais/gráficos. */
+/* Superfícies explícitas do dashboard e das listas. */
 .admin-panel main :is(
-  a.group.flex.h-full.flex-col.rounded-xl,
-  .admin-form-surface
+  .admin-dashboard-card,
+  .admin-form-surface,
+  .admin-message-card,
+  .admin-filter-panel,
+  .admin-card,
+  .admin-table-shell
 ) {
   transition:
     background-color 160ms ease,
@@ -18,37 +22,11 @@
 
 /* CLARO */
 :root[data-admin-theme="light"] .admin-panel main :is(
-  a.group.flex.h-full.flex-col.rounded-xl,
-  .admin-form-surface
-) {
-  background: #ffffff !important;
-  border-color: #dfe4ea !important;
-  color: #161c25 !important;
-}
-
-:root[data-admin-theme="light"] .admin-panel main a.group.flex.h-full.flex-col.rounded-xl:hover {
-  background: #ffffff !important;
-  border-color: #f5c400 !important;
-  box-shadow: 0 8px 22px rgba(11, 15, 20, 0.06);
-}
-
-:root[data-admin-theme="light"] .admin-panel main .admin-form-surface .bg-ink-050 {
-  background: #f6f7f9 !important;
-}
-
-:root[data-admin-theme="light"] .admin-panel main .admin-form-surface .bg-ink-100 {
-  background: #eef1f4 !important;
-}
-
-/* MISTO = navegação escura + conteúdo claro.
- * O main precisa ser visualmente idêntico ao tema claro; somente a estrutura
- * externa (sidebar/topbar conforme configuração) permanece escura.
- */
-:root[data-admin-theme="mixed"] .admin-panel main :is(
-  a.group.flex.h-full.flex-col.rounded-xl,
+  .admin-dashboard-card,
   .admin-form-surface,
-  .admin-card,
+  .admin-message-card,
   .admin-filter-panel,
+  .admin-card,
   .admin-table-shell
 ) {
   background: #ffffff !important;
@@ -56,55 +34,117 @@
   color: #161c25 !important;
 }
 
-:root[data-admin-theme="mixed"] .admin-panel main a.group.flex.h-full.flex-col.rounded-xl:hover {
-  background: #ffffff !important;
+:root[data-admin-theme="light"] .admin-panel main :is(
+  .admin-dashboard-card,
+  .admin-message-card
+):hover {
   border-color: #f5c400 !important;
   box-shadow: 0 8px 22px rgba(11, 15, 20, 0.06);
 }
 
-:root[data-admin-theme="mixed"] .admin-panel main .admin-form-surface .bg-ink-050 {
+:root[data-admin-theme="light"] .admin-panel main :is(.bg-ink-050,.bg-ink-050\/70) {
   background: #f6f7f9 !important;
 }
 
-:root[data-admin-theme="mixed"] .admin-panel main .admin-form-surface .bg-ink-100 {
+:root[data-admin-theme="light"] .admin-panel main .bg-ink-100 {
   background: #eef1f4 !important;
 }
 
-:root[data-admin-theme="mixed"] .admin-panel main .admin-form-surface :is(.border-ink-100,.border-ink-200,.divide-ink-100) {
+/* MISTO = menu escuro + conteúdo claro. */
+:root[data-admin-theme="mixed"] .admin-panel main {
+  background: #f6f7f9 !important;
+  color: #161c25 !important;
+}
+
+:root[data-admin-theme="mixed"] .admin-panel main :is(
+  .bg-white,
+  .admin-dashboard-card,
+  .admin-form-surface,
+  .admin-message-card,
+  .admin-filter-panel,
+  .admin-card,
+  .admin-table-shell,
+  [role="dialog"]
+) {
+  background: #ffffff !important;
   border-color: #dfe4ea !important;
+  color: #161c25 !important;
+}
+
+:root[data-admin-theme="mixed"] .admin-panel main :is(.bg-ink-050,.bg-ink-050\/70) {
+  background: #f6f7f9 !important;
+}
+
+:root[data-admin-theme="mixed"] .admin-panel main .bg-ink-100 {
+  background: #eef1f4 !important;
+}
+
+:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-950,.text-ink-900,.text-ink-800,.text-ink-700) {
+  color: #161c25 !important;
+}
+
+:root[data-admin-theme="mixed"] .admin-panel main :is(.text-ink-600,.text-ink-500,.text-ink-400) {
+  color: #55606d !important;
+}
+
+:root[data-admin-theme="mixed"] .admin-panel main :is(.border-ink-100,.border-ink-200,.border-ink-300,.divide-ink-100) {
+  border-color: #dfe4ea !important;
+}
+
+:root[data-admin-theme="mixed"] .admin-panel main :is(
+  .admin-dashboard-card,
+  .admin-message-card
+):hover {
+  border-color: #f5c400 !important;
+  box-shadow: 0 8px 22px rgba(11, 15, 20, 0.06);
 }
 
 /* ESCURO */
 :root[data-admin-theme="dark"] .admin-panel main :is(
-  a.group.flex.h-full.flex-col.rounded-xl,
-  .admin-form-surface
+  .bg-white,
+  .admin-dashboard-card,
+  .admin-form-surface,
+  .admin-message-card,
+  .admin-filter-panel,
+  .admin-card,
+  .admin-table-shell,
+  [role="dialog"]
 ) {
   background: #161c25 !important;
   border-color: #2c3542 !important;
   color: #e7eaef !important;
 }
 
-:root[data-admin-theme="dark"] .admin-panel main a.group.flex.h-full.flex-col.rounded-xl:hover {
+:root[data-admin-theme="dark"] .admin-panel main :is(
+  .admin-dashboard-card,
+  .admin-message-card
+):hover {
   background: #1f2733 !important;
   border-color: #f5c400 !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
 }
 
-/* Etapas internas dos fluxos e fundos dos gráficos não podem permanecer claros. */
-:root[data-admin-theme="dark"] .admin-panel main .admin-form-surface .bg-ink-050 {
+:root[data-admin-theme="dark"] .admin-panel main :is(.bg-ink-050,.bg-ink-050\/70) {
   background: #10151c !important;
 }
 
-:root[data-admin-theme="dark"] .admin-panel main .admin-form-surface .bg-ink-100 {
+:root[data-admin-theme="dark"] .admin-panel main .bg-ink-100 {
   background: #1f2733 !important;
 }
 
-:root[data-admin-theme="dark"] .admin-panel main .admin-form-surface :is(.border-ink-100,.border-ink-200,.divide-ink-100) {
+:root[data-admin-theme="dark"] .admin-panel main :is(.text-ink-950,.text-ink-900,.text-ink-800,.text-ink-700) {
+  color: #e7eaef !important;
+}
+
+:root[data-admin-theme="dark"] .admin-panel main :is(.text-ink-600,.text-ink-500,.text-ink-400) {
+  color: #b7c0cc !important;
+}
+
+:root[data-admin-theme="dark"] .admin-panel main :is(.border-ink-100,.border-ink-200,.border-ink-300,.divide-ink-100) {
   border-color: #2c3542 !important;
 }
 
-/* Os cards de etapas usam group-hover:bg-white no markup. No tema escuro isso
- * não deve transformar a etapa em um bloco branco ao passar o mouse. */
+/* Hover das etapas dos fluxos: nunca volta para branco no tema escuro. */
 :root[data-admin-theme="dark"] .admin-panel main .admin-form-surface .group:hover .group-hover\:bg-white {
   background: #1f2733 !important;
 }
@@ -113,23 +153,48 @@
   border-color: #f5c400 !important;
 }
 
-/* Ícones secundários dos fluxos: contraste adequado em cada tema. */
-:root[data-admin-theme="dark"] .admin-panel main .admin-form-surface .bg-ink-100.text-ink-700 {
+/* Ações das mensagens. */
+.admin-panel main .admin-message-action {
+  text-decoration: none;
+}
+
+:root[data-admin-theme="light"] .admin-panel main .admin-message-action,
+:root[data-admin-theme="mixed"] .admin-panel main .admin-message-action {
+  background: #ffffff !important;
+  border-color: #c9d0da !important;
+  color: #2c3542 !important;
+}
+
+:root[data-admin-theme="light"] .admin-panel main .admin-message-action:hover,
+:root[data-admin-theme="mixed"] .admin-panel main .admin-message-action:hover {
+  background: #fffaeb !important;
+  border-color: #f5c400 !important;
+  color: #7a5b00 !important;
+}
+
+:root[data-admin-theme="dark"] .admin-panel main .admin-message-action {
+  background: #10151c !important;
+  border-color: #55606d !important;
+  color: #e7eaef !important;
+}
+
+:root[data-admin-theme="dark"] .admin-panel main .admin-message-action:hover {
   background: #1f2733 !important;
+  border-color: #f5c400 !important;
+  color: #ffd426 !important;
+}
+
+/* Editor rico no modo escuro/misto. */
+:root[data-admin-theme="dark"] .admin-panel main .admin-rich-editor,
+:root[data-admin-theme="dark"] .admin-panel main .admin-rich-editor-link {
+  background: #10151c !important;
+  border-color: #2c3542 !important;
   color: #e7eaef !important;
 }
 
-/* Mantém títulos, números e textos auxiliares legíveis dentro dos cards. */
-:root[data-admin-theme="dark"] .admin-panel main :is(
-  a.group.flex.h-full.flex-col.rounded-xl,
-  .admin-form-surface
-) :is(.text-ink-950,.text-ink-900,.text-ink-800,.text-ink-700) {
-  color: #e7eaef !important;
-}
-
-:root[data-admin-theme="dark"] .admin-panel main :is(
-  a.group.flex.h-full.flex-col.rounded-xl,
-  .admin-form-surface
-) :is(.text-ink-600,.text-ink-500,.text-ink-400) {
-  color: #b7c0cc !important;
+:root[data-admin-theme="mixed"] .admin-panel main .admin-rich-editor,
+:root[data-admin-theme="mixed"] .admin-panel main .admin-rich-editor-link {
+  background: #ffffff !important;
+  border-color: #dfe4ea !important;
+  color: #161c25 !important;
 }
