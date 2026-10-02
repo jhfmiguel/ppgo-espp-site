@@ -1,79 +1,75 @@
 # Infraestrutura ESPP
 
-A estrutura de desenvolvimento local da ESPP segue o mesmo padrão do NASPP:
+A estrutura da ESPP segue o mesmo padrão do NASPP:
 
 ```text
 ppgo-espp-site/
-├─ api/        # Spring Boot, executado localmente
-├─ app/        # Next.js, executado localmente
+├─ api/               # Spring Boot, executado localmente no desenvolvimento
+├─ app/               # Next.js, executado localmente no desenvolvimento
 └─ infra/
-   ├─ docker/  # apoio e validação do Docker local
-   ├─ k8s/     # manifests de homologação/produção da SSP
-   ├─ oracle/  # preparação e documentação Oracle
-   └─ release/ # artefatos de release
+   ├─ docker/          # validação do Oracle/Docker local
+   ├─ kubernetes/      # manifests de homologação/produção da SSP
+   ├─ oracle/          # preparação e validação Oracle
+   └─ release/         # fechamento técnico de release
 ```
 
 ## Desenvolvimento local
 
-No desenvolvimento, somente o Oracle é executado em Docker.
-
-### Oracle
+Somente o Oracle é executado em Docker.
 
 ```powershell
 docker start oracle
 ```
 
-Oracle local:
+Oracle:
 
 ```text
 localhost:1521/FREEPDB1
 ```
 
-### API Spring Boot
+API Spring Boot:
 
 ```powershell
 cd C:\workspace\ppgo\espp\site-institucional\api
 mvn spring-boot:run
 ```
 
-API:
-
-```text
-http://localhost:8081
-```
-
-### Frontend Next.js
+Frontend Next.js:
 
 ```powershell
 cd C:\workspace\ppgo\espp\site-institucional\app
 yarn dev -p 3001
 ```
 
-Frontend:
+Endpoints locais:
 
 ```text
-http://localhost:3001
+Spring Boot  http://localhost:8081
+Next.js      http://localhost:3001
 ```
 
 ## Docker e Kubernetes da SSP
 
-Os Dockerfiles da API e do frontend continuam versionados porque são artefatos de empacotamento para homologação/produção na infraestrutura da SSP e para uso com Kubernetes.
+Os Dockerfiles da API e do frontend permanecem versionados para empacotamento de homologação/produção na SSP. Eles não fazem parte do fluxo diário de desenvolvimento local.
 
-Eles não fazem parte do fluxo diário de desenvolvimento local.
+Não existe `docker-compose.yml` na raiz para subir `api` e `app`.
 
-Não existe mais `docker-compose.yml` na raiz para subir `api` e `app`.
+Os manifests Kubernetes ficam em:
 
-## Validação
+```text
+infra/kubernetes/
+```
 
-Com Oracle, API e frontend já iniciados:
+## Validação local
+
+Com Oracle, API e frontend iniciados:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\infra\docker\validar-espp.ps1
 ```
 
-O script valida:
+Validação Kubernetes offline:
 
-1. container Oracle em execução;
-2. porta 1521;
-3. API ESPP em `localhost:8081`;
-4. frontend ESPP em `localhost:3001`.
+```powershell
+.\infra\kubernetes\validar-k8s.ps1
+```
