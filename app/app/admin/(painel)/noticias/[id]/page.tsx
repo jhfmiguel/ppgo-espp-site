@@ -25,7 +25,7 @@ export default async function EditarNoticiaPage({
         titulo="Editar notícia"
         descricao={`Criada por ${noticia.autor} · última alteração em ${formatarDataHora(noticia.atualizadoEm)}`}
       />
-      <div className="rounded-xl border border-ink-200 bg-white p-6 lg:p-8">
+      <div className="admin-form-surface rounded-xl border border-ink-200 bg-white p-6 lg:p-8">
         <NoticiaForm noticia={noticia} />
       </div>
     </>
