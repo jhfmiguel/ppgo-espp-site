@@ -6,11 +6,11 @@ A estrutura da ESPP segue o mesmo padrão do NASPP:
 ppgo-espp-site/
 ├─ api/               # Spring Boot, executado localmente no desenvolvimento
 ├─ app/               # Next.js, executado localmente no desenvolvimento
-└─ infra/
-   ├─ docker/          # validação do Oracle/Docker local
-   ├─ kubernetes/      # manifests de homologação/produção da SSP
-   ├─ oracle/          # preparação e validação Oracle
-   └─ release/         # fechamento técnico de release
+├─ infra/
+│  ├─ docker/          # validação do Oracle/Docker local
+│  ├─ kubernetes/      # manifests de homologação/produção da SSP
+│  └─ oracle/          # preparação e validação Oracle
+└─ scripts/            # validações e fechamento técnico de release
 ```
 
 ## Desenvolvimento local
@@ -54,13 +54,9 @@ Os Dockerfiles da API e do frontend permanecem versionados para empacotamento de
 
 Não existe `docker-compose.yml` na raiz para subir `api` e `app`.
 
-Os manifests Kubernetes ficam em:
+Os manifests Kubernetes ficam em `infra/kubernetes/`.
 
-```text
-infra/kubernetes/
-```
-
-## Validação local
+## Validação
 
 Com Oracle, API e frontend iniciados:
 
@@ -72,4 +68,10 @@ Validação Kubernetes offline:
 
 ```powershell
 .\infra\kubernetes\validar-k8s.ps1
+```
+
+Fechamento técnico:
+
+```powershell
+.\scripts\fechar-release.ps1
 ```
